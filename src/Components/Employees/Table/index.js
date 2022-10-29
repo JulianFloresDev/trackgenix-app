@@ -1,6 +1,6 @@
 import styles from './table.module.css';
 
-const Table = ({ list, deleteEmployee }) => {
+const Table = ({ list, deleteEmployee, editEmployee }) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -8,7 +8,7 @@ const Table = ({ list, deleteEmployee }) => {
           <th>Employee</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>Adress</th>
+          <th>Address</th>
         </tr>
       </thead>
       <tbody className={styles.tbody}>
@@ -23,7 +23,7 @@ const Table = ({ list, deleteEmployee }) => {
               <td className={styles.td}>{element.location}</td>
               <td>
                 <button onClick={() => deleteEmployee(element._id)}>Delete</button>
-                <button>Edit</button>
+                <button onClick={() => editEmployee(element._id)}>Edit</button>
               </td>
             </tr>
           );

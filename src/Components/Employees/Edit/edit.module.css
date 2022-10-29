@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 100px;
+}
+
+.input {
+  flex: 0 1 100px;
+  height: 40px;
+  font-size: 18px;
+}
+
+.button_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
