@@ -1,22 +1,39 @@
-const superAdminsTable = ({ list }) => {
+const superAdminsTable = ({ list, onDelete }) => {
   return (
     <table>
       <thead>
         <tr>
-          <th>Name</th>
+          <th>First Name</th>
           <th>Last Name</th>
-          <th>Sector</th>
-          <th>Project</th>
-          <th>Employees</th>
           <th>Email</th>
+          <th>Password</th>
+          <th>dni</th>
           <th>Phone</th>
-          <th>Options</th>
+          <th>Location</th>
+          <th>Create At</th>
+          <th>Update At</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>CONTINUAR{list}</td>;
-        </tr>
+        {list.map((superAdmin) => {
+          return (
+            <tr key={superAdmin._id}>
+              <td>{superAdmin.firstName}</td>
+              <td>{superAdmin.lastName}</td>
+              <td>{superAdmin.email}</td>
+              <td>{superAdmin.password}</td>
+              <td>{superAdmin.dni}</td>
+              <td>{superAdmin.phone}</td>
+              <td>{superAdmin.location}</td>
+              <td>{superAdmin.createdAt}</td>
+              <td>{superAdmin.updatedAt}</td>
+              <td>
+                <button>Edit</button>
+                <button onClick={() => onDelete(superAdmin._id)}>Delete</button>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
