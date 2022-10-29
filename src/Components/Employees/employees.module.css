@@ -15,7 +15,7 @@
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   width: 80%;
@@ -29,4 +29,6 @@
   box-shadow: 0px 2px 5px 0px #454864;
 }
 
-.h2 {}
+.item {
+  margin: 0 20px;
+}

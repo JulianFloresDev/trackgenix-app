@@ -1,6 +1,6 @@
 import styles from './table.module.css';
 
-const Table = ({ list }) => {
+const Table = ({ list, deleteEmployee }) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -21,6 +21,10 @@ const Table = ({ list }) => {
               <td className={styles.td}>{element.email}</td>
               <td className={styles.td}>{element.phone}</td>
               <td className={styles.td}>{element.location}</td>
+              <td>
+                <button onClick={() => deleteEmployee(element._id)}>Delete</button>
+                <button>Edit</button>
+              </td>
             </tr>
           );
         })}
