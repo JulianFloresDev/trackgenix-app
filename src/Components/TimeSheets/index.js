@@ -2,16 +2,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import styles from './time-sheets.module.css';
 import Table from './Table';
-import EditTimesheet from './EditTimesheet';
-import AddTimesheet from './AddTimesheet';
+import ModifyTimesheet from './ModifyTimesheet';
 
 const TimeSheets = () => {
   const [timesheetList, setTimesheetList] = useState([]);
-  const [editModalControl, setEditModalControl] = useState({
+  const [modifyModalControl, setModifyModalControl] = useState({
     id: '',
     modal: false
   });
-  const [addModalControl, setAddModalControl] = useState(false);
 
   useEffect(async () => {
     try {
@@ -33,58 +31,46 @@ const TimeSheets = () => {
   };
 
   // Show edit modal
-  const showEditModal = (id) => {
-    setEditModalControl({
+  const showModifyModal = (id) => {
+    setModifyModalControl({
       id: id,
       modal: true
     });
   };
 
   // Hide edit modal
-  const hideEditModal = () => {
-    setEditModalControl({
+  const hideModifyModal = () => {
+    setModifyModalControl({
       id: '',
       modal: false
     });
   };
 
   // Edit timesheet
-  const editTimesheet = async (newData) => {
-    console.log(JSON.stringify(newData));
+  const editTimesheet = async (data) => {
+    console.log(JSON.stringify(data));
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${editModalControl.id}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${modifyModalControl.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify(data)
       });
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Show add modal
-  const showAddModal = async () => {
-    setAddModalControl(true);
-    console.log(addModalControl);
-  };
-
-  // Hide add modal
-  const hideAddModal = async () => {
-    setAddModalControl(false);
-    console.log(addModalControl);
-  };
-
-  const addTimesheet = async (newData) => {
-    console.log(JSON.stringify(newData));
+  const addTimesheet = async (data) => {
+    console.log(JSON.stringify(data));
     try {
       await fetch(`${process.env.REACT_APP_API_URL}/time-sheets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify(data)
       });
     } catch (error) {
       console.log(error);
@@ -97,11 +83,16 @@ const TimeSheets = () => {
       <Table
         timesheetList={timesheetList}
         onDelete={deleteTimesheet}
-        showEditModal={showEditModal}
-        showAddModal={showAddModal}
+        showModifyModal={showModifyModal}
       />
-      {editModalControl.modal && <EditTimesheet onEdit={editTimesheet} hideModal={hideEditModal} />}
-      {addModalControl && <AddTimesheet onAdd={addTimesheet} hideModal={hideAddModal} />}
+      {modifyModalControl.modal && (
+        <ModifyTimesheet
+          modifyModalControl={modifyModalControl}
+          onEdit={editTimesheet}
+          onAdd={addTimesheet}
+          hideModal={hideModifyModal}
+        />
+      )}
     </section>
   );
 };

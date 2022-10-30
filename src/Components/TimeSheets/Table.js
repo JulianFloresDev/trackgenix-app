@@ -22,13 +22,13 @@ function Table(props) {
                 key={item._id}
                 timesheet={item}
                 onDelete={props.onDelete}
-                showEditModal={props.showEditModal}
+                showModifyModal={props.showModifyModal}
               />
             );
           })}
         </tbody>
       </table>
-      <button onClick={() => props.showAddModal()}>Add New Timesheet</button>
+      <button onClick={() => props.showModifyModal()}>Add New Timesheet</button>
     </div>
   );
 }
