@@ -1,4 +1,4 @@
-const superAdminsTable = ({ list, onDelete }) => {
+const superAdminsTable = ({ list, onDelete, onShow }) => {
   return (
     <table>
       <thead>
@@ -28,7 +28,7 @@ const superAdminsTable = ({ list, onDelete }) => {
               <td>{superAdmin.createdAt}</td>
               <td>{superAdmin.updatedAt}</td>
               <td>
-                <button>Edit</button>
+                <button onClick={() => onShow(false)}>Edit</button>
                 <button onClick={() => onDelete(superAdmin._id)}>Delete</button>
               </td>
             </tr>
