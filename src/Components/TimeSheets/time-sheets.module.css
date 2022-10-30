@@ -1,6 +1,19 @@
 .container {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  width: 10%;
+}
+
+.errMsg {
+  color: red;
 }
