@@ -21,9 +21,13 @@ const Table = ({ list, deleteEmployee, editEmployee }) => {
               <td className={styles.td}>{element.email}</td>
               <td className={styles.td}>{element.phone}</td>
               <td className={styles.td}>{element.location}</td>
-              <td>
-                <button onClick={() => deleteEmployee(element._id)}>Delete</button>
-                <button onClick={() => editEmployee(element._id)}>Edit</button>
+              <td className={styles.buttons}>
+                <button className={styles.editBtn} onClick={() => editEmployee(element)}>
+                  Edit
+                </button>
+                <button className={styles.deleteBtn} onClick={() => deleteEmployee(element._id)}>
+                  x
+                </button>
               </td>
             </tr>
           );

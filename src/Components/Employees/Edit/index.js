@@ -8,31 +8,75 @@ const EditEmployeeModal = ({ employee, closeModal, editEmployee }) => {
   const [inputPhone, changeInputPhone] = useState(`${employee.phone}`);
   const [inputAddress, changeInputAddress] = useState(`${employee.location}`);
 
-  const changeName = (e) => {
-    changeInputName(e.target.value);
+  const changeInput = (e) => {
+    switch (e.target.id) {
+      case 'firstName':
+        changeInputName(e.target.value);
+        break;
+      case 'lastName':
+        changeInputLastName(e.target.value);
+        break;
+      case 'email':
+        changeInputEmail(e.target.value);
+        break;
+      case 'phone':
+        changeInputPhone(e.target.value);
+        break;
+      case 'address':
+        changeInputAddress(e.target.value);
+        break;
+      default:
+        break;
+    }
   };
-  const changeLastName = (e) => {
-    changeInputLastName(e.target.value);
-  };
-  const changeEmail = (e) => {
-    changeInputEmail(e.target.value);
-  };
-  const changePhone = (e) => {
-    changeInputPhone(e.target.value);
-  };
-  const changeAddress = (e) => {
-    changeInputAddress(e.target.value);
-  };
-
   return (
-    <form className={styles.container}>
-      <input className={styles.input} value={inputName} onChange={changeName} />
-      <input className={styles.input} value={inputLastName} onChange={changeLastName} />
-      <input className={styles.input} value={inputEmail} onChange={changeEmail} />
-      <input className={styles.input} value={inputPhone} onChange={changePhone} />
-      <input className={styles.input} value={inputAddress} onChange={changeAddress} />
-      <div className={styles.button_container}>
-        <button className={styles.button} onClick={() => editEmployee(employee._id)}>
+    <form className={styles.form}>
+      <div className={styles.container}>
+        <div className={styles.item}>
+          <label htmlFor="input-name">Name</label>
+          <input id="firstName" className={styles.input} value={inputName} onChange={changeInput} />
+        </div>
+        <div className={styles.item}>
+          <label htmlFor="input-lastName">Last Name</label>
+          <input
+            id="lastName"
+            className={styles.input}
+            value={inputLastName}
+            onChange={changeInput}
+          />
+        </div>
+        <div className={styles.item}>
+          <label htmlFor="input-email">Email</label>
+          <input id="email" className={styles.input} value={inputEmail} onChange={changeInput} />
+        </div>
+        <div className={styles.item}>
+          <label htmlFor="input-phone">Phone</label>
+          <input id="phone" className={styles.input} value={inputPhone} onChange={changeInput} />
+        </div>
+        <div className={styles.item}>
+          <label htmlFor="input-address">Location</label>
+          <input
+            id="address"
+            className={styles.input}
+            value={inputAddress}
+            onChange={changeInput}
+          />
+        </div>
+      </div>
+      <div className={styles.buttons}>
+        <button
+          className={styles.button}
+          onClick={() =>
+            editEmployee({
+              _id: employee._id,
+              firstName: inputName,
+              lastName: inputLastName,
+              email: inputEmail,
+              phone: inputPhone,
+              location: inputAddress
+            })
+          }
+        >
           Edit
         </button>
         <button className={styles.button} onClick={() => closeModal()}>

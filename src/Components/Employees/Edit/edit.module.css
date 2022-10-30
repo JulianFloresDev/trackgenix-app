@@ -1,19 +1,63 @@
-.container {
+.form {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   width: 80%;
   margin-bottom: 100px;
 }
 
-.input {
-  flex: 0 1 100px;
-  height: 40px;
-  font-size: 18px;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: #eeecff;
+
 }
 
-.button_container {
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.item>label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #263463;
+}
+
+.item>input {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 5px 10px;
+  height: 35px;
+  font-size: 18px;
+  color: #142342;
+
+  border-radius: 10px;
+  border: 2px solid #263463;
+  outline: none;
+}
+
+.item>input:focus,
+.item>input:focus-visible,
+.item>input:target {
+  outline: none;
+  border: 2px solid #4b61ac;
+  background: linear-gradient(90deg, rgb(230, 233, 255), #a1b6f0)
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 15px;
 }

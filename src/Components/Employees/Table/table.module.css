@@ -33,10 +33,45 @@
   background-color: #eeecff;
 }
 
+.tr:hover {
+  background-color: #d3cff8;
+}
+
 .td {
-  /* flex: 1; */
   display: flex;
   justify-content: space-around;
   gap: 50px;
   width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.buttons>button {
+  padding: 5px 8px;
+  border: 1px solid rgb(3, 2, 63);
+  border-radius: 7px;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.editBtn {
+  background-color: rgba(190, 190, 252, 0.8);
+}
+.editBtn:hover {
+  background-color: rgb(149, 149, 228);
+}
+
+.deleteBtn {
+  background-color: rgba(252, 192, 190, 0.8);
+}
+.deleteBtn:hover {
+  background-color: rgb(224, 95, 91);
 }
