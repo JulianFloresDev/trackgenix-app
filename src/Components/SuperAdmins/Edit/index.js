@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-const superAdminsEdit = ({ onFind, onShow }) => {
-  const superAdmin = onFind();
-  const [firstName, saveFirstName] = useState(superAdmin.firstName);
-  const [lastName, saveLastName] = useState(superAdmin.lastName);
-  const [email, saveEmail] = useState(superAdmin.email);
-  const [password, savePassword] = useState(superAdmin.password);
-  const [dni, saveDni] = useState(superAdmin.dni);
-  const [phone, savePhone] = useState(superAdmin.phone);
-  const [location, saveLocation] = useState(superAdmin.location);
+const superAdminsEdit = ({ editSA, toEdit }) => {
+  console.log(toEdit);
+  const [firstName, saveFirstName] = useState(toEdit.firstName);
+  const [lastName, saveLastName] = useState(toEdit.lastName);
+  const [email, saveEmail] = useState(toEdit.email);
+  const [password, savePassword] = useState(toEdit.password);
+  const [dni, saveDni] = useState(toEdit.dni);
+  const [phone, savePhone] = useState(toEdit.phone);
+  const [location, saveLocation] = useState(toEdit.location);
 
   return (
     <div>
@@ -77,7 +77,7 @@ const superAdminsEdit = ({ onFind, onShow }) => {
             onChange={(e) => saveLocation(e.target.value)}
           />
         </div>
-        <input type="submit" value="Save" onClick={() => onShow(false)} />
+        <input type="submit" value="Save" onClick={() => editSA(toEdit._id)} />
       </from>
     </div>
   );

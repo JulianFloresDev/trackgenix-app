@@ -1,8 +1,9 @@
-const superAdminsTable = ({ list, onDelete, onShow }) => {
+const superAdminsTable = ({ list, deleteSA, editSA, setShow }) => {
   return (
     <table>
       <thead>
         <tr>
+          <th>Id</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
@@ -15,9 +16,11 @@ const superAdminsTable = ({ list, onDelete, onShow }) => {
         </tr>
       </thead>
       <tbody>
+        <button onClick={() => setShow(3)}>Create</button>
         {list.map((superAdmin) => {
           return (
             <tr key={superAdmin._id}>
+              <td>{superAdmin._id}</td>
               <td>{superAdmin.firstName}</td>
               <td>{superAdmin.lastName}</td>
               <td>{superAdmin.email}</td>
@@ -28,8 +31,14 @@ const superAdminsTable = ({ list, onDelete, onShow }) => {
               <td>{superAdmin.createdAt}</td>
               <td>{superAdmin.updatedAt}</td>
               <td>
-                <button onClick={() => onShow(false)}>Edit</button>
-                <button onClick={() => onDelete(superAdmin._id)}>Delete</button>
+                <button
+                  onClick={() => {
+                    editSA(superAdmin._id);
+                  }}
+                >
+                  Edit
+                </button>
+                <button onClick={() => deleteSA(superAdmin._id)}>Delete</button>
               </td>
             </tr>
           );
