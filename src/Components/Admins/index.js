@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react';
+import Table from './Table';
 import styles from './admins.module.css';
 
 function Admins() {
-  const [admins, saveAdmins] = useState([]);
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/admins`)
-      .then((response) => response.json())
-      .then((response) => {
-        saveAdmins(response.data);
-      });
+  const [Admins, saveAdmins] = useState([]);
+  const [show, setShow] = useState(1);
+
+  useEffect(async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/admins`);
+      const responseJson = await response.json();
+      console.log(responseJson);
+      saveAdmins(responseJson.data);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return (
     <section className={styles.container}>
-      <h2>Admins</h2>
-      <div>
-        {admins.map((admin) => {
-          return <div key={admin._id}>{admin.name}</div>;
-        })}
-      </div>
+      {show === 1 && <Table list={Admins} setShow={setShow} />}
     </section>
   );
 }
