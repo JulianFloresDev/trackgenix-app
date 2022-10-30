@@ -1,4 +1,4 @@
-const table = ({ list }) => {
+const table = ({ list, deleteAdmin }) => {
   return (
     <table>
       <thead>
@@ -25,6 +25,9 @@ const table = ({ list }) => {
               <td>{admin.dni}</td>
               <td>{admin.phone}</td>
               <td>{admin.location}</td>
+              <td>
+                <button onClick={() => deleteAdmin(admin._id)}>Delete</button>
+              </td>
             </tr>
           );
         })}

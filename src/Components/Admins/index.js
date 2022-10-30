@@ -10,16 +10,24 @@ function Admins() {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/admins`);
       const responseJson = await response.json();
-      console.log(responseJson);
       saveAdmins(responseJson.data);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
+  const deleteAdmin = async (id) => {
+    await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
+      method: 'DELETE'
+    });
+
+    const updatedAdmins = Admins.filter((admin) => admin._id !== id);
+    saveAdmins(updatedAdmins);
+  };
+
   return (
     <section className={styles.container}>
-      {show === 1 && <Table list={Admins} setShow={setShow} />}
+      {show === 1 && <Table list={Admins} deleteAdmin={deleteAdmin} setShow={setShow} />}
     </section>
   );
 }
