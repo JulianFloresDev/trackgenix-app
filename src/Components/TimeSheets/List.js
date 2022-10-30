@@ -29,7 +29,7 @@ function List(props) {
       </td>
       <td>{props.timesheet.hours}</td>
       <td>
-        <button onClick={() => props.showModal(props.timesheet._id)}>Edit</button>
+        <button onClick={() => props.showEditModal(props.timesheet._id)}>Edit</button>
         <button onClick={() => props.onDelete(props.timesheet._id)}>Delete</button>
       </td>
     </tr>

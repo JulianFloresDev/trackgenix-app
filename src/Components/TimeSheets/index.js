@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import styles from './time-sheets.module.css';
 import Table from './Table';
 import EditTimesheet from './EditTimesheet';
+import AddTimesheet from './AddTimesheet';
 
 const TimeSheets = () => {
   const [timesheetList, setTimesheetList] = useState([]);
@@ -10,6 +11,7 @@ const TimeSheets = () => {
     id: '',
     modal: false
   });
+  const [addModalControl, setAddModalControl] = useState(false);
 
   useEffect(async () => {
     try {
@@ -31,7 +33,7 @@ const TimeSheets = () => {
   };
 
   // Show edit modal
-  const showModal = async (id) => {
+  const showEditModal = (id) => {
     setEditModalControl({
       id: id,
       modal: true
@@ -39,7 +41,7 @@ const TimeSheets = () => {
   };
 
   // Hide edit modal
-  const hideModal = async () => {
+  const hideEditModal = () => {
     setEditModalControl({
       id: '',
       modal: false
@@ -61,11 +63,45 @@ const TimeSheets = () => {
       console.log(error);
     }
   };
+
+  // Show add modal
+  const showAddModal = async () => {
+    setAddModalControl(true);
+    console.log(addModalControl);
+  };
+
+  // Hide add modal
+  const hideAddModal = async () => {
+    setAddModalControl(false);
+    console.log(addModalControl);
+  };
+
+  const addTimesheet = async (newData) => {
+    console.log(JSON.stringify(newData));
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/time-sheets`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newData)
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className={styles.container}>
       <h2>TimeSheets</h2>
-      <Table timesheetList={timesheetList} onDelete={deleteTimesheet} showModal={showModal} />
-      {editModalControl.modal && <EditTimesheet onEdit={editTimesheet} onHideModal={hideModal} />}
+      <Table
+        timesheetList={timesheetList}
+        onDelete={deleteTimesheet}
+        showEditModal={showEditModal}
+        showAddModal={showAddModal}
+      />
+      {editModalControl.modal && <EditTimesheet onEdit={editTimesheet} hideModal={hideEditModal} />}
+      {addModalControl && <AddTimesheet onAdd={addTimesheet} hideModal={hideAddModal} />}
     </section>
   );
 };

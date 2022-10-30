@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function EditTimesheet(props) {
+function Addtimesheet(props) {
   const [editData, setEditData] = useState({
     date: '',
     description: '',
@@ -18,7 +18,7 @@ function EditTimesheet(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.onEdit(editData);
+    props.onAdd(editData);
     props.hideModal();
   };
 
@@ -49,9 +49,9 @@ function EditTimesheet(props) {
         <input type="number" name="hours" value={editData.hour} onChange={onchange} />
       </div>
       <button onClick={() => props.hideModal()}>Cancel</button>
-      <button onClick={onSubmit}>Edit</button>
+      <button onClick={onSubmit}>Add</button>
     </form>
   );
 }
 
-export default EditTimesheet;
+export default Addtimesheet;
