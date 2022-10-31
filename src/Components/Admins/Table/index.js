@@ -1,4 +1,4 @@
-const table = ({ list, deleteAdmin }) => {
+const table = ({ list, selectEdit, deleteAdmin }) => {
   return (
     <table>
       <thead>
@@ -26,6 +26,7 @@ const table = ({ list, deleteAdmin }) => {
               <td>{admin.phone}</td>
               <td>{admin.location}</td>
               <td>
+                <button onClick={() => selectEdit(admin._id)}>Edit</button>
                 <button onClick={() => deleteAdmin(admin._id)}>Delete</button>
               </td>
             </tr>
