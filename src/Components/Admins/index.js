@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Table from './Table';
+import Create from './Create';
 import Edit from './Edit';
 import styles from './admins.module.css';
 
@@ -17,6 +18,17 @@ function Admins() {
       console.error(error);
     }
   }, [show]);
+
+  const createAdmin = async (newData) => {
+    await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/Json'
+      },
+      body: JSON.stringify(newData)
+    });
+    setShow(1);
+  };
 
   const selectEdit = async (id) => {
     setToEdit(Admins.find((admin) => admin._id === id));
@@ -49,6 +61,7 @@ function Admins() {
         <Table list={Admins} selectEdit={selectEdit} deleteAdmin={deleteAdmin} setShow={setShow} />
       )}
       {show === 2 && <Edit editAdmin={editAdmin} toEdit={toEdit} />}
+      {show === 3 && <Create createAdmin={createAdmin} />}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-const table = ({ list, selectEdit, deleteAdmin }) => {
+const table = ({ list, selectEdit, deleteAdmin, setShow }) => {
   return (
     <table>
       <thead>
@@ -32,6 +32,7 @@ const table = ({ list, selectEdit, deleteAdmin }) => {
             </tr>
           );
         })}
+        <button onClick={() => setShow(3)}>Create</button>
       </tbody>
     </table>
   );

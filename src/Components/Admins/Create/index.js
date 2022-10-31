@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-const adminEdit = ({ editAdmin, toEdit }) => {
-  const [firstName, saveFirstName] = useState(toEdit.firstName);
-  const [lastName, saveLastName] = useState(toEdit.lastName);
-  const [email, saveEmail] = useState(toEdit.email);
-  const [password, savePassword] = useState(toEdit.password);
-  const [dni, saveDni] = useState(toEdit.dni);
-  const [phone, savePhone] = useState(toEdit.phone);
-  const [location, saveLocation] = useState(toEdit.location);
+const adminCreate = ({ createAdmin }) => {
+  const [firstName, saveFirstName] = useState();
+  const [lastName, saveLastName] = useState();
+  const [email, saveEmail] = useState();
+  const [password, savePassword] = useState();
+  const [dni, saveDni] = useState();
+  const [phone, savePhone] = useState();
+  const [location, saveLocation] = useState();
 
   return (
     <div>
@@ -88,7 +88,7 @@ const adminEdit = ({ editAdmin, toEdit }) => {
               phone: phone.toString(),
               location: location
             };
-            editAdmin(toEdit._id, newData);
+            createAdmin(newData);
           }}
         />
       </from>
@@ -96,4 +96,4 @@ const adminEdit = ({ editAdmin, toEdit }) => {
   );
 };
 
-export default adminEdit;
+export default adminCreate;
