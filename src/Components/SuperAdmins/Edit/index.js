@@ -1,31 +1,28 @@
 import { useState } from 'react';
 
-const SuperAdminsEdit = ({ toEdit, changeShow }) => {
-  const [firstName, saveFirstName] = useState(toEdit.firstName);
-  const [lastName, saveLastName] = useState(toEdit.lastName);
-  const [email, saveEmail] = useState(toEdit.email);
-  const [password, savePassword] = useState(toEdit.password);
-  const [dni, saveDni] = useState(toEdit.dni);
-  const [phone, savePhone] = useState(toEdit.phone);
-  const [location, saveLocation] = useState(toEdit.location);
+const SuperAdminsEdit = ({ SuperAdminsToEdit, changeShow }) => {
+  const [superAdminEdited, setSuperAdminCreated] = useState({
+    firstName: SuperAdminsToEdit.firstName,
+    lastName: SuperAdminsToEdit.lastName,
+    email: SuperAdminsToEdit.email,
+    password: SuperAdminsToEdit.password,
+    dni: SuperAdminsToEdit.dni.toString(),
+    phone: SuperAdminsToEdit.phone.toString(),
+    location: SuperAdminsToEdit.location
+  });
 
   const editSuperAdmin = async (id) => {
-    const setToEdit(SuperAdmins.find((superAdmin) => superAdmin._id === id));
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(toEdit)
-    });
-    const data = await res.json();
-    const newSuperAdmins = SuperAdmins.map((superAdmin) => {
-      if (superAdmin._id === id) {
-        superAdmin = data.data;
-      }
-      return superAdmin;
-    });
-    saveSuperAdmins(newSuperAdmins);
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(superAdminEdited)
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -37,8 +34,13 @@ const SuperAdminsEdit = ({ toEdit, changeShow }) => {
           <input
             type="text"
             placeholder="add First Name"
-            value={firstName}
-            onChange={(e) => saveFirstName(e.target.value)}
+            value={superAdminEdited.firstName}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                firstName: e.target.value
+              });
+            }}
           />
         </div>
         <div>
@@ -46,8 +48,13 @@ const SuperAdminsEdit = ({ toEdit, changeShow }) => {
           <input
             type="text"
             placeholder="add Last Name"
-            value={lastName}
-            onChange={(e) => saveLastName(e.target.value)}
+            value={superAdminEdited.lastName}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                lastName: e.target.value
+              });
+            }}
           />
         </div>
         <div>
@@ -55,8 +62,13 @@ const SuperAdminsEdit = ({ toEdit, changeShow }) => {
           <input
             type="email"
             placeholder="add Email"
-            value={email}
-            onChange={(e) => saveEmail(e.target.value)}
+            value={superAdminEdited.email}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                email: e.target.value
+              });
+            }}
           />
         </div>
         <div>
@@ -64,26 +76,41 @@ const SuperAdminsEdit = ({ toEdit, changeShow }) => {
           <input
             type="password"
             placeholder="add Password"
-            value={password}
-            onChange={(e) => savePassword(e.target.value)}
+            value={superAdminEdited.password}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                password: e.target.value
+              });
+            }}
           />
         </div>
         <div>
           <label>dni</label>
           <input
-            type="number"
+            type="text"
             placeholder="add dni"
-            value={dni}
-            onChange={(e) => saveDni(e.target.value)}
+            value={superAdminEdited.dni}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                dni: e.target.value
+              });
+            }}
           />
         </div>
         <div>
           <label>Phone</label>
           <input
-            type="number"
+            type="text"
             placeholder="add Phone"
-            value={phone}
-            onChange={(e) => savePhone(e.target.value)}
+            value={superAdminEdited.phone}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                phone: e.target.value
+              });
+            }}
           />
         </div>
         <div>
@@ -91,15 +118,20 @@ const SuperAdminsEdit = ({ toEdit, changeShow }) => {
           <input
             type="text"
             placeholder="add Location"
-            value={location}
-            onChange={(e) => saveLocation(e.target.value)}
+            value={superAdminEdited.location}
+            onChange={(e) => {
+              setSuperAdminCreated({
+                ...superAdminEdited,
+                location: e.target.value
+              });
+            }}
           />
         </div>
         <input
           type="submit"
           value="Save"
           onClick={() => {
-            editSuperAdmin(toEdit._id);
+            editSuperAdmin(SuperAdminsToEdit._id);
             changeShow();
           }}
         />

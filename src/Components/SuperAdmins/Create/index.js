@@ -84,7 +84,7 @@ const SuperAdminsCreate = ({ changeShow }) => {
         <div>
           <label>dni</label>
           <input
-            type="number"
+            type="text"
             placeholder="add dni"
             onChange={(e) => {
               setSuperAdminCreated({
@@ -97,7 +97,7 @@ const SuperAdminsCreate = ({ changeShow }) => {
         <div>
           <label>Phone</label>
           <input
-            type="number"
+            type="text"
             placeholder="add Phone"
             onChange={(e) => {
               setSuperAdminCreated({

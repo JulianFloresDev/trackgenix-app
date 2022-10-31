@@ -13,7 +13,7 @@ function SuperAdmins() {
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`);
       const data = await res.json();
-      saveSuperAdmins(data.data);
+      saveSuperAdmins(data.data || []);
     } catch (error) {
       console.error(error);
     }
@@ -27,28 +27,8 @@ function SuperAdmins() {
     saveSuperAdmins(newSuperAdmins);
   };
 
-  const editSuperAdmin = async (id) => {
-    setToEdit(SuperAdmins.find((superAdmin) => superAdmin._id === id));
-    if (show === 2) {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(toEdit)
-      });
-      const data = await res.json();
-      const newSuperAdmins = SuperAdmins.map((superAdmin) => {
-        if (superAdmin._id === id) {
-          superAdmin = data.data;
-        }
-        return superAdmin;
-      });
-      saveSuperAdmins(newSuperAdmins);
-      setShow(1);
-    } else {
-      setShow(2);
-    }
+  const filterOneSuperAdmin = (id) => {
+    setToEdit(SuperAdmins.filter((superAdmin) => superAdmin._id === id)[0]);
   };
 
   const changeShow = () => {
@@ -63,10 +43,10 @@ function SuperAdmins() {
           list={SuperAdmins}
           deleteSA={deleteSuperAdmin}
           setShow={setShow}
-          editSA={editSuperAdmin}
+          filter={filterOneSuperAdmin}
         />
       )}
-      {show === 2 && <SuperAdminsEdit toEdit={toEdit} changeShow={changeShow} />}
+      {show === 2 && <SuperAdminsEdit changeShow={changeShow} SuperAdminsToEdit={toEdit} />}
       {show === 3 && <SuperAdminsCreate changeShow={changeShow} />}
     </section>
   );
