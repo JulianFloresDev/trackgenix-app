@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-const superAdminsEdit = ({ editSA, toEdit }) => {
-  console.log(toEdit);
+const SuperAdminsEdit = ({ toEdit, changeShow }) => {
   const [firstName, saveFirstName] = useState(toEdit.firstName);
   const [lastName, saveLastName] = useState(toEdit.lastName);
   const [email, saveEmail] = useState(toEdit.email);
@@ -9,6 +8,25 @@ const superAdminsEdit = ({ editSA, toEdit }) => {
   const [dni, saveDni] = useState(toEdit.dni);
   const [phone, savePhone] = useState(toEdit.phone);
   const [location, saveLocation] = useState(toEdit.location);
+
+  const editSuperAdmin = async (id) => {
+    const setToEdit(SuperAdmins.find((superAdmin) => superAdmin._id === id));
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(toEdit)
+    });
+    const data = await res.json();
+    const newSuperAdmins = SuperAdmins.map((superAdmin) => {
+      if (superAdmin._id === id) {
+        superAdmin = data.data;
+      }
+      return superAdmin;
+    });
+    saveSuperAdmins(newSuperAdmins);
+  };
 
   return (
     <div>
@@ -77,10 +95,17 @@ const superAdminsEdit = ({ editSA, toEdit }) => {
             onChange={(e) => saveLocation(e.target.value)}
           />
         </div>
-        <input type="submit" value="Save" onClick={() => editSA(toEdit._id)} />
+        <input
+          type="submit"
+          value="Save"
+          onClick={() => {
+            editSuperAdmin(toEdit._id);
+            changeShow();
+          }}
+        />
       </from>
     </div>
   );
 };
 
-export default superAdminsEdit;
+export default SuperAdminsEdit;

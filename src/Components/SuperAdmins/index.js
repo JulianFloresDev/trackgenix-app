@@ -11,13 +11,13 @@ function SuperAdmins() {
 
   useEffect(async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`);
-      const data = await response.json();
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`);
+      const data = await res.json();
       saveSuperAdmins(data.data);
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [show]);
 
   const deleteSuperAdmin = async (id) => {
     await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
@@ -30,14 +30,14 @@ function SuperAdmins() {
   const editSuperAdmin = async (id) => {
     setToEdit(SuperAdmins.find((superAdmin) => superAdmin._id === id));
     if (show === 2) {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(toEdit)
       });
-      const data = await response.json();
+      const data = await res.json();
       const newSuperAdmins = SuperAdmins.map((superAdmin) => {
         if (superAdmin._id === id) {
           superAdmin = data.data;
@@ -51,21 +51,8 @@ function SuperAdmins() {
     }
   };
 
-  const createSuperAdmin = async (superAdmin) => {
-    if (show === 3) {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(superAdmin)
-      });
-      const data = await response.json();
-      saveSuperAdmins([...SuperAdmins, data.data]);
-      setShow(1);
-    } else {
-      setShow(3);
-    }
+  const changeShow = () => {
+    setShow(1);
   };
 
   return (
@@ -79,8 +66,8 @@ function SuperAdmins() {
           editSA={editSuperAdmin}
         />
       )}
-      {show === 2 && <SuperAdminsEdit editSA={editSuperAdmin} toEdit={toEdit} />}
-      {show === 3 && <SuperAdminsCreate createSA={createSuperAdmin} />}
+      {show === 2 && <SuperAdminsEdit toEdit={toEdit} changeShow={changeShow} />}
+      {show === 3 && <SuperAdminsCreate changeShow={changeShow} />}
     </section>
   );
 }

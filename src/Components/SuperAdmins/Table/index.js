@@ -1,7 +1,10 @@
-const superAdminsTable = ({ list, deleteSA, editSA, setShow }) => {
+const SuperAdminsTable = ({ list, deleteSA, editSA, setShow }) => {
   return (
     <table>
       <thead>
+        <tr>
+          <th onClick={() => setShow(3)}>Create</th>
+        </tr>
         <tr>
           <th>Id</th>
           <th>First Name</th>
@@ -16,7 +19,6 @@ const superAdminsTable = ({ list, deleteSA, editSA, setShow }) => {
         </tr>
       </thead>
       <tbody>
-        <button onClick={() => setShow(3)}>Create</button>
         {list.map((superAdmin) => {
           return (
             <tr key={superAdmin._id}>
@@ -48,4 +50,4 @@ const superAdminsTable = ({ list, deleteSA, editSA, setShow }) => {
   );
 };
 
-export default superAdminsTable;
+export default SuperAdminsTable;

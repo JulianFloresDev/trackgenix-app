@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const SuperAdminsCreate = ({ createSA }) => {
+const SuperAdminsCreate = ({ changeShow }) => {
   const [superAdminCreated, setSuperAdminCreated] = useState({
     firstName: '',
     lastName: '',
@@ -10,6 +10,21 @@ const SuperAdminsCreate = ({ createSA }) => {
     phone: '',
     location: ''
   });
+
+  const createSuperAdmin = async (superAdmin) => {
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(superAdmin)
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h2>Create Super Admin</h2>
@@ -105,7 +120,13 @@ const SuperAdminsCreate = ({ createSA }) => {
             }}
           />
         </div>
-        <button type="submit" onClick={() => createSA(setSuperAdminCreated)}>
+        <button
+          type="submit"
+          onClick={() => {
+            createSuperAdmin(superAdminCreated);
+            changeShow();
+          }}
+        >
           Create
         </button>
       </form>
