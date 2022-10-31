@@ -86,7 +86,7 @@ const SuperAdminsEdit = ({ SuperAdminsToEdit, changeShow }) => {
           />
         </div>
         <div>
-          <label>dni</label>
+          <label>Dni</label>
           <input
             type="text"
             placeholder="add dni"

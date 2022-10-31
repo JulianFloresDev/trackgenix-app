@@ -120,15 +120,14 @@ const SuperAdminsCreate = ({ changeShow }) => {
             }}
           />
         </div>
-        <button
+        <input
           type="submit"
+          value="Create"
           onClick={() => {
             createSuperAdmin(superAdminCreated);
             changeShow();
           }}
-        >
-          Create
-        </button>
+        />
       </form>
     </div>
   );
