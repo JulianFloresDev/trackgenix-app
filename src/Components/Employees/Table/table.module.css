@@ -8,26 +8,46 @@
   color: #142342
 }
 
-.th {
-  flex: 1;
+.header {
   display: flex;
   justify-content: space-around;
-  gap: 50px;
+  gap: 15px;
   padding: 10px;
+  /* padding-right: 120px; */
   border-radius: 15px;
   background-color: rgba(190, 190, 252, 0.6);
+}
+
+.header > th {
+  flex: 1 1 20%;
+}
+
+.header > th.createBtn {
+  flex: 1 1 100px;
+  padding: 5px 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(151, 212, 151, 0.8);
+  cursor: pointer;
+}
+.header > th.createBtn:hover {
+  background-color: rgba(87, 207, 87, 0.8)
 }
 
 .tbody {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 3px;
   margin-top: 2px;
 }
 
 .tr {
+  flex: 1 1 20%;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 15px;
   padding: 8px;
   border-radius: 15px;
   background-color: #eeecff;
@@ -40,7 +60,7 @@
 .td {
   display: flex;
   justify-content: space-around;
-  gap: 50px;
+  gap: 15px;
   width: 100%;
 }
 
@@ -49,6 +69,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding: 0 10px;
 }
 
 .buttons>button {

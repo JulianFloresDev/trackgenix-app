@@ -3,11 +3,14 @@ import styles from './employees.module.css';
 import Table from './Table';
 import Input from './Input';
 import EditEmployeeModal from './Edit';
+import CreateEmployee from './Create';
 
 function Employees() {
   const [employees, saveEmployees] = useState([]);
   const [filteredEmployees, saveFilteredEmployees] = useState(employees);
-  const [modalState, toggleModalState] = useState(false);
+  const [page, renderPage] = useState(0);
+  const [employeeToEdit, setEmployeeToEdit] = useState({});
+  // const [modalState, toggleModalState] = useState(false);
 
   const getAllEmployees = async () => {
     await fetch(`${process.env.REACT_APP_API_URL}/employees`)
@@ -17,8 +20,7 @@ function Employees() {
         saveFilteredEmployees(response.data || []);
       });
   };
-
-  useEffect(getAllEmployees, []);
+  useEffect(getAllEmployees, [page]);
 
   const filterEmployees = (event) => {
     saveFilteredEmployees(
@@ -34,54 +36,32 @@ function Employees() {
     await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
       method: 'DELETE'
     });
-    saveFilteredEmployees(employees.filter((employee) => employee._id !== id));
     saveEmployees(employees.filter((employee) => employee._id !== id));
   };
 
-  const editEmployee = async (employee) => {
-    if (modalState) {
-      await fetch(`${process.env.REACT_APP_API_URL}/employees/${employee._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          firstName: employee.firstName,
-          lastName: employee.lastName,
-          email: employee.email,
-          phone: parseInt(employee.phone, 10),
-          address: employee.address
-        })
-      });
-      getAllEmployees();
-    }
-
-    toggleModalState(!modalState);
+  const renderEmployeePage = (n) => {
+    renderPage(n);
   };
 
-  const closeModal = () => {
-    toggleModalState(!modalState);
+  const filterEmployeeToEdit = (id) => {
+    setEmployeeToEdit(employees.filter((employee) => employee._id === id)[0] || {});
   };
-
   return (
     <section className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.item}>Employee List</h2>
         <Input filterEmployees={filterEmployees} />
       </div>
-      {modalState ? (
-        <EditEmployeeModal
-          employee={employees[0]}
-          closeModal={closeModal}
-          editEmployee={editEmployee}
-        />
-      ) : (
+      {page === 0 && (
         <Table
-          list={filteredEmployees}
           deleteEmployee={deleteEmployee}
-          editEmployee={editEmployee}
+          render={renderEmployeePage}
+          list={filteredEmployees}
+          filter={filterEmployeeToEdit}
         />
       )}
+      {page === 1 && <CreateEmployee />}
+      {page === 2 && <EditEmployeeModal render={renderEmployeePage} employee={employeeToEdit} />}
     </section>
   );
 }

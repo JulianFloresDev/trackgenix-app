@@ -1,3 +1,8 @@
+.section {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 .form {
   display: flex;
   flex-direction: column;
@@ -19,6 +24,7 @@
 }
 
 .item {
+  flex: 1 1 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,6 +44,7 @@
   align-items: center;
   padding: 5px 10px;
   height: 35px;
+  width: 100%;
   font-size: 18px;
   color: #142342;
 
@@ -55,9 +62,35 @@
 }
 
 .buttons {
+  flex: 1 1 40%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 25px;
-  padding: 15px;
+}
+
+.buttons > button {
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid #4b61ac;
+  outline: none;
+  font-size: 16px;
+  font-weight: 900;
+}
+.buttons > button.editBtn {
+  background-color: rgba(190, 190, 252, 0.8);
+}
+.buttons > button.editBtn:hover {
+  background-color: rgb(149, 149, 228);
+}
+.buttons > button.closeBtn {
+  background-color: rgba(252, 192, 190, 0.8);
+}
+.buttons > button.closeBtn:hover {
+  background-color: rgb(224, 95, 91);
 }

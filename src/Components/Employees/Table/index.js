@@ -1,14 +1,21 @@
 import styles from './table.module.css';
 
-const Table = ({ list, deleteEmployee, editEmployee }) => {
+const Table = ({ deleteEmployee, render, list, filter }) => {
+  const editEmployee = async (element) => {
+    filter(element._id);
+    render(2);
+  };
   return (
     <table className={styles.table}>
       <thead>
-        <tr className={styles.th}>
+        <tr className={styles.header}>
           <th>Employee</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Address</th>
+          <th className={styles.createBtn} onClick={() => {}}>
+            Add New
+          </th>
         </tr>
       </thead>
       <tbody className={styles.tbody}>
