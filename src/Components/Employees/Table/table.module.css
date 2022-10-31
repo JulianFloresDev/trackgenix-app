@@ -11,19 +11,22 @@
 .header {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   gap: 15px;
   padding: 10px;
-  /* padding-right: 120px; */
   border-radius: 15px;
   background-color: rgba(190, 190, 252, 0.6);
 }
 
 .header > th {
   flex: 1 1 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header > th.createBtn {
-  flex: 1 1 100px;
+  flex: 1 1 20%;
   padding: 5px 15px;
   border: 1px solid black;
   border-radius: 10px;

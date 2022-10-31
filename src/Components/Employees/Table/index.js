@@ -13,7 +13,7 @@ const Table = ({ deleteEmployee, render, list, filter }) => {
           <th>Email</th>
           <th>Phone</th>
           <th>Address</th>
-          <th className={styles.createBtn} onClick={() => {}}>
+          <th className={styles.createBtn} onClick={() => render(1)}>
             Add New
           </th>
         </tr>

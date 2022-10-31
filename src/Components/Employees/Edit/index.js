@@ -7,9 +7,9 @@ const EditEmployeeModal = ({ render, employee }) => {
     firstName: employee.firstName,
     lastName: employee.lastName,
     email: employee.email,
+    dni: employee.dni.toString(),
     phone: employee.phone.toString(),
     location: employee.location,
-    dni: employee.dni.toString(),
     password: employee.password
   });
 
@@ -45,7 +45,7 @@ const EditEmployeeModal = ({ render, employee }) => {
       <form className={styles.form}>
         <div className={styles.container}>
           <div className={styles.item}>
-            <label htmlFor="input-name">Name</label>
+            <label htmlFor="firstName">Name</label>
             <input
               type="text"
               id="firstName"
@@ -57,7 +57,7 @@ const EditEmployeeModal = ({ render, employee }) => {
             />
           </div>
           <div className={styles.item}>
-            <label htmlFor="input-lastName">Last Name</label>
+            <label htmlFor="lastName">Last Name</label>
             <input
               type="text"
               id="lastName"
@@ -69,7 +69,7 @@ const EditEmployeeModal = ({ render, employee }) => {
             />
           </div>
           <div className={styles.item}>
-            <label htmlFor="input-email">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               id="email"
@@ -79,7 +79,17 @@ const EditEmployeeModal = ({ render, employee }) => {
             />
           </div>
           <div className={styles.item}>
-            <label htmlFor="input-phone">Phone</label>
+            <label htmlFor="dni">D.N.I.</label>
+            <input
+              type="text"
+              id="dni"
+              className={styles.input}
+              value={employeeToEdit.dni}
+              onChange={(e) => changeEmployeeEdited({ ...employeeToEdit, dni: e.target.value })}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="phone">Phone</label>
             <input
               type="text"
               id="phone"
@@ -89,7 +99,7 @@ const EditEmployeeModal = ({ render, employee }) => {
             />
           </div>
           <div className={styles.item}>
-            <label htmlFor="input-address">Location</label>
+            <label htmlFor="address">Location</label>
             <input
               type="text"
               id="address"
@@ -97,6 +107,18 @@ const EditEmployeeModal = ({ render, employee }) => {
               value={employeeToEdit.location}
               onChange={(e) =>
                 changeEmployeeEdited({ ...employeeToEdit, location: e.target.value })
+              }
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className={styles.input}
+              value={employeeToEdit.password}
+              onChange={(e) =>
+                changeEmployeeEdited({ ...employeeToEdit, password: e.target.value })
               }
             />
           </div>

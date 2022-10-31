@@ -13,12 +13,16 @@ function Employees() {
   // const [modalState, toggleModalState] = useState(false);
 
   const getAllEmployees = async () => {
-    await fetch(`${process.env.REACT_APP_API_URL}/employees`)
-      .then((response) => response.json())
-      .then((response) => {
-        saveEmployees(response.data || []);
-        saveFilteredEmployees(response.data || []);
-      });
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/employees`)
+        .then((response) => response.json())
+        .then((response) => {
+          saveEmployees(response.data || []);
+          saveFilteredEmployees(response.data || []);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(getAllEmployees, [page]);
 
@@ -60,7 +64,7 @@ function Employees() {
           filter={filterEmployeeToEdit}
         />
       )}
-      {page === 1 && <CreateEmployee />}
+      {page === 1 && <CreateEmployee render={renderEmployeePage} />}
       {page === 2 && <EditEmployeeModal render={renderEmployeePage} employee={employeeToEdit} />}
     </section>
   );
