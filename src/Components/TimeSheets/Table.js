@@ -1,18 +1,19 @@
+import styles from './time-sheets.module.css';
 import List from './List';
 
 function Table(props) {
   return (
-    <div>
+    <div className={styles.tableContainer}>
       <table>
         <thead>
           <tr>
-            <th id="">Id</th>
             <th id="">Date</th>
             <th id="">Description</th>
             <th id="">Employee</th>
             <th id="">Project</th>
             <th id="">Task</th>
             <th id="">Hour</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +29,9 @@ function Table(props) {
           })}
         </tbody>
       </table>
-      <button onClick={() => props.showModifyModal()}>Add New Timesheet</button>
+      <button onClick={() => props.showModifyModal()} className={styles.addNew}>
+        Add New
+      </button>
     </div>
   );
 }

@@ -1,10 +1,13 @@
 import styles from './time-sheets.module.css';
 
 function List(props) {
+  const day = props.timesheet.date.substring(8, 10);
+  const month = props.timesheet.date.substring(5, 7);
+  const year = props.timesheet.date.substring(0, 4);
+  const dateNewFormat = `${day}-${month}-${year}`;
   return (
-    <tr>
-      <td>{props.timesheet._id}</td>
-      <td>{props.timesheet.date}</td>
+    <tr title={`ID: ${props.timesheet._id}`}>
+      <td>{dateNewFormat}</td>
       <td>{props.timesheet.description}</td>
       <td>
         {props.timesheet.employee ? (
@@ -27,10 +30,17 @@ function List(props) {
           <span className={styles.errMsg}>Task does not exist</span>
         )}
       </td>
-      <td>{props.timesheet.hours}</td>
-      <td>
-        <button onClick={() => props.showModifyModal(props.timesheet._id)}>Edit</button>
-        <button onClick={() => props.onDelete(props.timesheet._id)}>Delete</button>
+      <td>{`${props.timesheet.hours} hs`}</td>
+      <td className={styles.imgTd}>
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
+          onClick={() => props.showModifyModal(props.timesheet._id)}
+        />
+        <img
+          className={styles.deleteImg}
+          src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
+          onClick={() => props.onDelete(props.timesheet._id)}
+        />
       </td>
     </tr>
   );

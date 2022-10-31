@@ -19,7 +19,7 @@ const TimeSheets = () => {
     } catch (err) {
       console.log(err);
     }
-  });
+  }, [modifyModalControl]);
 
   // Delete Timesheet
 
@@ -48,7 +48,7 @@ const TimeSheets = () => {
 
   // Edit timesheet
   const editTimesheet = async (data) => {
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
     try {
       await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${modifyModalControl.id}`, {
         method: 'PUT',
