@@ -8,6 +8,7 @@ function SuperAdmins() {
   const [SuperAdmins, saveSuperAdmins] = useState([]);
   const [show, setShow] = useState(1);
   const [toEdit, setToEdit] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(async () => {
     try {
@@ -20,9 +21,11 @@ function SuperAdmins() {
   }, [show]);
 
   const deleteSuperAdmin = async (id) => {
-    await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
       method: 'DELETE'
     });
+    const data = await res.json();
+    console.log(data);
     const newSuperAdmins = SuperAdmins.filter((superAdmin) => superAdmin._id !== id);
     saveSuperAdmins(newSuperAdmins);
   };
@@ -35,6 +38,10 @@ function SuperAdmins() {
     setShow(1);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <section className={styles.container}>
       <h2>Super Admins</h2>
@@ -44,6 +51,9 @@ function SuperAdmins() {
           deleteSA={deleteSuperAdmin}
           setShow={setShow}
           filter={filterOneSuperAdmin}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          closeModal={closeModal}
         />
       )}
       {show === 2 && <SuperAdminsEdit changeShow={changeShow} SuperAdminsToEdit={toEdit} />}
