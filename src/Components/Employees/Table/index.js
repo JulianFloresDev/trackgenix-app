@@ -21,13 +21,13 @@ const Table = ({ deleteEmployee, render, list, filter }) => {
       <tbody className={styles.tbody}>
         {list.map((element) => {
           return (
-            <tr key={element._id} className={styles.tr}>
-              <td className={styles.td}>
+            <tr key={element._id} className={styles.row}>
+              <td>
                 {element.firstName} {element.lastName}
               </td>
-              <td className={styles.td}>{element.email}</td>
-              <td className={styles.td}>{element.phone}</td>
-              <td className={styles.td}>{element.location}</td>
+              <td>{element.email}</td>
+              <td>{element.phone}</td>
+              <td>{element.location}</td>
               <td className={styles.buttons}>
                 <button className={styles.editBtn} onClick={() => editEmployee(element)}>
                   Edit

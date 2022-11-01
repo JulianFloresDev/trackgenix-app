@@ -26,8 +26,8 @@
 }
 
 .header > th.createBtn {
-  flex: 1 1 20%;
-  padding: 5px 15px;
+  flex: 1 1 12%;
+  padding: 5px 10px;
   border: 1px solid black;
   border-radius: 10px;
   background-color: rgba(151, 212, 151, 0.8);
@@ -45,7 +45,7 @@
   margin-top: 2px;
 }
 
-.tr {
+.row {
   flex: 1 1 20%;
   display: flex;
   justify-content: space-around;
@@ -56,18 +56,19 @@
   background-color: #eeecff;
 }
 
-.tr:hover {
+.row:hover {
   background-color: #d3cff8;
 }
 
-.td {
+.row > td {
   display: flex;
   justify-content: space-around;
   gap: 15px;
   width: 100%;
 }
 
-.buttons {
+.row > td.buttons {
+  flex: 1 1 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +76,7 @@
   padding: 0 10px;
 }
 
-.buttons>button {
+.row > td.buttons>button {
   padding: 5px 8px;
   border: 1px solid rgb(3, 2, 63);
   border-radius: 7px;
