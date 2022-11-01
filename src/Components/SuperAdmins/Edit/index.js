@@ -1,6 +1,13 @@
 import { useState } from 'react';
+import Modal from '../Modal';
 
-const SuperAdminsEdit = ({ SuperAdminsToEdit, changeShow }) => {
+const SuperAdminsEdit = ({
+  SuperAdminsToEdit,
+  changeShow,
+  showModal,
+  setShowModal,
+  closeModal
+}) => {
   const [superAdminEdited, setSuperAdminCreated] = useState({
     firstName: SuperAdminsToEdit.firstName,
     lastName: SuperAdminsToEdit.lastName,
@@ -28,6 +35,7 @@ const SuperAdminsEdit = ({ SuperAdminsToEdit, changeShow }) => {
   return (
     <div>
       <h2>Super Admins Edit</h2>
+      <Modal showModal={showModal} closeModal={closeModal} />
       <from>
         <div>
           <label>First Name</label>
@@ -132,6 +140,7 @@ const SuperAdminsEdit = ({ SuperAdminsToEdit, changeShow }) => {
           value="Save"
           onClick={() => {
             editSuperAdmin(SuperAdminsToEdit._id);
+            setShowModal(true);
             changeShow();
           }}
         />

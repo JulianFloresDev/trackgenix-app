@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import Modal from '../Modal';
 
-const SuperAdminsCreate = ({ changeShow }) => {
+const SuperAdminsCreate = ({ changeShow, showModal, setShowModal, closeModal }) => {
   const [superAdminCreated, setSuperAdminCreated] = useState({
     firstName: '',
     lastName: '',
@@ -28,6 +29,7 @@ const SuperAdminsCreate = ({ changeShow }) => {
   return (
     <div>
       <h2>Create Super Admin</h2>
+      <Modal showModal={showModal} closeModal={closeModal} />
       <form>
         <div>
           <label>First Name</label>
@@ -125,6 +127,7 @@ const SuperAdminsCreate = ({ changeShow }) => {
           value="Create"
           onClick={() => {
             createSuperAdmin(superAdminCreated);
+            setShowModal(true);
             changeShow();
           }}
         />

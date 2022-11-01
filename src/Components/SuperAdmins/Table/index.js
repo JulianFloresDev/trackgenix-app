@@ -1,6 +1,14 @@
 import Modal from '../Modal';
 
-const SuperAdminsTable = ({ list, deleteSA, setShow, filter, showModal, closeModal }) => {
+const SuperAdminsTable = ({
+  list,
+  deleteSA,
+  setShow,
+  filter,
+  showModal,
+  setShowModal,
+  closeModal
+}) => {
   return (
     <table>
       <thead>
@@ -43,6 +51,7 @@ const SuperAdminsTable = ({ list, deleteSA, setShow, filter, showModal, closeMod
                 <button
                   onClick={() => {
                     deleteSA(superAdmin._id);
+                    setShowModal(true);
                   }}
                 >
                   Delete

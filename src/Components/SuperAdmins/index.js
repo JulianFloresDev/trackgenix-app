@@ -18,7 +18,7 @@ function SuperAdmins() {
     } catch (error) {
       console.error(error);
     }
-  }, [show]);
+  }, [show, showModal]);
 
   const deleteSuperAdmin = async (id) => {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
@@ -56,8 +56,23 @@ function SuperAdmins() {
           closeModal={closeModal}
         />
       )}
-      {show === 2 && <SuperAdminsEdit changeShow={changeShow} SuperAdminsToEdit={toEdit} />}
-      {show === 3 && <SuperAdminsCreate changeShow={changeShow} />}
+      {show === 2 && (
+        <SuperAdminsEdit
+          changeShow={changeShow}
+          SuperAdminsToEdit={toEdit}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          closeModal={closeModal}
+        />
+      )}
+      {show === 3 && (
+        <SuperAdminsCreate
+          changeShow={changeShow}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          closeModal={closeModal}
+        />
+      )}
     </section>
   );
 }
