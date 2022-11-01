@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import styles from './create.module.css';
+import Modal from '../Modal';
 
-const CreateNewEmployee = ({ render }) => {
+const CreateNewEmployee = ({ render, modalState, setModalState }) => {
+  const [modalData, setModalData] = useState({});
   const [newEmployee, setNewEmployee] = useState({
     firstName: '',
     lastName: '',
@@ -29,18 +31,21 @@ const CreateNewEmployee = ({ render }) => {
   };
 
   const openAlert = (res) => {
-    console.log(res);
-    render(0); // inside modal
+    setModalData(res);
+    setModalState(true);
+    // render(0); // inside modal
   };
 
   return (
     <section name="editForm" className={styles.section}>
-      {/* <Modal
-        modalState={modalState}
-        closeAlert={closeAlert}
-        editEmployee={editEmployee}
-        employee={employee}
-      /> */}
+      {modalState && (
+        <Modal
+          modalState={modalState}
+          setModalState={setModalState}
+          modalData={modalData}
+          render={render}
+        />
+      )}
       <form className={styles.form}>
         <div className={styles.container}>
           <div className={styles.item}>

@@ -137,8 +137,6 @@ const EditEmployeeModal = ({ render, employee }) => {
               onClick={(e) => {
                 e.preventDefault();
                 render(0);
-                // changeState(!modalState);
-                // closeModal();
               }}
             >
               Close

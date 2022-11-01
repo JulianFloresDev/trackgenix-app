@@ -1,6 +1,6 @@
 import styles from './modal.module.css';
 
-const Modal = ({ modalState, closeAlert }) => {
+const Modal = ({ modalState, setModalState, action }) => {
   if (!modalState) {
     return null;
   }
@@ -8,12 +8,14 @@ const Modal = ({ modalState, closeAlert }) => {
     <div className={styles.container}>
       <div className={styles.modal}>
         <h3>Modal</h3>
+        <div>Mensaje</div>
         <div className={styles.buttons}>
           <button
             type="button"
             className={styles.button}
             onClick={() => {
-              closeAlert();
+              setModalState(false);
+              action();
               // editEmployee({
               //   _id: employee._id,
               //   firstName: inputName,
@@ -26,7 +28,7 @@ const Modal = ({ modalState, closeAlert }) => {
           >
             Accept
           </button>
-          <button type="button" className={styles.button} onClick={() => closeAlert()}>
+          <button type="button" className={styles.button} onClick={() => setModalState(false)}>
             Reject
           </button>
         </div>

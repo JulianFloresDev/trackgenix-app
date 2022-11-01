@@ -4,8 +4,8 @@ const Input = ({ filterEmployees }) => {
   return (
     <div className={styles.container}>
       <label htmlFor="input-search">
-        <span className="material-symbols-outlined icon-search" id="icon-sreach">
-          search
+        <span className="material-symbols-outlined icon-search" id="icon-search">
+          Search
         </span>
       </label>
       <input

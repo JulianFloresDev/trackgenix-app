@@ -10,7 +10,7 @@ function Employees() {
   const [filteredEmployees, saveFilteredEmployees] = useState(employees);
   const [page, renderPage] = useState(0);
   const [employeeToEdit, setEmployeeToEdit] = useState({});
-  // const [modalState, toggleModalState] = useState(false);
+  const [modalState, setModalState] = useState(false);
 
   const getAllEmployees = async () => {
     try {
@@ -64,8 +64,21 @@ function Employees() {
           filter={filterEmployeeToEdit}
         />
       )}
-      {page === 1 && <CreateEmployee render={renderEmployeePage} />}
-      {page === 2 && <EditEmployeeModal render={renderEmployeePage} employee={employeeToEdit} />}
+      {page === 1 && (
+        <CreateEmployee
+          render={renderEmployeePage}
+          modalState={modalState}
+          setModalState={setModalState}
+        />
+      )}
+      {page === 2 && (
+        <EditEmployeeModal
+          render={renderEmployeePage}
+          employee={employeeToEdit}
+          modalState={modalState}
+          setModalState={setModalState}
+        />
+      )}
     </section>
   );
 }
