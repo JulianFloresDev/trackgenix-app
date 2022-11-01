@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import Modal from '../Modal';
 
-const adminCreate = ({ createAdmin }) => {
+const adminCreate = ({ createAdmin, showModal, closeModal }) => {
   const [firstName, saveFirstName] = useState();
   const [lastName, saveLastName] = useState();
   const [email, saveEmail] = useState();
@@ -11,6 +12,7 @@ const adminCreate = ({ createAdmin }) => {
 
   return (
     <div>
+      <Modal showModal={showModal} closeModal={closeModal} />
       <from>
         <div>
           <label>First Name</label>

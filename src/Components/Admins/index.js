@@ -8,6 +8,7 @@ function Admins() {
   const [Admins, saveAdmins] = useState([]);
   const [show, setShow] = useState(1);
   const [toEdit, setToEdit] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(async () => {
     try {
@@ -17,7 +18,7 @@ function Admins() {
     } catch (error) {
       console.error(error);
     }
-  }, [show]);
+  }, [show, showModal]);
 
   const createAdmin = async (newData) => {
     await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
@@ -27,6 +28,7 @@ function Admins() {
       },
       body: JSON.stringify(newData)
     });
+    setShowModal(true);
     setShow(1);
   };
 
@@ -43,6 +45,7 @@ function Admins() {
       },
       body: JSON.stringify(newData)
     });
+    setShowModal(true);
     setShow(1);
   };
 
@@ -55,13 +58,29 @@ function Admins() {
     saveAdmins(updatedAdmins);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <section className={styles.container}>
       {show === 1 && (
-        <Table list={Admins} selectEdit={selectEdit} deleteAdmin={deleteAdmin} setShow={setShow} />
+        <Table
+          list={Admins}
+          selectEdit={selectEdit}
+          deleteAdmin={deleteAdmin}
+          setShow={setShow}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          closeModal={closeModal}
+        />
       )}
-      {show === 2 && <Edit editAdmin={editAdmin} toEdit={toEdit} />}
-      {show === 3 && <Create createAdmin={createAdmin} />}
+      {show === 2 && (
+        <Edit editAdmin={editAdmin} toEdit={toEdit} showModal={showModal} closeModal={closeModal} />
+      )}
+      {show === 3 && (
+        <Create createAdmin={createAdmin} showModal={showModal} closeModal={closeModal} />
+      )}
     </section>
   );
 }

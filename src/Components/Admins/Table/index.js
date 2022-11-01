@@ -1,13 +1,14 @@
-const table = ({ list, selectEdit, deleteAdmin, setShow }) => {
+import Modal from '../Modal';
+
+const table = ({ list, selectEdit, deleteAdmin, setShow, setShowModal, showModal, closeModal }) => {
   return (
     <table>
       <thead>
+        <Modal showModal={showModal} closeModal={closeModal} />
         <tr>
-          <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
-          <th>Password</th>
           <th>DNI</th>
           <th>Phone</th>
           <th>Location</th>
@@ -17,17 +18,22 @@ const table = ({ list, selectEdit, deleteAdmin, setShow }) => {
         {list.map((admin) => {
           return (
             <tr key={admin._id}>
-              <td>{admin._id}</td>
               <td>{admin.firstName}</td>
               <td>{admin.lastName}</td>
               <td>{admin.email}</td>
-              <td>{admin.password}</td>
               <td>{admin.dni}</td>
               <td>{admin.phone}</td>
               <td>{admin.location}</td>
               <td>
                 <button onClick={() => selectEdit(admin._id)}>Edit</button>
-                <button onClick={() => deleteAdmin(admin._id)}>Delete</button>
+                <button
+                  onClick={() => {
+                    deleteAdmin(admin._id);
+                    setShowModal(true);
+                  }}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           );

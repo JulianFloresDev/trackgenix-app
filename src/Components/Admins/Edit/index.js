@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import Modal from '../Modal';
 
-const adminEdit = ({ editAdmin, toEdit }) => {
+const adminEdit = ({ editAdmin, toEdit, showModal, closeModal }) => {
   const [firstName, saveFirstName] = useState(toEdit.firstName);
   const [lastName, saveLastName] = useState(toEdit.lastName);
   const [email, saveEmail] = useState(toEdit.email);
@@ -11,6 +12,7 @@ const adminEdit = ({ editAdmin, toEdit }) => {
 
   return (
     <div>
+      <Modal showModal={showModal} closeModal={closeModal} />
       <from>
         <div>
           <label>First Name</label>
