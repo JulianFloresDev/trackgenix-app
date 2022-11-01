@@ -15,21 +15,17 @@ function modifyTimesheet(props) {
     e.preventDefault();
     const targetName = e.target.name;
     data[targetName] = e.target.value;
-    console.log(data);
     setData({ ...data });
-    console.log(data);
   };
 
   const onEdit = (e) => {
     e.preventDefault();
     props.onEdit(data);
-    props.hideModal();
   };
 
   const onAdd = (e) => {
     e.preventDefault();
     props.onAdd(data);
-    props.hideModal();
   };
 
   return (
@@ -37,7 +33,10 @@ function modifyTimesheet(props) {
       <div className={styles.modalContent}>
         <div>
           {props.modifyModalControl.id ? <h2>Edit Timesheet</h2> : <h2>Add Timesheet</h2>}
-          <img src={`${process.env.PUBLIC_URL}/assets/images/exit.svg`} />
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/exit.svg`}
+            onClick={() => props.hideModal()}
+          />
         </div>
         <form>
           <div>
@@ -64,17 +63,13 @@ function modifyTimesheet(props) {
             <label>Hours</label>
             <input type="number" name="hours" value={data.hour} onChange={onchange} />
           </div>
-          <button onClick={() => props.hideModal()} className={styles.btnCancel}>
-            Cancel
-          </button>
+          {props.errorMessage && <h4>{props.errorMessage.toUpperCase()}</h4>}
           {props.modifyModalControl.id ? (
             <button onClick={onEdit} className={styles.btnSend}>
               Edit
             </button>
           ) : (
-            <button onClick={onAdd} className={styles.btnSend}>
-              Add
-            </button>
+            <button onClick={onAdd}>Add</button>
           )}
         </form>
       </div>
