@@ -36,20 +36,20 @@ table {
   border-collapse: collapse;
 }
 
-thead tr th {
+th {
   background-color: rgba(55, 56, 103, 0.1);
   box-shadow: inset 0px -1px 0px #E0E0E0;
 }
 
-thead tr th:first-child {
+th:first-child {
   border-radius: 15px 0 0 15px;
 }
 
-thead tr th:last-child {
+th:last-child {
   border-radius: 0 15px 15px 0;
 }
 
-.addNew {
+.tableContainer button {
   height: 40px;
   margin: 20px 2%;
   padding: 6px 30px;
@@ -60,25 +60,25 @@ thead tr th:last-child {
   cursor: pointer;
 }
 
-tr, th, td {
+th, td {
   height: 48px;
   width: 12.5%;
 }
 
-.imgTd {
+td:last-child {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.imgTd img:first-child {
+td:last-child img:first-child {
   width: 20px;
   height: 20px;
   margin-right: 15px ;
 }
 
-.imgTd img:last-child {
+td:last-child  img:last-child {
   width: 40px;
   height: 40px;
   padding: 10px;
@@ -90,17 +90,12 @@ img {
   cursor: pointer;
 }
 
-.deleteImg {
-  background-color: #EBECF0;
-  border-radius: 40%;
-}
-
 tbody tr {
   box-shadow: inset 0px -1px 0px #E0E0E0;
   border-radius: 15px;
 }
 
-.errMsg {
+table span {
   color: red;
 }
 

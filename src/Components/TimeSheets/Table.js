@@ -29,9 +29,7 @@ function Table(props) {
           })}
         </tbody>
       </table>
-      <button onClick={() => props.showModifyModal()} className={styles.addNew}>
-        Add New
-      </button>
+      <button onClick={() => props.showModifyModal()}>Add New</button>
     </div>
   );
 }

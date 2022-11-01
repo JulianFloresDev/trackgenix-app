@@ -114,9 +114,7 @@ function modifyTimesheet(props) {
           </div>
           {props.errorMessage && <h4>{props.errorMessage.toUpperCase()}</h4>}
           {props.modifyModalControl.id ? (
-            <button onClick={onEdit} className={styles.btnSend}>
-              Edit
-            </button>
+            <button onClick={onEdit}>Edit</button>
           ) : (
             <button onClick={onAdd}>Add</button>
           )}
