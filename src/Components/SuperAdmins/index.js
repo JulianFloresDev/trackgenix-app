@@ -3,12 +3,15 @@ import styles from './super-admins.module.css';
 import SuperAdminsTable from './Table';
 import SuperAdminsEdit from './Edit';
 import SuperAdminsCreate from './Create';
+//import Modal from './Modal';
 
 function SuperAdmins() {
   const [SuperAdmins, saveSuperAdmins] = useState([]);
   const [show, setShow] = useState(1);
   const [toEdit, setToEdit] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
 
   useEffect(async () => {
     try {
@@ -21,13 +24,26 @@ function SuperAdmins() {
   }, [show, showModal]);
 
   const deleteSuperAdmin = async (id) => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
-      method: 'DELETE'
-    });
-    const data = await res.json();
-    console.log(data);
-    const newSuperAdmins = SuperAdmins.filter((superAdmin) => superAdmin._id !== id);
-    saveSuperAdmins(newSuperAdmins);
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (res.status === 204) {
+        setModalTitle('Super Admin Deleted');
+        setModalMessage('The Super Admin was deleted successfully');
+        setShowModal(true);
+      } else {
+        setModalTitle('Error');
+        setModalMessage('There was an error deleting the Super Admin');
+        setShowModal(true);
+      }
+      setShow(1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const filterOneSuperAdmin = (id) => {
@@ -54,6 +70,10 @@ function SuperAdmins() {
           showModal={showModal}
           setShowModal={setShowModal}
           closeModal={closeModal}
+          setModalMessage={setModalMessage}
+          setModalTitle={setModalTitle}
+          modalTitle={modalTitle}
+          modalMessage={modalMessage}
         />
       )}
       {show === 2 && (
@@ -63,6 +83,10 @@ function SuperAdmins() {
           showModal={showModal}
           setShowModal={setShowModal}
           closeModal={closeModal}
+          setModalMessage={setModalMessage}
+          setModalTitle={setModalTitle}
+          modalTitle={modalTitle}
+          modalMessage={modalMessage}
         />
       )}
       {show === 3 && (
@@ -71,6 +95,10 @@ function SuperAdmins() {
           showModal={showModal}
           setShowModal={setShowModal}
           closeModal={closeModal}
+          setModalMessage={setModalMessage}
+          setModalTitle={setModalTitle}
+          modalTitle={modalTitle}
+          modalMessage={modalMessage}
         />
       )}
     </section>

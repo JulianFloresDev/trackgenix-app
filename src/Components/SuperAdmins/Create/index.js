@@ -1,7 +1,16 @@
 import { useState } from 'react';
 import Modal from '../Modal';
 
-const SuperAdminsCreate = ({ changeShow, showModal, setShowModal, closeModal }) => {
+const SuperAdminsCreate = ({
+  changeShow,
+  showModal,
+  setShowModal,
+  closeModal,
+  setModalMessage,
+  setModalTitle,
+  modalTitle,
+  modalMessage
+}) => {
   const [superAdminCreated, setSuperAdminCreated] = useState({
     firstName: '',
     lastName: '',
@@ -14,14 +23,26 @@ const SuperAdminsCreate = ({ changeShow, showModal, setShowModal, closeModal }) 
 
   const createSuperAdmin = async (superAdmin) => {
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(superAdmin)
       });
+      const response = await res.json();
+      console.log('response', response);
+      if (response.error === false) {
+        setModalTitle('Success');
+        setModalMessage(response.message);
+        setShowModal(true);
+      } else {
+        setModalTitle('Error');
+        setModalMessage(response.message[0].message);
+        setShowModal(true);
+      }
     } catch (error) {
+      console.log('error', error.message);
       console.error(error);
     }
   };
@@ -29,7 +50,12 @@ const SuperAdminsCreate = ({ changeShow, showModal, setShowModal, closeModal }) 
   return (
     <div>
       <h2>Create Super Admin</h2>
-      <Modal showModal={showModal} closeModal={closeModal} />
+      <Modal
+        showModal={showModal}
+        closeModal={closeModal}
+        modalTitle={modalTitle}
+        modalMessage={modalMessage}
+      />
       <form>
         <div>
           <label>First Name</label>
@@ -128,9 +154,9 @@ const SuperAdminsCreate = ({ changeShow, showModal, setShowModal, closeModal }) 
           onClick={() => {
             createSuperAdmin(superAdminCreated);
             setShowModal(true);
-            changeShow();
           }}
         />
+        <input type="submit" value="Close" onClick={() => changeShow()} />
       </form>
     </div>
   );

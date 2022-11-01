@@ -6,7 +6,11 @@ const SuperAdminsEdit = ({
   changeShow,
   showModal,
   setShowModal,
-  closeModal
+  closeModal,
+  setModalMessage,
+  setModalTitle,
+  modalTitle,
+  modalMessage
 }) => {
   const [superAdminEdited, setSuperAdminCreated] = useState({
     firstName: SuperAdminsToEdit.firstName,
@@ -20,22 +24,37 @@ const SuperAdminsEdit = ({
 
   const editSuperAdmin = async (id) => {
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(superAdminEdited)
       });
+      const response = await res.json();
+      console.log('response', response);
+      if (response.error === false) {
+        setModalTitle('Success');
+        setModalMessage(response.message.toString());
+      } else {
+        setModalTitle('Error');
+        setModalMessage(response.message[0].message);
+      }
     } catch (error) {
       console.error(error);
     }
+    setShowModal(true);
   };
 
   return (
     <div>
       <h2>Super Admins Edit</h2>
-      <Modal showModal={showModal} closeModal={closeModal} />
+      <Modal
+        showModal={showModal}
+        closeModal={closeModal}
+        modalTitle={modalTitle}
+        modalMessage={modalMessage}
+      />
       <from>
         <div>
           <label>First Name</label>
@@ -141,9 +160,9 @@ const SuperAdminsEdit = ({
           onClick={() => {
             editSuperAdmin(SuperAdminsToEdit._id);
             setShowModal(true);
-            changeShow();
           }}
         />
+        <button onClick={() => changeShow()}>Close</button>
       </from>
     </div>
   );
