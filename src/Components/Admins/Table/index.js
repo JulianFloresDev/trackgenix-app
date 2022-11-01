@@ -1,10 +1,10 @@
 import Modal from '../Modal';
 
-const table = ({ list, selectEdit, deleteAdmin, setShow, setShowModal, showModal, closeModal }) => {
+const table = ({ list, selectEdit, deleteAdmin, setShow, showModal, closeModal, modalSuccess }) => {
   return (
     <table>
       <thead>
-        <Modal showModal={showModal} closeModal={closeModal} />
+        <Modal showModal={showModal} closeModal={closeModal} modalSuccess={modalSuccess} />
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
@@ -26,14 +26,7 @@ const table = ({ list, selectEdit, deleteAdmin, setShow, setShowModal, showModal
               <td>{admin.location}</td>
               <td>
                 <button onClick={() => selectEdit(admin._id)}>Edit</button>
-                <button
-                  onClick={() => {
-                    deleteAdmin(admin._id);
-                    setShowModal(true);
-                  }}
-                >
-                  Delete
-                </button>
+                <button onClick={() => deleteAdmin(admin._id)}>Delete</button>
               </td>
             </tr>
           );

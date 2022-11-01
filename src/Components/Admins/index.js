@@ -9,6 +9,7 @@ function Admins() {
   const [show, setShow] = useState(1);
   const [toEdit, setToEdit] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState({ type: 'None', error: false });
 
   useEffect(async () => {
     try {
@@ -56,10 +57,14 @@ function Admins() {
 
     const updatedAdmins = Admins.filter((admin) => admin._id !== id);
     saveAdmins(updatedAdmins);
+
+    setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
+    setModalSuccess.type('None');
+    setModalSuccess.error(false);
   };
 
   return (
@@ -71,15 +76,28 @@ function Admins() {
           deleteAdmin={deleteAdmin}
           setShow={setShow}
           showModal={showModal}
-          setShowModal={setShowModal}
           closeModal={closeModal}
+          modalSuccess={modalSuccess}
         />
       )}
       {show === 2 && (
-        <Edit editAdmin={editAdmin} toEdit={toEdit} showModal={showModal} closeModal={closeModal} />
+        <Edit
+          editAdmin={editAdmin}
+          toEdit={toEdit}
+          setShow={setShow}
+          showModal={showModal}
+          closeModal={closeModal}
+          modalSuccess={modalSuccess}
+        />
       )}
       {show === 3 && (
-        <Create createAdmin={createAdmin} showModal={showModal} closeModal={closeModal} />
+        <Create
+          createAdmin={createAdmin}
+          setShow={setShow}
+          showModal={showModal}
+          closeModal={closeModal}
+          modalSuccess={modalSuccess}
+        />
       )}
     </section>
   );
