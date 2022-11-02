@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import styles from './employees.module.css';
 import Table from './Table';
 import Input from './Input';
-import EditEmployeeModal from './Edit';
-import CreateEmployee from './Create';
+// import EditEmployeeModal from './Edit';
+import Form from './Form';
 
 function Employees() {
   const [employees, saveEmployees] = useState([]);
@@ -44,11 +44,12 @@ function Employees() {
   };
 
   const renderEmployeePage = (n) => {
+    getAllEmployees();
     renderPage(n);
   };
 
   const filterEmployeeToEdit = (id) => {
-    setEmployeeToEdit(employees.filter((employee) => employee._id === id)[0] || {});
+    setEmployeeToEdit(employees.find((employee) => employee._id === id) || {});
   };
   return (
     <section className={styles.container}>
@@ -65,18 +66,32 @@ function Employees() {
         />
       )}
       {page === 1 && (
-        <CreateEmployee
+        <Form
           render={renderEmployeePage}
+          employee={{
+            _id: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            phone: '',
+            dni: '',
+            location: ''
+          }}
           modalState={modalState}
           setModalState={setModalState}
+          METHOD={'POST'}
+          buttonMsg={'Create'}
         />
       )}
       {page === 2 && (
-        <EditEmployeeModal
+        <Form
           render={renderEmployeePage}
           employee={employeeToEdit}
           modalState={modalState}
           setModalState={setModalState}
+          METHOD={'PUT'}
+          buttonMsg={'Update'}
         />
       )}
     </section>

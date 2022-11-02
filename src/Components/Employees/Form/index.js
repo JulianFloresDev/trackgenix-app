@@ -1,9 +1,10 @@
-// import Modal from '../Modal';
 import { useState } from 'react';
-import styles from './edit.module.css';
+import styles from './create.module.css';
+import Modal from '../Modal';
 
-const EditEmployeeModal = ({ render, employee }) => {
-  const [employeeToEdit, changeEmployeeEdited] = useState({
+const CreateNewEmployee = ({ render, modalState, setModalState, employee, METHOD, buttonMsg }) => {
+  const [modalData, setModalData] = useState({});
+  const [employeeToDB, setEmployee] = useState({
     firstName: employee.firstName,
     lastName: employee.lastName,
     email: employee.email,
@@ -13,14 +14,14 @@ const EditEmployeeModal = ({ render, employee }) => {
     password: employee.password
   });
 
-  const editOnDB = async (id) => {
+  const editOnDB = async () => {
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
-        method: 'PUT',
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/employees/${employee._id}`, {
+        method: METHOD,
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...employeeToEdit })
+        body: JSON.stringify({ ...employeeToDB })
       });
       const response = await request.json();
       openAlert(response);
@@ -30,18 +31,21 @@ const EditEmployeeModal = ({ render, employee }) => {
   };
 
   const openAlert = (res) => {
-    console.log(res);
-    render(0); // inside modal
+    setModalData(res);
+    setModalState(true);
+    // render(0); // inside modal
   };
 
   return (
     <section name="editForm" className={styles.section}>
-      {/* <Modal
-        modalState={modalState}
-        closeAlert={closeAlert}
-        editEmployee={editEmployee}
-        employee={employee}
-      /> */}
+      {modalState && (
+        <Modal
+          modalState={modalState}
+          setModalState={setModalState}
+          modalData={modalData}
+          render={render}
+        />
+      )}
       <form className={styles.form}>
         <div className={styles.container}>
           <div className={styles.item}>
@@ -50,10 +54,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="text"
               id="firstName"
               className={styles.input}
-              value={employeeToEdit.firstName}
-              onChange={(e) =>
-                changeEmployeeEdited({ ...employeeToEdit, firstName: e.target.value })
-              }
+              value={employeeToDB.firstName}
+              onChange={(e) => setEmployee({ ...employeeToDB, firstName: e.target.value })}
             />
           </div>
           <div className={styles.item}>
@@ -62,10 +64,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="text"
               id="lastName"
               className={styles.input}
-              value={employeeToEdit.lastName}
-              onChange={(e) =>
-                changeEmployeeEdited({ ...employeeToEdit, lastName: e.target.value })
-              }
+              value={employeeToDB.lastName}
+              onChange={(e) => setEmployee({ ...employeeToDB, lastName: e.target.value })}
             />
           </div>
           <div className={styles.item}>
@@ -74,8 +74,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="text"
               id="email"
               className={styles.input}
-              value={employeeToEdit.email}
-              onChange={(e) => changeEmployeeEdited({ ...employeeToEdit, email: e.target.value })}
+              value={employeeToDB.email}
+              onChange={(e) => setEmployee({ ...employeeToDB, email: e.target.value })}
             />
           </div>
           <div className={styles.item}>
@@ -84,8 +84,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="text"
               id="dni"
               className={styles.input}
-              value={employeeToEdit.dni}
-              onChange={(e) => changeEmployeeEdited({ ...employeeToEdit, dni: e.target.value })}
+              value={employeeToDB.dni}
+              onChange={(e) => setEmployee({ ...employeeToDB, dni: e.target.value })}
             />
           </div>
           <div className={styles.item}>
@@ -94,8 +94,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="text"
               id="phone"
               className={styles.input}
-              value={employeeToEdit.phone}
-              onChange={(e) => changeEmployeeEdited({ ...employeeToEdit, phone: e.target.value })}
+              value={employeeToDB.phone}
+              onChange={(e) => setEmployee({ ...employeeToDB, phone: e.target.value })}
             />
           </div>
           <div className={styles.item}>
@@ -104,10 +104,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="text"
               id="address"
               className={styles.input}
-              value={employeeToEdit.location}
-              onChange={(e) =>
-                changeEmployeeEdited({ ...employeeToEdit, location: e.target.value })
-              }
+              value={employeeToDB.location}
+              onChange={(e) => setEmployee({ ...employeeToDB, location: e.target.value })}
             />
           </div>
           <div className={styles.item}>
@@ -116,10 +114,8 @@ const EditEmployeeModal = ({ render, employee }) => {
               type="password"
               id="password"
               className={styles.input}
-              value={employeeToEdit.password}
-              onChange={(e) =>
-                changeEmployeeEdited({ ...employeeToEdit, password: e.target.value })
-              }
+              value={employeeToDB.password}
+              onChange={(e) => setEmployee({ ...employeeToDB, password: e.target.value })}
             />
           </div>
           <div className={styles.buttons}>
@@ -127,16 +123,18 @@ const EditEmployeeModal = ({ render, employee }) => {
               className={styles.editBtn}
               onClick={(e) => {
                 e.preventDefault();
-                editOnDB(employee._id);
+                editOnDB();
               }}
             >
-              Edit
+              {buttonMsg}
             </button>
             <button
               className={styles.closeBtn}
               onClick={(e) => {
                 e.preventDefault();
                 render(0);
+                // changeState(!modalState);
+                // closeModal();
               }}
             >
               Close
@@ -148,4 +146,4 @@ const EditEmployeeModal = ({ render, employee }) => {
   );
 };
 
-export default EditEmployeeModal;
+export default CreateNewEmployee;

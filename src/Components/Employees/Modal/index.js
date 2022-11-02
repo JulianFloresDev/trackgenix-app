@@ -1,6 +1,6 @@
 import styles from './modal.module.css';
 
-const Modal = ({ modalState, setModalState, action }) => {
+const Modal = ({ modalState, setModalState, render }) => {
   if (!modalState) {
     return null;
   }
@@ -15,7 +15,8 @@ const Modal = ({ modalState, setModalState, action }) => {
             className={styles.button}
             onClick={() => {
               setModalState(false);
-              action();
+              render(0);
+              // action();
               // editEmployee({
               //   _id: employee._id,
               //   firstName: inputName,
