@@ -37,6 +37,10 @@ You will also see any lint errors in the console.
 <img src="https://avatars.githubusercontent.com/u/96196361?v=4" height="50" width="50">| Julian Flores | julianfloresdev@gmail.com | [@julianfloresdev](<https://github.com/JulianFloresDev>)
 <img src="https://avatars.githubusercontent.com/u/109431369?v=4" height="50" width="50">| Jorgelina Yapur | jorgelinayapur1994@gmail.com | [@jorgelinayapur](<https://github.com/joryapur>)
 <img src="https://avatars.githubusercontent.com/u/100850660?v=4" height="50" width="50">| Matias Paz Conti | matiaspazconti2020@gmail.com | [@matiaspazconti](<https://github.com/MatiasPazConti>)
+<img src="https://avatars.githubusercontent.com/u/111021814?v=4" height="50" width="50">| Ana Paula Ibaceta | [@anapaulib](<https://github.com/anapaulib>)
+<img src="https://avatars.githubusercontent.com/u/105654197?v=4" height="50" width="50">| Agustin Gatto Montautti |
+[@agusgatto8](<https://github.com/agusgatto8>)
+<img src="https://avatars.githubusercontent.com/u/111021329?v=4" height="50" width="50">| Luis Queffelec | [@LuisQueff](<https://github.com/LuisQueff>)
 
 <br>
 
