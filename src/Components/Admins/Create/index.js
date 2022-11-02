@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Modal from '../Modal';
 
-const adminCreate = ({ createAdmin, setShow, showModal, closeModal, modalSuccess }) => {
+const adminCreate = ({ createAdmin, setShow, showModal, closeModal, modalResponse }) => {
   const [firstName, saveFirstName] = useState();
   const [lastName, saveLastName] = useState();
   const [email, saveEmail] = useState();
@@ -12,7 +12,7 @@ const adminCreate = ({ createAdmin, setShow, showModal, closeModal, modalSuccess
 
   return (
     <div>
-      <Modal showModal={showModal} closeModal={closeModal} modalSuccess={modalSuccess} />
+      <Modal showModal={showModal} closeModal={closeModal} modalResponse={modalResponse} />
       <from>
         <div>
           <label>First Name</label>

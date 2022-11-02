@@ -1,10 +1,18 @@
 import Modal from '../Modal';
 
-const table = ({ list, selectEdit, deleteAdmin, setShow, showModal, closeModal, modalSuccess }) => {
+const table = ({
+  list,
+  selectEdit,
+  deleteAdmin,
+  setShow,
+  showModal,
+  closeModal,
+  modalResponse
+}) => {
   return (
     <table>
       <thead>
-        <Modal showModal={showModal} closeModal={closeModal} modalSuccess={modalSuccess} />
+        <Modal showModal={showModal} closeModal={closeModal} modalResponse={modalResponse} />
         <tr>
           <th>First Name</th>
           <th>Last Name</th>

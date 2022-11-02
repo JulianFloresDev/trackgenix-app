@@ -9,7 +9,10 @@ function Admins() {
   const [show, setShow] = useState(1);
   const [toEdit, setToEdit] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const [modalSuccess, setModalSuccess] = useState({ type: 'None', error: false });
+  const [modalResponse, setModalResponse] = useState({
+    modalTittle: 'Empty Modal!',
+    modalMessage: undefined
+  });
 
   useEffect(async () => {
     try {
@@ -22,14 +25,34 @@ function Admins() {
   }, [show, showModal]);
 
   const createAdmin = async (newData) => {
-    await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/Json'
-      },
-      body: JSON.stringify(newData)
-    });
-    setShowModal(true);
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/Json'
+        },
+        body: JSON.stringify(newData)
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          console.log(responseJSON);
+          if (!responseJSON.error) {
+            setModalResponse({
+              modalTittle: 'Successful create!',
+              modalMessage: responseJSON.message.toString()
+            });
+          } else {
+            setModalResponse({
+              modalTittle: 'ERROR!',
+              modalMessage: responseJSON.message[0].message.toString()
+            });
+          }
+          setShowModal(true);
+        });
+    } catch (error) {
+      setShowModal(true);
+      console.error(error);
+    }
     setShow(1);
   };
 
@@ -39,32 +62,69 @@ function Admins() {
   };
 
   const editAdmin = async (id, newData) => {
-    await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/Json'
-      },
-      body: JSON.stringify(newData)
-    });
-    setShowModal(true);
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/Json'
+        },
+        body: JSON.stringify(newData)
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          console.log(responseJSON);
+          if (!responseJSON.error) {
+            setModalResponse({
+              modalTittle: 'Successful edit!',
+              modalMessage: responseJSON.message.toString()
+            });
+          } else {
+            setModalResponse({
+              modalTittle: 'ERROR!',
+              modalMessage: responseJSON.message[0].message.toString()
+            });
+          }
+          setShowModal(true);
+        });
+    } catch (error) {
+      setShowModal(true);
+      console.error(error);
+    }
     setShow(1);
   };
 
   const deleteAdmin = async (id) => {
-    await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
-      method: 'DELETE'
-    });
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
+        method: 'DELETE'
+      }).then((response) => {
+        console.log(response);
+        if (response.status === 204) {
+          setModalResponse({
+            modalTittle: 'Successful delete!',
+            modalMessage: 'The admin was deleted successfully'
+          });
+        } else {
+          setModalResponse({
+            modalTittle: 'ERROR!',
+            modalMessage: 'There was an error deleting the admin'
+          });
+        }
+      });
 
-    const updatedAdmins = Admins.filter((admin) => admin._id !== id);
-    saveAdmins(updatedAdmins);
+      const updatedAdmins = Admins.filter((admin) => admin._id !== id);
+      saveAdmins(updatedAdmins);
 
-    setShowModal(true);
+      setShowModal(true);
+    } catch (error) {
+      setShowModal(true);
+      console.error(error);
+    }
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setModalSuccess.type('None');
-    setModalSuccess.error(false);
+    setModalResponse({ modalTittle: 'Empty Modal!', modalMessage: undefined });
   };
 
   return (
@@ -77,7 +137,7 @@ function Admins() {
           setShow={setShow}
           showModal={showModal}
           closeModal={closeModal}
-          modalSuccess={modalSuccess}
+          modalResponse={modalResponse}
         />
       )}
       {show === 2 && (
@@ -87,7 +147,7 @@ function Admins() {
           setShow={setShow}
           showModal={showModal}
           closeModal={closeModal}
-          modalSuccess={modalSuccess}
+          modalResponse={modalResponse}
         />
       )}
       {show === 3 && (
@@ -96,7 +156,7 @@ function Admins() {
           setShow={setShow}
           showModal={showModal}
           closeModal={closeModal}
-          modalSuccess={modalSuccess}
+          modalResponse={modalResponse}
         />
       )}
     </section>
