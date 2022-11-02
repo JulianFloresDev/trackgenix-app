@@ -33,7 +33,6 @@ const CreateNewEmployee = ({ render, modalState, setModalState, employee, METHOD
   const openAlert = (res) => {
     setModalData(res);
     setModalState(true);
-    // render(0); // inside modal
   };
 
   return (

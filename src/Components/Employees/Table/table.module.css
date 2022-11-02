@@ -19,14 +19,14 @@
 }
 
 .header > th {
-  flex: 1 1 20%;
+  flex: 1 1 25%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .header > th.createBtn {
-  flex: 1 1 12%;
+  flex: 1 1 20%;
   padding: 5px 10px;
   border: 1px solid black;
   border-radius: 10px;
@@ -46,7 +46,7 @@
 }
 
 .row {
-  flex: 1 1 20%;
+  flex: 1 1 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -61,16 +61,17 @@
 }
 
 .row > td {
+  flex: 1 1 15%;
   display: flex;
   justify-content: space-around;
-  gap: 15px;
-  width: 100%;
+  /* gap: 15px; */
+  /* width: 100%; */
 }
 
 .row > td.buttons {
   flex: 1 1 10%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
   padding: 0 10px;

@@ -41,6 +41,7 @@ function Employees() {
       method: 'DELETE'
     });
     saveEmployees(employees.filter((employee) => employee._id !== id));
+    saveFilteredEmployees(employees.filter((employee) => employee._id !== id));
   };
 
   const renderEmployeePage = (n) => {
