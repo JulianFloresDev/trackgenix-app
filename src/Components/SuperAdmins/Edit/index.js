@@ -24,26 +24,28 @@ const SuperAdminsEdit = ({
 
   const editSuperAdmin = async (id) => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(superAdminEdited)
-      });
-      const response = await res.json();
-      console.log('response', response);
-      if (response.error === false) {
-        setModalTitle('Success');
-        setModalMessage(response.message.toString());
-      } else {
-        setModalTitle('Error');
-        setModalMessage(response.message[0].message);
-      }
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.error === false) {
+            setModalTitle('Success');
+            setModalMessage(res.message.toString());
+          } else {
+            setModalTitle('Error');
+            setModalMessage(res.message[0].message);
+          }
+          setShowModal(true);
+        });
     } catch (error) {
+      console.log('error', error.message);
       console.error(error);
     }
-    setShowModal(true);
   };
 
   return (

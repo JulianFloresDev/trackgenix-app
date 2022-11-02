@@ -25,22 +25,20 @@ function SuperAdmins() {
 
   const deleteSuperAdmin = async (id) => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
+      await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+        method: 'DELETE'
+      }).then((res) => {
+        if (res.status === 204) {
+          setModalTitle('Super Admin Deleted');
+          setModalMessage('The Super Admin was deleted successfully');
+          setShowModal(true);
+        } else {
+          setModalTitle('Error');
+          setModalMessage('There was an error deleting the Super Admin');
+          setShowModal(true);
         }
+        setShow(1);
       });
-      if (res.status === 204) {
-        setModalTitle('Super Admin Deleted');
-        setModalMessage('The Super Admin was deleted successfully');
-        setShowModal(true);
-      } else {
-        setModalTitle('Error');
-        setModalMessage('There was an error deleting the Super Admin');
-        setShowModal(true);
-      }
-      setShow(1);
     } catch (error) {
       console.error(error);
     }

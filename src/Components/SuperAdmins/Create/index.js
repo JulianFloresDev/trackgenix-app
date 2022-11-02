@@ -11,36 +11,47 @@ const SuperAdminsCreate = ({
   modalTitle,
   modalMessage
 }) => {
-  const [superAdminCreated, setSuperAdminCreated] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    dni: '',
-    phone: '',
-    location: ''
-  });
+  const [firstName, saveFirstName] = useState();
+  const [lastName, saveLastName] = useState();
+  const [email, saveEmail] = useState();
+  const [password, savePassword] = useState();
+  const [dni, saveDni] = useState();
+  const [phone, savePhone] = useState();
+  const [location, saveLocation] = useState();
+  // const [superAdminCreated, setSuperAdminCreated] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   password: '',
+  //   dni: '',
+  //   phone: '',
+  //   location: ''
+  // });
+  // superAdminCreated.dni = superAdminCreated.dni.toString();
+  // superAdminCreated.phone = superAdminCreated.phone.toString();
 
   const createSuperAdmin = async (superAdmin) => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(superAdmin)
-      });
-      const response = await res.json();
-      console.log('response', response);
-      if (response.error === false) {
-        setModalTitle('Success');
-        setModalMessage(response.message);
-        setShowModal(true);
-      } else {
-        setModalTitle('Error');
-        setModalMessage(response.message[0].message);
-        setShowModal(true);
-      }
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('response', res);
+          if (res.error === false) {
+            setModalTitle('Success');
+            setModalMessage(res.message);
+            setShowModal(true);
+          } else {
+            setModalTitle('Error');
+            setModalMessage(res.message[0].message);
+            setShowModal(true);
+          }
+        });
     } catch (error) {
       console.log('error', error.message);
       console.error(error);
@@ -63,10 +74,7 @@ const SuperAdminsCreate = ({
             type="text"
             placeholder="add First Name"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                firstName: e.target.value
-              });
+              saveFirstName(e.target.value);
             }}
           />
         </div>
@@ -76,10 +84,7 @@ const SuperAdminsCreate = ({
             type="text"
             placeholder="add Last Name"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                lastName: e.target.value
-              });
+              saveLastName(e.target.value);
             }}
           />
         </div>
@@ -89,10 +94,7 @@ const SuperAdminsCreate = ({
             type="email"
             placeholder="add Email"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                email: e.target.value
-              });
+              saveEmail(e.target.value);
             }}
           />
         </div>
@@ -102,10 +104,7 @@ const SuperAdminsCreate = ({
             type="password"
             placeholder="add Password"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                password: e.target.value
-              });
+              savePassword(e.target.value);
             }}
           />
         </div>
@@ -115,10 +114,7 @@ const SuperAdminsCreate = ({
             type="text"
             placeholder="add dni"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                dni: e.target.value
-              });
+              saveDni(e.target.value);
             }}
           />
         </div>
@@ -128,10 +124,7 @@ const SuperAdminsCreate = ({
             type="text"
             placeholder="add Phone"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                phone: e.target.value
-              });
+              savePhone(e.target.value);
             }}
           />
         </div>
@@ -141,10 +134,7 @@ const SuperAdminsCreate = ({
             type="text"
             placeholder="add Location"
             onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminCreated,
-                location: e.target.value
-              });
+              saveLocation(e.target.value);
             }}
           />
         </div>
@@ -152,8 +142,16 @@ const SuperAdminsCreate = ({
           type="submit"
           value="Create"
           onClick={() => {
-            createSuperAdmin(superAdminCreated);
-            setShowModal(true);
+            const newData = {
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: password,
+              dni: dni.toString(),
+              phone: phone.toString(),
+              location: location
+            };
+            createSuperAdmin(newData);
           }}
         />
         <input type="submit" value="Close" onClick={() => changeShow()} />
