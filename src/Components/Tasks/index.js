@@ -71,10 +71,11 @@ const Tasks = () => {
     }
   };
 
+  //Add task
   const addTask = async (data) => {
     console.log(JSON.stringify(data));
     try {
-      const req = await fetch(`${process.env.REACT_APP_API_URL}/task`, {
+      const req = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
