@@ -40,7 +40,6 @@ const SuperAdminsEdit = ({
             setModalTitle('Error');
             setModalMessage(res.message[0].message);
           }
-          setShowModal(true);
         });
     } catch (error) {
       console.log('error', error.message);

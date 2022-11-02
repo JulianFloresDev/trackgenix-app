@@ -18,42 +18,27 @@ const SuperAdminsCreate = ({
   const [dni, saveDni] = useState();
   const [phone, savePhone] = useState();
   const [location, saveLocation] = useState();
-  // const [superAdminCreated, setSuperAdminCreated] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  //   dni: '',
-  //   phone: '',
-  //   location: ''
-  // });
-  // superAdminCreated.dni = superAdminCreated.dni.toString();
-  // superAdminCreated.phone = superAdminCreated.phone.toString();
 
   const createSuperAdmin = async (superAdmin) => {
     try {
       await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-type': 'application/json'
         },
         body: JSON.stringify(superAdmin)
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log('response', res);
           if (res.error === false) {
             setModalTitle('Success');
             setModalMessage(res.message);
-            setShowModal(true);
           } else {
             setModalTitle('Error');
             setModalMessage(res.message[0].message);
-            setShowModal(true);
           }
         });
     } catch (error) {
-      console.log('error', error.message);
       console.error(error);
     }
   };
@@ -139,7 +124,7 @@ const SuperAdminsCreate = ({
           />
         </div>
         <input
-          type="submit"
+          type="button"
           value="Create"
           onClick={() => {
             const newData = {
@@ -152,6 +137,7 @@ const SuperAdminsCreate = ({
               location: location
             };
             createSuperAdmin(newData);
+            setShowModal(true);
           }}
         />
         <input type="submit" value="Close" onClick={() => changeShow()} />
