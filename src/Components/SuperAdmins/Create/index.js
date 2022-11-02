@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Modal from '../Modal';
+import styles from './create.module.css';
 
 const SuperAdminsCreate = ({
   changeShow,
@@ -44,105 +45,132 @@ const SuperAdminsCreate = ({
   };
 
   return (
-    <div>
-      <h2>Create Super Admin</h2>
+    <section className={styles.section}>
       <Modal
         showModal={showModal}
         closeModal={closeModal}
         modalTitle={modalTitle}
         modalMessage={modalMessage}
       />
-      <form>
-        <div>
-          <label>First Name</label>
-          <input
-            type="text"
-            placeholder="add First Name"
-            onChange={(e) => {
-              saveFirstName(e.target.value);
-            }}
-          />
+      <form className={styles.form}>
+        <div className={styles.container}>
+          <div className={styles.item}>
+            <label htmlFor="FirstName">First Name</label>
+            <input
+              type="text"
+              id="FirstName"
+              className={styles.input}
+              placeholder="add First Name"
+              onChange={(e) => {
+                saveFirstName(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="LastName">Last Name</label>
+            <input
+              type="text"
+              id="LastName"
+              className={styles.input}
+              placeholder="add Last Name"
+              onChange={(e) => {
+                saveLastName(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="Email">Email</label>
+            <input
+              type="email"
+              id="Email"
+              className={styles.input}
+              placeholder="add Email"
+              onChange={(e) => {
+                saveEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="Password">Password</label>
+            <input
+              type="password"
+              id="Password"
+              className={styles.input}
+              placeholder="add Password"
+              onChange={(e) => {
+                savePassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="Dni">Dni</label>
+            <input
+              type="text"
+              id="Dni"
+              className={styles.input}
+              placeholder="add dni"
+              onChange={(e) => {
+                saveDni(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="Phone">Phone</label>
+            <input
+              type="text"
+              id="Phone"
+              className={styles.input}
+              placeholder="add Phone"
+              onChange={(e) => {
+                savePhone(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="Location">Location</label>
+            <input
+              type="text"
+              id="Location"
+              className={styles.input}
+              placeholder="add Location"
+              onChange={(e) => {
+                saveLocation(e.target.value);
+              }}
+            />
+          </div>
+          <div className={styles.buttons}>
+            <button
+              className={styles.createBtn}
+              onClick={(e) => {
+                e.preventDefault();
+                const newData = {
+                  firstName: firstName,
+                  lastName: lastName,
+                  email: email,
+                  password: password,
+                  dni: dni.toString(),
+                  phone: phone.toString(),
+                  location: location
+                };
+                createSuperAdmin(newData);
+                setShowModal(true);
+              }}
+            >
+              Create New Super Admin
+            </button>
+            <button
+              className={styles.closeBtn}
+              onClick={(e) => {
+                e.preventDefault();
+                changeShow();
+              }}
+            >
+              Close
+            </button>
+          </div>
         </div>
-        <div>
-          <label>Last Name</label>
-          <input
-            type="text"
-            placeholder="add Last Name"
-            onChange={(e) => {
-              saveLastName(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="add Email"
-            onChange={(e) => {
-              saveEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="add Password"
-            onChange={(e) => {
-              savePassword(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label>dni</label>
-          <input
-            type="text"
-            placeholder="add dni"
-            onChange={(e) => {
-              saveDni(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label>Phone</label>
-          <input
-            type="text"
-            placeholder="add Phone"
-            onChange={(e) => {
-              savePhone(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label>Location</label>
-          <input
-            type="text"
-            placeholder="add Location"
-            onChange={(e) => {
-              saveLocation(e.target.value);
-            }}
-          />
-        </div>
-        <input
-          type="button"
-          value="Create"
-          onClick={() => {
-            const newData = {
-              firstName: firstName,
-              lastName: lastName,
-              email: email,
-              password: password,
-              dni: dni.toString(),
-              phone: phone.toString(),
-              location: location
-            };
-            createSuperAdmin(newData);
-            setShowModal(true);
-          }}
-        />
-        <input type="submit" value="Close" onClick={() => changeShow()} />
       </form>
-    </div>
+    </section>
   );
 };
 

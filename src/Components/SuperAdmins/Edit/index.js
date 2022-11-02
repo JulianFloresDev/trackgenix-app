@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Modal from '../Modal';
+import styles from './edit.module.css';
 
 const SuperAdminsEdit = ({
   SuperAdminsToEdit,
@@ -48,124 +49,151 @@ const SuperAdminsEdit = ({
   };
 
   return (
-    <div>
-      <h2>Super Admins Edit</h2>
+    <section className={styles.section}>
       <Modal
         showModal={showModal}
         closeModal={closeModal}
         modalTitle={modalTitle}
         modalMessage={modalMessage}
       />
-      <from>
-        <div>
-          <label>First Name</label>
-          <input
-            type="text"
-            placeholder="add First Name"
-            value={superAdminEdited.firstName}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                firstName: e.target.value
-              });
-            }}
-          />
+      <from className={styles.from}>
+        <div className={styles.container}>
+          <div className={styles.item}>
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              placeholder="add First Name"
+              id="firstName"
+              className={styles.input}
+              value={superAdminEdited.firstName}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  firstName: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              placeholder="add Last Name"
+              id="lastName"
+              className={styles.input}
+              value={superAdminEdited.lastName}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  lastName: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              placeholder="add Email"
+              id="email"
+              className={styles.input}
+              value={superAdminEdited.email}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  email: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              placeholder="add Password"
+              id="password"
+              className={styles.input}
+              value={superAdminEdited.password}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  password: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="dni">DNI</label>
+            <input
+              type="text"
+              placeholder="add dni"
+              id="dni"
+              className={styles.input}
+              value={superAdminEdited.dni}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  dni: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="phone">Phone</label>
+            <input
+              type="text"
+              placeholder="add Phone"
+              id="phone"
+              className={styles.input}
+              value={superAdminEdited.phone}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  phone: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.item}>
+            <label htmlFor="location">Location</label>
+            <input
+              type="text"
+              placeholder="add Location"
+              id="location"
+              className={styles.input}
+              value={superAdminEdited.location}
+              onChange={(e) => {
+                setSuperAdminCreated({
+                  ...superAdminEdited,
+                  location: e.target.value
+                });
+              }}
+            />
+          </div>
+          <div className={styles.buttons}>
+            <button
+              className={styles.editBtn}
+              onClick={(e) => {
+                e.preventDefault();
+                editSuperAdmin(SuperAdminsToEdit._id);
+                setShowModal(true);
+              }}
+            >
+              Save Changes
+            </button>
+            <button
+              className={styles.editBtn}
+              onClick={(e) => {
+                e.preventDefault();
+                changeShow();
+              }}
+            >
+              Close
+            </button>
+          </div>
         </div>
-        <div>
-          <label>Last Name</label>
-          <input
-            type="text"
-            placeholder="add Last Name"
-            value={superAdminEdited.lastName}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                lastName: e.target.value
-              });
-            }}
-          />
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="add Email"
-            value={superAdminEdited.email}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                email: e.target.value
-              });
-            }}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="add Password"
-            value={superAdminEdited.password}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                password: e.target.value
-              });
-            }}
-          />
-        </div>
-        <div>
-          <label>Dni</label>
-          <input
-            type="text"
-            placeholder="add dni"
-            value={superAdminEdited.dni}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                dni: e.target.value
-              });
-            }}
-          />
-        </div>
-        <div>
-          <label>Phone</label>
-          <input
-            type="text"
-            placeholder="add Phone"
-            value={superAdminEdited.phone}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                phone: e.target.value
-              });
-            }}
-          />
-        </div>
-        <div>
-          <label>Location</label>
-          <input
-            type="text"
-            placeholder="add Location"
-            value={superAdminEdited.location}
-            onChange={(e) => {
-              setSuperAdminCreated({
-                ...superAdminEdited,
-                location: e.target.value
-              });
-            }}
-          />
-        </div>
-        <input
-          type="submit"
-          value="Save"
-          onClick={() => {
-            editSuperAdmin(SuperAdminsToEdit._id);
-            setShowModal(true);
-          }}
-        />
-        <button onClick={() => changeShow()}>Close</button>
       </from>
-    </div>
+    </section>
   );
 };
 

@@ -1,4 +1,5 @@
 import Modal from '../Modal';
+import styles from './table.module.css';
 
 const SuperAdminsTable = ({
   list,
@@ -21,10 +22,11 @@ const SuperAdminsTable = ({
         modalTitle={modalTitle}
         modalMessage={modalMessage}
       />
-      <table>
+      <table className={styles.table}>
         <thead>
-          <tr>
+          <tr className={styles.header}>
             <th
+              className={styles.createBtn}
               onClick={() => {
                 setModalTitle = { setModalTitle };
                 setModalMessage = { setModalMessage };
@@ -34,7 +36,7 @@ const SuperAdminsTable = ({
               Create
             </th>
           </tr>
-          <tr>
+          <tr className={styles.header}>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -45,10 +47,10 @@ const SuperAdminsTable = ({
             <th>Update At</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={styles.tbody}>
           {list.map((superAdmin) => {
             return (
-              <tr key={superAdmin._id}>
+              <tr key={superAdmin._id} className={styles.row}>
                 <td>{superAdmin.firstName}</td>
                 <td>{superAdmin.lastName}</td>
                 <td>{superAdmin.email}</td>
@@ -57,8 +59,9 @@ const SuperAdminsTable = ({
                 <td>{superAdmin.location}</td>
                 <td>{superAdmin.createdAt.substring(0, 10)}</td>
                 <td>{superAdmin.updatedAt.substring(0, 10)}</td>
-                <td>
+                <td className={styles.buttons}>
                   <button
+                    className={styles.editBtn}
                     onClick={() => {
                       filter(superAdmin._id);
                       setShow(2);
@@ -67,6 +70,7 @@ const SuperAdminsTable = ({
                     Edit
                   </button>
                   <button
+                    className={styles.deleteBtn}
                     onClick={() => {
                       deleteSA(superAdmin._id);
                       setShowModal(true);

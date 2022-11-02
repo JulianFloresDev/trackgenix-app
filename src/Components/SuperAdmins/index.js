@@ -58,7 +58,9 @@ function SuperAdmins() {
 
   return (
     <section className={styles.container}>
-      <h2>Super Admins</h2>
+      <div className={styles.header}>
+        <h2 className={styles.item}>Super Admins</h2>
+      </div>
       {show === 1 && (
         <SuperAdminsTable
           list={SuperAdmins}

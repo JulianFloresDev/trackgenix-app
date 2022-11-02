@@ -9,7 +9,11 @@ function Modal({ showModal, closeModal, modalTitle, modalMessage }) {
       <div className={styles.modal}>
         <h2>{modalTitle}</h2>
         <p>{modalMessage}</p>
-        <button onClick={closeModal}>Close</button>
+        <div className={styles.buttons}>
+          <button className={styles.button} onClick={closeModal}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
