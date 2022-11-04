@@ -16,12 +16,11 @@ const Tasks = () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
       const data = await response.json();
       setTasksList(data.data);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
   }, [modifyModalControl]);
 
-  // Delete Task
   const deleteTask = async (id) => {
     try {
       await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
@@ -31,22 +30,19 @@ const Tasks = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
       setTasksList([...tasksList.filter((item) => item._id !== id)]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  // Show edit modal
   const showModifyModal = (id) => {
     setModifyModalControl({ id: id, modal: true });
   };
 
-  // Hide edit modal
   const hideModifyModal = () => {
     setModifyModalControl({ id: '', modal: false });
     setErrorMessage('');
   };
 
-  // Edit task
   const editTask = async (data) => {
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${modifyModalControl.id}`, {
@@ -67,13 +63,11 @@ const Tasks = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
       hideModifyModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  //Add task
   const addTask = async (data) => {
-    console.log(JSON.stringify(data));
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
         method: 'POST',
@@ -93,7 +87,7 @@ const Tasks = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
       hideModifyModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
