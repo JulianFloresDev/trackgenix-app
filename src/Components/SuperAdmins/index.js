@@ -3,7 +3,6 @@ import styles from './super-admins.module.css';
 import SuperAdminsTable from './Table';
 import SuperAdminsEdit from './Edit';
 import SuperAdminsCreate from './Create';
-//import Modal from './Modal';
 
 function SuperAdmins() {
   const [SuperAdmins, saveSuperAdmins] = useState([]);
