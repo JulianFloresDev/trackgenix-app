@@ -16,12 +16,11 @@ const TimeSheets = () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets`);
       const data = await response.json();
       setTimesheetList(data.data);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
   }, [modifyModalControl]);
 
-  // Delete Timesheet
   const deleteTimesheet = async (id) => {
     try {
       await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
@@ -31,22 +30,19 @@ const TimeSheets = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
       setTimesheetList([...timesheetList.filter((item) => item._id !== id)]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  // Show edit modal
   const showModifyModal = (id) => {
     setModifyModalControl({ id: id, modal: true });
   };
 
-  // Hide edit modal
   const hideModifyModal = () => {
     setModifyModalControl({ id: '', modal: false });
     setErrorMessage('');
   };
 
-  // Edit timesheet
   const editTimesheet = async (data) => {
     try {
       const req = await fetch(
@@ -70,12 +66,11 @@ const TimeSheets = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
       hideModifyModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const addTimesheet = async (data) => {
-    console.log(JSON.stringify(data));
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets`, {
         method: 'POST',
@@ -95,7 +90,7 @@ const TimeSheets = () => {
       setTimeout(() => setSuccessMessage(''), 2000);
       hideModifyModal();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
