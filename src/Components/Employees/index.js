@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import styles from './employees.module.css';
 import Table from './Table';
 import Input from './Input';
-// import EditEmployeeModal from './Edit';
 import Form from './Form';
 
 function Employees() {
@@ -21,7 +20,7 @@ function Employees() {
           saveFilteredEmployees(response.data || []);
         });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(getAllEmployees, [page]);
