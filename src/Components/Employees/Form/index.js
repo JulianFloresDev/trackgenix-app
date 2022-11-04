@@ -132,8 +132,6 @@ const CreateNewEmployee = ({ render, modalState, setModalState, employee, METHOD
               onClick={(e) => {
                 e.preventDefault();
                 render(0);
-                // changeState(!modalState);
-                // closeModal();
               }}
             >
               Close
