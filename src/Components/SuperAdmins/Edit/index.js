@@ -44,7 +44,6 @@ const SuperAdminsEdit = ({
         });
     } catch (error) {
       console.log('error', error.message);
-      console.error(error);
     }
   };
 
