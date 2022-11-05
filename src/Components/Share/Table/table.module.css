@@ -1,0 +1,60 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 80%;
+  margin: 50px auto;
+}
+
+.table>thead>tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  text-transform: capitalize;
+  letter-spacing: 3px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.table>thead>tr>td {
+  flex: 1 1 30%;
+  justify-content: center;
+  align-items: center;
+}
+.table>thead>tr>td:nth-l(){
+  flex: 1 1 10%;
+}
+.table>tbody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.table>tbody>tr {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.table>tbody>tr>td {
+  flex: 1 1 30%;
+  display: flex;
+  align-items: center;
+}
+
+.table>tbody>tr>td>select {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  contain: strict;
+}
+
+.table>tbody>tr>td.buttonsContainer {
+  flex-basis: 10%;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
