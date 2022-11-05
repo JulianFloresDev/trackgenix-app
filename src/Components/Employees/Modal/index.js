@@ -1,6 +1,6 @@
 import styles from './modal.module.css';
 
-const Modal = ({ modalData, modalState, setModalState, render }) => {
+const Modal = ({ modalData, modalState, setModalState, render, METHOD }) => {
   console.log(modalData.message);
   if (!modalState) {
     return null;
@@ -11,18 +11,22 @@ const Modal = ({ modalData, modalState, setModalState, render }) => {
     }
     setModalState(false);
   };
+  const finalSuccessMessage = () => {
+    if (METHOD === 'POST') {
+      return <li>Employee Created Successfully!!</li>;
+    }
+    return <li>Employee Edited Correctly!</li>;
+  };
   return (
     <div className={styles.container}>
       <div className={styles.modal}>
         <h3>Modal</h3>
         <ul>
-          {typeof modalData.message !== 'string' ? (
-            modalData.message.map((errors) => {
-              return <li key={errors.indexOf}>{errors.message}</li>;
-            })
-          ) : (
-            <li>{modalData.message.slice(0, -32)}</li>
-          )}
+          {Array.isArray(modalData.message)
+            ? modalData.message.map((errors) => {
+                return <li key={errors.indexOf}>{errors.message}</li>;
+              })
+            : finalSuccessMessage()}
         </ul>
         <div>
           <button
@@ -34,9 +38,6 @@ const Modal = ({ modalData, modalState, setModalState, render }) => {
           >
             Close
           </button>
-          {/* <button type="button" className={styles.button} onClick={() => setModalState(false)}>
-            Reject
-          </button> */}
         </div>
       </div>
     </div>

@@ -43,6 +43,7 @@ const CreateNewEmployee = ({ render, modalState, setModalState, employee, METHOD
           setModalState={setModalState}
           modalData={modalData}
           render={render}
+          METHOD={METHOD}
         />
       )}
       <form className={styles.form}>
