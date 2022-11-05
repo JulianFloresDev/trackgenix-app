@@ -1,3 +1,11 @@
+.tableContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 10%;
+  justify-content: flex-end;
+}
+
 .table {
   display: flex;
   flex-direction: column;
@@ -6,7 +14,7 @@
   margin: 50px auto;
 }
 
-.table>thead>tr {
+.table>thead>th {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,19 +23,26 @@
   letter-spacing: 3px;
   font-size: 18px;
   font-weight: 600;
+  background-color: #3738671a;
+  box-shadow: inset 0px -1px 0px #E0E0E0;
+  border-radius: 15px;
 }
+
 .table>thead>tr>td {
   flex: 1 1 30%;
   justify-content: center;
   align-items: center;
 }
-.table>thead>tr>td:nth-l(){
+
+.table>thead>tr>td:nth-l() {
   flex: 1 1 10%;
 }
+
 .table>tbody {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 15px;
 }
 

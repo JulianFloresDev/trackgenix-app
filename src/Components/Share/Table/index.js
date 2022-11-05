@@ -4,11 +4,11 @@ const Table = (props) => {
   return (
     <table className={styles.table}>
       <thead>
-        <tr>
+        <th>
           {props.headers.map((header, index) => {
             return <td key={index}>{header}</td>;
           })}
-        </tr>
+        </th>
       </thead>
       <tbody>
         {props.data.map((element) => {
