@@ -29,14 +29,15 @@
 }
 
 .table>thead>tr>td {
-  flex: 1 1 30%;
+  flex: 1 1 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.table>thead>tr>td:nth-l() {
-  flex: 1 1 10%;
-}
+/* .table>thead>tr>td:last-child{
+  flex: 1 1 15%;
+} */
 
 .table>tbody {
   display: flex;
@@ -58,6 +59,7 @@
 .table>tbody>tr>td {
   flex: 1 1 30%;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -74,7 +76,8 @@
   gap: 2%;
   justify-content: flex-end;
 }
-.table>tbody>tr>td.buttonsContainer >button {
+
+.table>tbody>tr>td.buttonsContainer>button {
   padding: 8px 25px;
   font-size: 16px;
   font-weight: 600;

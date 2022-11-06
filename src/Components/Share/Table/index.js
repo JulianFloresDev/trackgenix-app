@@ -1,12 +1,13 @@
-import { useState } from 'react';
 import styles from './table.module.css';
-import TableHeader from '../TableHeader';
-const Table = ({ headers, data }) => {
-  const [itemList, setItemList] = useState([]);
+import { useHistory } from 'react-router-dom';
+const Table = ({ headers, data, entitie }) => {
+  const history = useHistory();
+  const deleteRow = () => {
+    console.log('borrado papu');
+  };
   return (
     <>
       <div className={styles.container}>
-        <TableHeader list={itemList} setItemList={setItemList} />
         <table className={styles.table}>
           <thead>
             <tr>
@@ -17,22 +18,25 @@ const Table = ({ headers, data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((element) => {
-              console.log(element);
+            {data.map((row) => {
               return (
-                <tr key={element._id}>
+                <tr key={row._id}>
                   {headers.map((header, index) => {
-                    if (typeof element[header] === 'string') {
-                      if (element[header].includes('date')) {
-                        element[header].substring(10);
+                    if (typeof row[header] === 'string') {
+                      if (
+                        header.includes('Date') ||
+                        header.includes('atedAt') ||
+                        header.includes('date')
+                      ) {
+                        row[header] = row[header].substring(0, 10);
                       }
-                      return <td key={index}>{element[header]}</td>;
+                      return <td key={index}>{row[header]}</td>;
                     }
-                    if (Array.isArray(element[header])) {
+                    if (Array.isArray(row[header])) {
                       return (
                         <td key={index}>
                           <select>
-                            {element[header].map((item) => {
+                            {row[header].map((item) => {
                               if (item.employee !== null) {
                                 return (
                                   <option key={item._id}>
@@ -58,8 +62,15 @@ const Table = ({ headers, data }) => {
                     );
                   })}
                   <td className={styles.buttonsContainer}>
-                    <button className={styles.editBtn}>Edit</button>
-                    <button className={styles.closeBtn}>X</button>
+                    <button
+                      className={styles.editBtn}
+                      onClick={() => history.push(`/${entitie}/form/${row._id}`)}
+                    >
+                      Edit
+                    </button>
+                    <button className={styles.closeBtn} onClick={deleteRow}>
+                      X
+                    </button>
                   </td>
                 </tr>
               );
