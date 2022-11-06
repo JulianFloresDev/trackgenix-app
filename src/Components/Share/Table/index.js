@@ -1,6 +1,5 @@
 import styles from './table.module.css';
 const Table = (props) => {
-  console.log(props.data);
   return (
     <table className={styles.table}>
       <thead>
@@ -26,10 +25,19 @@ const Table = (props) => {
                     <td key={index}>
                       <select>
                         {element[header].map((item) => {
+                          const itemKeys = Object.entries(item);
+                          console.log(itemKeys);
+                          if (item !== null) {
+                            return (
+                              <option key={item._id}>
+                                {/* {item.employee.firstName} {item.employee.lastName} {item.role}{' '} */}
+                                {item.rate}
+                              </option>
+                            );
+                          }
                           return (
-                            <option key={item._id}>
-                              {item.employee.firstName} {item.employee.lastName} {item.role}{' '}
-                              {item.rate}
+                            <option key={item._id} className={styles.optionInvalid}>
+                              Element Not Found!
                             </option>
                           );
                         })}
@@ -39,8 +47,8 @@ const Table = (props) => {
                 }
               })}
               <td className={styles.buttonsContainer}>
-                <button>Edit</button>
-                <button>X</button>
+                <button className={styles.editBtn}>Edit</button>
+                <button className={styles.closeBtn}>X</button>
               </td>
             </tr>
           );
