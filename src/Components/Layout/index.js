@@ -9,6 +9,7 @@ import Employees from '../Employees/index';
 import Projects from '../Projects';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
+import Form from '../Share/Form/index';
 
 function Layout() {
   return (
@@ -17,12 +18,13 @@ function Layout() {
         <Header />
         <Switch>
           <Route exact path={'/'} component={Home} />
-          <Route path={'/admins'} component={Admins} />
-          <Route path={'/super-admins'} component={SuperAdmins} />
-          <Route path={'/employees'} component={Employees} />
-          <Route path={'/projects'} component={Projects} />
-          <Route path={'/time-sheets'} component={TimeSheets} />
-          <Route path={'/tasks'} component={Tasks} />
+          <Route exact path={'/admins'} component={Admins} />
+          <Route exact path={'/super-admins'} component={SuperAdmins} />
+          <Route exact path={'/employees'} component={Employees} />
+          <Route exact path={'/projects'} component={Projects} />
+          <Route exact path={'/time-sheets'} component={TimeSheets} />
+          <Route exact path={'/tasks'} component={Tasks} />
+          <Route path={'/tasks/form/:id'} render={() => <Form />} />
         </Switch>
         <Footer />
       </div>
