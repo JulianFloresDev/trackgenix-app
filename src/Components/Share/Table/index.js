@@ -1,60 +1,73 @@
+import { useState } from 'react';
 import styles from './table.module.css';
-const Table = (props) => {
+import TableHeader from '../TableHeader';
+const Table = ({ headers, data }) => {
+  const [itemList, setItemList] = useState([]);
   return (
-    <table className={styles.table}>
-      <thead>
-        <th>
-          {props.headers.map((header, index) => {
-            return <td key={index}>{header}</td>;
-          })}
-        </th>
-      </thead>
-      <tbody>
-        {props.data.map((element) => {
-          return (
-            <tr key={element._id}>
-              {props.headers.map((header, index) => {
-                if (typeof element[header] === 'string') {
-                  if (element[header].includes('date')) {
-                    element[header].substring(10);
-                  }
-                  return <td key={index}>{element[header]}</td>;
-                }
-                if (Array.isArray(element[header])) {
-                  return (
-                    <td key={index}>
-                      <select>
-                        {element[header].map((item) => {
-                          const itemKeys = Object.entries(item);
-                          console.log(itemKeys);
-                          if (item !== null) {
-                            return (
-                              <option key={item._id}>
-                                {/* {item.employee.firstName} {item.employee.lastName} {item.role}{' '} */}
-                                {item.rate}
-                              </option>
-                            );
-                          }
-                          return (
-                            <option key={item._id} className={styles.optionInvalid}>
-                              Element Not Found!
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </td>
-                  );
-                }
+    <>
+      <div className={styles.container}>
+        <TableHeader list={itemList} setItemList={setItemList} />
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              {headers.map((header, index) => {
+                return <td key={index}>{header}</td>;
               })}
-              <td className={styles.buttonsContainer}>
-                <button className={styles.editBtn}>Edit</button>
-                <button className={styles.closeBtn}>X</button>
-              </td>
+              <td>Actions</td>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            {data.map((element) => {
+              console.log(element);
+              return (
+                <tr key={element._id}>
+                  {headers.map((header, index) => {
+                    if (typeof element[header] === 'string') {
+                      if (element[header].includes('date')) {
+                        element[header].substring(10);
+                      }
+                      return <td key={index}>{element[header]}</td>;
+                    }
+                    if (Array.isArray(element[header])) {
+                      return (
+                        <td key={index}>
+                          <select>
+                            {element[header].map((item) => {
+                              if (item.employee !== null) {
+                                return (
+                                  <option key={item._id}>
+                                    {item.employee.firstName} {item.employee.lastName} {item.role}{' '}
+                                    {item.rate}
+                                  </option>
+                                );
+                              }
+                              return (
+                                <option key={item._id} className={styles.optionInvalid}>
+                                  Employee Not Found!
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </td>
+                      );
+                    }
+                    return (
+                      <td key={index} className={styles.optionInvalid}>
+                        Element Not Found!
+                      </td>
+                    );
+                  })}
+                  <td className={styles.buttonsContainer}>
+                    <button className={styles.editBtn}>Edit</button>
+                    <button className={styles.closeBtn}>X</button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
