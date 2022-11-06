@@ -1,0 +1,28 @@
+.container{
+  display: flex;
+  border-radius: 8px;
+  color: white;
+}
+
+.container span{
+  padding: 5px;
+  border: 2px solid rgba(130, 149, 236, 0.5);
+  border-right: none;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  cursor: pointer;
+}
+
+.input,
+.input:focus,
+.input:focus-visible {
+  padding-left: 10px;
+  border: 2px solid rgba(130, 149, 236, 0.5);
+  border-left: none;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: transparent;
+  font-size: 18px;
+  outline: none;
+  color: black;
+}
