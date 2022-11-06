@@ -5,7 +5,7 @@ import styles from './tasks.module.css';
 function Tasks() {
   const [list, setList] = useState([]);
   useEffect(async () => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/task`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
     const data = await response.json();
     setList(data.data || []);
   }, []);

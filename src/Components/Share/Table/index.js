@@ -14,7 +14,9 @@ const Table = ({ headers, data, entitie }) => {
               {headers.map((header, index) => {
                 return <td key={index}>{header}</td>;
               })}
-              <td>Actions</td>
+              <td>
+                <button className={styles.addBtn}>Add new {entitie}</button>
+              </td>
             </tr>
           </thead>
           <tbody>
