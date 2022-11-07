@@ -1,15 +1,22 @@
 import styles from './table.module.css';
 import { useHistory } from 'react-router-dom';
-const Table = ({ headers, data }) => {
+// import Modal from '../Modal';
+const Table = ({ headers, data, setList }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  console.log(data);
   const deleteRow = () => {
+    setList([]);
     console.log('Open Modal Component');
+  };
+  const openListModal = (list) => {
+    console.log('Open Modal Component with employee List:', list);
   };
   return (
     <>
+      {/* <Modal updateList={updateList}>
+        <></>
+      </Modal> */}
       <div className={styles.container}>
         <table className={styles.table}>
           <thead>
@@ -18,7 +25,9 @@ const Table = ({ headers, data }) => {
                 return <td key={index}>{header}</td>;
               })}
               <td>
-                <button className={styles.addBtn}>Add new {entitie}</button>
+                <button className={styles.addBtn} onClick={() => history.push(`/${entitie}/form`)}>
+                  Add new {entitie}
+                </button>
               </td>
             </tr>
           </thead>
@@ -26,28 +35,43 @@ const Table = ({ headers, data }) => {
             {data.map((row) => {
               return (
                 <tr key={row._id}>
-                  {headers.map((header, index) => {
-                    if (typeof row[header] === 'string') {
-                      if (
-                        header.includes('Date') ||
-                        header.includes('atedAt') ||
-                        header.includes('date')
-                      ) {
-                        row[header] = row[header].substring(0, 10);
+                  {headers.map((property, index) => {
+                    if (typeof row[property] === 'boolean') {
+                      if (row[property]) {
+                        return <td key={index}>Active</td>;
+                      } else {
+                        return <td key={index}>Finish</td>;
                       }
-                      return <td key={index}>{row[header]}</td>;
                     }
-                    if (Array.isArray(row[header])) {
+                    if (typeof row[property] === 'string') {
+                      if (
+                        property.includes('Date') ||
+                        property.includes('atedAt') ||
+                        property.includes('date')
+                      ) {
+                        row[property] = row[property].substring(0, 10);
+                      }
+                      return <td key={index}>{row[property]}</td>;
+                    }
+                    if (Array.isArray(row[property])) {
                       return (
                         <td key={index}>
-                          <ul>
-                            {row[header].map((item) => {
+                          <button
+                            className={styles.showListBtn}
+                            onClick={() => openListModal(row[property])}
+                          >
+                            Show List
+                          </button>
+                          {/* <ul>
+                            {row[property].map((item) => {
+                              console.log(row[property]);
                               if (item.employee !== null) {
                                 return (
-                                  <li key={item._id}>
-                                    {item.employee.firstName} {item.employee.lastName} {item.role}{' '}
-                                    {item.rate}
-                                  </li>
+                                  <>
+                                    <li key={item._id}>
+                                      {item.employee.firstName} {item.employee.lastName}
+                                    </li>
+                                  </>
                                 );
                               }
                               return (
@@ -56,16 +80,16 @@ const Table = ({ headers, data }) => {
                                 </li>
                               );
                             })}
-                          </ul>
+                          </ul> */}
                         </td>
                       );
                     }
                     return (
                       <td key={index} className={styles.optionInvalid}>
-                        {row[header].description && row[header].description}
-                        {row[header].name && row[header].name}
-                        {row[header].firstName && row[header].firstName} {row[header].lastName}
-                        Element Not Found!
+                        {row[property].description && row[property].description}
+                        {row[property].name && row[property].name}
+                        {row[property].firstName && row[property].firstName}{' '}
+                        {row[property].lastName}
                       </td>
                     );
                   })}
