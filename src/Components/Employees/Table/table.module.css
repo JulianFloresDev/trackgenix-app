@@ -1,0 +1,103 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-bottom: 100px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: #142342
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgba(190, 190, 252, 0.6);
+}
+
+.header > th {
+  flex: 1 1 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header > th.createBtn {
+  flex: 1 1 20%;
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(151, 212, 151, 0.8);
+  cursor: pointer;
+}
+.header > th.createBtn:hover {
+  background-color: rgba(87, 207, 87, 0.8)
+}
+
+.tbody {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 2px;
+}
+
+.row {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 15px;
+  padding: 8px;
+  border-radius: 15px;
+  background-color: #eeecff;
+}
+
+.row:hover {
+  background-color: #d3cff8;
+}
+
+.row > td {
+  flex: 1 1 15%;
+  display: flex;
+  justify-content: space-around;
+  /* gap: 15px; */
+  /* width: 100%; */
+}
+
+.row > td.buttons {
+  flex: 1 1 10%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.row > td.buttons>button {
+  padding: 5px 8px;
+  border: 1px solid rgb(3, 2, 63);
+  border-radius: 7px;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.editBtn {
+  background-color: rgba(190, 190, 252, 0.8);
+}
+.editBtn:hover {
+  background-color: rgb(149, 149, 228);
+}
+
+.deleteBtn {
+  background-color: rgba(252, 192, 190, 0.8);
+}
+.deleteBtn:hover {
+  background-color: rgb(224, 95, 91);
+}
