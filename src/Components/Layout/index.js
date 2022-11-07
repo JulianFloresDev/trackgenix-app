@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Admins from '../Admins/index';
@@ -10,36 +11,22 @@ import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
 
 function Layout() {
-  let currentScreen = <Home />;
-  switch (window.location.pathname) {
-    case '/admins':
-      currentScreen = <Admins />;
-      break;
-    case '/super-admins':
-      currentScreen = <SuperAdmins />;
-      break;
-    case '/employees':
-      currentScreen = <Employees />;
-      break;
-    case '/projects':
-      currentScreen = <Projects />;
-      break;
-    case '/time-sheets':
-      currentScreen = <TimeSheets />;
-      break;
-    case '/tasks':
-      currentScreen = <Tasks />;
-      break;
-    default:
-      break;
-  }
-
   return (
-    <div className={styles.container}>
-      <Header />
-      {currentScreen}
-      <Footer />
-    </div>
+    <Router>
+      <div className={styles.container}>
+        <Header />
+        <Switch>
+          <Route exact path={'/'} component={Home} />
+          <Route path={'/admins'} component={Admins} />
+          <Route path={'/super-admins'} component={SuperAdmins} />
+          <Route path={'/employees'} component={Employees} />
+          <Route path={'/projects'} component={Projects} />
+          <Route path={'/time-sheets'} component={TimeSheets} />
+          <Route path={'/tasks'} component={Tasks} />
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
