@@ -23,13 +23,15 @@ function modifyTimesheet(props) {
     }
   }, []);
 
+  if (props.modifyModalControl[0].date) {
+    const day = props.modifyModalControl[0].date.substring(8, 10);
+    const month = props.modifyModalControl[0].date.substring(5, 7);
+    const year = props.modifyModalControl[0].date.substring(0, 4);
+    const dateNewFormat = `${year}-${month}-${day}`;
+    props.modifyModalControl[0].date = dateNewFormat;
+  }
   const [data, setData] = useState({
-    date: '',
-    description: '',
-    employee: '',
-    project: '',
-    task: '',
-    hours: ''
+    ...props.modifyModalControl[0]
   });
 
   const onchange = (e) => {
@@ -37,7 +39,6 @@ function modifyTimesheet(props) {
     const targetName = e.target.name;
     data[targetName] = e.target.value;
     setData({ ...data });
-    console.log(data);
   };
 
   const onEdit = (e) => {
@@ -77,7 +78,7 @@ function modifyTimesheet(props) {
           </div>
           <div>
             <label>Employee</label>
-            <select name="employee" onChange={onchange}>
+            <select name="employee" onChange={onchange} value={data.employee}>
               <option>Select an Employee</option>
               {employeesList.map((employee) => {
                 return <Option.OptionEmployees key={employee._id} employee={employee} />;
@@ -86,7 +87,7 @@ function modifyTimesheet(props) {
           </div>
           <div>
             <label>Project</label>
-            <select name="project" onChange={onchange}>
+            <select name="project" onChange={onchange} value={data.project}>
               <option>Select a Project</option>
               {projectsList.map((project) => {
                 return <Option.OptionProjects key={project._id} project={project} />;
@@ -95,7 +96,7 @@ function modifyTimesheet(props) {
           </div>
           <div>
             <label>Task</label>
-            <select name="task" onChange={onchange}>
+            <select name="task" onChange={onchange} value={data.task}>
               <option>Select a Task</option>
               {tasksList.map((task) => {
                 return <Option.OptionTasks key={task._id} task={task} />;
@@ -107,13 +108,13 @@ function modifyTimesheet(props) {
             <input
               type="number"
               name="hours"
-              value={data.hour}
+              value={data.hours}
               onChange={onchange}
               placeholder="Hours"
             />
           </div>
           {props.errorMessage && <h4>{props.errorMessage.toUpperCase()}</h4>}
-          {props.modifyModalControl.id ? (
+          {props.modifyModalControl[1].id ? (
             <button onClick={onEdit}>Edit</button>
           ) : (
             <button onClick={onAdd}>Add</button>

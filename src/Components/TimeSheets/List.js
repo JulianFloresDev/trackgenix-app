@@ -8,27 +8,35 @@ function List(props) {
       <td>{dateNewFormat}</td>
       <td>{props.timesheet.description}</td>
       <td>
-        {props.timesheet.employee ? (
-          `${props.timesheet.employee.firstName} ${props.timesheet.employee.lastName}`
-        ) : (
-          <span>Employee does not exist</span>
-        )}
+        {props.timesheet.employee
+          ? `${props.timesheet.employee.firstName} ${props.timesheet.employee.lastName}`
+          : props.onDelete(props.timesheet._id)}
       </td>
       <td>
-        {props.timesheet.project ? (
-          props.timesheet.project.name
-        ) : (
-          <span>Project does not exist</span>
-        )}
+        {props.timesheet.project
+          ? props.timesheet.project.name
+          : props.onDelete(props.timesheet._id)}
       </td>
       <td>
-        {props.timesheet.task ? props.timesheet.task.description : <span>Task does not exist</span>}
+        {props.timesheet.task
+          ? props.timesheet.task.description
+          : props.onDelete(props.timesheet._id)}
       </td>
       <td>{`${props.timesheet.hours} hs`}</td>
       <td>
         <img
           src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
-          onClick={() => props.showModifyModal(props.timesheet._id)}
+          onClick={() =>
+            props.showModifyModal(
+              props.timesheet._id,
+              props.timesheet.date,
+              props.timesheet.description,
+              props.timesheet.employee,
+              props.timesheet.project,
+              props.timesheet.task,
+              props.timesheet.hours
+            )
+          }
         />
         <img
           src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}

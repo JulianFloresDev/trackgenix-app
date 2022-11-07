@@ -7,7 +7,17 @@ import SuccessModal from './SuccessModal';
 
 const TimeSheets = () => {
   const [timesheetList, setTimesheetList] = useState([]);
-  const [modifyModalControl, setModifyModalControl] = useState({ id: '', modal: false });
+  const [modifyModalControl, setModifyModalControl] = useState([
+    {
+      date: '',
+      description: '',
+      employee: '',
+      project: '',
+      task: '',
+      hours: ''
+    },
+    { id: '', modal: false }
+  ]);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -34,19 +44,52 @@ const TimeSheets = () => {
     }
   };
 
-  const showModifyModal = (id) => {
-    setModifyModalControl({ id: id, modal: true });
+  const showModifyModal = (id, date, description, employee, project, task, hours) => {
+    if (id) {
+      setModifyModalControl([
+        {
+          date: date,
+          description: description,
+          employee: employee._id,
+          project: project._id,
+          task: task._id,
+          hours: hours
+        },
+        { id: id, modal: true }
+      ]);
+    } else {
+      setModifyModalControl([
+        {
+          date: date,
+          description: description,
+          employee: employee,
+          project: project,
+          task: task,
+          hours: hours
+        },
+        { id: id, modal: true }
+      ]);
+    }
   };
-
   const hideModifyModal = () => {
-    setModifyModalControl({ id: '', modal: false });
+    setModifyModalControl([
+      {
+        date: '',
+        description: '',
+        employee: '',
+        project: '',
+        task: '',
+        hours: ''
+      },
+      { id: '', modal: false }
+    ]);
     setErrorMessage('');
   };
 
   const editTimesheet = async (data) => {
     try {
       const req = await fetch(
-        `${process.env.REACT_APP_API_URL}/time-sheets/${modifyModalControl.id}`,
+        `${process.env.REACT_APP_API_URL}/time-sheets/${modifyModalControl[1].id}`,
         {
           method: 'PUT',
           headers: {
@@ -102,7 +145,7 @@ const TimeSheets = () => {
         onDelete={deleteTimesheet}
         showModifyModal={showModifyModal}
       />
-      {modifyModalControl.modal && (
+      {modifyModalControl[1].modal && (
         <ModifyTimesheet
           modifyModalControl={modifyModalControl}
           onEdit={editTimesheet}
