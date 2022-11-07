@@ -9,7 +9,6 @@ import Employees from '../Employees/index';
 import Projects from '../Projects';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
-import Form from '../Share/Form/index';
 
 function Layout() {
   return (
@@ -24,7 +23,6 @@ function Layout() {
           <Route exact path={'/projects'} component={Projects} />
           <Route exact path={'/time-sheets'} component={TimeSheets} />
           <Route exact path={'/tasks'} component={Tasks} />
-          <Route path={'/tasks/form/:id'} render={() => <Form />} />
         </Switch>
         <Footer />
       </div>

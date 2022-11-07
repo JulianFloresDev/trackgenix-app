@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
 import styles from './employees.module.css';
+import { useState, useEffect } from 'react';
+import Table from '../Share/Table';
 
 function Employees() {
-  const [employees, saveEmployees] = useState([]);
-
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users`)
-      .then((response) => response.json())
-      .then((response) => {
-        saveEmployees(response);
-      });
+  const [list, setList] = useState([]);
+  useEffect(async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
+    const data = await response.json();
+    setList(data.data || []);
   }, []);
-
   return (
     <section className={styles.container}>
-      <h2>Employees</h2>
-      <div>
-        {employees.map((employee) => {
-          return <div key={employee.id}>{employee.name}</div>;
-        })}
-      </div>
+      <Table headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']} data={list} />
     </section>
   );
 }

@@ -1,9 +1,12 @@
 import styles from './table.module.css';
 import { useHistory } from 'react-router-dom';
-const Table = ({ headers, data, entitie }) => {
+const Table = ({ headers, data }) => {
   const history = useHistory();
+  const URLPath = history.location.pathname.split('/');
+  const entitie = URLPath[1];
+  console.log(data);
   const deleteRow = () => {
-    console.log('borrado papu');
+    console.log('Open Modal Component');
   };
   return (
     <>
@@ -37,28 +40,31 @@ const Table = ({ headers, data, entitie }) => {
                     if (Array.isArray(row[header])) {
                       return (
                         <td key={index}>
-                          <select>
+                          <ul>
                             {row[header].map((item) => {
                               if (item.employee !== null) {
                                 return (
-                                  <option key={item._id}>
+                                  <li key={item._id}>
                                     {item.employee.firstName} {item.employee.lastName} {item.role}{' '}
                                     {item.rate}
-                                  </option>
+                                  </li>
                                 );
                               }
                               return (
-                                <option key={item._id} className={styles.optionInvalid}>
+                                <li key={item._id} className={styles.optionInvalid}>
                                   Employee Not Found!
-                                </option>
+                                </li>
                               );
                             })}
-                          </select>
+                          </ul>
                         </td>
                       );
                     }
                     return (
                       <td key={index} className={styles.optionInvalid}>
+                        {row[header].description && row[header].description}
+                        {row[header].name && row[header].name}
+                        {row[header].firstName && row[header].firstName} {row[header].lastName}
                         Element Not Found!
                       </td>
                     );

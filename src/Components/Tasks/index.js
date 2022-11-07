@@ -11,7 +11,7 @@ function Tasks() {
   }, []);
   return (
     <section className={styles.container}>
-      <Table headers={['description', 'createdAt', 'updatedAt']} data={list} entitie={'tasks'} />
+      <Table headers={['description', 'createdAt', 'updatedAt']} data={list} />
     </section>
   );
 }
