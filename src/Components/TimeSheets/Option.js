@@ -7,7 +7,7 @@ function OptionEmployees(props) {
 }
 
 function OptionProjects(props) {
-  return <option value={props.project._id}>{props.project.description}</option>;
+  return <option value={props.project._id}>{props.project.name}</option>;
 }
 
 function OptionTasks(props) {
