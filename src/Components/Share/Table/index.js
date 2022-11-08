@@ -75,10 +75,9 @@ const Table = ({ headers, data }) => {
                     <button
                       className={styles.editBtn}
                       onClick={() => {
-                        /*  Verdadera función del botón */
                         // history.push(`/${entitie}/form/${row._id}`);
 
-                        /*  Caso de práctica que posteriormente debe ser borrado */
+                        /*  Practice case that will subsequently be deleted  */
                         setModalContent(
                           <>
                             Do you want to edit?
