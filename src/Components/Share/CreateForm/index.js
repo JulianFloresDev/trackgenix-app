@@ -10,7 +10,9 @@ const CreateForm = () => {
 
   const hardcodeProps = () => {
     switch (entitie) {
-      case ('employees', 'admins', 'super-admins'):
+      case 'admins':
+      case 'super-admins':
+      case 'employees':
         return ['firstName', 'lastName', 'email', 'password', 'dni', 'phone', 'location'];
       case 'projects':
         return [
@@ -24,13 +26,17 @@ const CreateForm = () => {
         ];
       case 'time-sheets':
         return ['description', 'date', 'task', 'project', 'employee', 'hours'];
-      case 'task':
+      case 'tasks':
         return ['description'];
     }
   };
 
   useEffect(async () => {
-    setData({});
+    /*
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}`);
+    const responseJson = await response.json();
+    console.log('Data:', responseJson.data);
+    */
   }, []);
 
   const createRow = async () => {
