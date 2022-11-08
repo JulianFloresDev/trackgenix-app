@@ -35,7 +35,6 @@ const CreateForm = () => {
     /*
     const response = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}`);
     const responseJson = await response.json();
-    console.log('Data:', responseJson.data);
     */
   }, []);
 
@@ -55,8 +54,6 @@ const CreateForm = () => {
 
   const properties = hardcodeProps();
 
-  console.log('Properties:', properties);
-
   return (
     <section>
       <form>
@@ -67,10 +64,10 @@ const CreateForm = () => {
               <input
                 id={prop}
                 type="text"
-                value={`Add ${prop}`}
                 onChange={(e) => {
                   data[prop] = e.target.value;
                   setData({ ...data });
+                  console.log('Data:', data);
                 }}
               />
             </div>
