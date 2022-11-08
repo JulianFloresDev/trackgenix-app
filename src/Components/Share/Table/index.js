@@ -1,11 +1,17 @@
 import styles from './table.module.css';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Modal from '../Modal';
 const Table = ({ headers, data }) => {
+  const [showModal, setShowModal] = useState(false);
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
   return (
     <>
+      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
+        Trial modal
+      </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
           <thead>
@@ -71,7 +77,9 @@ const Table = ({ headers, data }) => {
                     >
                       Edit
                     </button>
-                    <button className={styles.closeBtn}>X</button>
+                    <button className={styles.closeBtn} onClick={() => setShowModal(true)}>
+                      X
+                    </button>
                   </td>
                 </tr>
               );

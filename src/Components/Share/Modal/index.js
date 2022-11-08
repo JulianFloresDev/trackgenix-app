@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './modal.module.css';
 
-const Modal = ({ children, showModal, setShowModal }) => {
+const Modal = ({ children, showModal, closeModal }) => {
   if (!showModal) {
     return null;
   }
@@ -12,7 +12,7 @@ const Modal = ({ children, showModal, setShowModal }) => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            setShowModal(false);
+            closeModal();
           }}
         >
           X
