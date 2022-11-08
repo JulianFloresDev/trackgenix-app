@@ -9,12 +9,7 @@ const Modal = ({ children, showModal, closeModal }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalWrapper}>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            closeModal();
-          }}
-        >
+        <button className={styles.closeButton} onClick={() => closeModal()}>
           X
         </button>
         {children}
