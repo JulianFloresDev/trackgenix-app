@@ -1,22 +1,11 @@
 import styles from './table.module.css';
 import { useHistory } from 'react-router-dom';
-// import Modal from '../Modal';
-const Table = ({ headers, data, setList }) => {
+const Table = ({ headers, data }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const deleteRow = () => {
-    setList([]);
-    console.log('Open Modal Component');
-  };
-  const openListModal = (list) => {
-    console.log('Open Modal Component with employee List:', list);
-  };
   return (
     <>
-      {/* <Modal updateList={updateList}>
-        <></>
-      </Modal> */}
       <div className={styles.container}>
         <table className={styles.table}>
           <thead>
@@ -25,7 +14,10 @@ const Table = ({ headers, data, setList }) => {
                 return <td key={index}>{header}</td>;
               })}
               <td>
-                <button className={styles.addBtn} onClick={() => history.push(`/${entitie}/form`)}>
+                <button
+                  className={styles.addBtn}
+                  onClick={() => history.push(`/${entitie}/form/0`)}
+                >
                   Add new {entitie}
                 </button>
               </td>
@@ -43,7 +35,7 @@ const Table = ({ headers, data, setList }) => {
                         return <td key={index}>Finish</td>;
                       }
                     }
-                    if (typeof row[property] === 'string') {
+                    if (typeof row[property] === ('string' || 'number')) {
                       if (
                         property.includes('Date') ||
                         property.includes('atedAt') ||
@@ -56,33 +48,12 @@ const Table = ({ headers, data, setList }) => {
                     if (Array.isArray(row[property])) {
                       return (
                         <td key={index}>
-                          <button
-                            className={styles.showListBtn}
-                            onClick={() => openListModal(row[property])}
-                          >
-                            Show List
-                          </button>
-                          {/* <ul>
-                            {row[property].map((item) => {
-                              console.log(row[property]);
-                              if (item.employee !== null) {
-                                return (
-                                  <>
-                                    <li key={item._id}>
-                                      {item.employee.firstName} {item.employee.lastName}
-                                    </li>
-                                  </>
-                                );
-                              }
-                              return (
-                                <li key={item._id} className={styles.optionInvalid}>
-                                  Employee Not Found!
-                                </li>
-                              );
-                            })}
-                          </ul> */}
+                          <button className={styles.showListBtn}>Show List</button>
                         </td>
                       );
+                    }
+                    if (!row[property]) {
+                      return <td>Element Not Found</td>;
                     }
                     return (
                       <td key={index} className={styles.optionInvalid}>
@@ -100,9 +71,7 @@ const Table = ({ headers, data, setList }) => {
                     >
                       Edit
                     </button>
-                    <button className={styles.closeBtn} onClick={deleteRow}>
-                      X
-                    </button>
+                    <button className={styles.closeBtn}>X</button>
                   </td>
                 </tr>
               );
