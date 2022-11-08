@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CreateForm from '../Share/CreateForm';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Admins from '../Admins/index';
@@ -18,11 +19,17 @@ function Layout() {
         <Switch>
           <Route exact path={'/'} component={Home} />
           <Route exact path={'/admins'} component={Admins} />
+          <Route path={'/admins/create-form'} render={() => <CreateForm />} />
           <Route exact path={'/super-admins'} component={SuperAdmins} />
+          <Route path={'/super-admins/create-form'} render={() => <CreateForm />} />
           <Route exact path={'/employees'} component={Employees} />
+          <Route path={'/employees/create-form'} render={() => <CreateForm />} />
           <Route exact path={'/projects'} component={Projects} />
+          <Route path={'/projects/create-form'} render={() => <CreateForm />} />
           <Route exact path={'/time-sheets'} component={TimeSheets} />
+          <Route path={'/time-sheets/create-form'} render={() => <CreateForm />} />
           <Route exact path={'/tasks'} component={Tasks} />
+          <Route path={'/tasks/create-form'} render={() => <CreateForm />} />
         </Switch>
         <Footer />
       </div>

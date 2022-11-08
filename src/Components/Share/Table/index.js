@@ -16,7 +16,7 @@ const Table = ({ headers, data }) => {
               <td>
                 <button
                   className={styles.addBtn}
-                  onClick={() => history.push(`/${entitie}/form/0`)}
+                  onClick={() => history.push(`/${entitie}/create-form`)}
                 >
                   Add new {entitie}
                 </button>
