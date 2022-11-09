@@ -34,6 +34,7 @@ const Table = ({ headers, data }) => {
       </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
+          <caption>{entitie}</caption>
           <thead>
             <tr>
               {headers.map((header, index) => {

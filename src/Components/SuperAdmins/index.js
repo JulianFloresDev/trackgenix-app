@@ -1,6 +1,7 @@
 import styles from './super-admins.module.css';
 import { useState, useEffect } from 'react';
 import Table from '../Share/Table';
+import Spinner from '../Share/Spinner';
 
 function SuperAdmins() {
   const [list, setList] = useState([]);
@@ -9,12 +10,14 @@ function SuperAdmins() {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`);
     const data = await response.json();
     setList(data.data || []);
-    setIsFetching(false);
+    setTimeout(() => setIsFetching(false), 2000);
   }, []);
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <h2>Loading Super Admins . . .</h2>
+        <div className={styles.container}>
+          <Spinner entitie="Super-Admins" />
+        </div>
       ) : (
         <Table
           headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}

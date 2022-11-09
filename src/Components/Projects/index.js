@@ -1,6 +1,7 @@
 import styles from './projects.module.css';
 import { useState, useEffect } from 'react';
 import Table from '../Share/Table';
+import Spinner from '../Share/Spinner';
 
 function Projects() {
   const [list, setList] = useState([]);
@@ -9,12 +10,14 @@ function Projects() {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
     const data = await response.json();
     setList(data.data || []);
-    setIsFetching(false);
+    setTimeout(() => setIsFetching(false), 2000);
   }, []);
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <h2>Loading Projetcs . . .</h2>
+        <div className={styles.container}>
+          <Spinner entitie="Projects" />
+        </div>
       ) : (
         <Table
           headers={[
