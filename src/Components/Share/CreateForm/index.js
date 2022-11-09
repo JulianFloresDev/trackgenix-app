@@ -82,7 +82,6 @@ const CreateForm = () => {
                 onChange={(e) => {
                   data[prop] = e.target.value;
                   setData({ ...data });
-                  console.log('Data:', data);
                 }}
               />
             </div>

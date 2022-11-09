@@ -57,13 +57,6 @@ const Form = () => {
         },
         body: JSON.stringify(newData)
       });
-      // if (res.error) {
-      //   setErrorMessage(
-      //     res.message[0].message || res.message || 'An unexpected error has occurred'
-      //   );
-      //   console.log(errorMessage);
-      //   return;
-      // }
     } catch (error) {
       console.error(error);
     }
@@ -145,7 +138,6 @@ const Form = () => {
             );
           }
           if (prop === 'teamMembers') {
-            console.log(data[prop]);
             return (
               <div key={index}>
                 <label htmlFor={prop}>{prop}</label>
@@ -173,33 +165,6 @@ const Form = () => {
                     })}
                   </tbody>
                 </table>
-                {/* <select
-                  name={prop}
-                  onChange={(e) => {
-                    data[prop] = e.target.value;
-                    setData({ ...data });
-                  }}
-                  value={data[prop]._id}
-                >
-                  {employeeList.map((employee) => {
-                    return (
-                      <option
-                        value={employee._id}
-                        key={employee._id}
-                      >{`${employee.firstName} ${employee.lastName}`}</option>
-                    );
-                  })}
-                </select> */}
-
-                {/* <label htmlFor={prop}>Role</label>
-                <select id={prop}>
-                  <option value="DEV">DEV</option>
-                  <option value="QA">QA</option>
-                  <option value="TL">TL</option>
-                  <option value="PM">PM</option>
-                </select>
-                <label htmlFor={prop}>Rate</label>
-                <input type="number" min="0" max="500"></input> */}
               </div>
             );
           }
@@ -223,7 +188,6 @@ const Form = () => {
                     ? (data[prop] = e.target.checked)
                     : (data[prop] = e.target.value);
                   setData({ ...data });
-                  console.log(data);
                 }}
               />
             </div>
