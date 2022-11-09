@@ -57,7 +57,7 @@ const Table = ({ headers, data }) => {
                         return <td key={index}>Finish</td>;
                       }
                     }
-                    if (typeof row[property] === ('string' || 'number')) {
+                    if (typeof row[property] === 'string' || typeof row[property] === 'number') {
                       if (
                         property.includes('Date') ||
                         property.includes('atedAt') ||
