@@ -2,6 +2,7 @@ import styles from './table.module.css';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
+
 const Table = ({ headers, data }) => {
   const [showModal, setShowModal] = useState(false);
   const [items, setItems] = useState(data);
