@@ -145,10 +145,35 @@ const Form = () => {
             );
           }
           if (prop === 'teamMembers') {
+            console.log(data[prop]);
             return (
               <div key={index}>
                 <label htmlFor={prop}>{prop}</label>
-                <select
+                <table>
+                  <thead>
+                    <th>
+                      {Object.keys(data[prop][0]).map((key, index) => {
+                        return <td key={index}>{key}</td>;
+                      })}
+                    </th>
+                  </thead>
+                  <tbody>
+                    {employeeList.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          {Object.keys(data[prop][0]).map((info) => {
+                            if (!item[info]) {
+                              return <td key={index}>{item[info]} Not Found</td>;
+                            }
+                            return <td key={index}>{item[info]}</td>;
+                          })}
+                          <button>Delete</button>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                {/* <select
                   name={prop}
                   onChange={(e) => {
                     data[prop] = e.target.value;
@@ -164,8 +189,9 @@ const Form = () => {
                       >{`${employee.firstName} ${employee.lastName}`}</option>
                     );
                   })}
-                </select>
-                <label htmlFor={prop}>Role</label>
+                </select> */}
+
+                {/* <label htmlFor={prop}>Role</label>
                 <select id={prop}>
                   <option value="DEV">DEV</option>
                   <option value="QA">QA</option>
@@ -173,7 +199,7 @@ const Form = () => {
                   <option value="PM">PM</option>
                 </select>
                 <label htmlFor={prop}>Rate</label>
-                <input type="number" min="0" max="500"></input>
+                <input type="number" min="0" max="500"></input> */}
               </div>
             );
           }
