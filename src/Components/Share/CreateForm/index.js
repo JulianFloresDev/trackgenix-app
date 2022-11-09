@@ -95,7 +95,7 @@ const CreateForm = () => {
               history.goBack();
             }}
           >
-            Submit
+            Create
           </button>
           <button
             onClick={(e) => {

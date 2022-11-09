@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-// import Modal from '../Modal';
 
 const Form = () => {
   const [data, setData] = useState({});
@@ -15,23 +14,14 @@ const Form = () => {
   const entitie = URLPath[1];
   const properties = Object.keys(data);
 
-  // useEffect(async () => {
-  //   if (id !== '0') {
-  //     const request = id && (await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`));
-  //     const response = await request.json();
-  //     setData(response.data || {});
-  //   }
-  // }, []);
   const [employeeList, setEmployeesList] = useState([]);
   const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
   useEffect(async () => {
     try {
-      if (id !== '0') {
-        const request = id && (await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`));
-        const response = await request.json();
-        setData(response.data || {});
-      }
+      const request = id && (await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`));
+      const response = await request.json();
+      setData(response.data || {});
       const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
       const dataEmployees = await resEmployees.json();
       setEmployeesList(dataEmployees.data);
@@ -45,8 +35,6 @@ const Form = () => {
       console.error(err);
     }
   }, []);
-
-  // const [errorMessage, setErrorMessage] = useState('');
 
   const editRow = async (newData) => {
     try {
@@ -64,10 +52,8 @@ const Form = () => {
 
   return (
     <section>
-      {/* <Modal></Modal> */}
       <form>
         {properties.map((prop, index) => {
-          console.log(data);
           if (prop === 'employee') {
             return (
               <div key={index}>
