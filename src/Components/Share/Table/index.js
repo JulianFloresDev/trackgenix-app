@@ -4,14 +4,32 @@ import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
 const Table = ({ headers, data }) => {
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(<></>);
+  const [items, setItems] = useState(data);
+  const [itemToDelete, setItemToDelete] = useState({});
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
+
+  const deleteItem = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${itemToDelete._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    setItems(items.filter((item) => item._id !== itemToDelete._id));
+    setShowModal(false);
+  };
   return (
     <>
       <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-        {modalContent}
+        <>
+          Are you sure?
+          <div>
+            <button onClick={() => deleteItem()}>Yes</button>
+            <button onClick={() => setShowModal(false)}>No</button>
+          </div>
+        </>
       </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
@@ -28,7 +46,7 @@ const Table = ({ headers, data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => {
+            {items.map((row) => {
               return (
                 <tr key={row._id}>
                   {headers.map((property, index) => {
@@ -72,26 +90,7 @@ const Table = ({ headers, data }) => {
                     <button
                       className={styles.editBtn}
                       onClick={() => {
-                        // history.push(`/${entitie}/form/${row._id}`);
-
-                        /*  Practice case that will subsequently be deleted  */
-                        setModalContent(
-                          <>
-                            Do you want to edit?
-                            <div>
-                              <button
-                                onClick={() => {
-                                  setShowModal(false);
-                                  history.push(`/${entitie}/form/${row._id}`);
-                                }}
-                              >
-                                Yes
-                              </button>
-                              <button onClick={() => setShowModal(false)}>No</button>
-                            </div>
-                          </>
-                        );
-                        setShowModal(true);
+                        history.push(`/${entitie}/form/${row._id}`);
                       }}
                     >
                       Edit
@@ -99,15 +98,7 @@ const Table = ({ headers, data }) => {
                     <button
                       className={styles.closeBtn}
                       onClick={() => {
-                        setModalContent(
-                          <>
-                            Are you sure?
-                            <div>
-                              <button onClick={() => setShowModal(false)}>Yes</button>
-                              <button onClick={() => setShowModal(false)}>No</button>
-                            </div>
-                          </>
-                        );
+                        setItemToDelete(row);
                         setShowModal(true);
                       }}
                     >
