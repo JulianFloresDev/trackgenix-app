@@ -67,6 +67,7 @@ const Form = () => {
       {/* <Modal></Modal> */}
       <form>
         {properties.map((prop, index) => {
+          console.log(data);
           if (prop === 'employee') {
             return (
               <div key={index}>
@@ -77,14 +78,14 @@ const Form = () => {
                     data[prop] = e.target.value;
                     setData({ ...data });
                   }}
-                  value={data[prop]._id}
+                  value={data[prop]?._id}
                 >
                   {employeeList.map((employee) => {
                     return (
                       <option
-                        value={employee._id}
-                        key={employee._id}
-                      >{`${employee.firstName} ${employee.lastName}`}</option>
+                        value={employee?._id}
+                        key={employee?._id}
+                      >{`${employee?.firstName} ${employee?.lastName}`}</option>
                     );
                   })}
                 </select>
@@ -101,12 +102,12 @@ const Form = () => {
                     data[prop] = e.target.value;
                     setData({ ...data });
                   }}
-                  value={data[prop]._id}
+                  value={data[prop]?._id}
                 >
                   {projectList.map((project) => {
                     return (
-                      <option value={project._id} key={project._id}>
-                        {project.name}
+                      <option value={project?._id} key={project?._id}>
+                        {project?.name}
                       </option>
                     );
                   })}
@@ -124,12 +125,12 @@ const Form = () => {
                     data[prop] = e.target.value;
                     setData({ ...data });
                   }}
-                  value={data[prop]._id}
+                  value={data[prop]?._id}
                 >
                   {taskList.map((task) => {
                     return (
-                      <option value={task._id} key={task._id}>
-                        {task.description}
+                      <option value={task?._id} key={task?._id}>
+                        {task?.description}
                       </option>
                     );
                   })}
