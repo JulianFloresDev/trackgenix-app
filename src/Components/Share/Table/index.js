@@ -1,11 +1,18 @@
 import styles from './table.module.css';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Modal from '../Modal';
 const Table = ({ headers, data }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(<></>);
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
   return (
     <>
+      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
+        {modalContent}
+      </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
           <thead>
@@ -64,11 +71,48 @@ const Table = ({ headers, data }) => {
                   <td className={styles.buttonsContainer}>
                     <button
                       className={styles.editBtn}
-                      onClick={() => history.push(`/${entitie}/form/${row._id}`)}
+                      onClick={() => {
+                        // history.push(`/${entitie}/form/${row._id}`);
+
+                        /*  Practice case that will subsequently be deleted  */
+                        setModalContent(
+                          <>
+                            Do you want to edit?
+                            <div>
+                              <button
+                                onClick={() => {
+                                  setShowModal(false);
+                                  history.push(`/${entitie}/form/${row._id}`);
+                                }}
+                              >
+                                Yes
+                              </button>
+                              <button onClick={() => setShowModal(false)}>No</button>
+                            </div>
+                          </>
+                        );
+                        setShowModal(true);
+                      }}
                     >
                       Edit
                     </button>
-                    <button className={styles.closeBtn}>X</button>
+                    <button
+                      className={styles.closeBtn}
+                      onClick={() => {
+                        setModalContent(
+                          <>
+                            Are you sure?
+                            <div>
+                              <button onClick={() => setShowModal(false)}>Yes</button>
+                              <button onClick={() => setShowModal(false)}>No</button>
+                            </div>
+                          </>
+                        );
+                        setShowModal(true);
+                      }}
+                    >
+                      X
+                    </button>
                   </td>
                 </tr>
               );
