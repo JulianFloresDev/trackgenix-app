@@ -8,34 +8,45 @@ const CreateForm = () => {
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
 
-  const hardcodeProps = () => {
+  useEffect(async () => {
     switch (entitie) {
       case 'admins':
       case 'super-admins':
       case 'employees':
-        return ['firstName', 'lastName', 'email', 'password', 'dni', 'phone', 'location'];
+        setData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          dni: '',
+          phone: '',
+          location: ''
+        });
+        break;
       case 'projects':
-        return [
-          'name',
-          'description',
-          'startDate',
-          'endDate',
-          'active',
-          'clientName',
-          'teamMembers'
-        ];
+        setData({
+          name: '',
+          description: '',
+          startDate: '',
+          endDate: '',
+          active: '',
+          clientName: '',
+          teamMembers: []
+        });
+        break;
       case 'time-sheets':
-        return ['description', 'date', 'task', 'project', 'employee', 'hours'];
+        setData({
+          description: '',
+          date: '',
+          task: '',
+          project: '',
+          employee: '',
+          hour: ''
+        });
+        break;
       case 'tasks':
-        return ['description'];
+        setData({ description: '' });
     }
-  };
-
-  useEffect(async () => {
-    /*
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}`);
-    const responseJson = await response.json();
-    */
   }, []);
 
   const createRow = async () => {
@@ -52,18 +63,22 @@ const CreateForm = () => {
     }
   };
 
-  const properties = hardcodeProps();
-
   return (
     <section>
       <form>
-        {properties.map((prop, index) => {
+        {Object.keys(data).map((prop, index) => {
+          let typeOfInput = 'text';
+          if (prop.match('date') || prop.match('endDate') || prop.match('startDate')) {
+            typeOfInput = 'date';
+            data[prop] = data[prop].substring(0, 10);
+          }
+          prop.includes('hours') && (typeOfInput = 'number');
           return (
             <div key={index}>
               <label htmlFor={prop}>{prop}</label>
               <input
                 id={prop}
-                type="text"
+                type={typeOfInput}
                 onChange={(e) => {
                   data[prop] = e.target.value;
                   setData({ ...data });
