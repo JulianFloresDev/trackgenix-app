@@ -1,11 +1,36 @@
 import styles from './table.module.css';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Modal from '../Modal';
 const Table = ({ headers, data }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [items, setItems] = useState(data);
+  const [itemToDelete, setItemToDelete] = useState({});
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
+
+  const deleteItem = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${itemToDelete._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    setItems(items.filter((item) => item._id !== itemToDelete._id));
+    setShowModal(false);
+  };
   return (
     <>
+      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
+        <>
+          Are you sure?
+          <div>
+            <button onClick={() => deleteItem()}>Yes</button>
+            <button onClick={() => setShowModal(false)}>No</button>
+          </div>
+        </>
+      </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
           <thead>
@@ -14,17 +39,14 @@ const Table = ({ headers, data }) => {
                 return <td key={index}>{header}</td>;
               })}
               <td>
-                <button
-                  className={styles.addBtn}
-                  onClick={() => history.push(`/${entitie}/form/0`)}
-                >
+                <button className={styles.addBtn} onClick={() => history.push(`/${entitie}/new`)}>
                   Add new {entitie}
                 </button>
               </td>
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => {
+            {items.map((row) => {
               return (
                 <tr key={row._id}>
                   {headers.map((property, index) => {
@@ -67,11 +89,21 @@ const Table = ({ headers, data }) => {
                   <td className={styles.buttonsContainer}>
                     <button
                       className={styles.editBtn}
-                      onClick={() => history.push(`/${entitie}/form/${row._id}`)}
+                      onClick={() => {
+                        history.push(`/${entitie}/form/${row._id}`);
+                      }}
                     >
                       Edit
                     </button>
-                    <button className={styles.closeBtn}>X</button>
+                    <button
+                      className={styles.closeBtn}
+                      onClick={() => {
+                        setItemToDelete(row);
+                        setShowModal(true);
+                      }}
+                    >
+                      X
+                    </button>
                   </td>
                 </tr>
               );

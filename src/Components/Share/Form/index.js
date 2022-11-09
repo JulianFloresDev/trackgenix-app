@@ -57,13 +57,6 @@ const Form = () => {
         },
         body: JSON.stringify(newData)
       });
-      // if (res.error) {
-      //   setErrorMessage(
-      //     res.message[0].message || res.message || 'An unexpected error has occurred'
-      //   );
-      //   console.log(errorMessage);
-      //   return;
-      // }
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +67,7 @@ const Form = () => {
       {/* <Modal></Modal> */}
       <form>
         {properties.map((prop, index) => {
-          console.log(data[prop]._id);
+          console.log(data);
           if (prop === 'employee') {
             return (
               <div key={index}>
@@ -149,32 +142,30 @@ const Form = () => {
             return (
               <div key={index}>
                 <label htmlFor={prop}>{prop}</label>
-                <select
-                  name={prop}
-                  onChange={(e) => {
-                    data[prop] = e.target.value;
-                    setData({ ...data });
-                  }}
-                  value={data[prop]?._id}
-                >
-                  {employeeList.map((employee) => {
-                    return (
-                      <option
-                        value={employee?._id}
-                        key={employee?._id}
-                      >{`${employee?.firstName} ${employee?.lastName}`}</option>
-                    );
-                  })}
-                </select>
-                <label htmlFor={prop}>Role</label>
-                <select id={prop}>
-                  <option value="DEV">DEV</option>
-                  <option value="QA">QA</option>
-                  <option value="TL">TL</option>
-                  <option value="PM">PM</option>
-                </select>
-                <label htmlFor={prop}>Rate</label>
-                <input type="number" min="0" max="500"></input>
+                <table>
+                  <thead>
+                    <th>
+                      {Object.keys(data[prop][0]).map((key, index) => {
+                        return <td key={index}>{key}</td>;
+                      })}
+                    </th>
+                  </thead>
+                  <tbody>
+                    {employeeList.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          {Object.keys(data[prop][0]).map((info) => {
+                            if (!item[info]) {
+                              return <td key={index}>{item[info]} Not Found</td>;
+                            }
+                            return <td key={index}>{item[info]}</td>;
+                          })}
+                          <button>Delete</button>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             );
           }
@@ -198,7 +189,6 @@ const Form = () => {
                     ? (data[prop] = e.target.checked)
                     : (data[prop] = e.target.value);
                   setData({ ...data });
-                  console.log(data);
                 }}
               />
             </div>
