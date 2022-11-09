@@ -42,7 +42,7 @@ const Form = () => {
       const dataTasks = await resTasks.json();
       setTasksList(dataTasks.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }, []);
 
@@ -74,7 +74,6 @@ const Form = () => {
       {/* <Modal></Modal> */}
       <form>
         {properties.map((prop, index) => {
-          console.log(data[prop]);
           if (prop === 'employee') {
             return (
               <div key={index}>
@@ -145,17 +144,47 @@ const Form = () => {
               </div>
             );
           }
+          if (prop === 'teamMembers') {
+            return (
+              <div key={index}>
+                <label htmlFor={prop}>{prop}</label>
+                <select
+                  name={prop}
+                  onChange={(e) => {
+                    data[prop] = e.target.value;
+                    setData({ ...data });
+                  }}
+                  value={data[prop]._id}
+                >
+                  {employeeList.map((employee) => {
+                    return (
+                      <option
+                        value={employee._id}
+                        key={employee._id}
+                      >{`${employee.firstName} ${employee.lastName}`}</option>
+                    );
+                  })}
+                </select>
+                <label htmlFor={prop}>Role</label>
+                <select id={prop}>
+                  <option value="DEV">DEV</option>
+                  <option value="QA">QA</option>
+                  <option value="TL">TL</option>
+                  <option value="PM">PM</option>
+                </select>
+                <label htmlFor={prop}>Rate</label>
+                <input type="number" min="0" max="500"></input>
+              </div>
+            );
+          }
           let inputType = 'text';
           if (prop.includes('ate')) {
             inputType = 'date';
-            const day = data[prop].substring(8, 10);
-            const month = data[prop].substring(5, 7);
-            const year = data[prop].substring(0, 4);
-            const dateNewFormat = `${year}-${month}-${day}`;
-            data[prop] = dateNewFormat;
+            data[prop] = data[prop].substring(0, 10);
           }
           prop.includes('hours') && (inputType = 'number');
           prop.includes('active') && (inputType = 'checkbox');
+          prop.includes('password') && (inputType = 'password');
           return (
             <div key={index}>
               <label htmlFor={prop}>{prop}</label>
@@ -163,10 +192,12 @@ const Form = () => {
                 id={prop}
                 type={inputType}
                 value={data[prop]}
-                checked={data[prop]}
                 onChange={(e) => {
-                  data[prop] = e.target.value;
+                  e.target.type === 'checkbox'
+                    ? (data[prop] = e.target.checked)
+                    : (data[prop] = e.target.value);
                   setData({ ...data });
+                  console.log(data);
                 }}
               />
             </div>
