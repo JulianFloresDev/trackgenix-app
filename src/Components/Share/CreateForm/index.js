@@ -105,8 +105,9 @@ const CreateForm = () => {
                   id={prop}
                   type={typeOfInput}
                   onChange={(e) => {
-                    data[prop] = e.target.value;
-                    setData({ ...data });
+                    e.target.type === 'checkbox'
+                      ? (data[prop] = e.target.checked)
+                      : (data[prop] = e.target.value);
                   }}
                 />
               </div>
