@@ -160,19 +160,79 @@ const Form = () => {
                       </th>
                     </thead>
                     <tbody>
-                      {employeeList.map((item, index) => {
+                      {data[prop].map((item, index) => {
                         return (
                           <tr key={index}>
-                            {Object.keys(data[prop][0]).map((info) => {
-                              if (!item[info]) {
-                                return <td key={index}>{item[info]} Not Found</td>;
+                            {Object.keys(item).map((info) => {
+                              if (info === 'role') {
+                                return (
+                                  <td key={index}>
+                                    <input
+                                      type="text"
+                                      value={item.employee ? item[info] : '-'}
+                                      onChange={(e) => {
+                                        item[info] = e.target.value;
+                                        setData({ ...data });
+                                      }}
+                                    />
+                                  </td>
+                                );
                               }
-                              return <td key={index}>{item[info]}</td>;
+                              if (info === 'rate') {
+                                return (
+                                  <td key={index}>
+                                    <input
+                                      type="number"
+                                      value={item.employee ? item[info] : 0}
+                                      onChange={(e) => {
+                                        item[info] = e.target.value;
+                                        setData({ ...data });
+                                      }}
+                                    />
+                                  </td>
+                                );
+                              }
+                              if (info === 'employee') {
+                                return (
+                                  <select
+                                    key={index}
+                                    value={item[info] ? item[info]._id : 0}
+                                    onChange={(e) => {
+                                      item[info] = e.target.value;
+                                      setData({ ...data });
+                                    }}
+                                  >
+                                    {employeeList?.map((employee) => {
+                                      return (
+                                        <option key={employee._id} value={employee?._id}>
+                                          {employee.firstName} {employee.lastName}
+                                        </option>
+                                      );
+                                    })}
+                                    <option value={0}>Employee Not Found</option>
+                                  </select>
+                                );
+                              }
                             })}
-                            <button>Delete</button>
+                            <td>
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                              >
+                                Remove Employee
+                              </button>
+                            </td>
                           </tr>
                         );
                       })}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                      >
+                        +
+                      </button>
                     </tbody>
                   </table>
                 </div>
