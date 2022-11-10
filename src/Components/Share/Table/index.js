@@ -2,6 +2,7 @@ import styles from './table.module.css';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
+
 const Table = ({ headers, data }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<></>);
@@ -29,6 +30,7 @@ const Table = ({ headers, data }) => {
       </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
+          <caption>{entitie}</caption>
           <thead>
             <tr>
               {headers.map((header, index) => {

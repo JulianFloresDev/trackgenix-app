@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Table from '../Share/Table';
 import styles from './admins.module.css';
+import Spinner from '../Share/Spinner';
 
 function Admins() {
   const [list, setList] = useState([]);
@@ -9,17 +10,21 @@ function Admins() {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/admins`);
     const data = await response.json();
     setList(data.data || []);
-    setIsFetching(false);
+    setTimeout(() => setIsFetching(false), 2000);
   }, []);
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <h2>Loading Admins . . .</h2>
+        <div className={styles.container}>
+          <Spinner entitie="Admins" />
+        </div>
       ) : (
-        <Table
-          headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-          data={list}
-        />
+        <>
+          <Table
+            headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+            data={list}
+          />
+        </>
       )}
     </section>
   );
