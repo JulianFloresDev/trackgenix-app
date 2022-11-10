@@ -4,32 +4,28 @@ import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
 const Table = ({ headers, data }) => {
   const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(<></>);
   const [items, setItems] = useState(data);
-  const [itemToDelete, setItemToDelete] = useState({});
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
 
-  const deleteItem = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${itemToDelete._id}`, {
+  const deleteItem = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    setItems(items.filter((item) => item._id !== itemToDelete._id));
-    setShowModal(false);
+    setModalContent(<>Deleted successfully</>);
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 2000);
+    setItems(items.filter((item) => item._id !== id));
   };
   return (
     <>
       <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-        <>
-          Are you sure?
-          <div>
-            <button onClick={() => deleteItem()}>Yes</button>
-            <button onClick={() => setShowModal(false)}>No</button>
-          </div>
-        </>
+        {modalContent}
       </Modal>
       <div className={styles.container}>
         <table className={styles.table}>
@@ -98,8 +94,16 @@ const Table = ({ headers, data }) => {
                     <button
                       className={styles.closeBtn}
                       onClick={() => {
-                        setItemToDelete(row);
                         setShowModal(true);
+                        setModalContent(
+                          <>
+                            Are you sure?
+                            <div>
+                              <button onClick={() => deleteItem(row._id)}>Yes</button>
+                              <button onClick={() => setShowModal(false)}>No</button>
+                            </div>
+                          </>
+                        );
                       }}
                     >
                       X
