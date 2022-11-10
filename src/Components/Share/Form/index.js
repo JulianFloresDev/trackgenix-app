@@ -67,6 +67,7 @@ const Form = () => {
     } catch (error) {
       console.error(error);
     }
+    history.goBack();
   };
 
   return (
@@ -179,7 +180,7 @@ const Form = () => {
               );
             }
             let inputType = 'text';
-            if (prop.includes('ate')) {
+            if (prop.match('date') || prop.match('endDate') || prop.match('startDate')) {
               inputType = 'date';
               data[prop] = data[prop].substring(0, 10);
             }

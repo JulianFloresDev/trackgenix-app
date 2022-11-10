@@ -80,6 +80,7 @@ const CreateForm = () => {
     } catch (error) {
       console.error(error);
     }
+    history.goBack();
   };
 
   return (
@@ -96,6 +97,8 @@ const CreateForm = () => {
               data[prop] = data[prop].substring(0, 10);
             }
             prop.includes('hours') && (typeOfInput = 'number');
+            prop.includes('active') && (typeOfInput = 'checkbox');
+            prop.includes('password') && (typeOfInput = 'password');
             return (
               <div key={index}>
                 <label htmlFor={prop}>{prop}</label>
