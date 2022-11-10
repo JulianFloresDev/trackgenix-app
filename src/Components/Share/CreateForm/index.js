@@ -108,6 +108,7 @@ const CreateForm = () => {
                     e.target.type === 'checkbox'
                       ? (data[prop] = e.target.checked)
                       : (data[prop] = e.target.value);
+                    setData({ ...data });
                   }}
                 />
               </div>
