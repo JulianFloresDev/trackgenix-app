@@ -167,14 +167,19 @@ const Form = () => {
                               if (info === 'role') {
                                 return (
                                   <td key={index}>
-                                    <input
-                                      type="text"
+                                    <select
                                       value={item.employee ? item[info] : '-'}
                                       onChange={(e) => {
                                         item[info] = e.target.value;
                                         setData({ ...data });
                                       }}
-                                    />
+                                    >
+                                      <option>-</option>
+                                      <option>DEV</option>
+                                      <option>QA</option>
+                                      <option>PM</option>
+                                      <option>TL</option>
+                                    </select>
                                   </td>
                                 );
                               }
