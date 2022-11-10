@@ -80,7 +80,6 @@ const CreateForm = () => {
     } catch (error) {
       console.error(error);
     }
-    history.goBack();
   };
 
   return (

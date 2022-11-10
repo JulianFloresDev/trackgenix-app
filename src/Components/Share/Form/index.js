@@ -67,7 +67,6 @@ const Form = () => {
     } catch (error) {
       console.error(error);
     }
-    history.goBack();
   };
 
   return (
