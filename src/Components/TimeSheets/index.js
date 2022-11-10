@@ -16,7 +16,10 @@ function TimeSheets() {
       {isFetching ? (
         <h2>Loading Time Sheets . . .</h2>
       ) : (
-        <Table headers={['description', 'date', 'task', 'project', 'employee']} data={list} />
+        <Table
+          headers={['description', 'date', 'task', 'project', 'employee', 'hours']}
+          data={list}
+        />
       )}
     </section>
   );
