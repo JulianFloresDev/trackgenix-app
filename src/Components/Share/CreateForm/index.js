@@ -61,6 +61,7 @@ const CreateForm = () => {
     } catch (error) {
       console.error(error);
     }
+    history.goBack();
   };
 
   return (
@@ -92,7 +93,6 @@ const CreateForm = () => {
             onClick={(e) => {
               e.preventDefault();
               createRow();
-              history.goBack();
             }}
           >
             Create
