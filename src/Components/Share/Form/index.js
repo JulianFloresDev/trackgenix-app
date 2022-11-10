@@ -48,6 +48,7 @@ const Form = () => {
     } catch (error) {
       console.error(error);
     }
+    history.goBack();
   };
 
   return (
@@ -185,7 +186,6 @@ const Form = () => {
             onClick={(e) => {
               e.preventDefault();
               editRow(data);
-              history.goBack();
             }}
           >
             Submit
