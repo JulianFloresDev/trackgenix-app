@@ -6,6 +6,7 @@ const CreateForm = () => {
   const [data, setData] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<></>);
+  const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
@@ -103,9 +104,7 @@ const CreateForm = () => {
 
   return (
     <>
-      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-        {modalContent}
-      </Modal>
+      <Modal showModal={showModal}>{modalContent}</Modal>
       <section>
         <form>
           {Object.keys(data).map((prop, index) => {
@@ -269,6 +268,8 @@ const CreateForm = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
+                          data.teamMembers.unshift(newTeamMember);
+                          setData({ ...data });
                         }}
                       >
                         +

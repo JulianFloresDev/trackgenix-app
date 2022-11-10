@@ -5,6 +5,7 @@ import Modal from '../Modal';
 const Form = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<></>);
+  const newTeamMember = { employee: '', role: '', rate: '' };
   const [data, setData] = useState({});
   delete data['_id'];
   delete data['__v'];
@@ -71,9 +72,7 @@ const Form = () => {
 
   return (
     <>
-      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-        {modalContent}
-      </Modal>
+      <Modal showModal={showModal}>{modalContent}</Modal>
       <section>
         <form>
           {properties.map((prop, index) => {
@@ -234,6 +233,8 @@ const Form = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
+                          data.teamMembers.unshift(newTeamMember);
+                          setData({ ...data });
                         }}
                       >
                         +
