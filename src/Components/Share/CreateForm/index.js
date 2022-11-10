@@ -254,13 +254,17 @@ const CreateForm = () => {
                               }
                             })}
                             <td>
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                }}
-                              >
-                                Remove Employee
-                              </button>
+                              {data[prop].length > 1 && (
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    data[prop].splice(index, 1);
+                                    setData({ ...data });
+                                  }}
+                                >
+                                  Remove Employee
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
