@@ -27,18 +27,18 @@ const Table = ({ headers, data }) => {
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
       <div className={styles.container}>
-        <table className={styles.table}>
-          <caption>{entitie}</caption>
+        <h2>{entitie}</h2>
+        <table>
           <thead>
             <tr>
               {headers.map((header, index) => {
-                return <td key={index}>{header}</td>;
+                return <th key={index}>{header}</th>;
               })}
-              <td>
+              <th>
                 <button className={styles.addBtn} onClick={() => history.push(`/${entitie}/new`)}>
                   Add new {entitie}
                 </button>
-              </td>
+              </th>
             </tr>
           </thead>
           <tbody>

@@ -2,9 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 81.22%;
+  height: 15.78vh;
+  margin-left: 18.78%;
   padding: 0 5%;
-  height: 50px;
-  background-color: #EA3354;
+  background-color: #373867;
 }
 
 .brand {
@@ -17,6 +19,51 @@
 }
 
 .navbar {
+  position: fixed;
+  width: 18.78%;
+  height: 100vh;
+  margin-top: -15.78vh;
+  background-color: #373867;
+}
+
+.logoRR {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.logoRR > img:first-child {
+  margin: 20px 0 10px;
+  width: 40%;
+}
+
+.logoRR > img:nth-child(2) {
+  width: 61%;
+}
+
+.rutes {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  margin-top: 30px;
+  list-style-type: none;
+}
+
+.rutes > li {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.rutes > li > a {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+/*.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,9 +91,9 @@
   text-decoration: none;
   text-transform: capitalize;
   color: black;
-}
+} */
 
-@media screen and (min-width: 750px) {
+/* @media screen and (min-width: 750px) {
   .container {
     padding: 0 20%;
   }
@@ -54,4 +101,4 @@
   .navbar {
     padding: 0 20%;
   }
-}
+} */

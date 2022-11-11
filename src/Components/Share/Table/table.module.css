@@ -1,22 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-.tableContainer {
+* {
+  box-sizing: border-box;
+}
+
+.container {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  margin: 0 10%;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 81.22%;
+  margin-left: 18.78%;
+  font-size: 14px;
+  text-align: center;
 }
 
-.table {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 80%;
-  margin: 50px auto;
+.container > h2 {
+  width: 96%;
+  margin: 30px 0;
+  font-size: 30px;
+  color: #373867;
+  text-transform: capitalize;
 }
 
-.table>thead>tr {
+.container > table {
+  width: 96%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgba(55, 56, 103, 0.1);
+  box-shadow: inset 0px -1px 0px #E0E0E0;
+}
+
+th:first-child {
+  border-radius: 15px 0 0 15px;
+}
+
+th:last-child {
+  border-radius: 0 15px 15px 0;
+}
+
+tr {
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+}
+
+/* .container > table>thead>tr {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,21 +59,21 @@
   border-radius: 15px;
 }
 
-.table>thead>tr>td {
+.container > table>thead>tr>td {
   flex: 1 1 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.table>tbody {
+.container > table>tbody {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.table>tbody>tr {
+.container > table>tbody>tr {
   flex: 1 1 100%;
   display: flex;
   justify-content: space-between;
@@ -53,7 +82,7 @@
   border-radius: 15px;
 }
 
-.table>tbody>tr>td {
+.container > table>tbody>tr>td {
   flex: 1 1 30%;
   display: flex;
   justify-content: center;
@@ -63,14 +92,14 @@
   cursor: pointer;
   padding: 5px 15px;
 }
-.table>tbody>tr>td>ul:hover ~ .modal{
+.container > table>tbody>tr>td>ul:hover ~ .modal{
   display: flex;
 }
-.table>tbody>tr td:nth-last-of-type() {
+.container > table>tbody>tr td:nth-last-of-type() {
   flex: 1 1 10%;
 }
 
-.table>tbody>tr>td>select {
+.container > table>tbody>tr>td>select {
   flex: 1 1 100%;
   display: flex;
   justify-content: center;
@@ -78,13 +107,13 @@
   contain: strict;
 }
 
-.table>tbody>tr>td.buttonsContainer {
+.container > table>tbody>tr>td.buttonsContainer {
   display: flex;
   gap: 15px;
   justify-content: flex-end;
 }
 
-.table>tbody>tr>td.buttonsContainer>button,
+.container > table>tbody>tr>td.buttonsContainer>button,
 .addBtn,
 .showListBtn {
   padding: 8px 25px;
@@ -100,7 +129,7 @@
   cursor: pointer;
   color: #373867;
 }
-.table>thead>tr>td:last-child{
+.container > table>thead>tr>td:last-child{
   flex: 1 1 100%;
   justify-content: flex-end;
 }
@@ -131,4 +160,4 @@
 
 .closeBtn:hover {
   background: #f13312e3;
-}
+} */

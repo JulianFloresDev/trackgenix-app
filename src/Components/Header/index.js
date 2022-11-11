@@ -27,8 +27,12 @@ function Header() {
         </div>
       </div>
       <nav className={styles.navbar}>
-        <div className={styles.appName}>
+        {/* <div className={styles.appName}>
           Track<span>GENIX</span>
+        </div> */}
+        <div className={styles.logoRR}>
+          <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
+          <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
         </div>
         <ul className={styles.rutes}>
           <li>
