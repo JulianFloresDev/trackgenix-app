@@ -40,6 +40,12 @@ const Form = () => {
   }, []);
 
   const editRow = async () => {
+    await data.teamMembers?.map((member) => {
+      return { ...member, [member.employee]: member.employee._id || member.employee };
+    });
+    setData({ ...data });
+    console.log(data);
+
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
         method: 'PUT',
@@ -181,7 +187,7 @@ const Form = () => {
                                         setData({ ...data });
                                       }}
                                     >
-                                      <option>-</option>
+                                      <option hidden>-</option>
                                       <option>DEV</option>
                                       <option>QA</option>
                                       <option>PM</option>
