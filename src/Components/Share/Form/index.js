@@ -11,7 +11,6 @@ const Form = () => {
   delete data['__v'];
   delete data['createdAt'];
   delete data['updatedAt'];
-
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const id = useParams().id;
@@ -40,14 +39,21 @@ const Form = () => {
     }
   }, []);
 
-  const editRow = async (newData) => {
+  const editRow = async () => {
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/Json'
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify({
+          ...data,
+          dni: data.dni?.toString(),
+          phone: data.phone?.toString(),
+          employee: data.employee?._id || data.employee,
+          task: data.task?._id || data.task,
+          project: data.project?._id || data.project
+        })
       });
       const res = await req.json();
       console.log(res);
@@ -59,7 +65,7 @@ const Form = () => {
         setTimeout(() => setShowModal(false), 2000);
         return;
       }
-      setModalContent('Edited successfully' || res.message);
+      setModalContent('Edited successfully');
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
@@ -69,7 +75,7 @@ const Form = () => {
       console.error(error);
     }
   };
-
+  console.log(data);
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
@@ -86,7 +92,7 @@ const Form = () => {
                       data[prop] = e.target.value;
                       setData({ ...data });
                     }}
-                    value={data[prop]?._id}
+                    value={data[prop] ? data[prop]._id : 0}
                   >
                     {employeeList.map((employee) => {
                       return (
@@ -96,6 +102,7 @@ const Form = () => {
                         >{`${employee?.firstName} ${employee?.lastName}`}</option>
                       );
                     })}
+                    <option value={0}>Select Employee</option>
                   </select>
                 </div>
               );
@@ -110,7 +117,7 @@ const Form = () => {
                       data[prop] = e.target.value;
                       setData({ ...data });
                     }}
-                    value={data[prop]?._id}
+                    value={data[prop] ? data[prop]._id : 0}
                   >
                     {projectList.map((project) => {
                       return (
@@ -119,6 +126,7 @@ const Form = () => {
                         </option>
                       );
                     })}
+                    <option value={0}>Select Project</option>
                   </select>
                 </div>
               );
@@ -133,7 +141,7 @@ const Form = () => {
                       data[prop] = e.target.value;
                       setData({ ...data });
                     }}
-                    value={data[prop]?._id}
+                    value={data[prop] ? data[prop]._id : 0}
                   >
                     {taskList.map((task) => {
                       return (
@@ -142,6 +150,7 @@ const Form = () => {
                         </option>
                       );
                     })}
+                    <option value={0}>Select Task</option>
                   </select>
                 </div>
               );
@@ -153,16 +162,17 @@ const Form = () => {
                   <table>
                     <thead>
                       <th>
-                        {Object.keys(data[prop][0]).map((key, index) => {
-                          return <td key={index}>{key}</td>;
-                        })}
+                        {data[prop][0] &&
+                          Object.keys(data[prop][0])?.map((key, index) => {
+                            return <td key={index}>{key}</td>;
+                          })}
                       </th>
                     </thead>
                     <tbody>
-                      {data[prop].map((item, index) => {
+                      {data[prop]?.map((item, index) => {
                         return (
                           <tr key={index}>
-                            {Object.keys(item).map((info) => {
+                            {Object.keys(item)?.map((info) => {
                               if (info === 'role') {
                                 return (
                                   <td key={index}>
@@ -188,6 +198,7 @@ const Form = () => {
                                     <input
                                       type="number"
                                       value={item.employee ? item[info] : 0}
+                                      min={0}
                                       onChange={(e) => {
                                         item[info] = e.target.value;
                                         setData({ ...data });
@@ -213,7 +224,7 @@ const Form = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0}>Employee Not Found</option>
+                                    <option value={0}>Select Employee</option>
                                   </select>
                                 );
                               }
@@ -233,7 +244,7 @@ const Form = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          data.teamMembers.unshift(newTeamMember);
+                          data.teamMembers = [...data.teamMembers, newTeamMember];
                           setData({ ...data });
                         }}
                       >
@@ -259,6 +270,7 @@ const Form = () => {
                   id={prop}
                   type={inputType}
                   value={data[prop]}
+                  checked={data[prop]}
                   onChange={(e) => {
                     e.target.type === 'checkbox'
                       ? (data[prop] = e.target.checked)
@@ -273,7 +285,7 @@ const Form = () => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                editRow(data);
+                editRow();
               }}
             >
               Submit
