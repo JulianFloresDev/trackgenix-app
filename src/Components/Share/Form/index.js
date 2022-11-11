@@ -68,7 +68,7 @@ const Form = () => {
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
-        history.goBack();
+        history.push(`/${entitie}`);
       }, 2000);
     } catch (error) {
       console.error(error);
@@ -295,7 +295,7 @@ const Form = () => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                history.goBack();
+                history.push(`/${entitie}`);
               }}
             >
               Close
