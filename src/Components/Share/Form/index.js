@@ -5,12 +5,12 @@ import Modal from '../Modal';
 const Form = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(<></>);
+  const newTeamMember = { employee: '', role: '', rate: '' };
   const [data, setData] = useState({});
   delete data['_id'];
   delete data['__v'];
   delete data['createdAt'];
   delete data['updatedAt'];
-
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const id = useParams().id;
@@ -39,17 +39,23 @@ const Form = () => {
     }
   }, []);
 
-  const editRow = async (newData) => {
+  const editRow = async () => {
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/Json'
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify({
+          ...data,
+          dni: data.dni?.toString(),
+          phone: data.phone?.toString(),
+          employee: data.employee?._id || data.employee,
+          task: data.task?._id || data.task,
+          project: data.project?._id || data.project
+        })
       });
       const res = await req.json();
-      console.log(res);
       if (res.error) {
         setModalContent(
           res.message[0].message || res.message || 'An unexpected error has occurred'
@@ -58,22 +64,19 @@ const Form = () => {
         setTimeout(() => setShowModal(false), 2000);
         return;
       }
-      setModalContent('Edited successfully' || res.message);
+      setModalContent('Edited successfully');
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
-        history.goBack();
+        history.push(`/${entitie}`);
       }, 2000);
     } catch (error) {
       console.error(error);
     }
   };
-
   return (
     <>
-      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-        {modalContent}
-      </Modal>
+      <Modal showModal={showModal}>{modalContent}</Modal>
       <section>
         <form>
           {properties.map((prop, index) => {
@@ -87,7 +90,7 @@ const Form = () => {
                       data[prop] = e.target.value;
                       setData({ ...data });
                     }}
-                    value={data[prop]?._id}
+                    value={data[prop] ? data[prop]._id : 0}
                   >
                     {employeeList.map((employee) => {
                       return (
@@ -97,6 +100,7 @@ const Form = () => {
                         >{`${employee?.firstName} ${employee?.lastName}`}</option>
                       );
                     })}
+                    <option value={0}>Select Employee</option>
                   </select>
                 </div>
               );
@@ -111,7 +115,7 @@ const Form = () => {
                       data[prop] = e.target.value;
                       setData({ ...data });
                     }}
-                    value={data[prop]?._id}
+                    value={data[prop] ? data[prop]._id : 0}
                   >
                     {projectList.map((project) => {
                       return (
@@ -120,6 +124,7 @@ const Form = () => {
                         </option>
                       );
                     })}
+                    <option value={0}>Select Project</option>
                   </select>
                 </div>
               );
@@ -134,7 +139,7 @@ const Form = () => {
                       data[prop] = e.target.value;
                       setData({ ...data });
                     }}
-                    value={data[prop]?._id}
+                    value={data[prop] ? data[prop]._id : 0}
                   >
                     {taskList.map((task) => {
                       return (
@@ -143,6 +148,7 @@ const Form = () => {
                         </option>
                       );
                     })}
+                    <option value={0}>Select Task</option>
                   </select>
                 </div>
               );
@@ -154,25 +160,98 @@ const Form = () => {
                   <table>
                     <thead>
                       <th>
-                        {Object.keys(data[prop][0]).map((key, index) => {
-                          return <td key={index}>{key}</td>;
-                        })}
+                        {data[prop][0] &&
+                          Object.keys(data[prop][0])?.map((key, index) => {
+                            return <td key={index}>{key}</td>;
+                          })}
                       </th>
                     </thead>
                     <tbody>
-                      {employeeList.map((item, index) => {
+                      {data[prop]?.map((item, index) => {
                         return (
                           <tr key={index}>
-                            {Object.keys(data[prop][0]).map((info) => {
-                              if (!item[info]) {
-                                return <td key={index}>{item[info]} Not Found</td>;
+                            {Object.keys(item)?.map((info) => {
+                              if (info === 'role') {
+                                return (
+                                  <td key={index}>
+                                    <select
+                                      value={item.employee ? item[info] : '-'}
+                                      onChange={(e) => {
+                                        item[info] = e.target.value;
+                                        setData({ ...data });
+                                      }}
+                                    >
+                                      <option>-</option>
+                                      <option>DEV</option>
+                                      <option>QA</option>
+                                      <option>PM</option>
+                                      <option>TL</option>
+                                    </select>
+                                  </td>
+                                );
                               }
-                              return <td key={index}>{item[info]}</td>;
+                              if (info === 'rate') {
+                                return (
+                                  <td key={index}>
+                                    <input
+                                      type="number"
+                                      value={item.employee ? item[info] : 0}
+                                      min={0}
+                                      onChange={(e) => {
+                                        item[info] = e.target.value;
+                                        setData({ ...data });
+                                      }}
+                                    />
+                                  </td>
+                                );
+                              }
+                              if (info === 'employee') {
+                                return (
+                                  <select
+                                    key={index}
+                                    value={item[info] ? item[info]._id : 0}
+                                    onChange={(e) => {
+                                      item[info] = e.target.value;
+                                      setData({ ...data });
+                                    }}
+                                  >
+                                    {employeeList?.map((employee) => {
+                                      return (
+                                        <option key={employee._id} value={employee?._id}>
+                                          {employee.firstName} {employee.lastName}
+                                        </option>
+                                      );
+                                    })}
+                                    <option value={0}>Select Employee</option>
+                                  </select>
+                                );
+                              }
                             })}
-                            <button>Delete</button>
+                            <td>
+                              {data[prop].length > 1 && (
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    data[prop].splice(index, 1);
+                                    setData({ ...data });
+                                  }}
+                                >
+                                  Remove Employee
+                                </button>
+                              )}
+                            </td>
                           </tr>
                         );
                       })}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          data.teamMembers = [...data.teamMembers, newTeamMember];
+                          setData({ ...data });
+                        }}
+                      >
+                        +
+                      </button>
                     </tbody>
                   </table>
                 </div>
@@ -193,6 +272,7 @@ const Form = () => {
                   id={prop}
                   type={inputType}
                   value={data[prop]}
+                  checked={data[prop]}
                   onChange={(e) => {
                     e.target.type === 'checkbox'
                       ? (data[prop] = e.target.checked)
@@ -207,7 +287,7 @@ const Form = () => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                editRow(data);
+                editRow();
               }}
             >
               Submit
@@ -215,7 +295,7 @@ const Form = () => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                history.goBack();
+                history.push(`/${entitie}`);
               }}
             >
               Close

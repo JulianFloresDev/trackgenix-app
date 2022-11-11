@@ -25,9 +25,7 @@ const Table = ({ headers, data }) => {
   };
   return (
     <>
-      <Modal showModal={showModal} closeModal={() => setShowModal(false)}>
-        {modalContent}
-      </Modal>
+      <Modal showModal={showModal}>{modalContent}</Modal>
       <div className={styles.container}>
         <table className={styles.table}>
           <caption>{entitie}</caption>
