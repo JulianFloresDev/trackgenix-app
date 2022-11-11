@@ -82,7 +82,6 @@ const CreateForm = () => {
         body: JSON.stringify(data)
       });
       const res = await req.json();
-      console.log(res);
       if (res.error) {
         setModalContent(
           res.message[0].message || res.message || 'An unexpected error has occurred'

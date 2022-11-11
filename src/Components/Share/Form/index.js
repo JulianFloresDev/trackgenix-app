@@ -56,7 +56,6 @@ const Form = () => {
         })
       });
       const res = await req.json();
-      console.log(res);
       if (res.error) {
         setModalContent(
           res.message[0].message || res.message || 'An unexpected error has occurred'
@@ -75,7 +74,6 @@ const Form = () => {
       console.error(error);
     }
   };
-  console.log(data);
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
