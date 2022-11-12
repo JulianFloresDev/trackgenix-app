@@ -39,9 +39,10 @@ const Form = () => {
   }, []);
 
   const editRow = async () => {
-    data.teamMembers = data.teamMembers?.map((member) => {
-      return { ...member, employee: member.employee._id || member.employee };
-    });
+    data.teamMembers &&
+      (data.teamMembers = data.teamMembers?.map((member) => {
+        return { ...member, employee: member.employee._id || member.employee };
+      }));
     setData({ ...data });
 
     try {
