@@ -62,7 +62,17 @@ const Form = () => {
       const res = await req.json();
       if (res.error) {
         setModalContent(
-          res.message[0].message || res.message || 'An unexpected error has occurred'
+          (Array.isArray(res.message) && (
+            <div>
+              <ul>
+                {res.message.map((info, index) => {
+                  return <li key={index}>{info.message}</li>;
+                })}
+              </ul>
+            </div>
+          )) ||
+            res.message ||
+            'An unexpected error has occurred'
         );
         setShowModal(true);
         setTimeout(() => setShowModal(false), 2000);
