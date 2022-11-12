@@ -1,14 +1,21 @@
 .container {
+  position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 81.22%;
-  height: 15.78vh;
+  height: 10.25vw;
   margin-left: 18.78%;
   padding: 0 5%;
   background-color: #373867;
 }
 
+figure {
+  width: 5vw;
+  height: 5vw;
+  background: #ffffff;
+  border-radius: 50%;
+}
 .brand {
   font-weight: bold;
   font-size: 1rem;
@@ -20,9 +27,10 @@
 
 .navbar {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   width: 18.78%;
   height: 100vh;
-  margin-top: -15.78vh;
   background-color: #373867;
 }
 
@@ -43,22 +51,23 @@
 }
 
 .rutes {
+  flex-grow: 1;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10% 0 20%;
   align-content: center;
-  margin-top: 30px;
   list-style-type: none;
 }
 
 .rutes > li {
   width: 100%;
-  padding: 20px 0;
   text-align: center;
 }
 
 .rutes > li > a {
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.6vw;
   font-weight: 600;
   text-decoration: none;
   text-transform: capitalize;

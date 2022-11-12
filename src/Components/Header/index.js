@@ -4,7 +4,7 @@ function Header() {
   return (
     <header>
       <div className={styles.container}>
-        <div className={styles.brand}>Radium Rocket</div>
+        {/* <div className={styles.brand}>Radium Rocket</div>
         <div>
           <a href={'https://www.facebook.com/radiumrocket'} target={'_blank'} rel="noreferrer">
             <img
@@ -24,7 +24,8 @@ function Header() {
               src={`${process.env.PUBLIC_URL}/assets/images/instagram.svg`}
             />
           </a>
-        </div>
+        </div> */}
+        <figure></figure>
       </div>
       <nav className={styles.navbar}>
         {/* <div className={styles.appName}>

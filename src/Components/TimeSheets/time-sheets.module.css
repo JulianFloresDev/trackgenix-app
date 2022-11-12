@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -93,11 +93,11 @@ img {
 tbody tr {
   box-shadow: inset 0px -1px 0px #E0E0E0;
   border-radius: 15px;
-}
+} */
 
 /* MODAL  */
 
-.modal {
+/* .modal {
   position: fixed; 
   display: flex;
   justify-content: center;
@@ -171,4 +171,4 @@ form button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
