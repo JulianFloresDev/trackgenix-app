@@ -15,7 +15,6 @@ const Form = () => {
   const URLPath = history.location.pathname.split('/');
   const id = useParams().id;
   const entitie = URLPath[1];
-  const properties = Object.keys(data);
 
   const [employeeList, setEmployeesList] = useState([]);
   const [projectList, setProjectsList] = useState([]);
@@ -84,7 +83,7 @@ const Form = () => {
       <Modal showModal={showModal}>{modalContent}</Modal>
       <section>
         <form>
-          {properties.map((prop, index) => {
+          {Object.keys(data)?.map((prop, index) => {
             if (prop === 'employee') {
               return (
                 <div key={index}>
