@@ -90,11 +90,11 @@ const CreateForm = () => {
         setTimeout(() => setShowModal(false), 2000);
         return;
       }
-      setModalContent('Added successfully' || res.message);
+      setModalContent('Added successfully');
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
-        history.goBack();
+        history.push(`/${entitie}`);
       }, 2000);
     } catch (error) {
       console.error(error);
@@ -119,7 +119,7 @@ const CreateForm = () => {
                     }}
                     value={data[prop]?._id}
                   >
-                    <option>Select an Employee</option>
+                    <option hiddden>Select an Employee</option>
                     {employeeList.map((employee) => {
                       return (
                         <option
@@ -144,7 +144,7 @@ const CreateForm = () => {
                     }}
                     value={data[prop]?._id}
                   >
-                    <option>Select a Project</option>
+                    <option hidden>Select a Project</option>
                     {projectList.map((project) => {
                       return (
                         <option value={project?._id} key={project?._id}>
@@ -168,7 +168,7 @@ const CreateForm = () => {
                     }}
                     value={data[prop]?._id}
                   >
-                    <option>Select a Task</option>
+                    <option hidden>Select a Task</option>
                     {taskList.map((task) => {
                       return (
                         <option value={task?._id} key={task?._id}>
@@ -207,7 +207,7 @@ const CreateForm = () => {
                                         setData({ ...data });
                                       }}
                                     >
-                                      <option>-</option>
+                                      <option hidden>-</option>
                                       <option>DEV</option>
                                       <option>QA</option>
                                       <option>PM</option>
@@ -247,7 +247,9 @@ const CreateForm = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0}>Select an Employee</option>
+                                    <option value={0} hideen>
+                                      Select an Employee
+                                    </option>
                                   </select>
                                 );
                               }
@@ -319,7 +321,7 @@ const CreateForm = () => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                history.goBack();
+                history.push(`/${entitie}`);
               }}
             >
               Close

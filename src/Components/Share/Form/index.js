@@ -105,7 +105,9 @@ const Form = () => {
                         >{`${employee?.firstName} ${employee?.lastName}`}</option>
                       );
                     })}
-                    <option value={0}>Select Employee</option>
+                    <option value={0} hidden>
+                      Select Employee
+                    </option>
                   </select>
                 </div>
               );
@@ -129,7 +131,9 @@ const Form = () => {
                         </option>
                       );
                     })}
-                    <option value={0}>Select Project</option>
+                    <option value={0} hidden>
+                      Select Project
+                    </option>
                   </select>
                 </div>
               );
@@ -153,7 +157,9 @@ const Form = () => {
                         </option>
                       );
                     })}
-                    <option value={0}>Select Task</option>
+                    <option value={0} hidden>
+                      Select Task
+                    </option>
                   </select>
                 </div>
               );
@@ -227,7 +233,9 @@ const Form = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0}>Select Employee</option>
+                                    <option value={0} hidden>
+                                      Select Employee
+                                    </option>
                                   </select>
                                 );
                               }
@@ -251,7 +259,7 @@ const Form = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          data.teamMembers = [...data.teamMembers, newTeamMember];
+                          data.teamMembers = [newTeamMember, ...data.teamMembers];
                           setData({ ...data });
                         }}
                       >
