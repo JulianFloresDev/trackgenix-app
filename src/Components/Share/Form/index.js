@@ -40,11 +40,10 @@ const Form = () => {
   }, []);
 
   const editRow = async () => {
-    await data.teamMembers?.map((member) => {
-      return { ...member, [member.employee]: member.employee._id || member.employee };
+    data.teamMembers = data.teamMembers?.map((member) => {
+      return { ...member, employee: member.employee._id || member.employee };
     });
     setData({ ...data });
-    console.log(data);
 
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
