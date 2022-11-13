@@ -10,7 +10,6 @@ const Table = ({ headers, data }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-
   const deleteItem = (id) => {
     fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
       method: 'DELETE',
@@ -18,7 +17,9 @@ const Table = ({ headers, data }) => {
         'Content-Type': 'application/json'
       }
     });
-    setModalContent(<>Deleted successfully</>);
+    setModalContent(
+      <div className={styles.successMsg}>{entitie.slice(0, -1)} deleted successfully!</div>
+    );
     setShowModal(true);
     setTimeout(() => setShowModal(false), 2000);
     setItems(items.filter((item) => item._id !== id));
@@ -153,13 +154,13 @@ const Table = ({ headers, data }) => {
                         onClick={() => {
                           setShowModal(true);
                           setModalContent(
-                            <>
-                              Are you sure?
+                            <div className={styles.confirmModal}>
+                              <p>Are you sure?</p>
                               <div>
                                 <button onClick={() => deleteItem(row._id)}>Yes</button>
                                 <button onClick={() => setShowModal(false)}>No</button>
                               </div>
-                            </>
+                            </div>
                           );
                         }}
                       />

@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+.modifyForm {
+  width: 81.22%;
+  margin: 10.25vw 0 10.25vw 18.78%;
+  font-size: 1.2vw;
+  text-align: center;
+  color: #373867;
+}
+
+.modifyForm > form {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.modifyForm > form > h2 {
+  width: 100%;
+}
+
+.inputsBox {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+
+.inputsBox > div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 35%;
+}
+
+.inputsBox > div > label {
+  width: 100%;
+  text-align: start;
+}
+
+.inputsBox > div > input, .inputsBox > div > select {
+  width: 100%;
+}

@@ -1,3 +1,4 @@
+import styles from '../Form/form.module.css';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
@@ -90,7 +91,9 @@ const CreateForm = () => {
         setTimeout(() => setShowModal(false), 2000);
         return;
       }
-      setModalContent('Added successfully' || res.message);
+      setModalContent(
+        <div className={styles.successMsg}>{entitie.slice(0, -1)} added successfully!</div>
+      );
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
@@ -104,7 +107,7 @@ const CreateForm = () => {
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
-      <section>
+      <section className={styles.modifyForm}>
         <form>
           {Object.keys(data).map((prop, index) => {
             if (prop === 'employee') {

@@ -25,7 +25,7 @@ function Header() {
             />
           </a>
         </div> */}
-        <figure></figure>
+        <figure>{/* Here should be an image of who is logged */}</figure>
       </div>
       <nav className={styles.navbar}>
         {/* <div className={styles.appName}>
@@ -55,6 +55,7 @@ function Header() {
             <a href="/tasks">tasks</a>
           </li>
         </ul>
+        <button>Log Out</button>
       </nav>
     </header>
   );
