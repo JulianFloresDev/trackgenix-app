@@ -1,3 +1,4 @@
+import { GET_ADMINS_SUCCESS } from './constants';
 import {
   GET_ADMINS_PENDING
   // GET_ADMINS_SUCCESS,
@@ -25,6 +26,12 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: true
+      };
+    case GET_ADMINS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        list: action.payload
       };
     default:
       return state;
