@@ -18,7 +18,7 @@ const Table = ({ headers, data }) => {
         'Content-Type': 'application/json'
       }
     });
-    setModalContent(<>Deleted successfully</>);
+    setModalContent(<p>Deleted successfully</p>);
     setShowModal(true);
     setTimeout(() => setShowModal(false), 2000);
     setItems(items.filter((item) => item._id !== id));
@@ -31,7 +31,7 @@ const Table = ({ headers, data }) => {
     });
 
     if (counter !== members.length) {
-      setModalContent(<p>This project does not have work team, yet!</p>);
+      setModalContent(<p>This project does not have any active employee!</p>);
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
@@ -49,7 +49,7 @@ const Table = ({ headers, data }) => {
             </thead>
             <tbody>
               {members.map((team, index) => {
-                if (team.employee !== null) {
+                if (team.employee) {
                   return (
                     <tr key={index}>
                       <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
@@ -74,6 +74,12 @@ const Table = ({ headers, data }) => {
       setShowModal(true);
     }
   };
+  window.addEventListener('keydown', (e) => {
+    if (showModal && e.code === 'Escape') {
+      setModalContent(<></>);
+      setShowModal(!showModal);
+    }
+  });
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
