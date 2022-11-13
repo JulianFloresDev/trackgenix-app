@@ -18,11 +18,68 @@ const Table = ({ headers, data }) => {
         'Content-Type': 'application/json'
       }
     });
-    setModalContent(<>Deleted successfully</>);
+    setModalContent(<p>Deleted successfully</p>);
     setShowModal(true);
     setTimeout(() => setShowModal(false), 2000);
     setItems(items.filter((item) => item._id !== id));
   };
+  const showEmployeeList = (members) => {
+    let counter = 0;
+
+    members.forEach((team) => {
+      team.employee !== null && counter++;
+    });
+
+    if (counter !== members.length) {
+      setModalContent(<p>This project does not have any active employee!</p>);
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    } else {
+      setModalContent(
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Role</th>
+                <th>Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {members.map((team, index) => {
+                if (team.employee) {
+                  return (
+                    <tr key={index}>
+                      <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
+                      <td>{team.role}</td>
+                      <td>{team.rate}</td>
+                    </tr>
+                  );
+                }
+              })}
+            </tbody>
+          </table>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setShowModal(false);
+            }}
+          >
+            Go back
+          </button>
+        </>
+      );
+      setShowModal(true);
+    }
+  };
+  window.addEventListener('keydown', (e) => {
+    if (showModal && e.code === 'Escape') {
+      setModalContent(<></>);
+      setShowModal(!showModal);
+    }
+  });
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
@@ -65,9 +122,19 @@ const Table = ({ headers, data }) => {
                     }
                     if (Array.isArray(row[property])) {
                       return (
-                        <td key={index}>
-                          <button className={styles.showListBtn}>Show List</button>
-                        </td>
+                        <>
+                          <td key={index}>
+                            <button
+                              className={styles.showListBtn}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                showEmployeeList(row[property]);
+                              }}
+                            >
+                              Show List
+                            </button>
+                          </td>
+                        </>
                       );
                     }
                     if (!row[property]) {
