@@ -4,7 +4,6 @@ import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteEmployees } from '../../../redux/employees/thunks';
-import { deleteAdminByID } from '../../../redux/admins/thunks';
 
 const Table = ({ headers, data }) => {
   const history = useHistory();
@@ -35,12 +34,26 @@ const Table = ({ headers, data }) => {
         dispatch(deleteEmployees(id));
         break;
       case 'admins':
-        dispatch(deleteAdminByID(id));
+        console.log('dispatch(deleteAdmins(id)');
+        break;
+      case 'super-admins':
+        console.log('dispatch(deleteSuperAdmins(id)');
+        break;
+      case 'tasks':
+        console.log('dispatch(deleteTasks(id)');
+        break;
+      case 'projects':
+        console.log('dispatch(deleteProjects(id)');
+        break;
+      case 'time-sheets':
+        console.log('dispatch(deleteTimesheets(id)');
         break;
       default:
-        dispatch(setModalContent(<h3>Can not delete entitie</h3>));
+        dispatch(setModalContent(<p>Can not delete entitie</p>));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
+
   const showEmployeeList = (members) => {
     let counter = 0;
 
