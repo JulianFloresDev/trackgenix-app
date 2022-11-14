@@ -1,8 +1,9 @@
-import { SHOW_MODAL, MODAL_CONTENT } from './constants';
+import { SHOW_MODAL, MODAL_CONTENT, EDIT_ITEM } from './constants';
 
 const INITIAL_STATE = {
   showModal: false,
-  modalContent: <div></div>
+  modalContent: <div></div>,
+  itemToPUT: {}
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -15,6 +16,11 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         modalContent: action.payload
+      };
+    case EDIT_ITEM:
+      return {
+        ...state,
+        itemToPUT: action.payload
       };
     default:
       return state;

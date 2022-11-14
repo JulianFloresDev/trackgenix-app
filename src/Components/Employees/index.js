@@ -10,7 +10,7 @@ function Employees() {
   const { list, isFetching, error } = useSelector((state) => state.employees);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getEmployees());
+    dispatch(getEmployees(''));
   }, []);
   // const [list, setList] = useState([]);
   // const [isFetching, setIsFetching] = useState(true);
