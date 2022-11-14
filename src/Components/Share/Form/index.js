@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Modal from '../Modal';
+import { setShowModal, setModalContent } from '../../../redux/global/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Form = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(<></>);
+  const dispatch = useDispatch();
+  const { showModal, modalContent } = useSelector((store) => store.global);
   const newTeamMember = { employee: '', role: '', rate: '' };
   const [data, setData] = useState({});
   delete data['_id'];
@@ -62,27 +64,29 @@ const Form = () => {
       });
       const res = await req.json();
       if (res.error) {
-        setModalContent(
-          (Array.isArray(res.message) && (
-            <div>
-              <ul>
-                {res.message.map((info, index) => {
-                  return <li key={index}>{info.message}</li>;
-                })}
-              </ul>
-            </div>
-          )) ||
-            res.message ||
-            'An unexpected error has occurred'
+        dispatch(
+          setModalContent(
+            (Array.isArray(res.message) && (
+              <div>
+                <ul>
+                  {res.message.map((info, index) => {
+                    return <li key={index}>{info.message}</li>;
+                  })}
+                </ul>
+              </div>
+            )) ||
+              res.message ||
+              'An unexpected error has occurred'
+          )
         );
-        setShowModal(true);
-        setTimeout(() => setShowModal(false), 2000);
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false), 2000));
         return;
       }
-      setModalContent('Edited successfully');
-      setShowModal(true);
+      dispatch(setModalContent(<p>Edited successfully</p>));
+      dispatch(setShowModal(true));
       setTimeout(() => {
-        setShowModal(false);
+        dispatch(setShowModal(false));
         history.push(`/${entitie}`);
       }, 2000);
     } catch (error) {

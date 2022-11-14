@@ -10,7 +10,7 @@ function Admins() {
   const { list, isFetching, error } = useSelector((store) => store.admins);
 
   useEffect(async () => {
-    dispatch(getAdmins());
+    dispatch(getAdmins(''));
   }, []);
   return (
     <section className={styles.container}>
@@ -27,7 +27,7 @@ function Admins() {
           ) : (
             <Table
               headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-              data={list}
+              data={list.admins}
             />
           )}
         </>
