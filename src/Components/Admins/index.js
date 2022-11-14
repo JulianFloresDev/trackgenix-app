@@ -27,7 +27,7 @@ function Admins() {
           ) : (
             <Table
               headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-              data={list.admins}
+              data={list}
             />
           )}
         </>
