@@ -1,27 +1,38 @@
 import styles from './table.module.css';
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { setModalContent, setShowModal } from '../../../redux/global/actions';
+import { deleteEmployees } from '../../../redux/employees/thunks';
 
 const Table = ({ headers, data }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(<></>);
-  const [items, setItems] = useState(data);
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
 
+  const { showModal, modalContent } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
+
+  const openModal = (id) => {
+    dispatch(setShowModal(true));
+    dispatch(
+      setModalContent(
+        <>
+          Are you sure?
+          <div>
+            <button onClick={() => deleteItem(id)}>Yes</button>
+            <button onClick={() => dispatch(setShowModal(false))}>No</button>
+          </div>
+        </>
+      )
+    );
+  };
+
   const deleteItem = (id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    setModalContent(<p>Deleted successfully</p>);
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 2000);
-    setItems(items.filter((item) => item._id !== id));
+    switch (entitie) {
+      case 'employees':
+        dispatch(deleteEmployees(id));
+    }
   };
   const showEmployeeList = (members) => {
     let counter = 0;
@@ -31,55 +42,55 @@ const Table = ({ headers, data }) => {
     });
 
     if (counter !== members.length) {
-      setModalContent(<p>This project does not have any active employee!</p>);
-      setShowModal(true);
+      dispatch(setModalContent(<p>This project does not have any active employee!</p>));
+      dispatch(setShowModal(true));
       setTimeout(() => {
-        setShowModal(false);
+        // setShowModal(false);
       }, 2000);
     } else {
-      setModalContent(
-        <>
-          <table>
-            <thead>
-              <tr>
-                <th>Employee</th>
-                <th>Role</th>
-                <th>Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {members.map((team, index) => {
-                if (team.employee) {
-                  return (
-                    <tr key={index}>
-                      <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
-                      <td>{team.role}</td>
-                      <td>{team.rate}</td>
-                    </tr>
-                  );
-                }
-              })}
-            </tbody>
-          </table>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setShowModal(false);
-            }}
-          >
-            Go back
-          </button>
-        </>
-      );
-      setShowModal(true);
+      // setModalContent(
+      //   <>
+      //     <table>
+      //       <thead>
+      //         <tr>
+      //           <th>Employee</th>
+      //           <th>Role</th>
+      //           <th>Rate</th>
+      //         </tr>
+      //       </thead>
+      //       <tbody>
+      //         {members.map((team, index) => {
+      //           if (team.employee) {
+      //             return (
+      //               <tr key={index}>
+      //                 <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
+      //                 <td>{team.role}</td>
+      //                 <td>{team.rate}</td>
+      //               </tr>
+      //             );
+      //           }
+      //         })}
+      //       </tbody>
+      //     </table>
+      //     <button
+      //       onClick={(e) => {
+      //         e.preventDefault();
+      //         // setShowModal(false);
+      //       }}
+      //     >
+      //       Go back
+      //     </button>
+      //   </>
+      // );
+      // setShowModal(true);
     }
   };
-  window.addEventListener('keydown', (e) => {
-    if (showModal && e.code === 'Escape') {
-      setModalContent(<></>);
-      setShowModal(!showModal);
-    }
-  });
+  // window.addEventListener('keydown', (e) => {
+  //   if (showModal && e.code === 'Escape') {
+  //     setModalContent(<></>);
+  //     setShowModal(!showModal);
+  //   }
+  // });
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
@@ -99,7 +110,7 @@ const Table = ({ headers, data }) => {
             </tr>
           </thead>
           <tbody>
-            {items.map((row) => {
+            {data.map((row) => {
               return (
                 <tr key={row._id}>
                   {headers.map((property, index) => {
@@ -160,17 +171,9 @@ const Table = ({ headers, data }) => {
                     </button>
                     <button
                       className={styles.closeBtn}
-                      onClick={() => {
-                        setShowModal(true);
-                        setModalContent(
-                          <>
-                            Are you sure?
-                            <div>
-                              <button onClick={() => deleteItem(row._id)}>Yes</button>
-                              <button onClick={() => setShowModal(false)}>No</button>
-                            </div>
-                          </>
-                        );
+                      onClick={(e) => {
+                        e.preventDefault();
+                        openModal(row._id);
                       }}
                     >
                       X
