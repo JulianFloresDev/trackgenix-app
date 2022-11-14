@@ -1,3 +1,4 @@
+import { setShowModal } from '../global/actions';
 import {
   getAdminsPending,
   getAdminsSuccess,
@@ -39,9 +40,11 @@ export const deleteAdminByID = (id) => {
         throw new Error(response);
       } else {
         dispatch(deleteAdminsSuccess(id));
+        dispatch(setShowModal(false));
       }
     } catch (error) {
       dispatch(deleteAdminsError(error.message));
+      setTimeout(dispatch(setShowModal(false)), 2000);
     }
   };
 };

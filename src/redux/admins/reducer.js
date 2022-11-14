@@ -16,9 +16,7 @@ import {
 const INITIAL_STATE = {
   list: [],
   isFetching: false,
-  error: false,
-  showModal: false,
-  modalContent: <div></div>
+  error: false
 };
 
 const adminsReducer = (state = INITIAL_STATE, action) => {
@@ -48,13 +46,13 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
     case DELETE_ADMINS_SUCCESS:
       return {
         ...state,
-        list: [...state.list.filter((item) => item._id !== action.payload)]
+        list: state.list.filter((item) => item._id !== action.payload),
+        isFetching: false
       };
     case DELETE_ADMINS_ERROR:
       return {
         ...state,
-        modalContent: <div>{action.payload}</div>,
-        showModal: true
+        isFetching: false
       };
     default:
       return state;
