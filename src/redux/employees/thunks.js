@@ -24,15 +24,24 @@ export const getEmployees = () => {
 
 export const deleteEmployees = (id) => {
   return async (dispatch) => {
-    await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
+    try {
+      const req = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (req.status >= 400) {
+        throw new Error(req.statusText);
       }
-    });
-    dispatch(deleteEmployeesSuccess(id));
-    dispatch(setModalContent(<p>Employee deleted successfully!</p>));
-    dispatch(setShowModal(true));
-    setTimeout(() => dispatch(setShowModal(false)), 2000);
+      dispatch(deleteEmployeesSuccess(id));
+      dispatch(setModalContent(<p>Employee deleted successfully!</p>));
+      dispatch(setShowModal(true));
+      setTimeout(() => dispatch(setShowModal(false)), 2000);
+    } catch (error) {
+      dispatch(setModalContent(<p>{error.toString()}</p>));
+      dispatch(setShowModal(true));
+      setTimeout(() => dispatch(setShowModal(false)), 2000);
+    }
   };
 };
