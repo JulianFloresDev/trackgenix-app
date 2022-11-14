@@ -32,8 +32,28 @@ const Table = ({ headers, data }) => {
     switch (entitie) {
       case 'employees':
         dispatch(deleteEmployees(id));
+        break;
+      case 'admins':
+        console.log('dispatch(deleteAdmins(id)');
+        break;
+      case 'super-admins':
+        console.log('dispatch(deleteSuperAdmins(id)');
+        break;
+      case 'tasks':
+        console.log('dispatch(deleteTasks(id)');
+        break;
+      case 'projects':
+        console.log('dispatch(deleteProjects(id)');
+        break;
+      case 'time-sheets':
+        console.log('dispatch(deleteTimesheets(id)');
+        break;
+      default:
+        dispatch(setModalContent(<p>Can not delete entitie</p>));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
+
   const showEmployeeList = (members) => {
     let counter = 0;
 
@@ -45,52 +65,54 @@ const Table = ({ headers, data }) => {
       dispatch(setModalContent(<p>This project does not have any active employee!</p>));
       dispatch(setShowModal(true));
       setTimeout(() => {
-        // setShowModal(false);
+        dispatch(setShowModal(false));
       }, 2000);
     } else {
-      // setModalContent(
-      //   <>
-      //     <table>
-      //       <thead>
-      //         <tr>
-      //           <th>Employee</th>
-      //           <th>Role</th>
-      //           <th>Rate</th>
-      //         </tr>
-      //       </thead>
-      //       <tbody>
-      //         {members.map((team, index) => {
-      //           if (team.employee) {
-      //             return (
-      //               <tr key={index}>
-      //                 <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
-      //                 <td>{team.role}</td>
-      //                 <td>{team.rate}</td>
-      //               </tr>
-      //             );
-      //           }
-      //         })}
-      //       </tbody>
-      //     </table>
-      //     <button
-      //       onClick={(e) => {
-      //         e.preventDefault();
-      //         // setShowModal(false);
-      //       }}
-      //     >
-      //       Go back
-      //     </button>
-      //   </>
-      // );
-      // setShowModal(true);
+      dispatch(
+        setModalContent(
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Role</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {members.map((team, index) => {
+                  if (team.employee) {
+                    return (
+                      <tr key={index}>
+                        <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
+                        <td>{team.role}</td>
+                        <td>{team.rate}</td>
+                      </tr>
+                    );
+                  }
+                })}
+              </tbody>
+            </table>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(setShowModal(false));
+              }}
+            >
+              Go back
+            </button>
+          </>
+        )
+      );
+      dispatch(setShowModal(true));
     }
   };
-  // window.addEventListener('keydown', (e) => {
-  //   if (showModal && e.code === 'Escape') {
-  //     setModalContent(<></>);
-  //     setShowModal(!showModal);
-  //   }
-  // });
+  window.addEventListener('keydown', (e) => {
+    if (showModal && e.code === 'Escape') {
+      dispatch(setModalContent(<></>));
+      dispatch(setShowModal(!showModal));
+    }
+  });
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
