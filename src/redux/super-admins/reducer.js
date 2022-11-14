@@ -6,8 +6,7 @@ import {
 
 const INITIAL_STATE = {
   list: [],
-  isFetching: false,
-  error: ''
+  isFetching: false
 };
 
 const superAdminsReducer = (state = INITIAL_STATE, action) => {
@@ -20,16 +19,13 @@ const superAdminsReducer = (state = INITIAL_STATE, action) => {
     case GET_SUPER_ADMINS_FULFILLED:
       return {
         ...state,
-        isFetching: false,
-        error: '',
-        list: action.payload.data
+        list: action.payload,
+        isFetching: false
       };
     case GET_SUPER_ADMINS_REJECTED:
       return {
         ...state,
-        isFetching: false,
-        error: action.payload,
-        list: []
+        isFetching: false
       };
     default:
       return state;

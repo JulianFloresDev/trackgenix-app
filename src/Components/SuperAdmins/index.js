@@ -4,7 +4,7 @@ import Table from '../Share/Table';
 import Spinner from '../Share/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getSuperAdmins } from './thunks';
+import { getSuperAdmins } from '../../redux/super-admins/thunks';
 
 function SuperAdmins() {
   const { list, isFetching } = useSelector((state) => state.superAdmins);
@@ -21,18 +21,20 @@ function SuperAdmins() {
   //   setTimeout(() => setIsFetching(false), 2000);
   // }, []);
   return (
-    <section className={styles.container}>
-      {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Super-Admins" />
-        </div>
-      ) : (
-        <Table
-          headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-          data={list}
-        />
-      )}
-    </section>
+    <>
+      <section className={styles.container}>
+        {isFetching ? (
+          <div className={styles.container}>
+            <Spinner entitie="Super-Admins" />
+          </div>
+        ) : (
+          <Table
+            headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+            data={list}
+          />
+        )}
+      </section>
+    </>
   );
 }
 

@@ -1,39 +1,19 @@
-import {
-  GET_SUPER_ADMINS_FULFILLED,
-  GET_SUPER_ADMINS_PENDING,
-  GET_SUPER_ADMINS_REJECTED
-} from './constants';
+import { getSuperAdminsPending, getSuperAdminsFulfilled, getSuperAdminsRejected } from './actions';
 
-const getSuperAdminsFulfilled = () => {
-  return {
-    type: GET_SUPER_ADMINS_FULFILLED
-  };
-};
-
-const getSuperAdminsPending = (data) => {
-  return {
-    type: GET_SUPER_ADMINS_PENDING,
-    payload: data
-  };
-};
-
-const getSuperAdminsRejected = (error) => {
-  return {
-    type: GET_SUPER_ADMINS_REJECTED,
-    payload: error
-  };
-};
+// import { setShowModal, setModalContent } from '../global/actions';
 
 export const getSuperAdmins = () => {
-  return (dispatch) => {
-    dispatch(getSuperAdminsPending());
-    fetch(`${process.env.REACT_APP_API_URL}/super-admins`)
-      .then((response) => response.json())
-      .then((response) => {
-        dispatch(getSuperAdminsFulfilled(response.data));
-      })
-      .catch((err) => {
-        dispatch(getSuperAdminsRejected(err.toString()));
-      });
+  return async (dispatch) => {
+    try {
+      dispatch(getSuperAdminsPending());
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`);
+      const data = await response.json();
+      if (data.error) {
+        throw new Error();
+      }
+      dispatch(getSuperAdminsFulfilled(data.data));
+    } catch (error) {
+      dispatch(getSuperAdminsRejected());
+    }
   };
 };
