@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { getEmployees } from '../../../redux/employees/thunks';
-import { setShowModal, setModalContent, editItem } from '../../../redux/global/actions';
+import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { editItem } from '../../../redux/global/actions';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -73,52 +73,67 @@ const Form = () => {
         return { ...member, employee: member.employee._id || member.employee };
       }));
     dispatch(editItem({ ...itemToPUT }));
-
-    try {
-      const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/Json'
-        },
-        body: JSON.stringify({
-          ...itemToPUT,
-          dni: itemToPUT.dni?.toString(),
-          phone: itemToPUT.phone?.toString(),
-          employee: itemToPUT.employee?._id || itemToPUT.employee,
-          task: itemToPUT.task?._id || itemToPUT.task,
-          project: itemToPUT.project?._id || itemToPUT.project
-        })
-      });
-      const res = await req.json();
-      if (res.error) {
+    switch (entitie) {
+      case 'employees':
         dispatch(
-          setModalContent(
-            (Array.isArray(res.message) && (
-              <div>
-                <ul>
-                  {res.message.map((info, index) => {
-                    return <li key={index}>{info.message}</li>;
-                  })}
-                </ul>
-              </div>
-            )) ||
-              res.message ||
-              'An unexpected error has occurred'
-          )
+          editEmployee(id, {
+            ...itemToPUT,
+            dni: itemToPUT.dni?.toString(),
+            phone: itemToPUT.phone?.toString(),
+            employee: itemToPUT.employee?._id || itemToPUT.employee,
+            task: itemToPUT.task?._id || itemToPUT.task,
+            project: itemToPUT.project?._id || itemToPUT.project
+          })
         );
-        dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
-        return;
-      }
-      dispatch(setModalContent('Edited successfully'));
-      dispatch(setShowModal(true));
-      setTimeout(() => {
-        dispatch(setShowModal(false));
-        history.push(`/${entitie}`);
-      }, 2000);
-    } catch (error) {
-      console.error(error);
+        break;
+      default:
+        break;
     }
+
+    // try {
+    //   const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-type': 'application/Json'
+    //     },
+    //     body: JSON.stringify({
+    //       ...itemToPUT,
+    //       dni: itemToPUT.dni?.toString(),
+    //       phone: itemToPUT.phone?.toString(),
+    //       employee: itemToPUT.employee?._id || itemToPUT.employee,
+    //       task: itemToPUT.task?._id || itemToPUT.task,
+    //       project: itemToPUT.project?._id || itemToPUT.project
+    //     })
+    //   });
+    //   const res = await req.json();
+    //   if (res.error) {
+    //     dispatch(
+    //       setModalContent(
+    //         (Array.isArray(res.message) && (
+    //           <div>
+    //             <ul>
+    //               {res.message.map((info, index) => {
+    //                 return <li key={index}>{info.message}</li>;
+    //               })}
+    //             </ul>
+    //           </div>
+    //         )) ||
+    //           res.message ||
+    //           'An unexpected error has occurred'
+    //       )
+    //     );
+    //     dispatch(setShowModal(true));
+    //     setTimeout(() => dispatch(setShowModal(false)), 2000);
+    //   }
+    //   dispatch(setModalContent('Edited successfully'));
+    //   dispatch(setShowModal(true));
+    //   setTimeout(() => {
+    //     dispatch(setShowModal(false));
+    //     history.push(`/${entitie}`);
+    //   }, 2000);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   return (
     <>

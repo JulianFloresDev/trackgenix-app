@@ -46,25 +46,80 @@ export const deleteEmployees = (id) => {
   };
 };
 
-// export const editEmployees = (id, body) => {
+export const editEmployee = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      const response = await request.json();
+      if (response.error) {
+        dispatch(
+          Array.isArray(response.message)
+            ? setModalContent(
+                <div>
+                  <ul>
+                    {response.message.map((info, index) => {
+                      return <li key={index}>{info.message}</li>;
+                    })}
+                  </ul>
+                </div>
+              )
+            : setModalContent(response.message || 'An unexpected error has occurred')
+        );
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+      } else {
+        dispatch(setModalContent(<p>Employee edited successfully!</p>));
+        dispatch(setShowModal(true));
+        setTimeout(() => {
+          dispatch(setShowModal(false));
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+// export const createEmployee = (body) => {
 //   return async (dispatch) => {
 //     try {
-//       const req = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
-//         method: 'PUT',
+//       const request = await fetch(`${process.env.REACT_APP_API_URL}/employees`, {
+//         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json'
-//         }
+//         },
+//         body: JSON.stringify(body)
 //       });
-//       const res = await req.json()
-//       if (req.status >= 400) {
-//         throw new Error(req.statusText);
+//       const response = await request.json();
+//       if (response.error) {
+//         throw new Error(response);
 //       }
-//       dispatch(deleteEmployeesSuccess(id));
-//       dispatch(setModalContent(<p>Employee deleted successfully!</p>));
+//       // dispatch(deleteEmployeesSuccess(id));
+//       dispatch(setModalContent(<p>Employee created successfully!</p>));
 //       dispatch(setShowModal(true));
 //       setTimeout(() => dispatch(setShowModal(false)), 2000);
 //     } catch (error) {
-//       dispatch(setModalContent(<p>{error.toString()}</p>));
+//       dispatch(
+//         setModalContent(
+//           (Array.isArray(error.message) && (
+//             <div>
+//               <ul>
+//                 {error.message.map((info, index) => {
+//                   return <li key={index}>{info.message}</li>;
+//                 })}
+//               </ul>
+//             </div>
+//           )) ||
+//             error.message ||
+//             'An unexpected error has occurred'
+//         )
+//       );
 //       dispatch(setShowModal(true));
 //       setTimeout(() => dispatch(setShowModal(false)), 2000);
 //     }
