@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import adminsReducer from './admins/reducer';
 import employeesReducer from './employees/reducer';
+import globalReducer from './global/reduce';
 import projectsReducer from './projects/reducer';
 import superAdminsReducer from './super-admins/reducer';
 import tasksReducer from './tasks/reducer';
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   projects: projectsReducer,
   superAdmins: superAdminsReducer,
   tasks: tasksReducer,
-  timeSheets: timeSheetsReducer
+  timeSheets: timeSheetsReducer,
+  global: globalReducer
 });
 
 export default rootReducer;
