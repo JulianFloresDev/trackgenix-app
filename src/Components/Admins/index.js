@@ -7,7 +7,7 @@ import Spinner from '../Share/Spinner';
 
 function Admins() {
   const dispatch = useDispatch();
-  const { list, isFetching } = useSelector((store) => store.admins);
+  const { list, isFetching, error } = useSelector((store) => store.admins);
 
   useEffect(async () => {
     dispatch(getAdmins());
@@ -20,10 +20,16 @@ function Admins() {
         </div>
       ) : (
         <>
-          <Table
-            headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-            data={list}
-          />
+          {error ? (
+            <div>
+              <h2>404: Unable to access server</h2>
+            </div>
+          ) : (
+            <Table
+              headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+              data={list}
+            />
+          )}
         </>
       )}
     </section>

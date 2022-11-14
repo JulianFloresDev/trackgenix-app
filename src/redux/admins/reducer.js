@@ -1,23 +1,24 @@
-import { GET_ADMINS_SUCCESS } from './constants';
 import {
-  GET_ADMINS_PENDING
-  // GET_ADMINS_SUCCESS,
-  // GET_ADMINS_ERROR,
+  GET_ADMINS_PENDING,
+  GET_ADMINS_SUCCESS,
+  GET_ADMINS_ERROR,
   // PUT_ADMINS_PENDING,
   // PUT_ADMINS_SUCCESS,
   // PUT_ADMINS_ERROR,
   // POST_ADMINS_PENDING,
   // POST_ADMINS_SUCCESS,
   // POST_ADMINS_ERROR,
-  // DELETE_ADMINS_PENDING,
-  // DELETE_ADMINS_SUCCESS,
-  // DELETE_ADMINS_ERROR
+  DELETE_ADMINS_PENDING,
+  DELETE_ADMINS_SUCCESS,
+  DELETE_ADMINS_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
   list: [],
   isFetching: false,
-  error: ''
+  error: false,
+  showModal: false,
+  modalContent: <div></div>
 };
 
 const adminsReducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +33,28 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isFetching: false,
         list: action.payload
+      };
+    case GET_ADMINS_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        error: true
+      };
+    case DELETE_ADMINS_PENDING:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case DELETE_ADMINS_SUCCESS:
+      return {
+        ...state,
+        list: [...state.list.filter((item) => item._id !== action.payload)]
+      };
+    case DELETE_ADMINS_ERROR:
+      return {
+        ...state,
+        modalContent: <div>{action.payload}</div>,
+        showModal: true
       };
     default:
       return state;
