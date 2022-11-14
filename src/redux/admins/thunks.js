@@ -1,4 +1,4 @@
-import { setShowModal } from '../global/actions';
+import { setModalContent, setShowModal } from '../global/actions';
 import {
   getAdminsPending,
   getAdminsSuccess,
@@ -35,16 +35,17 @@ export const deleteAdminByID = (id) => {
           'Content-Type': 'application/json'
         }
       });
-      const response = await request.json();
-      if (response.error) {
-        throw new Error(response);
+      if (request.status >= 400) {
+        throw new Error(request.statusText);
       } else {
         dispatch(deleteAdminsSuccess(id));
-        dispatch(setShowModal(false));
+        dispatch(setModalContent(<p>Admin Deleted Successfully!</p>));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
-      dispatch(deleteAdminsError(error.message));
-      setTimeout(dispatch(setShowModal(false)), 2000);
+      dispatch(deleteAdminsError());
+      dispatch(setModalContent(<p>{error.toString()}</p>));
+      setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 };

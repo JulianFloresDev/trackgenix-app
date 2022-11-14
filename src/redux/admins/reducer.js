@@ -30,7 +30,8 @@ const adminsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        list: action.payload
+        list: action.payload,
+        error: false
       };
     case GET_ADMINS_ERROR:
       return {
