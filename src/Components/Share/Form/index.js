@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
 import { editItem } from '../../../redux/global/actions';
 
 const Form = () => {
@@ -35,7 +36,7 @@ const Form = () => {
           console.log('dispatch(getAdmins(id)');
           break;
         case 'super-admins':
-          console.log('dispatch(getSuperAdmins(id)');
+          dispatch(getSuperAdmins(id));
           break;
         case 'tasks':
           console.log('dispatch(getTasks(id)');
@@ -52,6 +53,7 @@ const Form = () => {
       }
 
       dispatch(getEmployees(''));
+      dispatch(getSuperAdmins(''));
       // const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
       // const dataEmployees = await resEmployees.json();
       // setEmployeesList(dataEmployees.data);
@@ -83,6 +85,15 @@ const Form = () => {
             employee: itemToPUT.employee?._id || itemToPUT.employee,
             task: itemToPUT.task?._id || itemToPUT.task,
             project: itemToPUT.project?._id || itemToPUT.project
+          })
+        );
+        break;
+      case 'super-admins':
+        dispatch(
+          editSuperAdmin(id, {
+            ...itemToPUT,
+            dni: itemToPUT.dni?.toString(),
+            phone: itemToPUT.phone?.toString()
           })
         );
         break;

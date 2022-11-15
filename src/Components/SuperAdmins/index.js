@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { getSuperAdmins } from '../../redux/super-admins/thunks';
 
 function SuperAdmins() {
-  const { list, isFetching } = useSelector((state) => state.superAdmins);
+  const { list, isFetching, error } = useSelector((state) => state.superAdmins);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +26,10 @@ function SuperAdmins() {
         {isFetching ? (
           <div className={styles.container}>
             <Spinner entitie="Super-Admins" />
+          </div>
+        ) : error ? (
+          <div>
+            <h2>404: server not found</h2>
           </div>
         ) : (
           <Table
