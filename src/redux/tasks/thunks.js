@@ -37,7 +37,6 @@ export const createTask = (body) => {
       });
       const response = await request.json();
       if (response.error) {
-        console.log('Response:', response);
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
@@ -73,32 +72,32 @@ export const editTask = (id, body) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringfy(body)
+        body: JSON.stringify(body)
       });
       const response = await request.json();
       if (response.error) {
-        throw new Error(response);
+        Array.isArray(response.message)
+          ? dispatch(
+              setModalContent(
+                <div>
+                  <ul>
+                    {response.message.map((info, index) => {
+                      return <li key={index}>{info.message}</li>;
+                    })}
+                  </ul>
+                </div>
+              )
+            )
+          : setModalContent(response.message || 'An unexpected error occurred');
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
         dispatch(setModalContent(<p>Task edited successfully!</p>));
         dispatch(setShowModal(true));
         setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
-      Array.isArray(error.message)
-        ? dispatch(
-            setModalContent(
-              <div>
-                <ul>
-                  {error.message.map((info, index) => {
-                    return <li key={index}>{info.message}</li>;
-                  })}
-                </ul>
-              </div>
-            )
-          )
-        : setModalContent(error.message || 'An unexpected error occurred');
-      dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
+      console.error(error);
     }
   };
 };

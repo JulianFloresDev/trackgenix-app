@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { editTask, getTasks } from '../../../redux/employees/thunks';
+import { editTask, getTasks } from '../../../redux/tasks/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 
@@ -58,6 +58,7 @@ const Form = () => {
       const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
       const dataEmployees = await resEmployees.json();
       setEmployeesList(dataEmployees.data);
+
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);
@@ -79,7 +80,6 @@ const Form = () => {
         dispatch(editTask(id, body));
         break;
       default:
-        history.push(`/${entitie}`);
         break;
     }
   };
