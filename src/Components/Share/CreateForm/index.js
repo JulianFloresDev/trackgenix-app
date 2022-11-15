@@ -62,15 +62,12 @@ const CreateForm = () => {
     }
   }, []);
 
-  // const [employeeList, setEmployeesList] = useState([]);
   const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
-      // const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
-      // const dataEmployees = await resEmployees.json();
-      // setEmployeesList(dataEmployees.data);
+
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);
@@ -84,42 +81,6 @@ const CreateForm = () => {
 
   const createRow = async () => {
     dispatch(createEmployee(itemToPUT));
-    // try {
-    //   const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-type': 'application/Json'
-    //     },
-    //     body: JSON.stringify(data)
-    //   });
-    //   const res = await req.json();
-    //   if (res.error) {
-    //     setModalContent(
-    //       (Array.isArray(res.message) && (
-    //         <div>
-    //           <ul>
-    //             {res.message.map((info, index) => {
-    //               return <li key={index}>{info.message}</li>;
-    //             })}
-    //           </ul>
-    //         </div>
-    //       )) ||
-    //         res.message ||
-    //         'An unexpected error has occurred'
-    //     );
-    //     setShowModal(true);
-    //     setTimeout(() => setShowModal(false), 2000);
-    //     return;
-    //   }
-    //   setModalContent('Added successfully');
-    //   setShowModal(true);
-    //   setTimeout(() => {
-    //     setShowModal(false);
-    //     history.push(`/${entitie}`);
-    //   }, 2000);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   return (
