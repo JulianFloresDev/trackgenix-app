@@ -79,6 +79,7 @@ const Form = () => {
         dispatch(editEmployee(id, body));
         break;
       default:
+        history.push(`/${entitie}`);
         break;
     }
   };
