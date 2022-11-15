@@ -20,6 +20,10 @@
     padding: 32px;
 }
 
+.modalWrapper > div > ul {
+    list-style: none;
+}
+
 .closeButton {
     position: absolute;
     top: 15px;
