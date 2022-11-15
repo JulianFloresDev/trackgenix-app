@@ -2,7 +2,6 @@ import {
   getTasksPending,
   createTasksPending,
   editTasksPending,
-  deleteTasksPending,
   getTasksSuccess,
   deleteTasksSuccess,
   getTasksError
@@ -16,7 +15,7 @@ export const getTasks = (id) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`);
       const response = await request.json();
       if (response.error) {
-        throw new Error(response.message);
+        throw new Error();
       }
       id ? dispatch(editItem(response.data)) : dispatch(getTasksSuccess(response.data));
     } catch (error) {
@@ -34,31 +33,33 @@ export const createTask = (body) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringfy(body)
+        body: JSON.stringify(body)
       });
       const response = await request.json();
       if (response.error) {
-        throw new Error(response);
+        console.log('Response:', response);
+        dispatch(
+          Array.isArray(response.message)
+            ? setModalContent(
+                <div>
+                  <ul>
+                    {response.message.map((info, index) => {
+                      return <li key={index}>{info.message}</li>;
+                    })}
+                  </ul>
+                </div>
+              )
+            : setModalContent(response.message || 'An unexpected error has occurred')
+        );
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+      } else {
+        dispatch(setModalContent(<p>Task created successfully!</p>));
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
-      dispatch(setModalContent(<p>Task created successfully!</p>));
-      dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
-      dispatch(
-        Array.isArray(error.message)
-          ? setModalContent(
-              <div>
-                <ul>
-                  {error.message.map((info, index) => {
-                    return <li key={index}>{info.message}</li>;
-                  })}
-                </ul>
-              </div>
-            )
-          : setModalContent(error.message || 'An unexpected error has occurred')
-      );
-      dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
+      console.error(error);
     }
   };
 };
@@ -105,7 +106,6 @@ export const editTask = (id, body) => {
 export const deleteTasks = (id) => {
   return async (dispatch) => {
     try {
-      dispatch(deleteTasksPending());
       const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
         method: 'DELETE',
         headers: {

@@ -2,7 +2,6 @@ import {
   GET_TASKS_PENDING,
   CREATE_TASKS_PENDING,
   EDIT_TASKS_PENDING,
-  DELETE_TASKS_PENDING,
   GET_TASKS_SUCCESS,
   DELETE_TASKS_SUCCESS,
   GET_TASKS_ERROR
@@ -23,12 +22,6 @@ export const createTasksPending = () => {
 export const editTasksPending = () => {
   return {
     type: EDIT_TASKS_PENDING
-  };
-};
-
-export const deleteTasksPending = () => {
-  return {
-    type: DELETE_TASKS_PENDING
   };
 };
 

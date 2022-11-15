@@ -8,7 +8,7 @@ import { getTasks, createTask } from '../../../redux/tasks/thunks';
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
-  const { list: taskList } = useSelector((state) => state.employees);
+  const { list: taskList } = useSelector((state) => state.tasks);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();

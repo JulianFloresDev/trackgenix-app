@@ -2,7 +2,6 @@ import {
   GET_TASKS_PENDING,
   CREATE_TASKS_PENDING,
   EDIT_TASKS_PENDING,
-  DELETE_TASKS_PENDING,
   GET_TASKS_SUCCESS,
   DELETE_TASKS_SUCCESS,
   GET_TASKS_ERROR
@@ -18,7 +17,6 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
     case GET_TASKS_PENDING:
     case CREATE_TASKS_PENDING:
     case EDIT_TASKS_PENDING:
-    case DELETE_TASKS_PENDING:
       return {
         ...state,
         isFetching: true
@@ -29,17 +27,20 @@ const tasksReducer = (state = INITIAL_STATE, action) => {
         list: action.payload,
         isFetching: false
       };
-    case DELETE_TASKS_SUCCESS:
+    case DELETE_TASKS_SUCCESS: {
       return {
         ...state,
-        list: state.list.filter((action) => action._id !== action.payload),
-        isFetching: false
+        list: state.list.filter((task) => task._id !== action.payload)
       };
+    }
+
     case GET_TASKS_ERROR:
       return {
         ...state,
         isFetching: false
       };
+    default:
+      return state;
   }
 };
 
