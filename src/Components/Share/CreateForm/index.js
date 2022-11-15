@@ -129,7 +129,7 @@ const CreateForm = () => {
                     }}
                     value={data[prop]?._id}
                   >
-                    <option hiddden>Select an Employee</option>
+                    <option hidden>Select an Employee</option>
                     {employeeList.map((employee) => {
                       return (
                         <option
@@ -257,7 +257,7 @@ const CreateForm = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0} hideen>
+                                    <option value={0} hidden>
                                       Select an Employee
                                     </option>
                                   </select>
