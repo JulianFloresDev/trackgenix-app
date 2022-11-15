@@ -8,8 +8,8 @@ import { editItem } from '../../../redux/global/actions';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
-  const { itemToPUT, showModal, modalContent } = useSelector((store) => store.global);
-  const { list: employeeList } = useSelector((store) => store.employees);
+  const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
+  const { list: employeeList } = useSelector((state) => state.employees);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
@@ -68,6 +68,8 @@ const CreateForm = () => {
   const [taskList, setTasksList] = useState([]);
   useEffect(async () => {
     try {
+      dispatch(getEmployees(''));
+
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);

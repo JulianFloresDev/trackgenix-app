@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editItem } from '../../../redux/global/actions';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
+import Modal from '../Modal';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -57,7 +57,6 @@ const Form = () => {
           history.push(`/`);
           break;
       }
-
       dispatch(getEmployees(''));
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
@@ -71,7 +70,7 @@ const Form = () => {
     }
   }, []);
 
-  const editRow = async () => {
+  const editRow = () => {
     itemToPUT.teamMembers &&
       (itemToPUT.teamMembers = itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee._id || member.employee };
@@ -97,6 +96,7 @@ const Form = () => {
         // dispatch(editTimeSheet(itemToPUT));
         break;
       default:
+        history.push(`/${entitie}`);
         break;
     }
   };

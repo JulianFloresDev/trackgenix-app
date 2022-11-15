@@ -98,30 +98,30 @@ export const createEmployee = (body) => {
       });
       const response = await request.json();
       if (response.error) {
-        throw new Error(response);
+        dispatch(
+          Array.isArray(response.message)
+            ? setModalContent(
+                <div>
+                  <ul>
+                    {response.message.map((info, index) => {
+                      return <li key={index}>{info.message}</li>;
+                    })}
+                  </ul>
+                </div>
+              )
+            : setModalContent(response.message || 'An unexpected error has occurred')
+        );
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+      } else {
+        dispatch(setModalContent(<p>Admin created successfully!</p>));
+        dispatch(setShowModal(true));
+        setTimeout(() => {
+          dispatch(setShowModal(false));
+        }, 2000);
       }
-      // dispatch(deleteEmployeesSuccess(id));
-      dispatch(setModalContent(<p>Employee created successfully!</p>));
-      dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
-      dispatch(
-        setModalContent(
-          (Array.isArray(error.message) && (
-            <div>
-              <ul>
-                {error.message.map((info, index) => {
-                  return <li key={index}>{info.message}</li>;
-                })}
-              </ul>
-            </div>
-          )) ||
-            error.message ||
-            'An unexpected error has occurred'
-        )
-      );
-      dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
+      console.error(error);
     }
   };
 };
