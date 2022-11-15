@@ -16,6 +16,14 @@ const Form = () => {
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
   delete itemToPUT['updatedAt'];
+  const body = {
+    ...itemToPUT,
+    dni: itemToPUT.dni?.toString(),
+    phone: itemToPUT.phone?.toString(),
+    employee: itemToPUT.employee?._id || itemToPUT.employee,
+    task: itemToPUT.task?._id || itemToPUT.task,
+    project: itemToPUT.project?._id || itemToPUT.project
+  };
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const id = useParams().id;
@@ -75,16 +83,7 @@ const Form = () => {
     dispatch(editItem({ ...itemToPUT }));
     switch (entitie) {
       case 'employees':
-        dispatch(
-          editEmployee(id, {
-            ...itemToPUT,
-            dni: itemToPUT.dni?.toString(),
-            phone: itemToPUT.phone?.toString(),
-            employee: itemToPUT.employee?._id || itemToPUT.employee,
-            task: itemToPUT.task?._id || itemToPUT.task,
-            project: itemToPUT.project?._id || itemToPUT.project
-          })
-        );
+        dispatch(editEmployee(id, body));
         break;
       default:
         break;
