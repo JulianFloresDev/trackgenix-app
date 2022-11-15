@@ -1,5 +1,4 @@
 import styles from './employees.module.css';
-// import { useState, useEffect } from 'react';
 import Table from '../Share/Table';
 import Spinner from '../Share/Spinner';
 import { useSelector, useDispatch } from 'react-redux';

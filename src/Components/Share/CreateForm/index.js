@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
-import { createProject } from '../../../redux/projects/thunks';
+import { createProject, getProjects } from '../../../redux/projects/thunks';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
-import { getProjects } from '../../../redux/projects/thunks';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { itemToPUT, showModal, modalContent } = useSelector((store) => store.global);
   const { list: employeeList } = useSelector((store) => store.employees);
   const { list: projectList } = useSelector((store) => store.projects);
+
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();

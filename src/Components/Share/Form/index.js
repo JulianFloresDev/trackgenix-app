@@ -99,6 +99,7 @@ const Form = () => {
         dispatch(editSuperAdmin(id, body));
         break;
       default:
+        history.push(`/${entitie}`);
         break;
     }
   };
