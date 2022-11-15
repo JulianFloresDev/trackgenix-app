@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
+import { getProjects } from '../../../redux/projects/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
-import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
 
 const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: employeeList } = useSelector((state) => state.employees);
+  const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
@@ -29,7 +31,6 @@ const Form = () => {
   const id = useParams().id;
   const entitie = URLPath[1];
 
-  const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
 
   useEffect(async () => {
@@ -59,9 +60,7 @@ const Form = () => {
       }
       dispatch(getEmployees(''));
 
-      const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-      const dataProjects = await resProjects.json();
-      setProjectsList(dataProjects.data);
+      dispatch(getProjects(''));
       const resTasks = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
       const dataTasks = await resTasks.json();
       setTasksList(dataTasks.data);

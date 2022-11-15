@@ -5,11 +5,14 @@ import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployees, createEmployee } from '../../../redux/employees/thunks';
+import { createTimesheets } from '../../../redux/time-sheets/thunks';
+import { getProjects } from '../../../redux/projects/thunks';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: employeeList } = useSelector((state) => state.employees);
+  const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
@@ -64,15 +67,12 @@ const CreateForm = () => {
     }
   }, []);
 
-  const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
 
-      const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-      const dataProjects = await resProjects.json();
-      setProjectsList(dataProjects.data);
+      dispatch(getProjects(''));
       const resTasks = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
       const dataTasks = await resTasks.json();
       setTasksList(dataTasks.data);
@@ -99,7 +99,7 @@ const CreateForm = () => {
         // dispatch(createTask(itemToPUT));
         break;
       case 'time-sheets':
-        // dispatch(createTimeSheet(itemToPUT));
+        dispatch(createTimesheets(itemToPUT));
         break;
       default:
         history.push('/');

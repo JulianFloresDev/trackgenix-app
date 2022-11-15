@@ -26,7 +26,7 @@ const globalReducer = (state = INITIAL_STATE, action) => {
     case DISABLE_BTN:
       return {
         ...state,
-        disalbe: false
+        disable: false
       };
     default:
       return state;
