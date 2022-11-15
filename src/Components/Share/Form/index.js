@@ -5,6 +5,7 @@ import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
+import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const Form = () => {
           console.log('dispatch(getProjects(id)');
           break;
         case 'time-sheets':
-          console.log('dispatch(getTimesheets(id)');
+          dispatch(getTimesheets(id));
           break;
         default:
           history.push(`/`);
@@ -92,7 +93,7 @@ const Form = () => {
         // dispatch(editTask(itemToPUT));
         break;
       case 'time-sheets':
-        // dispatch(editTimeSheet(itemToPUT));
+        dispatch(editTimesheets(id, body));
         break;
       default:
         history.push(`/${entitie}`);
@@ -125,9 +126,7 @@ const Form = () => {
                         >{`${employee?.firstName} ${employee?.lastName}`}</option>
                       );
                     })}
-                    <option value={0} hidden>
-                      Select Employee
-                    </option>
+                    <option value={0}>Select Employee</option>
                   </select>
                 </div>
               );
@@ -151,9 +150,7 @@ const Form = () => {
                         </option>
                       );
                     })}
-                    <option value={0} hidden>
-                      Select Project
-                    </option>
+                    <option value={0}>Select Project</option>
                   </select>
                 </div>
               );
@@ -177,9 +174,7 @@ const Form = () => {
                         </option>
                       );
                     })}
-                    <option value={0} hidden>
-                      Select Task
-                    </option>
+                    <option value={0}>Select Task</option>
                   </select>
                 </div>
               );
@@ -212,7 +207,7 @@ const Form = () => {
                                         dispatch(editItem({ ...itemToPUT }));
                                       }}
                                     >
-                                      <option hidden>-</option>
+                                      <option>-</option>
                                       <option>DEV</option>
                                       <option>QA</option>
                                       <option>PM</option>
@@ -253,9 +248,7 @@ const Form = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0} hidden>
-                                      Select Employee
-                                    </option>
+                                    <option value={0}>Select Employee</option>
                                   </select>
                                 );
                               }
