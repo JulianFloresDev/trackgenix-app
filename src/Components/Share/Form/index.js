@@ -1,32 +1,61 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Modal from '../Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { editItem } from '../../../redux/global/actions';
 
 const Form = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(<></>);
+  const dispatch = useDispatch();
+  const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
+  const { list: employeeList } = useSelector((state) => state.employees);
+  // const [showModal, setShowModal] = useState(false);
+  // const [modalContent, setModalContent] = useState(<></>);
   const newTeamMember = { employee: '', role: '', rate: '' };
-  const [data, setData] = useState({});
-  delete data['_id'];
-  delete data['__v'];
-  delete data['createdAt'];
-  delete data['updatedAt'];
+  delete itemToPUT['_id'];
+  delete itemToPUT['__v'];
+  delete itemToPUT['createdAt'];
+  delete itemToPUT['updatedAt'];
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const id = useParams().id;
   const entitie = URLPath[1];
 
-  const [employeeList, setEmployeesList] = useState([]);
+  // const [employeeList, setEmployeesList] = useState([]);
   const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
+
   useEffect(async () => {
     try {
-      const request = id && (await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`));
-      const response = await request.json();
-      setData(response.data || {});
-      const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
-      const dataEmployees = await resEmployees.json();
-      setEmployeesList(dataEmployees.data);
+      switch (entitie) {
+        case 'employees':
+          dispatch(getEmployees(id));
+          break;
+        case 'admins':
+          console.log('dispatch(getAdmins(id)');
+          break;
+        case 'super-admins':
+          console.log('dispatch(getSuperAdmins(id)');
+          break;
+        case 'tasks':
+          console.log('dispatch(getTasks(id)');
+          break;
+        case 'projects':
+          console.log('dispatch(getProjects(id)');
+          break;
+        case 'time-sheets':
+          console.log('dispatch(getTimesheets(id)');
+          break;
+        default:
+          history.push(`/`);
+          break;
+      }
+
+      dispatch(getEmployees(''));
+      // const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
+      // const dataEmployees = await resEmployees.json();
+      // setEmployeesList(dataEmployees.data);
+
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);
@@ -39,62 +68,79 @@ const Form = () => {
   }, []);
 
   const editRow = async () => {
-    data.teamMembers &&
-      (data.teamMembers = data.teamMembers?.map((member) => {
+    itemToPUT.teamMembers &&
+      (itemToPUT.teamMembers = itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee._id || member.employee };
       }));
-    setData({ ...data });
-
-    try {
-      const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/Json'
-        },
-        body: JSON.stringify({
-          ...data,
-          dni: data.dni?.toString(),
-          phone: data.phone?.toString(),
-          employee: data.employee?._id || data.employee,
-          task: data.task?._id || data.task,
-          project: data.project?._id || data.project
-        })
-      });
-      const res = await req.json();
-      if (res.error) {
-        setModalContent(
-          (Array.isArray(res.message) && (
-            <div>
-              <ul>
-                {res.message.map((info, index) => {
-                  return <li key={index}>{info.message}</li>;
-                })}
-              </ul>
-            </div>
-          )) ||
-            res.message ||
-            'An unexpected error has occurred'
+    dispatch(editItem({ ...itemToPUT }));
+    switch (entitie) {
+      case 'employees':
+        dispatch(
+          editEmployee(id, {
+            ...itemToPUT,
+            dni: itemToPUT.dni?.toString(),
+            phone: itemToPUT.phone?.toString(),
+            employee: itemToPUT.employee?._id || itemToPUT.employee,
+            task: itemToPUT.task?._id || itemToPUT.task,
+            project: itemToPUT.project?._id || itemToPUT.project
+          })
         );
-        setShowModal(true);
-        setTimeout(() => setShowModal(false), 2000);
-        return;
-      }
-      setModalContent('Edited successfully');
-      setShowModal(true);
-      setTimeout(() => {
-        setShowModal(false);
-        history.push(`/${entitie}`);
-      }, 2000);
-    } catch (error) {
-      console.error(error);
+        break;
+      default:
+        break;
     }
+
+    // try {
+    //   const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-type': 'application/Json'
+    //     },
+    //     body: JSON.stringify({
+    //       ...itemToPUT,
+    //       dni: itemToPUT.dni?.toString(),
+    //       phone: itemToPUT.phone?.toString(),
+    //       employee: itemToPUT.employee?._id || itemToPUT.employee,
+    //       task: itemToPUT.task?._id || itemToPUT.task,
+    //       project: itemToPUT.project?._id || itemToPUT.project
+    //     })
+    //   });
+    //   const res = await req.json();
+    //   if (res.error) {
+    //     dispatch(
+    //       setModalContent(
+    //         (Array.isArray(res.message) && (
+    //           <div>
+    //             <ul>
+    //               {res.message.map((info, index) => {
+    //                 return <li key={index}>{info.message}</li>;
+    //               })}
+    //             </ul>
+    //           </div>
+    //         )) ||
+    //           res.message ||
+    //           'An unexpected error has occurred'
+    //       )
+    //     );
+    //     dispatch(setShowModal(true));
+    //     setTimeout(() => dispatch(setShowModal(false)), 2000);
+    //   }
+    //   dispatch(setModalContent('Edited successfully'));
+    //   dispatch(setShowModal(true));
+    //   setTimeout(() => {
+    //     dispatch(setShowModal(false));
+    //     history.push(`/${entitie}`);
+    //   }, 2000);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
       <section>
         <form>
-          {Object.keys(data)?.map((prop, index) => {
+          {Object.keys(itemToPUT)?.map((prop, index) => {
             if (prop === 'employee') {
               return (
                 <div key={index}>
@@ -102,10 +148,10 @@ const Form = () => {
                   <select
                     name={prop}
                     onChange={(e) => {
-                      data[prop] = e.target.value;
-                      setData({ ...data });
+                      itemToPUT[prop] = e.target.value;
+                      dispatch(editItem({ ...itemToPUT }));
                     }}
-                    value={data[prop] ? data[prop]._id : 0}
+                    value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
                   >
                     {employeeList.map((employee) => {
                       return (
@@ -129,10 +175,10 @@ const Form = () => {
                   <select
                     name={prop}
                     onChange={(e) => {
-                      data[prop] = e.target.value;
-                      setData({ ...data });
+                      itemToPUT[prop] = e.target.value;
+                      dispatch(editItem({ ...itemToPUT }));
                     }}
-                    value={data[prop] ? data[prop]._id : 0}
+                    value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
                   >
                     {projectList.map((project) => {
                       return (
@@ -155,10 +201,10 @@ const Form = () => {
                   <select
                     name={prop}
                     onChange={(e) => {
-                      data[prop] = e.target.value;
-                      setData({ ...data });
+                      itemToPUT[prop] = e.target.value;
+                      dispatch(editItem({ ...itemToPUT }));
                     }}
-                    value={data[prop] ? data[prop]._id : 0}
+                    value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
                   >
                     {taskList.map((task) => {
                       return (
@@ -181,14 +227,14 @@ const Form = () => {
                   <table>
                     <thead>
                       <th>
-                        {data[prop][0] &&
-                          Object.keys(data[prop][0])?.map((key, index) => {
+                        {itemToPUT[prop][0] &&
+                          Object.keys(itemToPUT[prop][0])?.map((key, index) => {
                             return <td key={index}>{key}</td>;
                           })}
                       </th>
                     </thead>
                     <tbody>
-                      {data[prop]?.map((item, index) => {
+                      {itemToPUT[prop]?.map((item, index) => {
                         return (
                           <tr key={index}>
                             {Object.keys(item)?.map((info) => {
@@ -199,7 +245,7 @@ const Form = () => {
                                       value={item.employee ? item[info] : '-'}
                                       onChange={(e) => {
                                         item[info] = e.target.value;
-                                        setData({ ...data });
+                                        dispatch(editItem({ ...itemToPUT }));
                                       }}
                                     >
                                       <option hidden>-</option>
@@ -220,7 +266,7 @@ const Form = () => {
                                       min={0}
                                       onChange={(e) => {
                                         item[info] = e.target.value;
-                                        setData({ ...data });
+                                        dispatch(editItem({ ...itemToPUT }));
                                       }}
                                     />
                                   </td>
@@ -233,7 +279,7 @@ const Form = () => {
                                     value={item[info] ? item[info]._id : 0}
                                     onChange={(e) => {
                                       item[info] = e.target.value;
-                                      setData({ ...data });
+                                      dispatch(editItem({ ...itemToPUT }));
                                     }}
                                   >
                                     {employeeList?.map((employee) => {
@@ -251,12 +297,12 @@ const Form = () => {
                               }
                             })}
                             <td>
-                              {data[prop].length > 1 && (
+                              {itemToPUT[prop].length > 1 && (
                                 <button
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    data[prop].splice(index, 1);
-                                    setData({ ...data });
+                                    itemToPUT[prop].splice(index, 1);
+                                    dispatch(editItem({ ...itemToPUT }));
                                   }}
                                 >
                                   Remove Employee
@@ -269,8 +315,8 @@ const Form = () => {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          data.teamMembers = [newTeamMember, ...data.teamMembers];
-                          setData({ ...data });
+                          itemToPUT.teamMembers = [newTeamMember, ...itemToPUT.teamMembers];
+                          dispatch(editItem({ ...itemToPUT }));
                         }}
                       >
                         +
@@ -283,7 +329,7 @@ const Form = () => {
             let inputType = 'text';
             if (prop.match('date') || prop.match('endDate') || prop.match('startDate')) {
               inputType = 'date';
-              data[prop] = data[prop].substring(0, 10);
+              itemToPUT[prop] = itemToPUT[prop].substring(0, 10);
             }
             prop.includes('hours') && (inputType = 'number');
             prop.includes('active') && (inputType = 'checkbox');
@@ -294,13 +340,13 @@ const Form = () => {
                 <input
                   id={prop}
                   type={inputType}
-                  value={data[prop]}
-                  checked={data[prop]}
+                  value={itemToPUT[prop]}
+                  checked={itemToPUT[prop]}
                   onChange={(e) => {
                     e.target.type === 'checkbox'
-                      ? (data[prop] = e.target.checked)
-                      : (data[prop] = e.target.value);
-                    setData({ ...data });
+                      ? (itemToPUT[prop] = e.target.checked)
+                      : (itemToPUT[prop] = e.target.value);
+                    dispatch(editItem({ ...itemToPUT }));
                   }}
                 />
               </div>

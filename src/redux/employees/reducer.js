@@ -7,7 +7,8 @@ import {
 
 const INITIAL_STATE = {
   list: [],
-  isFetching: false
+  isFetching: false,
+  error: false
 };
 
 const employeesReducer = (state = INITIAL_STATE, action) => {
@@ -26,7 +27,8 @@ const employeesReducer = (state = INITIAL_STATE, action) => {
     case GET_EMPLOYEES_ERROR:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
+        error: true
       };
     case DELETE_EMPLOYEES_SUCCESS:
       return {

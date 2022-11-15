@@ -5,13 +5,12 @@ import Spinner from '../Share/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployees } from '../../redux/employees/thunks';
 import { useEffect } from 'react';
-import Modal from '../Share/Modal';
 
 function Employees() {
-  const { list, isFetching, showModal, modalContent } = useSelector((state) => state.employees);
+  const { list, isFetching, error } = useSelector((state) => state.employees);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getEmployees());
+    dispatch(getEmployees(''));
   }, []);
   // const [list, setList] = useState([]);
   // const [isFetching, setIsFetching] = useState(true);
@@ -22,21 +21,22 @@ function Employees() {
   //   // setTimeout(() => setIsFetching(false), 2000);
   // }, []);
   return (
-    <>
-      <Modal showModal={showModal}>{modalContent}</Modal>
-      <section className={styles.container}>
-        {isFetching ? (
-          <div className={styles.container}>
-            <Spinner entitie="Employees" />
-          </div>
-        ) : (
-          <Table
-            headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-            data={list}
-          />
-        )}
-      </section>
-    </>
+    <section className={styles.container}>
+      {isFetching ? (
+        <div className={styles.container}>
+          <Spinner entitie="Employees" />
+        </div>
+      ) : error ? (
+        <div>
+          <h2>404: server not found</h2>
+        </div>
+      ) : (
+        <Table
+          headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+          data={list}
+        />
+      )}
+    </section>
   );
 }
 

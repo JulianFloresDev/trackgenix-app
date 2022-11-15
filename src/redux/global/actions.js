@@ -1,4 +1,4 @@
-import { SHOW_MODAL, MODAL_CONTENT } from './constants';
+import { SHOW_MODAL, MODAL_CONTENT, EDIT_ITEM } from './constants';
 
 export const setShowModal = (payload) => {
   return {
@@ -10,6 +10,13 @@ export const setShowModal = (payload) => {
 export const setModalContent = (payload) => {
   return {
     type: MODAL_CONTENT,
+    payload
+  };
+};
+
+export const editItem = (payload) => {
+  return {
+    type: EDIT_ITEM,
     payload
   };
 };
