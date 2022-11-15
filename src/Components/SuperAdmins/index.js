@@ -9,7 +9,6 @@ import { getSuperAdmins } from '../../redux/super-admins/thunks';
 function SuperAdmins() {
   const { list, isFetching, error } = useSelector((state) => state.superAdmins);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getSuperAdmins());
   }, []);
@@ -21,24 +20,22 @@ function SuperAdmins() {
   //   setTimeout(() => setIsFetching(false), 2000);
   // }, []);
   return (
-    <>
-      <section className={styles.container}>
-        {isFetching ? (
-          <div className={styles.container}>
-            <Spinner entitie="Super-Admins" />
-          </div>
-        ) : error ? (
-          <div>
-            <h2>404: server not found</h2>
-          </div>
-        ) : (
-          <Table
-            headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-            data={list}
-          />
-        )}
-      </section>
-    </>
+    <section className={styles.container}>
+      {isFetching ? (
+        <div className={styles.container}>
+          <Spinner entitie="Super-Admins" />
+        </div>
+      ) : error ? (
+        <div>
+          <h2>404: server not found</h2>
+        </div>
+      ) : (
+        <Table
+          headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+          data={list}
+        />
+      )}
+    </section>
   );
 }
 
