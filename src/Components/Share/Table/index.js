@@ -6,6 +6,7 @@ import { setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteEmployees } from '../../../redux/employees/thunks';
 import { deleteAdminByID } from '../../../redux/admins/thunks';
 import { deleteProject } from '../../../redux/projects/thunks';
+import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
 
 const Table = ({ headers, data }) => {
   const history = useHistory();
@@ -39,7 +40,7 @@ const Table = ({ headers, data }) => {
         dispatch(deleteAdminByID(id));
         break;
       case 'super-admins':
-        console.log('dispatch(deleteSuperAdmins(id)');
+        dispatch(deleteSuperAdmins(id));
         break;
       case 'tasks':
         console.log('dispatch(deleteTasks(id)');
@@ -173,7 +174,7 @@ const Table = ({ headers, data }) => {
                       );
                     }
                     if (!row[property]) {
-                      return <td>Element Not Found</td>;
+                      return <td key={index}>Element Not Found</td>;
                     }
                     return (
                       <td key={index} className={styles.optionInvalid}>

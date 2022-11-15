@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
@@ -43,7 +44,7 @@ const Form = () => {
           dispatch(getAdmins(id));
           break;
         case 'super-admins':
-          console.log('dispatch(getSuperAdmins(id)');
+          dispatch(getSuperAdmins(id));
           break;
         case 'tasks':
           console.log('dispatch(getTasks(id)');
@@ -59,6 +60,7 @@ const Form = () => {
           break;
       }
       dispatch(getEmployees(''));
+      dispatch(getSuperAdmins(''));
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
@@ -84,9 +86,6 @@ const Form = () => {
       case 'admins':
         dispatch(editAdmin(id, body));
         break;
-      case 'super-admins':
-        // dispatch(editSuperAdmin(id, body));
-        break;
       case 'projects':
         dispatch(editProject(id, body));
         break;
@@ -95,6 +94,9 @@ const Form = () => {
         break;
       case 'time-sheets':
         // dispatch(editTimeSheet(id, body));
+        break;
+      case 'super-admins':
+        dispatch(editSuperAdmin(id, body));
         break;
       default:
         break;
