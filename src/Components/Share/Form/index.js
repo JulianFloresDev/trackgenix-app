@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
+import { editAdmin, getAdmins } from '../../../redux/admins/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 
@@ -38,7 +39,7 @@ const Form = () => {
           dispatch(getEmployees(id));
           break;
         case 'admins':
-          console.log('dispatch(getAdmins(id)');
+          dispatch(getAdmins(id));
           break;
         case 'super-admins':
           dispatch(getSuperAdmins(id));
@@ -57,7 +58,6 @@ const Form = () => {
           break;
       }
       dispatch(getEmployees(''));
-      dispatch(getSuperAdmins(''));
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
@@ -80,14 +80,11 @@ const Form = () => {
       case 'employees':
         dispatch(editEmployee(id, body));
         break;
+      case 'admins':
+        dispatch(editAdmin(id, body));
+        break;
       case 'super-admins':
-        dispatch(
-          editSuperAdmin(id, {
-            ...itemToPUT,
-            dni: itemToPUT.dni?.toString(),
-            phone: itemToPUT.phone?.toString()
-          })
-        );
+        dispatch(editSuperAdmin(id, body));
         break;
       default:
         break;

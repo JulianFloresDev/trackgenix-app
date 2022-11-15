@@ -3,14 +3,14 @@ import styles from './super-admins.module.css';
 import Table from '../Share/Table';
 import Spinner from '../Share/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { getSuperAdmins } from '../../redux/super-admins/thunks';
+import { useEffect } from 'react';
 
 function SuperAdmins() {
   const { list, isFetching, error } = useSelector((state) => state.superAdmins);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getSuperAdmins());
+    dispatch(getSuperAdmins(''));
   }, []);
 
   // useEffect(async () => {
