@@ -1,5 +1,12 @@
-import { editItem } from '../global/actions';
-import { getProjectsError, getProjectsPending, getProjectsSuccess } from './actions';
+import { editItem, setModalContent, setShowModal } from '../global/actions';
+import {
+  getProjectsError,
+  getProjectsPending,
+  getProjectsSuccess,
+  deleteProjectPending,
+  deleteProjectSuccess,
+  deleteProjectError
+} from './actions';
 
 export const getProjects = (id) => {
   return async (dispatch) => {
@@ -14,6 +21,31 @@ export const getProjects = (id) => {
       }
     } catch (error) {
       dispatch(getProjectsError(error));
+    }
+  };
+};
+
+export const deleteProject = (id) => {
+  return async (dispatch) => {
+    dispatch(deleteProjectPending());
+    try {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (request.status >= 400) {
+        throw new Error(request.statusText);
+      } else {
+        dispatch(deleteProjectSuccess(id));
+        dispatch(setModalContent(<p>Project Deleted Successfully!</p>));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+      }
+    } catch (error) {
+      dispatch(deleteProjectError());
+      dispatch(setModalContent(<p>{error.toString()}</p>));
+      setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 };

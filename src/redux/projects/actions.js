@@ -73,20 +73,20 @@ export function postProjectsError(error) {
   };
 }
 
-export function deleteProjectsPending() {
+export function deleteProjectPending() {
   return {
     type: DELETE_PROJECTS_PENDING
   };
 }
 
-export function deleteProjectsSuccess(data) {
+export function deleteProjectSuccess(data) {
   return {
     type: DELETE_PROJECTS_SUCCESS,
     payload: data
   };
 }
 
-export function deleteProjectsError(error) {
+export function deleteProjectError(error) {
   return {
     type: DELETE_PROJECTS_ERROR,
     payload: error
