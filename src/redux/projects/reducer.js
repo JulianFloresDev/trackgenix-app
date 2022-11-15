@@ -30,7 +30,8 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        list: action.payload
+        list: action.payload,
+        error: false
       };
     case GET_PROJECTS_ERROR:
       return {

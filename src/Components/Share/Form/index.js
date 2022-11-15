@@ -5,6 +5,7 @@ import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
+import { editProject, getProjects } from '../../../redux/projects/thunks';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Form = () => {
           console.log('dispatch(getTasks(id)');
           break;
         case 'projects':
-          console.log('dispatch(getProjects(id)');
+          dispatch(getProjects(id));
           break;
         case 'time-sheets':
           console.log('dispatch(getTimesheets(id)');
@@ -84,16 +85,16 @@ const Form = () => {
         dispatch(editAdmin(id, body));
         break;
       case 'super-admins':
-        // dispatch(editSuperAdmin(itemToPUT));
+        // dispatch(editSuperAdmin(id, body));
         break;
       case 'projects':
-        // dispatch(editProject(itemToPUT));
+        dispatch(editProject(id, body));
         break;
       case 'tasks':
-        // dispatch(editTask(itemToPUT));
+        // dispatch(editTask(id, body));
         break;
       case 'time-sheets':
-        // dispatch(editTimeSheet(itemToPUT));
+        // dispatch(editTimeSheet(id, body));
         break;
       default:
         break;
