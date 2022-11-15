@@ -30,10 +30,30 @@ const Table = ({ headers, data }) => {
 
   const deleteItem = (id) => {
     switch (entitie) {
+      case 'employees':
+        console.log('dispatch(deleteEmployees(id))');
+        break;
+      case 'admins':
+        console.log('dispatch(deleteAdmins(id)');
+        break;
+      case 'super-admins':
+        console.log('dispatch(deleteSuperAdmins(id)');
+        break;
       case 'tasks':
         dispatch(deleteTasks(id));
+        break;
+      case 'projects':
+        console.log('dispatch(deleteProjects(id)');
+        break;
+      case 'time-sheets':
+        console.log('dispatch(deleteTimesheets(id)');
+        break;
+      default:
+        dispatch(setModalContent(<p>Can not delete entitie</p>));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
+
   const showEmployeeList = (members) => {
     let counter = 0;
 

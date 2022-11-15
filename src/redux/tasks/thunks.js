@@ -25,7 +25,7 @@ export const getTasks = (id) => {
   };
 };
 
-export const createTasks = (body) => {
+export const createTask = (body) => {
   return async (dispatch) => {
     try {
       dispatch(createTasksPending());
@@ -63,7 +63,7 @@ export const createTasks = (body) => {
   };
 };
 
-export const editTasks = (id, body) => {
+export const editTask = (id, body) => {
   return async (dispatch) => {
     try {
       dispatch(editTasksPending());
