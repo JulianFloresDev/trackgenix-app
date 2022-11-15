@@ -4,11 +4,13 @@ import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTasks, createTask } from '../../../redux/tasks/thunks';
+import { getEmployees, createEmployee } from '../../../redux/employees/thunks';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: taskList } = useSelector((store) => store.tasks);
+  const { list: employeeList } = useSelector((state) => state.employees);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
@@ -63,12 +65,10 @@ const CreateForm = () => {
   }, []);
 
   const [projectList, setProjectsList] = useState([]);
-  const [employeeList, setEmployeesList] = useState([]);
+
   useEffect(async () => {
     try {
-      const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
-      const dataEmployees = await resEmployees.json();
-      setEmployeesList(dataEmployees.data);
+      dispatch(getEmployees(''));
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
@@ -84,6 +84,9 @@ const CreateForm = () => {
     switch (entitie) {
       case 'tasks':
         dispatch(createTask(itemToPUT));
+        break;
+      case 'employees':
+        dispatch(createEmployee(itemToPUT));
         break;
       default:
         break;

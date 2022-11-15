@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editTask, getTasks } from '../../../redux/tasks/thunks';
+import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 
@@ -9,6 +10,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: taskList } = useSelector((state) => state.tasks);
+  const { list: employeeList } = useSelector((state) => state.employees);
   const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
@@ -28,13 +30,12 @@ const Form = () => {
   const entitie = URLPath[1];
 
   const [projectList, setProjectsList] = useState([]);
-  const [employeeList, setEmployeesList] = useState([]);
 
   useEffect(async () => {
     try {
       switch (entitie) {
         case 'employees':
-          console.log('dispatch(getEmployees(id))');
+          dispatch(getEmployees(id));
           break;
         case 'admins':
           console.log('dispatch(getAdmins(id)');
@@ -55,9 +56,7 @@ const Form = () => {
           history.push(`/`);
           break;
       }
-      const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
-      const dataEmployees = await resEmployees.json();
-      setEmployeesList(dataEmployees.data);
+      dispatch(getEmployees(''));
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
@@ -78,6 +77,9 @@ const Form = () => {
     switch (entitie) {
       case 'tasks':
         dispatch(editTask(id, body));
+        break;
+      case 'employees':
+        dispatch(editEmployee(id, body));
         break;
       default:
         break;

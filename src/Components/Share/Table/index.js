@@ -4,6 +4,7 @@ import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteTasks } from '../../../redux/tasks/thunks';
+import { deleteEmployees } from '../../../redux/employees/thunks';
 
 const Table = ({ headers, data }) => {
   const history = useHistory();
@@ -31,7 +32,7 @@ const Table = ({ headers, data }) => {
   const deleteItem = (id) => {
     switch (entitie) {
       case 'employees':
-        console.log('dispatch(deleteEmployees(id))');
+        dispatch(deleteEmployees(id));
         break;
       case 'admins':
         console.log('dispatch(deleteAdmins(id)');
