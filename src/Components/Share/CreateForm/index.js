@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { createAdmin } from '../../../redux/admins/thunks';
 import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,6 +17,7 @@ const CreateForm = () => {
   const entitie = URLPath[1];
 
   useEffect(async () => {
+    dispatch(getEmployees(''));
     switch (entitie) {
       case 'admins':
       case 'super-admins':
@@ -80,7 +82,29 @@ const CreateForm = () => {
   }, []);
 
   const createRow = async () => {
-    dispatch(createEmployee(itemToPUT));
+    switch (entitie) {
+      case 'employees':
+        dispatch(createEmployee(itemToPUT));
+        break;
+      case 'admins':
+        dispatch(createAdmin(itemToPUT));
+        break;
+      case 'super-admins':
+        // dispatch(createSuperAdmin(itemToPUT));
+        break;
+      case 'projects':
+        // dispatch(createProject(itemToPUT));
+        break;
+      case 'tasks':
+        // dispatch(createTask(itemToPUT));
+        break;
+      case 'time-sheets':
+        // dispatch(createTimeSheet(itemToPUT));
+        break;
+      default:
+        history.push('/');
+        break;
+    }
   };
 
   return (
