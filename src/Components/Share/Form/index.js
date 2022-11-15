@@ -10,14 +10,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: employeeList } = useSelector((state) => state.employees);
-  // const { list: adminsList } = useSelector((state) => state.admins);
-  // const { list: superAdminsList } = useSelector((state) => state.superAdmins);
-  // const { list: projectsList } = useSelector((state) => state.projects);
-  // const { list: tasksList } = useSelector((state) => state.tasks);
-  // const { list: timeSheetsList } = useSelector((state) => state.timeSheets);
 
-  // const [showModal, setShowModal] = useState(false);
-  // const [modalContent, setModalContent] = useState(<></>);
   const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
@@ -36,7 +29,6 @@ const Form = () => {
   const id = useParams().id;
   const entitie = URLPath[1];
 
-  // const [employeeList, setEmployeesList] = useState([]);
   const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
 
@@ -67,9 +59,6 @@ const Form = () => {
       }
 
       dispatch(getEmployees(''));
-      // const resEmployees = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
-      // const dataEmployees = await resEmployees.json();
-      // setEmployeesList(dataEmployees.data);
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
@@ -95,54 +84,21 @@ const Form = () => {
       case 'admins':
         dispatch(editAdmin(id, body));
         break;
+      case 'super-admins':
+        // dispatch(editSuperAdmin(itemToPUT));
+        break;
+      case 'projects':
+        // dispatch(editProject(itemToPUT));
+        break;
+      case 'tasks':
+        // dispatch(editTask(itemToPUT));
+        break;
+      case 'time-sheets':
+        // dispatch(editTimeSheet(itemToPUT));
+        break;
       default:
         break;
     }
-
-    // try {
-    //   const req = await fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-type': 'application/Json'
-    //     },
-    //     body: JSON.stringify({
-    //       ...itemToPUT,
-    //       dni: itemToPUT.dni?.toString(),
-    //       phone: itemToPUT.phone?.toString(),
-    //       employee: itemToPUT.employee?._id || itemToPUT.employee,
-    //       task: itemToPUT.task?._id || itemToPUT.task,
-    //       project: itemToPUT.project?._id || itemToPUT.project
-    //     })
-    //   });
-    //   const res = await req.json();
-    //   if (res.error) {
-    //     dispatch(
-    //       setModalContent(
-    //         (Array.isArray(res.message) && (
-    //           <div>
-    //             <ul>
-    //               {res.message.map((info, index) => {
-    //                 return <li key={index}>{info.message}</li>;
-    //               })}
-    //             </ul>
-    //           </div>
-    //         )) ||
-    //           res.message ||
-    //           'An unexpected error has occurred'
-    //       )
-    //     );
-    //     dispatch(setShowModal(true));
-    //     setTimeout(() => dispatch(setShowModal(false)), 2000);
-    //   }
-    //   dispatch(setModalContent('Edited successfully'));
-    //   dispatch(setShowModal(true));
-    //   setTimeout(() => {
-    //     dispatch(setShowModal(false));
-    // history.push(`/${entitie}`);
-    //   }, 2000);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
   return (
     <>
