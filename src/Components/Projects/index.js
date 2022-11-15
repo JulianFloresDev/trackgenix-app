@@ -1,16 +1,15 @@
 import styles from './projects.module.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Table from '../Share/Table';
 import Spinner from '../Share/Spinner';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProjects } from '../../redux/projects/thunks';
 
 function Projects() {
-  const [list, setList] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
+  const dispatch = useDispatch();
+  const { list, isFetching, error } = useSelector((store) => store.projects);
   useEffect(async () => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-    const data = await response.json();
-    setList(data.data || []);
-    setTimeout(() => setIsFetching(false), 2000);
+    dispatch(getProjects(''));
   }, []);
   return (
     <section className={styles.container}>
@@ -19,18 +18,26 @@ function Projects() {
           <Spinner entitie="Projects" />
         </div>
       ) : (
-        <Table
-          headers={[
-            'name',
-            'description',
-            'clientName',
-            'startDate',
-            'endDate',
-            'teamMembers',
-            'active'
-          ]}
-          data={list}
-        />
+        <>
+          {error ? (
+            <div>
+              <h2>404: Unable to access server</h2>
+            </div>
+          ) : (
+            <Table
+              headers={[
+                'name',
+                'description',
+                'clientName',
+                'startDate',
+                'endDate',
+                'teamMembers',
+                'active'
+              ]}
+              data={list}
+            />
+          )}
+        </>
       )}
     </section>
   );
