@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
+import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
 
 const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: employeeList } = useSelector((state) => state.employees);
+
   const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
@@ -37,7 +39,7 @@ const Form = () => {
           dispatch(getEmployees(id));
           break;
         case 'admins':
-          console.log('dispatch(getAdmins(id)');
+          dispatch(getAdmins(id));
           break;
         case 'super-admins':
           console.log('dispatch(getSuperAdmins(id)');
@@ -77,6 +79,21 @@ const Form = () => {
     switch (entitie) {
       case 'employees':
         dispatch(editEmployee(id, body));
+        break;
+      case 'admins':
+        dispatch(editAdmin(id, body));
+        break;
+      case 'super-admins':
+        // dispatch(editSuperAdmin(itemToPUT));
+        break;
+      case 'projects':
+        // dispatch(editProject(itemToPUT));
+        break;
+      case 'tasks':
+        // dispatch(editTask(itemToPUT));
+        break;
+      case 'time-sheets':
+        // dispatch(editTimeSheet(itemToPUT));
         break;
       default:
         break;
