@@ -8,7 +8,7 @@ import { getTasks, createTask } from '../../../redux/tasks/thunks';
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
-  const { list: taskList } = useSelector((state) => state.tasks);
+  const { list: taskList } = useSelector((store) => store.tasks);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
@@ -81,7 +81,13 @@ const CreateForm = () => {
   }, []);
 
   const createRow = async () => {
-    dispatch(createTask(itemToPUT));
+    switch (entitie) {
+      case 'tasks':
+        dispatch(createTask(itemToPUT));
+        break;
+      default:
+        break;
+    }
   };
 
   return (
