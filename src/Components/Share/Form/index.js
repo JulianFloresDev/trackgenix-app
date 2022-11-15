@@ -10,6 +10,12 @@ const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: employeeList } = useSelector((state) => state.employees);
+  // const { list: adminsList } = useSelector((state) => state.admins);
+  // const { list: superAdminsList } = useSelector((state) => state.superAdmins);
+  // const { list: projectsList } = useSelector((state) => state.projects);
+  // const { list: tasksList } = useSelector((state) => state.tasks);
+  // const { list: timeSheetsList } = useSelector((state) => state.timeSheets);
+
   // const [showModal, setShowModal] = useState(false);
   // const [modalContent, setModalContent] = useState(<></>);
   const newTeamMember = { employee: '', role: '', rate: '' };
@@ -132,7 +138,7 @@ const Form = () => {
     //   dispatch(setShowModal(true));
     //   setTimeout(() => {
     //     dispatch(setShowModal(false));
-    //     history.push(`/${entitie}`);
+    // history.push(`/${entitie}`);
     //   }, 2000);
     // } catch (error) {
     //   console.error(error);
