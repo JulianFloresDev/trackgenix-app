@@ -84,16 +84,16 @@ const Form = () => {
         dispatch(editAdmin(id, body));
         break;
       case 'super-admins':
-        // dispatch(editSuperAdmin(itemToPUT));
+        // dispatch(editSuperAdmin(id, body));
         break;
       case 'projects':
-        // dispatch(editProject(itemToPUT));
+        // dispatch(editProject(id, body));
         break;
       case 'tasks':
-        dispatch(editTask(itemToPUT));
+        dispatch(editTask(id, body));
         break;
       case 'time-sheets':
-        // dispatch(editTimeSheet(itemToPUT));
+        // dispatch(editTimeSheet(id, body));
         break;
       default:
         break;
