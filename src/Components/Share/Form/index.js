@@ -3,10 +3,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
+import { editProject, getProjects } from '../../../redux/projects/thunks';
+import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
-import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
-import { editProject, getProjects } from '../../../redux/projects/thunks';
 
 const Form = () => {
   const dispatch = useDispatch();

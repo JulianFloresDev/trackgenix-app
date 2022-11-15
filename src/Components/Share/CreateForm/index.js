@@ -2,14 +2,17 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { createProject } from '../../../redux/projects/thunks';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
+import { getProjects } from '../../../redux/projects/thunks';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { itemToPUT, showModal, modalContent } = useSelector((store) => store.global);
   const { list: employeeList } = useSelector((store) => store.employees);
+  const { list: projectList } = useSelector((store) => store.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
@@ -64,15 +67,11 @@ const CreateForm = () => {
     }
   }, []);
 
-  const [projectList, setProjectsList] = useState([]);
   const [taskList, setTasksList] = useState([]);
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
-
-      const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-      const dataProjects = await resProjects.json();
-      setProjectsList(dataProjects.data);
+      dispatch(getProjects(''));
       const resTasks = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
       const dataTasks = await resTasks.json();
       setTasksList(dataTasks.data);
@@ -93,7 +92,7 @@ const CreateForm = () => {
         // dispatch(createSuperAdmin(itemToPUT));
         break;
       case 'projects':
-        // dispatch(createProject(itemToPUT));
+        dispatch(createProject(itemToPUT));
         break;
       case 'tasks':
         // dispatch(createTask(itemToPUT));
