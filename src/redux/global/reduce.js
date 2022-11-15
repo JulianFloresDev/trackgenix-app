@@ -1,9 +1,10 @@
-import { SHOW_MODAL, MODAL_CONTENT, EDIT_ITEM } from './constants';
+import { SHOW_MODAL, MODAL_CONTENT, EDIT_ITEM, DISABLE_BTN } from './constants';
 
 const INITIAL_STATE = {
   showModal: false,
   modalContent: <div></div>,
-  itemToPUT: {}
+  itemToPUT: {},
+  disable: true
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -21,6 +22,11 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         itemToPUT: action.payload
+      };
+    case DISABLE_BTN:
+      return {
+        ...state,
+        disalbe: false
       };
     default:
       return state;
