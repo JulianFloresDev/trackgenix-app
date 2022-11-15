@@ -11,7 +11,7 @@ export const getTimesheetsPending = () => {
   };
 };
 
-export const getEmployeesSuccess = (payload) => {
+export const getTimesheetsSuccess = (payload) => {
   return {
     type: GET_TIMESHEETS_SUCCESS,
     payload
