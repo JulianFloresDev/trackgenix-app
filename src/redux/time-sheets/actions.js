@@ -5,7 +5,7 @@ import {
   DELETE_TIMESHEETS_SUCCESS
 } from './constants';
 
-export const getEmployeesPending = () => {
+export const getTimesheetsPending = () => {
   return {
     type: GET_TIMESHEETS_PENDING
   };
@@ -18,13 +18,13 @@ export const getEmployeesSuccess = (payload) => {
   };
 };
 
-export const getEmployeesError = () => {
+export const getTimesheetsError = () => {
   return {
     type: GET_TIMESHEETS_ERROR
   };
 };
 
-export const deleteEmployeesSuccess = (payload) => {
+export const deleteTimesheetsSuccess = (payload) => {
   return {
     type: DELETE_TIMESHEETS_SUCCESS,
     payload
