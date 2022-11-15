@@ -4,6 +4,7 @@ import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editItem } from '../../../redux/global/actions';
+import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Form = () => {
           dispatch(getEmployees(id));
           break;
         case 'admins':
-          console.log('dispatch(getAdmins(id)');
+          dispatch(getAdmins(id));
           break;
         case 'super-admins':
           console.log('dispatch(getSuperAdmins(id)');
@@ -77,6 +78,18 @@ const Form = () => {
       case 'employees':
         dispatch(
           editEmployee(id, {
+            ...itemToPUT,
+            dni: itemToPUT.dni?.toString(),
+            phone: itemToPUT.phone?.toString(),
+            employee: itemToPUT.employee?._id || itemToPUT.employee,
+            task: itemToPUT.task?._id || itemToPUT.task,
+            project: itemToPUT.project?._id || itemToPUT.project
+          })
+        );
+        break;
+      case 'admins':
+        dispatch(
+          editAdmin(id, {
             ...itemToPUT,
             dni: itemToPUT.dni?.toString(),
             phone: itemToPUT.phone?.toString(),
