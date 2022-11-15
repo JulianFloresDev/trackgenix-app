@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdmins } from '../../redux/admins/thunks';
 import Table from '../Share/Table';
 import styles from './admins.module.css';
 import Spinner from '../Share/Spinner';
 
 function Admins() {
-  const [list, setList] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
+  const dispatch = useDispatch();
+  const { list, isFetching, error } = useSelector((store) => store.admins);
+
   useEffect(async () => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/admins`);
-    const data = await response.json();
-    setList(data.data || []);
-    setTimeout(() => setIsFetching(false), 2000);
+    dispatch(getAdmins(''));
   }, []);
   return (
     <section className={styles.container}>
@@ -20,10 +20,16 @@ function Admins() {
         </div>
       ) : (
         <>
-          <Table
-            headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
-            data={list}
-          />
+          {error ? (
+            <div>
+              <h2>404: Unable to access server</h2>
+            </div>
+          ) : (
+            <Table
+              headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+              data={list}
+            />
+          )}
         </>
       )}
     </section>

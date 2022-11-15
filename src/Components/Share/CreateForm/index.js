@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { createAdmin } from '../../../redux/admins/thunks';
+import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import { getEmployees, createEmployee } from '../../../redux/employees/thunks';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const CreateForm = () => {
   const entitie = URLPath[1];
 
   useEffect(async () => {
+    dispatch(getEmployees(''));
     switch (entitie) {
       case 'admins':
       case 'super-admins':
@@ -67,7 +69,6 @@ const CreateForm = () => {
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
-
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);
@@ -80,7 +81,29 @@ const CreateForm = () => {
   }, []);
 
   const createRow = async () => {
-    dispatch(createEmployee(itemToPUT));
+    switch (entitie) {
+      case 'employees':
+        dispatch(createEmployee(itemToPUT));
+        break;
+      case 'admins':
+        dispatch(createAdmin(itemToPUT));
+        break;
+      case 'super-admins':
+        // dispatch(createSuperAdmin(itemToPUT));
+        break;
+      case 'projects':
+        // dispatch(createProject(itemToPUT));
+        break;
+      case 'tasks':
+        // dispatch(createTask(itemToPUT));
+        break;
+      case 'time-sheets':
+        // dispatch(createTimeSheet(itemToPUT));
+        break;
+      default:
+        history.push('/');
+        break;
+    }
   };
 
   return (
