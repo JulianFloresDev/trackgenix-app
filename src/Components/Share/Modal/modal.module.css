@@ -22,10 +22,13 @@
 .closeModalBtn {
     padding: 5px;
     cursor: pointer;
+    transition: all .5s;
 }
 .closeModalBtn:hover {
-    animation: spinner360 1s linear;
+    transform: translateX(-30px);
+    /* animation: spinner360 1s linear; */
 }
+
 @keyframes spinner360 {
     from {
         transform: rotateZ(0deg);
