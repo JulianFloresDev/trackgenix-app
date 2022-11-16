@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { editTask, getTasks } from '../../../redux/tasks/thunks';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
 import { getProjects } from '../../../redux/projects/thunks';
 import { editItem } from '../../../redux/global/actions';
-import Modal from '../Modal';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
+import Modal from '../Modal';
 
 const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
+  const { list: taskList } = useSelector((state) => state.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
@@ -31,8 +33,6 @@ const Form = () => {
   const id = useParams().id;
   const entitie = URLPath[1];
 
-  const [taskList, setTasksList] = useState([]);
-
   useEffect(async () => {
     try {
       switch (entitie) {
@@ -46,7 +46,7 @@ const Form = () => {
           console.log('dispatch(getSuperAdmins(id)');
           break;
         case 'tasks':
-          console.log('dispatch(getTasks(id)');
+          dispatch(getTasks(id));
           break;
         case 'projects':
           console.log('dispatch(getProjects(id)');
@@ -59,11 +59,8 @@ const Form = () => {
           break;
       }
       dispatch(getEmployees(''));
-
       dispatch(getProjects(''));
-      const resTasks = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
-      const dataTasks = await resTasks.json();
-      setTasksList(dataTasks.data);
+      dispatch(getTasks(''));
     } catch (err) {
       console.error(err);
     }
@@ -83,19 +80,18 @@ const Form = () => {
         dispatch(editAdmin(id, body));
         break;
       case 'super-admins':
-        // dispatch(editSuperAdmin(itemToPUT));
+        // dispatch(editSuperAdmin(id, body));
         break;
       case 'projects':
-        // dispatch(editProject(itemToPUT));
+        // dispatch(editProject(id, body));
         break;
       case 'tasks':
-        // dispatch(editTask(itemToPUT));
+        dispatch(editTask(id, body));
         break;
       case 'time-sheets':
         dispatch(editTimesheets(id, body));
         break;
       default:
-        history.push(`/${entitie}`);
         break;
     }
   };
