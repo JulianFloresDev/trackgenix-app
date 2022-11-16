@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteTasks } from '../../../redux/tasks/thunks';
 import { deleteEmployees } from '../../../redux/employees/thunks';
+import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
 import { deleteAdminByID } from '../../../redux/admins/thunks';
 
 const Table = ({ headers, data }) => {
@@ -39,7 +40,7 @@ const Table = ({ headers, data }) => {
         dispatch(deleteAdminByID(id));
         break;
       case 'super-admins':
-        console.log('dispatch(deleteSuperAdmins(id)');
+        dispatch(deleteSuperAdmins(id));
         break;
       case 'tasks':
         dispatch(deleteTasks(id));
@@ -173,7 +174,7 @@ const Table = ({ headers, data }) => {
                       );
                     }
                     if (!row[property]) {
-                      return <td>Element Not Found</td>;
+                      return <td key={index}>Element Not Found</td>;
                     }
                     return (
                       <td key={index} className={styles.optionInvalid}>

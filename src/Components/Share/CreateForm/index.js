@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { createTask, getTasks } from '../../../redux/tasks/thunks';
+import { createSuperAdmin } from '../../../redux/super-admins/thunks';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal';
 import { editItem } from '../../../redux/global/actions';
@@ -91,7 +92,7 @@ const CreateForm = () => {
         dispatch(createAdmin(itemToPUT));
         break;
       case 'super-admins':
-        // dispatch(createSuperAdmin(itemToPUT));
+        dispatch(createSuperAdmin(itemToPUT));
         break;
       case 'projects':
         // dispatch(createProject(itemToPUT));
@@ -126,7 +127,7 @@ const CreateForm = () => {
                     }}
                     value={itemToPUT[prop]?._id}
                   >
-                    <option hiddden>Select an Employee</option>
+                    <option hidden>Select an Employee</option>
                     {employeeList.map((employee) => {
                       return (
                         <option
@@ -254,7 +255,7 @@ const CreateForm = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0} hideen>
+                                    <option value={0} hidden>
                                       Select an Employee
                                     </option>
                                   </select>

@@ -3,8 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editTask, getTasks } from '../../../redux/tasks/thunks';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
-import { editItem } from '../../../redux/global/actions';
+import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
+import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 
 const Form = () => {
@@ -43,7 +44,7 @@ const Form = () => {
           dispatch(getAdmins(id));
           break;
         case 'super-admins':
-          console.log('dispatch(getSuperAdmins(id)');
+          dispatch(getSuperAdmins(id));
           break;
         case 'tasks':
           dispatch(getTasks(id));
@@ -84,7 +85,7 @@ const Form = () => {
         dispatch(editAdmin(id, body));
         break;
       case 'super-admins':
-        // dispatch(editSuperAdmin(id, body));
+        dispatch(editSuperAdmin(id, body));
         break;
       case 'projects':
         // dispatch(editProject(id, body));
