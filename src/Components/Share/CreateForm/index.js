@@ -70,6 +70,7 @@ const CreateForm = () => {
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
+
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);

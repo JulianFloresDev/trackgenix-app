@@ -1,5 +1,4 @@
 import styles from './employees.module.css';
-// import { useState, useEffect } from 'react';
 import Table from '../Share/Table';
 import Spinner from '../Share/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,14 +11,6 @@ function Employees() {
   useEffect(() => {
     dispatch(getEmployees(''));
   }, []);
-  // const [list, setList] = useState([]);
-  // const [isFetching, setIsFetching] = useState(true);
-  // useEffect(async () => {
-  //   // const response = await fetch(`${process.env.REACT_APP_API_URL}/employees`);
-  //   // const data = await response.json();
-  //   // setList(data.data || []);
-  //   // setTimeout(() => setIsFetching(false), 2000);
-  // }, []);
   return (
     <section className={styles.container}>
       {isFetching ? (

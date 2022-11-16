@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
-import { editAdmin, getAdmins } from '../../../redux/admins/thunks';
+import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
 
@@ -11,6 +11,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: employeeList } = useSelector((state) => state.employees);
+
   const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
@@ -86,7 +87,17 @@ const Form = () => {
       case 'super-admins':
         dispatch(editSuperAdmin(id, body));
         break;
+      case 'projects':
+        // dispatch(editProject(itemToPUT));
+        break;
+      case 'tasks':
+        // dispatch(editTask(itemToPUT));
+        break;
+      case 'time-sheets':
+        // dispatch(editTimeSheet(itemToPUT));
+        break;
       default:
+        history.push(`/${entitie}`);
         break;
     }
   };
