@@ -114,7 +114,7 @@ export const createEmployee = (body) => {
         dispatch(setShowModal(true));
         setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Admin created successfully!</p>));
+        dispatch(setModalContent(<p>Employee created successfully!</p>));
         dispatch(setShowModal(true));
         setTimeout(() => {
           dispatch(setShowModal(false));
