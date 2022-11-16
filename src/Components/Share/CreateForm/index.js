@@ -1,18 +1,19 @@
+import Modal from '../Modal';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { editItem } from '../../../redux/global/actions';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { createProject, getProjects } from '../../../redux/projects/thunks';
-import { useSelector, useDispatch } from 'react-redux';
-import Modal from '../Modal';
-import { editItem } from '../../../redux/global/actions';
+import { createTask, getTasks } from '../../../redux/tasks/thunks';
+import { createSuperAdmin } from '../../../redux/super-admins/thunks';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
-  const { itemToPUT, showModal, modalContent } = useSelector((store) => store.global);
-  const { list: employeeList } = useSelector((store) => store.employees);
-  const { list: projectList } = useSelector((store) => store.projects);
-
+  const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
+  const { list: taskList } = useSelector((store) => store.tasks);
+  const { list: employeeList } = useSelector((state) => state.employees);
   const newTeamMember = { employee: '', role: '', rate: '' };
 
   const history = useHistory();
@@ -67,14 +68,18 @@ const CreateForm = () => {
     }
   }, []);
 
-  const [taskList, setTasksList] = useState([]);
+  const [projectList, setProjectsList] = useState([]);
+
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
       dispatch(getProjects(''));
-      const resTasks = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
-      const dataTasks = await resTasks.json();
-      setTasksList(dataTasks.data);
+
+      const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
+      const dataProjects = await resProjects.json();
+      setProjectsList(dataProjects.data);
+
+      dispatch(getTasks(''));
     } catch (err) {
       console.error(err);
     }
@@ -89,13 +94,13 @@ const CreateForm = () => {
         dispatch(createAdmin(itemToPUT));
         break;
       case 'super-admins':
-        // dispatch(createSuperAdmin(itemToPUT));
+        dispatch(createSuperAdmin(itemToPUT));
         break;
       case 'projects':
         dispatch(createProject(itemToPUT));
         break;
       case 'tasks':
-        // dispatch(createTask(itemToPUT));
+        dispatch(createTask(itemToPUT));
         break;
       case 'time-sheets':
         // dispatch(createTimeSheet(itemToPUT));

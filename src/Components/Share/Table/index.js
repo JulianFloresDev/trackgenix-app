@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalContent, setShowModal } from '../../../redux/global/actions';
+import { deleteTasks } from '../../../redux/tasks/thunks';
 import { deleteEmployees } from '../../../redux/employees/thunks';
 import { deleteAdminByID } from '../../../redux/admins/thunks';
 import { deleteProject } from '../../../redux/projects/thunks';
@@ -43,7 +44,7 @@ const Table = ({ headers, data }) => {
         dispatch(deleteSuperAdmins(id));
         break;
       case 'tasks':
-        console.log('dispatch(deleteTasks(id)');
+        dispatch(deleteTasks(id));
         break;
       case 'projects':
         dispatch(deleteProject(id));

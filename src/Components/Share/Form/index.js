@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { editTask, getTasks } from '../../../redux/tasks/thunks';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
 import { editProject, getProjects } from '../../../redux/projects/thunks';
@@ -11,6 +12,7 @@ import Modal from '../Modal';
 const Form = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
+  const { list: taskList } = useSelector((state) => state.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
 
   const newTeamMember = { employee: '', role: '', rate: '' };
@@ -32,7 +34,6 @@ const Form = () => {
   const entitie = URLPath[1];
 
   const [projectList, setProjectsList] = useState([]);
-  const [taskList, setTasksList] = useState([]);
 
   useEffect(async () => {
     try {
@@ -47,7 +48,7 @@ const Form = () => {
           dispatch(getSuperAdmins(id));
           break;
         case 'tasks':
-          console.log('dispatch(getTasks(id)');
+          dispatch(getTasks(id));
           break;
         case 'projects':
           dispatch(getProjects(id));
@@ -65,9 +66,8 @@ const Form = () => {
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
       setProjectsList(dataProjects.data);
-      const resTasks = await fetch(`${process.env.REACT_APP_API_URL}/tasks`);
-      const dataTasks = await resTasks.json();
-      setTasksList(dataTasks.data);
+
+      dispatch(getTasks(''));
     } catch (err) {
       console.error(err);
     }
@@ -89,17 +89,16 @@ const Form = () => {
       case 'projects':
         dispatch(editProject(id, body));
         break;
-      case 'tasks':
-        // dispatch(editTask(id, body));
-        break;
       case 'time-sheets':
         // dispatch(editTimeSheet(id, body));
         break;
       case 'super-admins':
         dispatch(editSuperAdmin(id, body));
         break;
+      case 'tasks':
+        dispatch(editTask(id, body));
+        break;
       default:
-        history.push(`/${entitie}`);
         break;
     }
   };
