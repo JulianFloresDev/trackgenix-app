@@ -101,8 +101,8 @@ const Form = () => {
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
       <section className={styles.formSection}>
+        <h2>Edit {entitie.slice(0, -1)}</h2>
         <form>
-          <caption>Edit {entitie.slice(0, -1)}</caption>
           {Object.keys(itemToPUT)?.map((prop, index) => {
             if (prop === 'employee') {
               return (
@@ -179,16 +179,27 @@ const Form = () => {
             }
             if (prop === 'teamMembers') {
               return (
-                <div key={index}>
+                <div key={index} className={styles.teamMembers}>
                   <label htmlFor={prop}>{prop}</label>
                   <table>
                     <thead>
-                      <th>
+                      <tr>
                         {itemToPUT[prop][0] &&
                           Object.keys(itemToPUT[prop][0])?.map((key, index) => {
-                            return <td key={index}>{key}</td>;
+                            return <th key={index}>{key}</th>;
                           })}
-                      </th>
+                        <th>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              itemToPUT.teamMembers = [newTeamMember, ...itemToPUT.teamMembers];
+                              dispatch(editItem({ ...itemToPUT }));
+                            }}
+                          >
+                            +
+                          </button>
+                        </th>
+                      </tr>
                     </thead>
                     <tbody>
                       {itemToPUT[prop]?.map((item, index) => {
@@ -231,51 +242,43 @@ const Form = () => {
                               }
                               if (info === 'employee') {
                                 return (
-                                  <select
-                                    key={index}
-                                    value={item[info] ? item[info]._id : 0}
-                                    onChange={(e) => {
-                                      item[info] = e.target.value;
-                                      dispatch(editItem({ ...itemToPUT }));
-                                    }}
-                                  >
-                                    {employeeList?.map((employee) => {
-                                      return (
-                                        <option key={employee._id} value={employee?._id}>
-                                          {employee.firstName} {employee.lastName}
-                                        </option>
-                                      );
-                                    })}
-                                    <option value={0}>Select Employee</option>
-                                  </select>
+                                  <td>
+                                    <select
+                                      key={index}
+                                      value={item[info] ? item[info]._id : 0}
+                                      onChange={(e) => {
+                                        item[info] = e.target.value;
+                                        dispatch(editItem({ ...itemToPUT }));
+                                      }}
+                                    >
+                                      {employeeList?.map((employee) => {
+                                        return (
+                                          <option key={employee._id} value={employee?._id}>
+                                            {employee.firstName} {employee.lastName}
+                                          </option>
+                                        );
+                                      })}
+                                      <option value={0}>Select Employee</option>
+                                    </select>
+                                  </td>
                                 );
                               }
                             })}
                             <td>
                               {itemToPUT[prop].length > 1 && (
-                                <button
+                                <img
+                                  src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                                   onClick={(e) => {
                                     e.preventDefault();
                                     itemToPUT[prop].splice(index, 1);
                                     dispatch(editItem({ ...itemToPUT }));
                                   }}
-                                >
-                                  Remove Employee
-                                </button>
+                                />
                               )}
                             </td>
                           </tr>
                         );
                       })}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          itemToPUT.teamMembers = [newTeamMember, ...itemToPUT.teamMembers];
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                      >
-                        +
-                      </button>
                     </tbody>
                   </table>
                 </div>
@@ -291,7 +294,9 @@ const Form = () => {
             prop.includes('password') && (inputType = 'password');
             return (
               <div key={index}>
-                <label htmlFor={prop}>{prop}</label>
+                <label htmlFor={prop} id={`label-${prop}`}>
+                  {prop}
+                </label>
                 <input
                   id={prop}
                   type={inputType}
