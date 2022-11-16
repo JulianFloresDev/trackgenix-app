@@ -35,7 +35,7 @@ export const deleteTimesheets = (id) => {
         throw new Error(req.statusText);
       }
       dispatch(deleteTimesheetsSuccess(id));
-      dispatch(setModalContent(<p>Employee deleted successfully!</p>));
+      dispatch(setModalContent(<p>Time Sheet deleted successfully!</p>));
       dispatch(setShowModal(true));
       setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
@@ -74,7 +74,7 @@ export const editTimesheets = (id, body) => {
         dispatch(setShowModal(true));
         setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Employee edited successfully!</p>));
+        dispatch(setModalContent(<p>Time Sheet edited successfully!</p>));
         dispatch(setShowModal(true));
         setTimeout(() => {
           dispatch(setShowModal(false));
@@ -114,7 +114,7 @@ export const createTimesheets = (body) => {
         dispatch(setShowModal(true));
         setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Admin created successfully!</p>));
+        dispatch(setModalContent(<p>Time Sheet created successfully!</p>));
         dispatch(setShowModal(true));
         setTimeout(() => {
           dispatch(setShowModal(false));
