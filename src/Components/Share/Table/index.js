@@ -1,4 +1,5 @@
 import styles from './table.module.css';
+import modalStyles from '../Modal/modal.module.css';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,10 +24,15 @@ const Table = ({ headers, data }) => {
     dispatch(
       setModalContent(
         <>
-          Are you sure?
-          <div>
-            <button onClick={() => deleteItem(id)}>Yes</button>
-            <button onClick={() => dispatch(setShowModal(false))}>No</button>
+          <h3>You are trying to delete some {entitie.slice(0, -1).toUpperCase()}</h3>
+          <p>This is an irreversible action. Please confirm.</p>
+          <div className={modalStyles.buttonsContainer}>
+            <button className={modalStyles.cancelBtn} onClick={() => dispatch(setShowModal(false))}>
+              Cancel
+            </button>
+            <button className={modalStyles.confirmBtn} onClick={() => deleteItem(id)}>
+              Submit
+            </button>
           </div>
         </>
       )
