@@ -4,44 +4,91 @@
 
 .formSection {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   color: #373867;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-caption {
+.formSection h2 {
   text-transform: capitalize;
   font-weight: 600;
 }
 
-form > div {
+.formSection form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 62vw;
+}
+
+.formSection form > div {
   display: flex;
   flex-direction: column;
   width: 30vw;
-}
-.inputsBox {
-  display: flex;
-  flex-wrap: wrap;
-  width: 70%;
+  margin: .5vw 0;
 }
 
-.inputsBox > div {
-  display: flex;
-  flex-wrap: wrap;
-  width: 35%;
+.formSection #label-active {
+  text-align: center;
 }
 
-.inputsBox > div > label {
+.formSection form > div:last-child {
   width: 100%;
-  text-align: start;
+  align-items: center;
+  margin-top: 1vw;
 }
 
-.inputsBox > div > input, .inputsBox > div > select {
+.formSection form > div > label, form > div > button:first-child {
+  margin-bottom: .3vw;
+  text-transform: capitalize;
+}
+
+.formSection form > div > input, .formSection form > div > select { 
+  height: 3vw;
+  color: #373867;
+  cursor: pointer;
+}
+
+.formSection form > div > button {
+  width: 30vw;
+  height: 3vw;
+  cursor: pointer;
+}
+
+.formSection form > div > button:first-child {
+  color: #FFFFFF;
+  background: #373867;
+  border: none;
+  border-radius: 5px;
+}
+
+.formSection form > div > button:last-child {
+  background: #FFFFFF;
+  border: 1px solid #373867;
+  border-radius: 5px;
+}
+
+/*Team Members*/
+
+.teamMembers {
   width: 100%;
+}
+
+.teamMembers > label {
+  text-align: center;
+}
+
+.teamMembers > table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+/* .teamMembers th, .teamMembers td {
+  width: 25%;
+} */
+
+.teamMembers input, .teamMembers select {
+  width: 95%;
 }
