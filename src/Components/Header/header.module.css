@@ -1,4 +1,4 @@
-.container {
+/* .container {
   position: fixed;
   display: flex;
   justify-content: flex-end;
@@ -9,28 +9,28 @@
   padding: 0 5%;
   background-color: #373867;
   z-index: 10;
-}
+} */
 
-figure {
+/* figure {
   width: 5vw;
   height: 5vw;
   background: #ffffff;
   border-radius: 50%;
-}
-.brand {
+} */
+/* .brand {
   font-weight: bold;
   font-size: 1rem;
-}
+} */
 
-.socialIcon {
+/* .socialIcon {
   margin-left: 15px;
-}
+} */
 
 .navbar {
-  position: fixed;
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
-  width: 18.78%;
   height: 100vh;
   background-color: #373867;
 }
@@ -62,7 +62,6 @@ figure {
 }
 
 .rutes > li {
-  width: 100%;
   text-align: center;
 }
 

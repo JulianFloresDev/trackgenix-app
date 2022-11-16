@@ -1,24 +1,30 @@
 * {
   box-sizing: border-box;
 }
-.modifyForm {
-  width: 81.22%;
-  margin: 10.25vw 0 10.25vw 18.78%;
-  font-size: 1.2vw;
-  text-align: center;
+
+.formSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   color: #373867;
 }
 
-.modifyForm > form {
+form {
   display: flex;
-  flex-wrap: wrap;
-
+  flex-direction: column;
 }
 
-.modifyForm > form > h2 {
-  width: 100%;
+caption {
+  text-transform: capitalize;
+  font-weight: 600;
 }
 
+form > div {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
 .inputsBox {
   display: flex;
   flex-wrap: wrap;

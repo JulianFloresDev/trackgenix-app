@@ -1,6 +1,14 @@
 .container {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+}
+
+.navBar {
+  display: flex;
+  flex: 0 1 1;
+}
+
+.bodyContainer {
+  flex: 1 1 100%;
 }

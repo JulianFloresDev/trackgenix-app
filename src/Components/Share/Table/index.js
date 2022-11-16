@@ -1,36 +1,130 @@
 import styles from './table.module.css';
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { setModalContent, setShowModal } from '../../../redux/global/actions';
+import { deleteTasks } from '../../../redux/tasks/thunks';
+import { deleteEmployees } from '../../../redux/employees/thunks';
+import { deleteAdminByID } from '../../../redux/admins/thunks';
+import { deleteTimesheets } from '../../../redux/time-sheets/thunks';
+import { deleteProject } from '../../../redux/projects/thunks';
+import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
 
 const Table = ({ headers, data }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(<></>);
-  const [items, setItems] = useState(data);
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const deleteItem = (id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/${entitie}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    setModalContent(
-      <div className={styles.successMsg}>{entitie.slice(0, -1)} deleted successfully!</div>
+
+  const { showModal, modalContent } = useSelector((state) => state.global);
+  const dispatch = useDispatch();
+
+  const openModal = (id) => {
+    dispatch(setShowModal(true));
+    dispatch(
+      setModalContent(
+        <>
+          Are you sure?
+          <div>
+            <button onClick={() => deleteItem(id)}>Yes</button>
+            <button onClick={() => dispatch(setShowModal(false))}>No</button>
+          </div>
+        </>
+      )
     );
-    setShowModal(true);
-    setTimeout(() => setShowModal(false), 2000);
-    setItems(items.filter((item) => item._id !== id));
   };
+
+  const deleteItem = (id) => {
+    switch (entitie) {
+      case 'employees':
+        dispatch(deleteEmployees(id));
+        break;
+      case 'admins':
+        dispatch(deleteAdminByID(id));
+        break;
+      case 'super-admins':
+        dispatch(deleteSuperAdmins(id));
+        break;
+      case 'tasks':
+        dispatch(deleteTasks(id));
+        break;
+      case 'projects':
+        dispatch(deleteProject(id));
+        break;
+      case 'time-sheets':
+        dispatch(deleteTimesheets(id));
+        break;
+      default:
+        dispatch(setModalContent(<p>Can not delete entitie</p>));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+    }
+  };
+
+  const showEmployeeList = (members) => {
+    let counter = 0;
+
+    members.forEach((team) => {
+      team.employee !== null && counter++;
+    });
+
+    if (counter !== members.length) {
+      dispatch(setModalContent(<p>This project does not have any active employee!</p>));
+      dispatch(setShowModal(true));
+      setTimeout(() => {
+        dispatch(setShowModal(false));
+      }, 2000);
+    } else {
+      dispatch(
+        setModalContent(
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Role</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {members.map((team, index) => {
+                  if (team.employee) {
+                    return (
+                      <tr key={index}>
+                        <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
+                        <td>{team.role}</td>
+                        <td>{team.rate}</td>
+                      </tr>
+                    );
+                  }
+                })}
+              </tbody>
+            </table>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(setShowModal(false));
+              }}
+            >
+              Go back
+            </button>
+          </>
+        )
+      );
+      dispatch(setShowModal(true));
+    }
+  };
+  window.addEventListener('keydown', (e) => {
+    if (showModal && e.code === 'Escape') {
+      dispatch(setModalContent(<></>));
+      dispatch(setShowModal(!showModal));
+    }
+  });
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
       <div className={styles.container}>
         <h2>{entitie}</h2>
         <div className={styles.tableContainer}>
-          <table>
+          <table className={styles.table}>
             <thead>
               <tr>
                 {headers.map((header, index) => {
@@ -40,7 +134,7 @@ const Table = ({ headers, data }) => {
               </tr>
             </thead>
             <tbody>
-              {items.map((row) => {
+              {data.map((row) => {
                 return (
                   <tr key={row._id}>
                     {headers.map((property, index) => {
@@ -69,57 +163,7 @@ const Table = ({ headers, data }) => {
                                 className={styles.showListBtn}
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  let counter = 0;
-
-                                  row[property].forEach((team) => {
-                                    team.employee !== null && counter++;
-                                  });
-
-                                  if (counter !== row[property].length) {
-                                    setModalContent(
-                                      <p>This project does not have work team, yet!</p>
-                                    );
-                                    setShowModal(true);
-                                    setTimeout(() => {
-                                      setShowModal(false);
-                                    }, 2000);
-                                  } else {
-                                    setModalContent(
-                                      <>
-                                        <table>
-                                          <thead>
-                                            <tr>
-                                              <th>Employee</th>
-                                              <th>Role</th>
-                                              <th>Rate</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            {row[property].map((team, index) => {
-                                              if (team.employee !== null) {
-                                                return (
-                                                  <tr key={index}>
-                                                    <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
-                                                    <td>{team.role}</td>
-                                                    <td>{team.rate}</td>
-                                                  </tr>
-                                                );
-                                              }
-                                            })}
-                                          </tbody>
-                                        </table>
-                                        <button
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            setShowModal(false);
-                                          }}
-                                        >
-                                          Go back
-                                        </button>
-                                      </>
-                                    );
-                                    setShowModal(true);
-                                  }
+                                  showEmployeeList(row[property]);
                                 }}
                               >
                                 Show List
@@ -129,7 +173,7 @@ const Table = ({ headers, data }) => {
                         );
                       }
                       if (!row[property]) {
-                        return <td>Element Not Found</td>;
+                        return <td key={index}>Element Not Found</td>;
                       }
                       return (
                         <td key={index} className={styles.optionInvalid}>
@@ -151,17 +195,9 @@ const Table = ({ headers, data }) => {
                       <img
                         src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                         className={styles.closeBtn}
-                        onClick={() => {
-                          setShowModal(true);
-                          setModalContent(
-                            <div className={styles.confirmModal}>
-                              <p>Are you sure?</p>
-                              <div>
-                                <button onClick={() => deleteItem(row._id)}>Yes</button>
-                                <button onClick={() => setShowModal(false)}>No</button>
-                              </div>
-                            </div>
-                          );
+                        onClick={(e) => {
+                          e.preventDefault();
+                          openModal(row._id);
                         }}
                       />
                     </td>
