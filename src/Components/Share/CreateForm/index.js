@@ -1,12 +1,13 @@
+import Modal from '../Modal';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { editItem } from '../../../redux/global/actions';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { createProject, getProjects } from '../../../redux/projects/thunks';
 import { createTask, getTasks } from '../../../redux/tasks/thunks';
 import { createSuperAdmin } from '../../../redux/super-admins/thunks';
-import { useSelector, useDispatch } from 'react-redux';
-import Modal from '../Modal';
-import { editItem } from '../../../redux/global/actions';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ const CreateForm = () => {
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
+      dispatch(getProjects(''));
 
       const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
       const dataProjects = await resProjects.json();
@@ -95,7 +97,7 @@ const CreateForm = () => {
         dispatch(createSuperAdmin(itemToPUT));
         break;
       case 'projects':
-        // dispatch(createProject(itemToPUT));
+        dispatch(createProject(itemToPUT));
         break;
       case 'tasks':
         dispatch(createTask(itemToPUT));

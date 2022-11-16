@@ -5,8 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteTasks } from '../../../redux/tasks/thunks';
 import { deleteEmployees } from '../../../redux/employees/thunks';
-import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
 import { deleteAdminByID } from '../../../redux/admins/thunks';
+import { deleteProject } from '../../../redux/projects/thunks';
+import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
 
 const Table = ({ headers, data }) => {
   const history = useHistory();
@@ -46,7 +47,7 @@ const Table = ({ headers, data }) => {
         dispatch(deleteTasks(id));
         break;
       case 'projects':
-        console.log('dispatch(deleteProjects(id)');
+        dispatch(deleteProject(id));
         break;
       case 'time-sheets':
         console.log('dispatch(deleteTimesheets(id)');
