@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSuperAdmin } from '../../../redux/super-admins/thunks';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
-import { createTask, getTasks } from '../../../redux/tasks/thunks';
-import { createSuperAdmin } from '../../../redux/super-admins/thunks';
-import { useSelector, useDispatch } from 'react-redux';
-import Modal from '../Modal';
-import { editItem } from '../../../redux/global/actions';
+import { createProject, getProjects } from '../../../redux/projects/thunks';
 import { createTimesheets } from '../../../redux/time-sheets/thunks';
-import { getProjects } from '../../../redux/projects/thunks';
+import { createTask, getTasks } from '../../../redux/tasks/thunks';
+import { editItem } from '../../../redux/global/actions';
+import Modal from '../Modal';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const CreateForm = () => {
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
-
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
@@ -92,7 +91,7 @@ const CreateForm = () => {
         dispatch(createSuperAdmin(itemToPUT));
         break;
       case 'projects':
-        // dispatch(createProject(itemToPUT));
+        dispatch(createProject(itemToPUT));
         break;
       case 'tasks':
         dispatch(createTask(itemToPUT));

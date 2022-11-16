@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editTask, getTasks } from '../../../redux/tasks/thunks';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
-import { getProjects } from '../../../redux/projects/thunks';
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
+import { editProject, getProjects } from '../../../redux/projects/thunks';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
 import { editItem } from '../../../redux/global/actions';
 import Modal from '../Modal';
@@ -50,7 +50,7 @@ const Form = () => {
           dispatch(getTasks(id));
           break;
         case 'projects':
-          console.log('dispatch(getProjects(id)');
+          dispatch(getProjects(id));
           break;
         case 'time-sheets':
           dispatch(getTimesheets(id));
@@ -80,11 +80,11 @@ const Form = () => {
       case 'admins':
         dispatch(editAdmin(id, body));
         break;
+      case 'projects':
+        dispatch(editProject(id, body));
+        break;
       case 'super-admins':
         dispatch(editSuperAdmin(id, body));
-        break;
-      case 'projects':
-        // dispatch(editProject(id, body));
         break;
       case 'tasks':
         dispatch(editTask(id, body));

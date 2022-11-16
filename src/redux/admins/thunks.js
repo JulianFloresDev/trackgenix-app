@@ -93,7 +93,7 @@ export const editAdmin = (id, body) => {
 export const createAdmin = (body) => {
   return async (dispatch) => {
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/`, {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -12,7 +12,7 @@ export const getProjects = (id) => {
   return async (dispatch) => {
     dispatch(getProjectsPending());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`);
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
@@ -46,6 +46,86 @@ export const deleteProject = (id) => {
       dispatch(deleteProjectError());
       dispatch(setModalContent(<p>{error.toString()}</p>));
       setTimeout(() => dispatch(setShowModal(false)), 2000);
+    }
+  };
+};
+
+export const editProject = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      const response = await request.json();
+      if (response.error) {
+        dispatch(
+          Array.isArray(response.message)
+            ? setModalContent(
+                <div>
+                  <ul>
+                    {response.message.map((info, index) => {
+                      return <li key={index}>{info.message}</li>;
+                    })}
+                  </ul>
+                </div>
+              )
+            : setModalContent(response.message || 'An unexpected error has occurred')
+        );
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+      } else {
+        dispatch(setModalContent(<p>Project edited successfully!</p>));
+        dispatch(setShowModal(true));
+        setTimeout(() => {
+          dispatch(setShowModal(false));
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const createProject = (body) => {
+  return async (dispatch) => {
+    try {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      const response = await request.json();
+      if (response.error) {
+        dispatch(
+          Array.isArray(response.message)
+            ? setModalContent(
+                <div>
+                  <ul>
+                    {response.message.map((info, index) => {
+                      return <li key={index}>{info.message}</li>;
+                    })}
+                  </ul>
+                </div>
+              )
+            : setModalContent(response.message || 'An unexpected error has occurred')
+        );
+        dispatch(setShowModal(true));
+        setTimeout(() => dispatch(setShowModal(false)), 2000);
+      } else {
+        dispatch(setModalContent(<p>Project created successfully!</p>));
+        dispatch(setShowModal(true));
+        setTimeout(() => {
+          dispatch(setShowModal(false));
+        }, 2000);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 };
