@@ -9,12 +9,46 @@
 }
 
 .modalWrapper {
-    width: fit-content;
-    height: fit-content;
-    /*margin-top: 10.25vw; 
-    margin-left: 18.78%; ---> Depend on where we want to center it */
-    border-radius: 7px;
-    background-color: #fff;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 13px;
+    background: #FFFFFF;
+    border: 1.5px solid rgba(55, 56, 103, 0.4);
+
+    box-shadow: 0px 10px 23px rgba(0, 0, 0, 0.12);
+    border-radius: 25px;
+}
+
+.closeModalBtn {
+    padding: 5px;
+    cursor: pointer;
+}
+.closeModalBtn:hover {
+    animation: spinner360 1s linear;
+}
+@keyframes spinner360 {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(720deg);
+    }
+}
+
+.line {
+    display: flex;
+    width: 15px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: rgba(55, 56, 103);
+}
+
+.line:nth-of-type(1) {
+    transform: translateY(1px) rotate(45deg);
+}
+
+.line:nth-of-type(2) {
+    transform: translateY(-1px) rotate(-45deg);
 }
 
 .modalWrapper > div > ul {
