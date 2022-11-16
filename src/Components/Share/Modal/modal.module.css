@@ -13,8 +13,9 @@
 .modalWrapper {
     display: flex;
     flex-direction: row-reverse;
-    padding: 22px;
-    background: #FFFFFF;
+    padding: 20px;
+    padding-left: 45px;
+    background: var(--color-white-primary);
     border: 1.5px solid var(--color-blue-border);
 
     box-shadow: 0px 10px 23px rgba(0, 0, 0, 0.12);
@@ -81,14 +82,19 @@
     color: var(--color-blue-primary);
 }
 
-.content>h3 {
+.title {
     font-size: 1.3rem;
+}
+
+.info{
+    font-size: 1.1rem;
 }
 
 .buttonsContainer {
     display: flex;
     justify-content: flex-end;
     gap: 4px;
+    margin-top: 2rem;
 }
 
 .content button {
@@ -112,5 +118,8 @@
 }
 
 .confirmBtn {
+    background-color: var(--color-green-soft);
+}
+.confirmBtn:hover {
     background-color: var(--color-green-primary);
 }
