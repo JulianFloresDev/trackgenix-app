@@ -115,9 +115,7 @@ const Form = () => {
   return (
     <>
       {isFetchingData ? (
-        <div className={styles.container}>
-          <Spinner entitie="Admins" />
-        </div>
+        <Spinner entitie="Admins" />
       ) : (
         <>
           <Modal showModal={showModal}>

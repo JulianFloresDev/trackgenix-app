@@ -6,8 +6,9 @@
 
 /* Variables */
 :root{
-  --color-black-primary: #000;
-  --color-white-primary: #fff;
+  --color-black-primary: #000000;
+  --color-white-primary: #ffffff;
+  --color-white-ligthgrey: #dddddd;
 
   --color-blue-primary: #373867;
   --color-blue-opacity: #5b5c824d;

@@ -14,9 +14,7 @@ function Employees() {
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Employees" />
-        </div>
+        <Spinner entitie="Employees" />
       ) : error ? (
         <div>
           <h2>404: server not found</h2>

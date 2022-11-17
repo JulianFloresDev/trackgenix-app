@@ -6,9 +6,9 @@
 
 .navBar {
   display: flex;
-  flex: 0 1 1;
+  flex: 1 1 20%;
 }
 
 .bodyContainer {
-  flex: 1 1 100%;
+  flex: 1 1 80%;
 }

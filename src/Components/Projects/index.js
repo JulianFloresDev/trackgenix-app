@@ -14,9 +14,7 @@ function Projects() {
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Projects" />
-        </div>
+        <Spinner entitie="Projects" />
       ) : (
         <>
           {error ? (
