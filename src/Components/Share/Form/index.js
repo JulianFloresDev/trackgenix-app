@@ -34,7 +34,7 @@ const Form = () => {
     task: itemToPUT.task?._id || itemToPUT.task,
     project: itemToPUT.project?._id || itemToPUT.project,
     teamMembers: itemToPUT.teamMembers?.map((member) => {
-      return { ...member, employee: member.employee._id || member.employee };
+      return { ...member, employee: member.employee?._id || member.employee };
     })
   };
   const history = useHistory();
