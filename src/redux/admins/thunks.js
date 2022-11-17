@@ -137,9 +137,9 @@ export const createAdmin = (body) => {
           setModalContent(<h3 className={modalStyles.title}>Admin created successfully!</h3>)
         );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
+        // setTimeout(() => {
+        //   dispatch(setShowModal(false));
+        // }, 2000);
       }
     } catch (error) {
       console.error(error);
