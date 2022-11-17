@@ -15,9 +15,7 @@ function Tasks() {
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Tasks" />
-        </div>
+        <Spinner entitie="Tasks" />
       ) : error ? (
         <div>
           <h2>404: server not found</h2>
