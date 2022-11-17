@@ -125,7 +125,7 @@ const CreateForm = () => {
           </button>
         </div>
       </Modal>
-      <section>
+      <section className={styles.formSection}>
         <form>
           {Object.keys(itemToPUT).map((prop, index) => {
             if (prop === 'employee') {
@@ -263,25 +263,27 @@ const CreateForm = () => {
                               }
                               if (info === 'employee') {
                                 return (
-                                  <select
-                                    key={index}
-                                    value={item[info] ? item[info]._id : 0}
-                                    onChange={(e) => {
-                                      item[info] = e.target.value;
-                                      dispatch(editItem({ ...itemToPUT }));
-                                    }}
-                                  >
-                                    {employeeList?.map((employee) => {
-                                      return (
-                                        <option key={employee._id} value={employee?._id}>
-                                          {employee.firstName} {employee.lastName}
-                                        </option>
-                                      );
-                                    })}
-                                    <option value={0} hidden>
-                                      Select an Employee
-                                    </option>
-                                  </select>
+                                  <td>
+                                    <select
+                                      key={index}
+                                      value={item[info] ? item[info]._id : 0}
+                                      onChange={(e) => {
+                                        item[info] = e.target.value;
+                                        dispatch(editItem({ ...itemToPUT }));
+                                      }}
+                                    >
+                                      {employeeList?.map((employee) => {
+                                        return (
+                                          <option key={employee._id} value={employee?._id}>
+                                            {employee.firstName} {employee.lastName}
+                                          </option>
+                                        );
+                                      })}
+                                      <option value={0} hidden>
+                                        Select an Employee
+                                      </option>
+                                    </select>
+                                  </td>
                                 );
                               }
                             })}
