@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.2vw;
+  color: #373867;
+}
+
+.formSection h2 {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.formSection form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 62vw;
+}
+
+.formSection form > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30vw;
+  margin: .5vw 0;
+}
+
+.formSection #label-active {
+  text-align: center;
+}
+
+.formSection input[type=checkbox] {
+  height: 2.5vw;
+}
+
+.formSection form > div:last-child {
+  width: 100%;
+  align-items: center;
+  margin-top: 1vw;
+}
+
+.formSection form > div > label, form > div > button:first-child {
+  margin-bottom: .3vw;
+  text-transform: capitalize;
+}
+
+.formSection form > div > input, .formSection form > div > select { 
+  height: 3vw;
+  padding: 0 5px;
+  color: #373867;
+  cursor: pointer;
+}
+
+.formSection form > div > button {
+  width: 30vw;
+  height: 3vw;
+  cursor: pointer;
+}
+
+.formSection form > div > button:first-child {
+  color: #FFFFFF;
+  background: #373867;
+  border: none;
+  border-radius: 5px;
+}
+
+.formSection form > div > button:last-child {
+  background: #FFFFFF;
+  border: 1px solid #373867;
+  border-radius: 5px;
+}
+
+/*Team Members*/
+
+.formSection form > .teamMembers {
+  width: 100%;
+  max-height: 15vw;
+  margin-top: 1vw;
+  align-items: center;
+  overflow: auto;
+}
+
+.teamMembers > label {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  margin-bottom: 0 !important;
+  background-color: #FFFFFF;
+  z-index: 1;
+  text-align: center;
+}
+
+.teamMembers thead {
+  position: sticky;
+  top: 1.6vw;
+  background-color: #FFFFFF;
+  text-transform: capitalize;
+  z-index: 1;
+}
+
+.teamMembers > table {
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.teamMembers th:first-child {
+  border-radius: 15px 0 0 15px;
+}
+
+.teamMembers th:last-child {
+  border-radius: 0 15px 15px 0;
+}
+
+.teamMembers th img {
+  width: 3vw;
+  cursor: pointer;
+}
+
+.teamMembers th, .teamMembers td {
+  width: 25%;
+  height: 2.2vw;
+}
+
+.teamMembers input, .teamMembers select {
+  width: 95%;
+  height: 2vw;
+  font-size: 1.2vw;
+  text-align: center;
+  color: #373867;
+}
+
+.teamMembers td img {
+  width: 1.5vw;
+  cursor: pointer;
+}
