@@ -2,35 +2,8 @@ import styles from './header.module.css';
 
 function Header() {
   return (
-    <header>
-      {/* <div className={styles.container}>
-        <div className={styles.brand}>Radium Rocket</div>
-        <div>
-          <a href={'https://www.facebook.com/radiumrocket'} target={'_blank'} rel="noreferrer">
-            <img
-              className={styles.socialIcon}
-              src={`${process.env.PUBLIC_URL}/assets/images/facebook.svg`}
-            />
-          </a>
-          <a href={'https://twitter.com/radiumrocket'} target={'_blank'} rel="noreferrer">
-            <img
-              className={styles.socialIcon}
-              src={`${process.env.PUBLIC_URL}/assets/images/twitter.svg`}
-            />
-          </a>
-          <a href={'https://www.instagram.com/radium.rocket/'} target={'_blank'} rel="noreferrer">
-            <img
-              className={styles.socialIcon}
-              src={`${process.env.PUBLIC_URL}/assets/images/instagram.svg`}
-            />
-          </a>
-        </div>
-        <figure>Here should be an image of who is logged</figure>
-      </div> */}
+    <header className={styles.header}>
       <nav className={styles.navbar}>
-        {/* <div className={styles.appName}>
-          Track<span>GENIX</span>
-        </div> */}
         <div className={styles.logoRR}>
           <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
           <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
