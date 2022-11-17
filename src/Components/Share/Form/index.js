@@ -28,7 +28,10 @@ const Form = () => {
     phone: itemToPUT.phone?.toString(),
     employee: itemToPUT.employee?._id || itemToPUT.employee,
     task: itemToPUT.task?._id || itemToPUT.task,
-    project: itemToPUT.project?._id || itemToPUT.project
+    project: itemToPUT.project?._id || itemToPUT.project,
+    teamMembers: itemToPUT.teamMembers?.map((member) => {
+      return { ...member, employee: member.employee._id || member.employee };
+    })
   };
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
@@ -69,11 +72,6 @@ const Form = () => {
   }, []);
 
   const editRow = () => {
-    itemToPUT.teamMembers &&
-      (itemToPUT.teamMembers = itemToPUT.teamMembers?.map((member) => {
-        return { ...member, employee: member.employee._id || member.employee };
-      }));
-    dispatch(editItem({ ...itemToPUT }));
     switch (entitie) {
       case 'employees':
         dispatch(editEmployee(id, body));

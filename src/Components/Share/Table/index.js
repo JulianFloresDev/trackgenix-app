@@ -27,7 +27,7 @@ const Table = ({ headers, data }) => {
           <h3 className={modalStyles.title}>
             You are trying to delete some {entitie.slice(0, -1).toUpperCase()}
           </h3>
-          <p calssName={modalStyles.info}>This is an irreversible action. Please confirm.</p>
+          <p className={modalStyles.info}>This is an irreversible action. Please confirm.</p>
           <div className={modalStyles.buttonsContainer}>
             <button className={modalStyles.cancelBtn} onClick={() => dispatch(setShowModal(false))}>
               Cancel
