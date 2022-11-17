@@ -53,12 +53,11 @@ export const deleteAdminByID = (id) => {
         dispatch(
           setModalContent(<h3 className={modalStyles.title}>Admin Deleted Successfully!</h3>)
         );
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
       dispatch(deleteAdminsError());
-      dispatch(setModalContent(<h3>{error.toString()}</h3>));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
+      dispatch(setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>));
+      dispatch(setShowModal(true));
     }
   };
 };

@@ -6,20 +6,31 @@ import {
   deleteTasksSuccess,
   getTasksError
 } from './actions';
-import { editItem, setShowModal, setModalContent } from '../global/actions';
+import {
+  editItem,
+  setShowModal,
+  setModalContent,
+  fetchDataOn,
+  fetchDataOff
+} from '../global/actions';
+import modalStyles from '../../Components/Share/Modal/modal.module.css';
 
 export const getTasks = (id) => {
   return async (dispatch) => {
     try {
       dispatch(getTasksPending());
+      dispatch(fetchDataOn());
       const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`);
       const response = await request.json();
       if (response.error) {
         throw new Error();
       }
-      id ? dispatch(editItem(response.data)) : dispatch(getTasksSuccess(response.data));
+      id
+        ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+        : (dispatch(getTasksSuccess(response.data)), dispatch(fetchDataOff()));
     } catch (error) {
       dispatch(getTasksError());
+      dispatch(fetchDataOff());
     }
   };
 };
@@ -40,22 +51,27 @@ export const createTask = (body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Task created successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Task created successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
       console.error(error);
@@ -76,25 +92,28 @@ export const editTask = (id, body) => {
       });
       const response = await request.json();
       if (response.error) {
-        Array.isArray(response.message)
-          ? dispatch(
-              setModalContent(
-                <div>
+        dispatch(
+          Array.isArray(response.message)
+            ? setModalContent(
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            )
-          : setModalContent(response.message || 'An unexpected error occurred');
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Task edited successfully!</p>));
+        dispatch(setModalContent(<h3 className={modalStyles.title}>Task edited successfully!</h3>));
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
       console.error(error);
@@ -115,14 +134,14 @@ export const deleteTasks = (id) => {
         throw new Error(request.statusText);
       } else {
         dispatch(deleteTasksSuccess(id));
-        dispatch(setModalContent(<p>Task deleted successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Task deleted successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
-      setModalContent(error.toString() || 'An unexpected error occurred');
+      setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>);
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 };

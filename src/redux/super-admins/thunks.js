@@ -4,20 +4,31 @@ import {
   getSuperAdminsError,
   deleteSuperAdminsSuccess
 } from './actions';
-import { setShowModal, setModalContent, editItem } from '../global/actions';
+import {
+  setShowModal,
+  setModalContent,
+  editItem,
+  fetchDataOn,
+  fetchDataOff
+} from '../global/actions';
+import modalStyles from '../../Components/Share/Modal/modal.module.css';
 
 export const getSuperAdmins = (id) => {
   return async (dispatch) => {
     try {
       dispatch(getSuperAdminsPending());
+      dispatch(fetchDataOn());
       const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`);
       const data = await response.json();
       if (data.error) {
         throw new Error();
       }
-      id ? dispatch(editItem(data.data)) : dispatch(getSuperAdminsSuccess(data.data));
+      id
+        ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+        : (dispatch(getSuperAdminsSuccess(data.data)), dispatch(fetchDataOff()));
     } catch (error) {
       dispatch(getSuperAdminsError());
+      dispatch(fetchDataOff());
     }
   };
 };
@@ -35,11 +46,13 @@ export const deleteSuperAdmins = (id) => {
         throw new Error(req.statusText);
       }
       dispatch(deleteSuperAdminsSuccess(id));
-      dispatch(setModalContent(<p>Super Admin deleted successfully!</p>));
+      dispatch(
+        setModalContent(<h3 className={modalStyles.title}>Super Admin deleted successfully!</h3>)
+      );
       dispatch(setShowModal(true));
       setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
-      dispatch(setModalContent(<p>{error.toString()}</p>));
+      dispatch(setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>));
       dispatch(setShowModal(true));
       setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
@@ -61,24 +74,27 @@ export const editSuperAdmin = (id, body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Super Admin edited successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Super Admin edited successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);
@@ -101,24 +117,27 @@ export const createSuperAdmin = (body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Super Admin created successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Super Admin created successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);
