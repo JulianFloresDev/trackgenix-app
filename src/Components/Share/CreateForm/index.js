@@ -1,3 +1,4 @@
+import styles from './form.module.css';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -108,7 +109,8 @@ const CreateForm = () => {
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
-      <section>
+      <section className={styles.formSection}>
+        <h2>Create {entitie.slice(0, -1)}</h2>
         <form>
           {Object.keys(itemToPUT).map((prop, index) => {
             if (prop === 'employee') {
@@ -186,15 +188,25 @@ const CreateForm = () => {
             }
             if (prop === 'teamMembers') {
               return (
-                <div key={index}>
+                <div key={index} className={styles.teamMembers}>
                   <label htmlFor={prop}>{prop}</label>
                   <table>
                     <thead>
-                      <th>
+                      <tr>
                         {Object.keys(itemToPUT[prop][0]).map((key, index) => {
-                          return <td key={index}>{key}</td>;
+                          return <th key={index}>{key}</th>;
                         })}
-                      </th>
+                        <th>
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              itemToPUT.teamMembers.unshift(newTeamMember);
+                              dispatch(editItem({ ...itemToPUT }));
+                            }}
+                          />
+                        </th>
+                      </tr>
                     </thead>
                     <tbody>
                       {itemToPUT[prop].map((item, index) => {
@@ -260,29 +272,19 @@ const CreateForm = () => {
                             })}
                             <td>
                               {itemToPUT[prop].length > 1 && (
-                                <button
+                                <img
+                                  src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                                   onClick={(e) => {
                                     e.preventDefault();
                                     itemToPUT[prop].splice(index, 1);
                                     dispatch(editItem({ ...itemToPUT }));
                                   }}
-                                >
-                                  Remove Employee
-                                </button>
+                                />
                               )}
                             </td>
                           </tr>
                         );
                       })}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          itemToPUT.teamMembers.unshift(newTeamMember);
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                      >
-                        +
-                      </button>
                     </tbody>
                   </table>
                 </div>
