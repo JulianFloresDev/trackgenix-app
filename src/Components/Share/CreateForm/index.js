@@ -145,6 +145,7 @@ const CreateForm = () => {
             </div>
           </Modal>
           <section className={styles.formSection}>
+            <h2>Create {entitie.slice(0, -1)}</h2>
             <form>
               {Object.keys(itemToPUT).map((prop, index) => {
                 if (prop === 'employee') {
