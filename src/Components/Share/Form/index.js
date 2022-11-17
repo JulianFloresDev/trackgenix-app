@@ -189,15 +189,14 @@ const Form = () => {
                             return <th key={index}>{key}</th>;
                           })}
                         <th>
-                          <button
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
                             onClick={(e) => {
                               e.preventDefault();
                               itemToPUT.teamMembers = [newTeamMember, ...itemToPUT.teamMembers];
                               dispatch(editItem({ ...itemToPUT }));
                             }}
-                          >
-                            +
-                          </button>
+                          />
                         </th>
                       </tr>
                     </thead>
@@ -294,7 +293,7 @@ const Form = () => {
             prop.includes('password') && (inputType = 'password');
             return (
               <div key={index}>
-                <label htmlFor={prop} id={`label-${prop}`}>
+                <label htmlFor={prop} id={styles[`label-${prop}`]}>
                   {prop}
                 </label>
                 <input
