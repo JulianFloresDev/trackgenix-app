@@ -1,4 +1,11 @@
-import { SHOW_MODAL, MODAL_CONTENT, EDIT_ITEM, DISABLE_BTN } from './constants';
+import {
+  SHOW_MODAL,
+  MODAL_CONTENT,
+  EDIT_ITEM,
+  DISABLE_BTN,
+  FETCH_DATA_OFF,
+  FETCH_DATA_ON
+} from './constants';
 
 export const setShowModal = (payload) => {
   return {
@@ -25,5 +32,17 @@ export const disableBtn = (payload) => {
   return {
     type: DISABLE_BTN,
     payload
+  };
+};
+
+export const fetchDataOn = () => {
+  return {
+    type: FETCH_DATA_ON
+  };
+};
+
+export const fetchDataOff = () => {
+  return {
+    type: FETCH_DATA_OFF
   };
 };

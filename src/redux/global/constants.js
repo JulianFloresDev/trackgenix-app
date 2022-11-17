@@ -3,3 +3,6 @@ export const MODAL_CONTENT = 'MODAL_CONTENT';
 
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const DISABLE_BTN = 'DISABLE_BTN';
+
+export const FETCH_DATA_OFF = 'FETCH_DATA_OFF';
+export const FETCH_DATA_ON = 'FETCH_DATA_ON';

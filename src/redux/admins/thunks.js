@@ -1,4 +1,10 @@
-import { setModalContent, setShowModal, editItem } from '../global/actions';
+import {
+  setModalContent,
+  setShowModal,
+  editItem,
+  fetchDataOff,
+  fetchDataOn
+} from '../global/actions';
 import {
   getAdminsPending,
   getAdminsSuccess,
@@ -12,16 +18,20 @@ import modalStyles from '../../Components/Share/Modal/modal.module.css';
 export const getAdmins = (id) => {
   return async (dispatch) => {
     dispatch(getAdminsPending());
+    dispatch(fetchDataOn());
     try {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`);
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
       } else {
-        id ? dispatch(editItem(response.data)) : dispatch(getAdminsSuccess(response.data));
+        id
+          ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+          : (dispatch(getAdminsSuccess(response.data)), dispatch(fetchDataOff()));
       }
     } catch (error) {
       dispatch(getAdminsError(error));
+      dispatch(fetchDataOff());
     }
   };
 };
@@ -84,15 +94,11 @@ export const editAdmin = (id, body) => {
               )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
         dispatch(
           setModalContent(<h3 className={modalStyles.title}>Admin edited successfully!</h3>)
         );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);
@@ -131,15 +137,11 @@ export const createAdmin = (body) => {
               )
         );
         dispatch(setShowModal(true));
-        // setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
         dispatch(
           setModalContent(<h3 className={modalStyles.title}>Admin created successfully!</h3>)
         );
         dispatch(setShowModal(true));
-        // setTimeout(() => {
-        //   dispatch(setShowModal(false));
-        // }, 2000);
       }
     } catch (error) {
       console.error(error);
