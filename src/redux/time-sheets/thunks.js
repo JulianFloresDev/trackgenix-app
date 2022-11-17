@@ -18,14 +18,15 @@ export const getTimesheets = (id) => {
     try {
       dispatch(fetchDataOn());
       dispatch(getTimesheetsPending());
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`);
-      const data = await response.json();
-      if (data.error) {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`);
+      const response = await request.json();
+      if (response.error) {
         throw new Error();
+      } else {
+        id
+          ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+          : (dispatch(getTimesheetsSuccess(response.data)), dispatch(fetchDataOff()));
       }
-      id
-        ? (dispatch(editItem(data.data)), dispatch(fetchDataOff()))
-        : (dispatch(getTimesheetsSuccess(data.data)), dispatch(fetchDataOff()));
     } catch (error) {
       dispatch(getTimesheetsError());
       dispatch(fetchDataOff());
@@ -36,14 +37,14 @@ export const getTimesheets = (id) => {
 export const deleteTimesheets = (id) => {
   return async (dispatch) => {
     try {
-      const req = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      if (req.status >= 400) {
-        throw new Error(req.statusText);
+      if (request.status >= 400) {
+        throw new Error(request.statusText);
       }
       dispatch(deleteTimesheetsSuccess(id));
       dispatch(

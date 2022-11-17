@@ -24,10 +24,11 @@ export const getTasks = (id) => {
       const response = await request.json();
       if (response.error) {
         throw new Error();
+      } else {
+        id
+          ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+          : (dispatch(getTasksSuccess(response.data)), dispatch(fetchDataOff()));
       }
-      id
-        ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
-        : (dispatch(getTasksSuccess(response.data)), dispatch(fetchDataOff()));
     } catch (error) {
       dispatch(getTasksError());
       dispatch(fetchDataOff());

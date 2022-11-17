@@ -22,10 +22,11 @@ export const getEmployees = (id) => {
       const data = await response.json();
       if (data.error) {
         throw new Error();
+      } else {
+        id
+          ? (dispatch(editItem(data.data)), dispatch(fetchDataOff()))
+          : (dispatch(getEmployeesSuccess(data.data)), dispatch(fetchDataOff()));
       }
-      id
-        ? (dispatch(editItem(data.data)), dispatch(fetchDataOff()))
-        : (dispatch(getEmployeesSuccess(data.data)), dispatch(fetchDataOff()));
     } catch (error) {
       dispatch(getEmployeesError());
       dispatch(fetchDataOff());

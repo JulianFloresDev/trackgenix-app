@@ -18,14 +18,15 @@ export const getSuperAdmins = (id) => {
     try {
       dispatch(getSuperAdminsPending());
       dispatch(fetchDataOn());
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`);
-      const data = await response.json();
-      if (data.error) {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`);
+      const response = await request.json();
+      if (response.error) {
         throw new Error();
+      } else {
+        id
+          ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+          : (dispatch(getSuperAdminsSuccess(response.data)), dispatch(fetchDataOff()));
       }
-      id
-        ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
-        : (dispatch(getSuperAdminsSuccess(data.data)), dispatch(fetchDataOff()));
     } catch (error) {
       dispatch(getSuperAdminsError());
       dispatch(fetchDataOff());
