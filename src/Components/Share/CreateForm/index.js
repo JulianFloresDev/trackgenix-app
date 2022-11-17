@@ -1,21 +1,22 @@
-import Modal from '../Modal';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { editItem } from '../../../redux/global/actions';
+import { createSuperAdmin } from '../../../redux/super-admins/thunks';
 import { createAdmin } from '../../../redux/admins/thunks';
 import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { createProject, getProjects } from '../../../redux/projects/thunks';
+import { createTimesheets } from '../../../redux/time-sheets/thunks';
 import { createTask, getTasks } from '../../../redux/tasks/thunks';
-import { createSuperAdmin } from '../../../redux/super-admins/thunks';
+import { editItem } from '../../../redux/global/actions';
+import Modal from '../Modal';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: taskList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
+  const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
-
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
@@ -68,17 +69,10 @@ const CreateForm = () => {
     }
   }, []);
 
-  const [projectList, setProjectsList] = useState([]);
-
   useEffect(async () => {
     try {
       dispatch(getEmployees(''));
       dispatch(getProjects(''));
-
-      const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-      const dataProjects = await resProjects.json();
-      setProjectsList(dataProjects.data);
-
       dispatch(getTasks(''));
     } catch (err) {
       console.error(err);
@@ -103,7 +97,7 @@ const CreateForm = () => {
         dispatch(createTask(itemToPUT));
         break;
       case 'time-sheets':
-        // dispatch(createTimeSheet(itemToPUT));
+        dispatch(createTimesheets(itemToPUT));
         break;
       default:
         history.push('/');

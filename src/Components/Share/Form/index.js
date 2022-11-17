@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { editTask, getTasks } from '../../../redux/tasks/thunks';
 import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
+import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
 import { editProject, getProjects } from '../../../redux/projects/thunks';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
@@ -14,7 +15,7 @@ const Form = () => {
   const { showModal, modalContent, itemToPUT } = useSelector((state) => state.global);
   const { list: taskList } = useSelector((state) => state.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
-
+  const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
@@ -32,8 +33,6 @@ const Form = () => {
   const URLPath = history.location.pathname.split('/');
   const id = useParams().id;
   const entitie = URLPath[1];
-
-  const [projectList, setProjectsList] = useState([]);
 
   useEffect(async () => {
     try {
@@ -54,19 +53,14 @@ const Form = () => {
           dispatch(getProjects(id));
           break;
         case 'time-sheets':
-          console.log('dispatch(getTimesheets(id)');
+          dispatch(getTimesheets(id));
           break;
         default:
           history.push(`/`);
           break;
       }
       dispatch(getEmployees(''));
-      dispatch(getSuperAdmins(''));
-
-      const resProjects = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-      const dataProjects = await resProjects.json();
-      setProjectsList(dataProjects.data);
-
+      dispatch(getProjects(''));
       dispatch(getTasks(''));
     } catch (err) {
       console.error(err);
@@ -89,14 +83,14 @@ const Form = () => {
       case 'projects':
         dispatch(editProject(id, body));
         break;
-      case 'time-sheets':
-        // dispatch(editTimeSheet(id, body));
-        break;
       case 'super-admins':
         dispatch(editSuperAdmin(id, body));
         break;
       case 'tasks':
         dispatch(editTask(id, body));
+        break;
+      case 'time-sheets':
+        dispatch(editTimesheets(id, body));
         break;
       default:
         break;
@@ -128,9 +122,7 @@ const Form = () => {
                         >{`${employee?.firstName} ${employee?.lastName}`}</option>
                       );
                     })}
-                    <option value={0} hidden>
-                      Select Employee
-                    </option>
+                    <option value={0}>Select Employee</option>
                   </select>
                 </div>
               );
@@ -154,9 +146,7 @@ const Form = () => {
                         </option>
                       );
                     })}
-                    <option value={0} hidden>
-                      Select Project
-                    </option>
+                    <option value={0}>Select Project</option>
                   </select>
                 </div>
               );
@@ -180,9 +170,7 @@ const Form = () => {
                         </option>
                       );
                     })}
-                    <option value={0} hidden>
-                      Select Task
-                    </option>
+                    <option value={0}>Select Task</option>
                   </select>
                 </div>
               );
@@ -215,7 +203,7 @@ const Form = () => {
                                         dispatch(editItem({ ...itemToPUT }));
                                       }}
                                     >
-                                      <option hidden>-</option>
+                                      <option>-</option>
                                       <option>DEV</option>
                                       <option>QA</option>
                                       <option>PM</option>
@@ -256,9 +244,7 @@ const Form = () => {
                                         </option>
                                       );
                                     })}
-                                    <option value={0} hidden>
-                                      Select Employee
-                                    </option>
+                                    <option value={0}>Select Employee</option>
                                   </select>
                                 );
                               }

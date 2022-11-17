@@ -6,6 +6,7 @@ import { setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteTasks } from '../../../redux/tasks/thunks';
 import { deleteEmployees } from '../../../redux/employees/thunks';
 import { deleteAdminByID } from '../../../redux/admins/thunks';
+import { deleteTimesheets } from '../../../redux/time-sheets/thunks';
 import { deleteProject } from '../../../redux/projects/thunks';
 import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
 
@@ -50,7 +51,7 @@ const Table = ({ headers, data }) => {
         dispatch(deleteProject(id));
         break;
       case 'time-sheets':
-        console.log('dispatch(deleteTimesheets(id)');
+        dispatch(deleteTimesheets(id));
         break;
       default:
         dispatch(setModalContent(<p>Can not delete entitie</p>));
