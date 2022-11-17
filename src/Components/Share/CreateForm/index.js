@@ -263,9 +263,8 @@ const CreateForm = () => {
                               }
                               if (info === 'employee') {
                                 return (
-                                  <td>
+                                  <td key={index}>
                                     <select
-                                      key={index}
                                       value={item[info] ? item[info]._id : 0}
                                       onChange={(e) => {
                                         item[info] = e.target.value;
