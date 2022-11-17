@@ -2,12 +2,13 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .35);
 }
 
 .modalWrapper {
@@ -30,17 +31,6 @@
 
 .closeModalBtn:hover {
     transform: translateX(-200%);
-    /* animation: spinner360 1s linear; */
-}
-
-@keyframes spinner360 {
-    from {
-        transform: rotateZ(0deg);
-    }
-
-    to {
-        transform: rotateZ(720deg);
-    }
 }
 
 .line {
@@ -59,9 +49,9 @@
     transform: translateY(-2px) rotate(-45deg);
 }
 
-.modalWrapper>div>ul {
-    list-style: none;
-}
+/* .modalWrapper>div>ul {
+    list-style: url('../../../../public/assets/images/right-vector-img.svg');
+} */
 
 .closeButton {
     position: absolute;

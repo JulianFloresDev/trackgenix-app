@@ -7,6 +7,7 @@ import {
   deleteAdminsSuccess,
   deleteAdminsError
 } from './actions';
+import modalStyles from '../../Components/Share/Modal/modal.module.css';
 
 export const getAdmins = (id) => {
   return async (dispatch) => {
@@ -39,12 +40,14 @@ export const deleteAdminByID = (id) => {
         throw new Error(request.statusText);
       } else {
         dispatch(deleteAdminsSuccess(id));
-        dispatch(setModalContent(<p>Admin Deleted Successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Admin Deleted Successfully!</h3>)
+        );
         setTimeout(() => dispatch(setShowModal(false)), 2000);
       }
     } catch (error) {
       dispatch(deleteAdminsError());
-      dispatch(setModalContent(<p>{error.toString()}</p>));
+      dispatch(setModalContent(<h3>{error.toString()}</h3>));
       setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
@@ -65,20 +68,27 @@ export const editAdmin = (id, body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
         setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Admin edited successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Admin edited successfully!</h3>)
+        );
         dispatch(setShowModal(true));
         setTimeout(() => {
           dispatch(setShowModal(false));
@@ -105,20 +115,27 @@ export const createAdmin = (body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
+        // setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Admin created successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Admin created successfully!</h3>)
+        );
         dispatch(setShowModal(true));
         setTimeout(() => {
           dispatch(setShowModal(false));

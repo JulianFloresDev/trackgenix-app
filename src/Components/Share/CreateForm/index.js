@@ -7,8 +7,9 @@ import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
 import { createProject, getProjects } from '../../../redux/projects/thunks';
 import { createTimesheets } from '../../../redux/time-sheets/thunks';
 import { createTask, getTasks } from '../../../redux/tasks/thunks';
-import { editItem } from '../../../redux/global/actions';
+import { editItem, setShowModal } from '../../../redux/global/actions';
 import Modal from '../Modal';
+import modalStyles from '../Modal/modal.module.css';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -105,9 +106,24 @@ const CreateForm = () => {
     }
   };
 
+  const goBack = () => {
+    dispatch(setShowModal(false));
+    history.push(`/${entitie}`);
+  };
+
   return (
     <>
-      <Modal showModal={showModal}>{modalContent}</Modal>
+      <Modal showModal={showModal}>
+        {modalContent}
+        <div className={modalStyles.buttonsContainer}>
+          <button className={modalStyles.cancelBtn} onClick={() => dispatch(setShowModal(false))}>
+            Close
+          </button>
+          <button className={modalStyles.confirmBtn} onClick={() => goBack()}>
+            Back to {entitie.slice(0, -1).toUpperCase()}
+          </button>
+        </div>
+      </Modal>
       <section>
         <form>
           {Object.keys(itemToPUT).map((prop, index) => {
