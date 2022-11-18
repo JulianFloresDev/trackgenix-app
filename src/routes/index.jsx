@@ -1,16 +1,16 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import CreateForm from '../Share/CreateForm';
-import Header from '../Header/index';
-import Footer from '../Footer/index';
-import Admins from '../Admins/index';
-import SuperAdmins from '../SuperAdmins/index';
-import Home from '../Home/index';
 import styles from './layout.module.css';
-import Employees from '../Employees/index';
-import Projects from '../Projects';
-import TimeSheets from '../TimeSheets';
-import Tasks from '../Tasks/index';
-import Form from '../Share/Form/index';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CreateForm from 'Components/Share/CreateForm';
+import Header from 'Components/Header';
+import Footer from 'Components/Footer';
+import Admins from 'Components/Admins';
+import SuperAdmins from 'Components/SuperAdmins';
+import Home from 'Components/Home';
+import Employees from 'Components/Employees';
+import Projects from 'Components/Projects';
+import TimeSheets from 'Components/TimeSheets';
+import Tasks from 'Components/Tasks';
+import Form from 'Components/Share/Form';
 
 function Layout() {
   return (

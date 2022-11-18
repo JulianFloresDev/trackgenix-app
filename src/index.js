@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Layout from './Components/Layout';
+import Layout from 'routes';
 import store from './redux/store';
 import './index.css';
 
