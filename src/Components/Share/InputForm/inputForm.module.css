@@ -1,0 +1,19 @@
+.form{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexContainer {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.flexLabel,
+.flexImput,
+.flexSelect {
+  flex: 1 1 100%;
+  width: 85%;
+}
