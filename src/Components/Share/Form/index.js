@@ -9,6 +9,8 @@ import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thun
 import { editProject, getProjects } from '../../../redux/projects/thunks';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
 import { editItem, setShowModal, setModalContent } from '../../../redux/global/actions';
+import { InputForm } from '../InputForm';
+import { SelectForm } from '../SelectForm';
 import Modal from '../Modal';
 import modalStyles from '../Modal/modal.module.css';
 import Spinner from '../Spinner';
@@ -18,7 +20,7 @@ const Form = () => {
   const { showModal, modalContent, itemToPUT, isFetchingData } = useSelector(
     (state) => state.global
   );
-  const { list: taskList } = useSelector((state) => state.tasks);
+  const { list: tasksList } = useSelector((state) => state.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
@@ -136,79 +138,6 @@ const Form = () => {
             <h2>Edit {entitie.slice(0, -1)}</h2>
             <form>
               {Object.keys(itemToPUT)?.map((prop, index) => {
-                if (prop === 'employee') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
-                      >
-                        {employeeList.map((employee) => {
-                          return (
-                            <option
-                              value={employee?._id}
-                              key={employee?._id}
-                            >{`${employee?.firstName} ${employee?.lastName}`}</option>
-                          );
-                        })}
-                        <option value={0}>Select Employee</option>
-                      </select>
-                    </div>
-                  );
-                }
-                if (prop === 'project') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
-                      >
-                        {projectList.map((project) => {
-                          return (
-                            <option value={project?._id} key={project?._id}>
-                              {project?.name}
-                            </option>
-                          );
-                        })}
-                        <option value={0}>Select Project</option>
-                      </select>
-                    </div>
-                  );
-                }
-                if (prop === 'task') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
-                      >
-                        {taskList.map((task) => {
-                          return (
-                            <option value={task?._id} key={task?._id}>
-                              {task?.description}
-                            </option>
-                          );
-                        })}
-                        <option value={0}>Select Task</option>
-                      </select>
-                    </div>
-                  );
-                }
                 if (prop === 'teamMembers') {
                   return (
                     <div key={index} className={styles.teamMembers}>
@@ -216,16 +145,15 @@ const Form = () => {
                       <table>
                         <thead>
                           <tr>
-                            {itemToPUT[prop][0] &&
-                              Object.keys(itemToPUT[prop][0])?.map((key, index) => {
-                                return <th key={index}>{key}</th>;
-                              })}
+                            {Object.keys(itemToPUT[prop][0]).map((key, index) => {
+                              return <th key={index}>{key}</th>;
+                            })}
                             <th>
                               <img
                                 src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  itemToPUT.teamMembers = [newTeamMember, ...itemToPUT.teamMembers];
+                                  itemToPUT.teamMembers.unshift(newTeamMember);
                                   dispatch(editItem({ ...itemToPUT }));
                                 }}
                               />
@@ -233,10 +161,10 @@ const Form = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {itemToPUT[prop]?.map((item, index) => {
+                          {itemToPUT[prop].map((item, index) => {
                             return (
                               <tr key={index}>
-                                {Object.keys(item)?.map((info) => {
+                                {Object.keys(item).map((info) => {
                                   if (info === 'role') {
                                     return (
                                       <td key={index}>
@@ -247,7 +175,7 @@ const Form = () => {
                                             dispatch(editItem({ ...itemToPUT }));
                                           }}
                                         >
-                                          <option>-</option>
+                                          <option hidden>-</option>
                                           <option>DEV</option>
                                           <option>QA</option>
                                           <option>PM</option>
@@ -262,7 +190,6 @@ const Form = () => {
                                         <input
                                           type="number"
                                           value={item.employee ? item[info] : 0}
-                                          min={0}
                                           onChange={(e) => {
                                             item[info] = e.target.value;
                                             dispatch(editItem({ ...itemToPUT }));
@@ -288,7 +215,9 @@ const Form = () => {
                                               </option>
                                             );
                                           })}
-                                          <option value={0}>Select Employee</option>
+                                          <option value={0} hidden>
+                                            Select an Employee
+                                          </option>
                                         </select>
                                       </td>
                                     );
@@ -314,33 +243,71 @@ const Form = () => {
                     </div>
                   );
                 }
-                let inputType = 'text';
-                if (prop.match('date') || prop.match('endDate') || prop.match('startDate')) {
-                  inputType = 'date';
-                  itemToPUT[prop] = itemToPUT[prop].substring(0, 10);
+                switch (prop) {
+                  case 'name':
+                    return <InputForm element={prop} label={'Project Name'} inputType={'text'} />;
+                  case 'clientName':
+                    return <InputForm element={prop} label={'Client Name'} inputType={'text'} />;
+                  case 'firstName':
+                    return <InputForm element={prop} label={'First Name'} inputType={'text'} />;
+                  case 'lastName':
+                    return <InputForm element={prop} label={'Last Name'} inputType={'text'} />;
+                  case 'email':
+                    return <InputForm element={prop} label={'Email'} inputType={'email'} />;
+                  case 'password':
+                    return <InputForm element={prop} label={'Password'} inputType={'password'} />;
+                  case 'dni':
+                    return <InputForm element={prop} label={'D.N.I.'} inputType={'number'} />;
+                  case 'rate':
+                    return <InputForm element={prop} label={'Rate'} inputType={'number'} />;
+                  case 'hours':
+                    return <InputForm element={prop} label={'Hours'} inputType={'number'} />;
+                  case 'phone':
+                    return <InputForm element={prop} label={'Phone'} inputType={'phone'} />;
+                  case 'date':
+                    return <InputForm element={prop} label={'Date'} inputType={'date'} />;
+                  case 'startDate':
+                    return <InputForm element={prop} label={'Start Date'} inputType={'date'} />;
+                  case 'endDate':
+                    return <InputForm element={prop} label={'End Date'} inputType={'date'} />;
+                  case 'location':
+                    return <InputForm element={prop} label={'Address'} inputType={'text'} />;
+                  case 'description':
+                    return <InputForm element={prop} label={'Description'} inputType={'text'} />;
+                  case 'active':
+                    return (
+                      <InputForm element={prop} label={'Project State'} inputType={'checkbox'} />
+                    );
+                  case 'role':
+                    return (
+                      <SelectForm
+                        element={prop}
+                        label={'Role'}
+                        selectOptions={[
+                          { description: 'DEV' },
+                          { description: 'QA' },
+                          { description: 'TL' },
+                          { description: 'PM' }
+                        ]}
+                      />
+                    );
+                  case 'project':
+                    return (
+                      <SelectForm element={prop} label={'Projects'} selectOptions={projectList} />
+                    );
+                  case 'task':
+                    return <SelectForm element={prop} label={'Tasks'} selectOptions={tasksList} />;
+                  case 'employee':
+                    return (
+                      <SelectForm
+                        element={prop}
+                        label={'Team Members'}
+                        selectOptions={employeeList}
+                      />
+                    );
+                  default:
+                    return null;
                 }
-                prop.includes('hours') && (inputType = 'number');
-                prop.includes('active') && (inputType = 'checkbox');
-                prop.includes('password') && (inputType = 'password');
-                return (
-                  <div key={index}>
-                    <label htmlFor={prop} id={styles[`label-${prop}`]}>
-                      {prop}
-                    </label>
-                    <input
-                      id={prop}
-                      type={inputType}
-                      value={itemToPUT[prop]}
-                      checked={itemToPUT[prop]}
-                      onChange={(e) => {
-                        e.target.type === 'checkbox'
-                          ? (itemToPUT[prop] = e.target.checked)
-                          : (itemToPUT[prop] = e.target.value);
-                        dispatch(editItem({ ...itemToPUT }));
-                      }}
-                    />
-                  </div>
-                );
               })}
               <div>
                 <button

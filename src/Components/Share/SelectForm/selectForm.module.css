@@ -17,18 +17,17 @@
 .flexSelect {
   width: 85%;
   color: var(--color-blue-primary);
+  cursor: pointer;
 }
 
 .flexLabel {
   font-size: 1.1rem;
   font-weight: 600;
-  cursor: pointer;
 }
 
-.flexImput {
+.flexSelect {
   line-height: 1.2rem;
   padding: 5px;
-  cursor: text;
 }
 
 .errorMessage {

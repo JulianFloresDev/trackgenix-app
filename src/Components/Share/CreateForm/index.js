@@ -12,13 +12,15 @@ import { editItem, setShowModal, setModalContent } from '../../../redux/global/a
 import Modal from '../Modal';
 import modalStyles from '../Modal/modal.module.css';
 import Spinner from '../Spinner';
+import { InputForm } from '../InputForm';
+import { SelectForm } from '../SelectForm';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
   const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
     (state) => state.global
   );
-  const { list: taskList } = useSelector((store) => store.tasks);
+  const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
   const newTeamMember = { employee: '', role: '', rate: '' };
@@ -146,79 +148,6 @@ const CreateForm = () => {
             <h2>Create {entitie.slice(0, -1)}</h2>
             <form>
               {Object.keys(itemToPUT).map((prop, index) => {
-                if (prop === 'employee') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop]?._id}
-                      >
-                        <option hidden>Select an Employee</option>
-                        {employeeList.map((employee) => {
-                          return (
-                            <option
-                              value={employee?._id}
-                              key={employee?._id}
-                            >{`${employee?.firstName} ${employee?.lastName}`}</option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                  );
-                }
-                if (prop === 'project') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop]?._id}
-                      >
-                        <option hidden>Select a Project</option>
-                        {projectList.map((project) => {
-                          return (
-                            <option value={project?._id} key={project?._id}>
-                              {project?.name}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                  );
-                }
-                if (prop === 'task') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop]?._id}
-                      >
-                        <option hidden>Select a Task</option>
-                        {taskList.map((task) => {
-                          return (
-                            <option value={task?._id} key={task?._id}>
-                              {task?.description}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                  );
-                }
                 if (prop === 'teamMembers') {
                   return (
                     <div key={index} className={styles.teamMembers}>
@@ -324,30 +253,71 @@ const CreateForm = () => {
                     </div>
                   );
                 }
-                let inputType = 'text';
-                if (prop.match('date') || prop.match('endDate') || prop.match('startDate')) {
-                  inputType = 'date';
-                  itemToPUT[prop] = itemToPUT[prop].substring(0, 10);
+                switch (prop) {
+                  case 'name':
+                    return <InputForm element={prop} label={'Project Name'} inputType={'text'} />;
+                  case 'clientName':
+                    return <InputForm element={prop} label={'Client Name'} inputType={'text'} />;
+                  case 'firstName':
+                    return <InputForm element={prop} label={'First Name'} inputType={'text'} />;
+                  case 'lastName':
+                    return <InputForm element={prop} label={'Last Name'} inputType={'text'} />;
+                  case 'email':
+                    return <InputForm element={prop} label={'Email'} inputType={'email'} />;
+                  case 'location':
+                    return <InputForm element={prop} label={'Address'} inputType={'text'} />;
+                  case 'description':
+                    return <InputForm element={prop} label={'Description'} inputType={'text'} />;
+                  case 'password':
+                    return <InputForm element={prop} label={'Password'} inputType={'password'} />;
+                  case 'dni':
+                    return <InputForm element={prop} label={'D.N.I.'} inputType={'number'} />;
+                  case 'rate':
+                    return <InputForm element={prop} label={'Rate'} inputType={'number'} />;
+                  case 'hours':
+                    return <InputForm element={prop} label={'Hours'} inputType={'number'} />;
+                  case 'phone':
+                    return <InputForm element={prop} label={'Phone'} inputType={'phone'} />;
+                  case 'date':
+                    return <InputForm element={prop} label={'Date'} inputType={'date'} />;
+                  case 'startDate':
+                    return <InputForm element={prop} label={'Start Date'} inputType={'date'} />;
+                  case 'endDate':
+                    return <InputForm element={prop} label={'End Date'} inputType={'date'} />;
+                  case 'active':
+                    return (
+                      <InputForm element={prop} label={'Project State'} inputType={'checkbox'} />
+                    );
+                  case 'role':
+                    return (
+                      <SelectForm
+                        element={prop}
+                        label={'Role'}
+                        selectOptions={[
+                          { description: 'DEV' },
+                          { description: 'QA' },
+                          { description: 'TL' },
+                          { description: 'PM' }
+                        ]}
+                      />
+                    );
+                  case 'project':
+                    return (
+                      <SelectForm element={prop} label={'Projects'} selectOptions={projectList} />
+                    );
+                  case 'task':
+                    return <SelectForm element={prop} label={'Tasks'} selectOptions={tasksList} />;
+                  case 'employee':
+                    return (
+                      <SelectForm
+                        element={prop}
+                        label={'Team Members'}
+                        selectOptions={employeeList}
+                      />
+                    );
+                  default:
+                    return null;
                 }
-                prop.includes('hours') && (inputType = 'number');
-                prop.includes('active') && (inputType = 'checkbox');
-                prop.includes('password') && (inputType = 'password');
-                return (
-                  <div key={index}>
-                    <label htmlFor={prop}>{prop}</label>
-                    <input
-                      id={prop}
-                      type={inputType}
-                      value={itemToPUT[prop]}
-                      onChange={(e) => {
-                        e.target.type === 'checkbox'
-                          ? (itemToPUT[prop] = e.target.checked)
-                          : (itemToPUT[prop] = e.target.value);
-                        dispatch(editItem({ ...itemToPUT }));
-                      }}
-                    />
-                  </div>
-                );
               })}
               <div>
                 <button
