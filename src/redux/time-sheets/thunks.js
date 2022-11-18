@@ -48,7 +48,7 @@ export const deleteTimesheets = (id) => {
       }
       dispatch(deleteTimesheetsSuccess(id));
       dispatch(
-        setModalContent(<h3 className={modalStyles.title}>Employee deleted successfully!</h3>)
+        setModalContent(<h3 className={modalStyles.title}>Time Sheet deleted successfully!</h3>)
       );
       dispatch(setShowModal(true));
     } catch (error) {
@@ -91,7 +91,7 @@ export const editTimesheets = (id, body) => {
         dispatch(setShowModal(true));
       } else {
         dispatch(
-          setModalContent(<h3 className={modalStyles.title}>Employee edited successfully!</h3>)
+          setModalContent(<h3 className={modalStyles.title}>Time Sheet edited successfully!</h3>)
         );
         dispatch(setShowModal(true));
       }
@@ -134,7 +134,7 @@ export const createTimesheets = (body) => {
         dispatch(setShowModal(true));
       } else {
         dispatch(
-          setModalContent(<h3 className={modalStyles.title}>Admin created successfully!</h3>)
+          setModalContent(<h3 className={modalStyles.title}>Time Sheet created successfully!</h3>)
         );
         dispatch(setShowModal(true));
       }
