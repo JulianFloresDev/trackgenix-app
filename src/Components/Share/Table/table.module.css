@@ -1,9 +1,9 @@
 .container {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+  gap: 20px;
   width: 100%;
   height: 100vh;
   font-size: 1.2vw;
@@ -13,7 +13,6 @@
 
 .container > h2 {
   width: 96%;
-  margin: 4vh 0;
   font-size: 30px;
   text-transform: capitalize;
 }
@@ -25,14 +24,14 @@
   align-items: flex-end;
   width: 96%;
   margin-bottom: 4vh;
-  padding: 2% 2%;
+  padding: 2% 2% 0;
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
 }
 
-.tableContainer {
+.tableContainer > .tableContainer2  {
   width: 100%;
-  max-height: 70vh;
+  max-height: 50vh;
   overflow-y: scroll;
 }
 
@@ -41,9 +40,13 @@
   border-collapse: collapse;
 }
 
-
+.tableContainer thead {
+  position: sticky;
+  top: 0;
+}
 .tableContainer th, .tableContainer td {
-  padding: 20px;
+  height: 50px;
+  padding: 5px;
 }
 
 .tableContainer th {
@@ -53,11 +56,11 @@
 }
 
 .tableContainer th:first-child {
-  border-radius: 15px 0 0 15px;
+  border-radius: 0 0 0 15px;
 }
 
 .tableContainer th:last-child {
-  border-radius: 0 15px 15px 0;
+  border-radius: 0 0 15px 0;
 }
 
 .tableContainer thead tr {
@@ -66,16 +69,16 @@
   border-radius: 16px;
 }
 
-.tableContainer td:last-child {
+.tableContainer td:last-child > div {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 15px;
 }
 
 .tableContainer td:last-child img {
   width: 1.5vw;
-  margin-right: 15px ;
   cursor: pointer;
 }
 
@@ -84,10 +87,12 @@
   border-bottom: 1px solid var(--color-blue-primary);
 }
 
-.tableContainer > img {
+.imgContainer {
+  margin: 15px;
+}
+
+.tableContainer .imgContainer img {
   width: 5vw;
-  margin: 1.8vw;
-  margin-right: 7vh;
   padding: 1.3vw;
   border-radius: 50%;
   background-color: var(--color-blue-primary);
