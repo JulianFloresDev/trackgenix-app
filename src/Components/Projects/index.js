@@ -14,9 +14,7 @@ function Projects() {
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Projects" />
-        </div>
+        <Spinner entitie="Projects" />
       ) : (
         <>
           {error ? (
@@ -28,8 +26,8 @@ function Projects() {
               headers={[
                 'name',
                 'description',
-                'clientName',
                 'startDate',
+                'clientName',
                 'endDate',
                 'teamMembers',
                 'active'

@@ -1,4 +1,10 @@
-import { editItem, setModalContent, setShowModal } from '../global/actions';
+import {
+  editItem,
+  setModalContent,
+  setShowModal,
+  fetchDataOn,
+  fetchDataOff
+} from '../global/actions';
 import {
   getProjectsError,
   getProjectsPending,
@@ -7,20 +13,25 @@ import {
   deleteProjectSuccess,
   deleteProjectError
 } from './actions';
+import modalStyles from '../../Components/Share/Modal/modal.module.css';
 
 export const getProjects = (id) => {
   return async (dispatch) => {
     dispatch(getProjectsPending());
+    dispatch(fetchDataOn());
     try {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`);
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
       } else {
-        id ? dispatch(editItem(response.data)) : dispatch(getProjectsSuccess(response.data));
+        id
+          ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+          : (dispatch(getProjectsSuccess(response.data)), dispatch(fetchDataOff()));
       }
     } catch (error) {
       dispatch(getProjectsError(error));
+      dispatch(fetchDataOff());
     }
   };
 };
@@ -39,13 +50,13 @@ export const deleteProject = (id) => {
         throw new Error(request.statusText);
       } else {
         dispatch(deleteProjectSuccess(id));
-        dispatch(setModalContent(<p>Project Deleted Successfully!</p>));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Project Deleted Successfully!</h3>)
+        );
       }
     } catch (error) {
       dispatch(deleteProjectError());
-      dispatch(setModalContent(<p>{error.toString()}</p>));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
+      dispatch(setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>));
     }
   };
 };
@@ -65,24 +76,27 @@ export const editProject = (id, body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Project edited successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Project edited successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);
@@ -105,24 +119,27 @@ export const createProject = (body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Project created successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Project created successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -100,7 +100,7 @@ table span {
 
 /* MODAL  */
 
-.modal {
+/* .modal {
   position: fixed; 
   display: flex;
   justify-content: center;
@@ -174,4 +174,4 @@ form button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
+}  */

@@ -1,4 +1,5 @@
 import styles from './table.module.css';
+import modalStyles from '../Modal/modal.module.css';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,10 +24,17 @@ const Table = ({ headers, data }) => {
     dispatch(
       setModalContent(
         <>
-          Are you sure?
-          <div>
-            <button onClick={() => deleteItem(id)}>Yes</button>
-            <button onClick={() => dispatch(setShowModal(false))}>No</button>
+          <h3 className={modalStyles.title}>
+            You are trying to delete some {entitie.slice(0, -1).toUpperCase()}
+          </h3>
+          <p className={modalStyles.info}>This is an irreversible action. Please confirm.</p>
+          <div className={modalStyles.buttonsContainer}>
+            <button className={modalStyles.cancelBtn} onClick={() => dispatch(setShowModal(false))}>
+              Cancel
+            </button>
+            <button className={modalStyles.confirmBtn} onClick={() => deleteItem(id)}>
+              Submit
+            </button>
           </div>
         </>
       )
@@ -122,95 +130,104 @@ const Table = ({ headers, data }) => {
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
       <div className={styles.container}>
-        <table className={styles.table}>
-          <caption>{entitie}</caption>
-          <thead>
-            <tr>
-              {headers.map((header, index) => {
-                return <td key={index}>{header}</td>;
-              })}
-              <td>
-                <button className={styles.addBtn} onClick={() => history.push(`/${entitie}/new`)}>
-                  Add new {entitie}
-                </button>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row) => {
-              return (
-                <tr key={row._id}>
-                  {headers.map((property, index) => {
-                    if (typeof row[property] === 'boolean') {
-                      if (row[property]) {
-                        return <td key={index}>Active</td>;
-                      } else {
-                        return <td key={index}>Finish</td>;
-                      }
-                    }
-                    if (typeof row[property] === 'string' || typeof row[property] === 'number') {
-                      if (
-                        property.includes('Date') ||
-                        property.includes('atedAt') ||
-                        property.includes('date')
-                      ) {
-                        row[property] = row[property].substring(0, 10);
-                      }
-                      return <td key={index}>{row[property]}</td>;
-                    }
-                    if (Array.isArray(row[property])) {
-                      return (
-                        <>
-                          <td key={index}>
-                            <button
-                              className={styles.showListBtn}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                showEmployeeList(row[property]);
-                              }}
-                            >
-                              Show List
-                            </button>
-                          </td>
-                        </>
-                      );
-                    }
-                    if (!row[property]) {
-                      return <td key={index}>Element Not Found</td>;
-                    }
-                    return (
-                      <td key={index} className={styles.optionInvalid}>
-                        {row[property].description && row[property].description}
-                        {row[property].name && row[property].name}
-                        {row[property].firstName && row[property].firstName}{' '}
-                        {row[property].lastName}
-                      </td>
-                    );
+        <h2>{entitie}</h2>
+        <div className={styles.tableContainer}>
+          <div className={styles.tableContainer2}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  {headers.map((header, index) => {
+                    return <th key={index}>{header}</th>;
                   })}
-                  <td className={styles.buttonsContainer}>
-                    <button
-                      className={styles.editBtn}
-                      onClick={() => {
-                        history.push(`/${entitie}/form/${row._id}`);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className={styles.closeBtn}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        openModal(row._id);
-                      }}
-                    >
-                      X
-                    </button>
-                  </td>
+                  <th></th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {data.map((row) => {
+                  return (
+                    <tr key={row._id}>
+                      {headers.map((property, index) => {
+                        if (typeof row[property] === 'boolean') {
+                          if (row[property]) {
+                            return <td key={index}>Active</td>;
+                          } else {
+                            return <td key={index}>Finish</td>;
+                          }
+                        }
+                        if (
+                          typeof row[property] === 'string' ||
+                          typeof row[property] === 'number'
+                        ) {
+                          if (
+                            property.includes('Date') ||
+                            property.includes('atedAt') ||
+                            property.includes('date')
+                          ) {
+                            row[property] = row[property].substring(0, 10);
+                          }
+                          return <td key={index}>{row[property]}</td>;
+                        }
+                        if (Array.isArray(row[property])) {
+                          return (
+                            <>
+                              <td key={index}>
+                                <button
+                                  className={styles.showListBtn}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    showEmployeeList(row[property]);
+                                  }}
+                                >
+                                  Show List
+                                </button>
+                              </td>
+                            </>
+                          );
+                        }
+                        if (!row[property]) {
+                          return <td key={index}>Element Not Found</td>;
+                        }
+                        return (
+                          <td key={index} className={styles.optionInvalid}>
+                            {row[property].description && row[property].description}
+                            {row[property].name && row[property].name}
+                            {row[property].firstName && row[property].firstName}{' '}
+                            {row[property].lastName}
+                          </td>
+                        );
+                      })}
+                      <td className={styles.buttonsContainer}>
+                        <div>
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
+                            className={styles.editBtn}
+                            onClick={() => {
+                              history.push(`/${entitie}/form/${row._id}`);
+                            }}
+                          />
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
+                            className={styles.closeBtn}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              openModal(row._id);
+                            }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className={styles.imgContainer}>
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
+              onClick={() => history.push(`/${entitie}/new`)}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

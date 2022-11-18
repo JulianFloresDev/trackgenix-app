@@ -1,10 +1,18 @@
-import { SHOW_MODAL, MODAL_CONTENT, EDIT_ITEM, DISABLE_BTN } from './constants';
+import {
+  SHOW_MODAL,
+  MODAL_CONTENT,
+  EDIT_ITEM,
+  DISABLE_BTN,
+  FETCH_DATA_OFF,
+  FETCH_DATA_ON
+} from './constants';
 
 const INITIAL_STATE = {
   showModal: false,
   modalContent: <div></div>,
   itemToPUT: {},
-  disable: true
+  disable: true,
+  isFetchingData: false
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -27,6 +35,16 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         disable: false
+      };
+    case FETCH_DATA_ON:
+      return {
+        ...state,
+        isFetchingData: true
+      };
+    case FETCH_DATA_OFF:
+      return {
+        ...state,
+        isFetchingData: false
       };
     default:
       return state;

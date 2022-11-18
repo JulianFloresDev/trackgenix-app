@@ -1,5 +1,32 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variables */
+:root{
+  --color-black-primary: #000000;
+  --color-white-primary: #ffffff;
+  --color-white-ligthgrey: #dddddd;
+  --color-white-ligthblue: #ebebf0;
+
+  --color-blue-primary: #373867;
+  --color-blue-opacity: #5b5c824d;
+  --color-blue-border: #37386766;
+
+  --color-greyblue-1: rgba(55, 56, 103, 0.6);
+  --color-greyblue-2: rgba(55, 56, 103, 0.1);
+
+  --color-green-primary: #AACE9B;
+  --color-green-soft: #D2E9C9;
+
+  --color-red-primary: rgba(241, 52, 19, 0.9);
+  --color-red-soft: rgba(245, 152, 135, 0.6);
+}
+
+body {
   font-family: 'Open Sans', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

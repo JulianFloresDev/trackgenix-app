@@ -1,23 +1,35 @@
 import {
+  setModalContent,
+  setShowModal,
+  editItem,
+  fetchDataOff,
+  fetchDataOn
+} from '../global/actions';
+import {
   getTimesheetsPending,
   getTimesheetsSuccess,
   getTimesheetsError,
   deleteTimesheetsSuccess
 } from './actions';
-import { setShowModal, setModalContent, editItem } from '../global/actions';
+import modalStyles from '../../Components/Share/Modal/modal.module.css';
 
 export const getTimesheets = (id) => {
   return async (dispatch) => {
     try {
+      dispatch(fetchDataOn());
       dispatch(getTimesheetsPending());
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`);
-      const data = await response.json();
-      if (data.error) {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`);
+      const response = await request.json();
+      if (response.error) {
         throw new Error();
+      } else {
+        id
+          ? (dispatch(editItem(response.data)), dispatch(fetchDataOff()))
+          : (dispatch(getTimesheetsSuccess(response.data)), dispatch(fetchDataOff()));
       }
-      id ? dispatch(editItem(data.data)) : dispatch(getTimesheetsSuccess(data.data));
     } catch (error) {
       dispatch(getTimesheetsError());
+      dispatch(fetchDataOff());
     }
   };
 };
@@ -25,23 +37,23 @@ export const getTimesheets = (id) => {
 export const deleteTimesheets = (id) => {
   return async (dispatch) => {
     try {
-      const req = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      if (req.status >= 400) {
-        throw new Error(req.statusText);
+      if (request.status >= 400) {
+        throw new Error(request.statusText);
       }
       dispatch(deleteTimesheetsSuccess(id));
-      dispatch(setModalContent(<p>Time Sheet deleted successfully!</p>));
+      dispatch(
+        setModalContent(<h3 className={modalStyles.title}>Time Sheet deleted successfully!</h3>)
+      );
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
-      dispatch(setModalContent(<p>{error.toString()}</p>));
+      dispatch(setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>));
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 };
@@ -61,24 +73,27 @@ export const editTimesheets = (id, body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Time Sheet edited successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Time Sheet edited successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);
@@ -101,24 +116,27 @@ export const createTimesheets = (body) => {
         dispatch(
           Array.isArray(response.message)
             ? setModalContent(
-                <div>
+                <>
+                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
                     })}
                   </ul>
-                </div>
+                </>
               )
-            : setModalContent(response.message || 'An unexpected error has occurred')
+            : setModalContent(
+                <h3 className={modalStyles.title}>
+                  {response.message || 'An unexpected error has occurred'}
+                </h3>
+              )
         );
         dispatch(setShowModal(true));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
       } else {
-        dispatch(setModalContent(<p>Time Sheet created successfully!</p>));
+        dispatch(
+          setModalContent(<h3 className={modalStyles.title}>Time Sheet created successfully!</h3>)
+        );
         dispatch(setShowModal(true));
-        setTimeout(() => {
-          dispatch(setShowModal(false));
-        }, 2000);
       }
     } catch (error) {
       console.error(error);

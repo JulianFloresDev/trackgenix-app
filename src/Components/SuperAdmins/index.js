@@ -15,9 +15,7 @@ function SuperAdmins() {
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Super-Admins" />
-        </div>
+        <Spinner entitie="Super-Admins" />
       ) : error ? (
         <div>
           <h2>404: server not found</h2>

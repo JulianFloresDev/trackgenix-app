@@ -14,9 +14,7 @@ function TimeSheets() {
   return (
     <section className={styles.container}>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Time Sheets" />
-        </div>
+        <Spinner entitie="Time Sheets" />
       ) : error ? (
         <div>
           <h2>404: server not found</h2>

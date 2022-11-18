@@ -16,29 +16,33 @@ function Layout() {
   return (
     <Router>
       <div className={styles.container}>
-        <Header />
-        <Switch>
-          <Route exact path={'/'} component={Home} />
-          <Route exact path={'/admins'} component={Admins} />
-          <Route path={'/admins/form/:id'} render={() => <Form />} />
-          <Route path={'/admins/new'} render={() => <CreateForm />} />
-          <Route exact path={'/super-admins'} component={SuperAdmins} />
-          <Route path={'/super-admins/form/:id'} render={() => <Form />} />
-          <Route path={'/super-admins/new'} render={() => <CreateForm />} />
-          <Route exact path={'/employees'} component={Employees} />
-          <Route path={'/employees/form/:id'} render={() => <Form />} />
-          <Route path={'/employees/new'} render={() => <CreateForm />} />
-          <Route exact path={'/projects'} component={Projects} />
-          <Route path={'/projects/form/:id'} render={() => <Form />} />
-          <Route path={'/projects/new'} render={() => <CreateForm />} />
-          <Route exact path={'/time-sheets'} component={TimeSheets} />
-          <Route path={'/time-sheets/form/:id'} render={() => <Form />} />
-          <Route path={'/time-sheets/new'} render={() => <CreateForm />} />
-          <Route exact path={'/tasks'} component={Tasks} />
-          <Route path={'/tasks/form/:id'} render={() => <Form />} />
-          <Route path={'/tasks/new'} render={() => <CreateForm />} />
-        </Switch>
-        <Footer />
+        <div className={styles.navBar}>
+          <Header />
+        </div>
+        <div className={styles.bodyContainer}>
+          <Switch>
+            <Route exact path={'/'} component={Home} />
+            <Route exact path={'/admins'} component={Admins} />
+            <Route path={'/admins/form/:id'} render={() => <Form />} />
+            <Route path={'/admins/new'} render={() => <CreateForm />} />
+            <Route exact path={'/super-admins'} component={SuperAdmins} />
+            <Route path={'/super-admins/form/:id'} render={() => <Form />} />
+            <Route path={'/super-admins/new'} render={() => <CreateForm />} />
+            <Route exact path={'/employees'} component={Employees} />
+            <Route path={'/employees/form/:id'} render={() => <Form />} />
+            <Route path={'/employees/new'} render={() => <CreateForm />} />
+            <Route exact path={'/projects'} component={Projects} />
+            <Route path={'/projects/form/:id'} render={() => <Form />} />
+            <Route path={'/projects/new'} render={() => <CreateForm />} />
+            <Route exact path={'/time-sheets'} component={TimeSheets} />
+            <Route path={'/time-sheets/form/:id'} render={() => <Form />} />
+            <Route path={'/time-sheets/new'} render={() => <CreateForm />} />
+            <Route exact path={'/tasks'} component={Tasks} />
+            <Route path={'/tasks/form/:id'} render={() => <Form />} />
+            <Route path={'/tasks/new'} render={() => <CreateForm />} />
+          </Switch>
+          <Footer />
+        </div>
       </div>
     </Router>
   );

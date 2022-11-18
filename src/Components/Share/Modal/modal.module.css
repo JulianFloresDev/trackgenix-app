@@ -2,26 +2,51 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0 , .5);
-    width: 100vw;
-    display: 100vh;
+    z-index: 1000;
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .35);
 }
 
 .modalWrapper {
-    width: 300px;
-    background-color: #fff;
-    position: relative;
-    border-radius: 7px;
     display: flex;
-    flex-direction: column;
-    padding: 32px;
+    flex-direction: row-reverse;
+    padding: 20px;
+    padding-left: 45px;
+    background: var(--color-white-primary);
+    border: 1.5px solid var(--color-blue-border);
+
+    box-shadow: 0px 10px 23px rgba(0, 0, 0, 0.12);
+    border-radius: 25px;
 }
 
-.modalWrapper > div > ul {
-    list-style: none;
+.closeModalBtn {
+    padding: 10px;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.closeModalBtn:hover {
+    transform: translateX(-200%);
+}
+
+.line {
+    display: flex;
+    width: 25px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--color-blue-primary);
+}
+
+.line:nth-of-type(1) {
+    transform: translateY(2px) rotate(45deg);
+}
+
+.line:nth-of-type(2) {
+    transform: translateY(-2px) rotate(-45deg);
 }
 
 .closeButton {
@@ -32,4 +57,55 @@
     border: none;
     cursor: pointer;
     font-weight: 800;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px 25px;
+
+    color: var(--color-blue-primary);
+}
+
+.title {
+    font-size: 1.3rem;
+}
+
+.info{
+    font-size: 1.1rem;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 2rem;
+}
+
+.content button {
+    padding: 12px 18px;
+    border: 2px solid var(--color-blue-border);
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+    color: var(--color-blue-primary);
+
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background-color: transparent;
+}
+.cancelBtn:hover {
+    border-color: var(--color-red-primary);
+    background-color: var(--color-red-primary);
+}
+
+.confirmBtn {
+    background-color: var(--color-green-soft);
+}
+.confirmBtn:hover {
+    background-color: var(--color-green-primary);
 }

@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdmins } from '../../redux/admins/thunks';
 import Table from '../Share/Table';
-import styles from './admins.module.css';
 import Spinner from '../Share/Spinner';
 
 function Admins() {
@@ -13,11 +12,9 @@ function Admins() {
     dispatch(getAdmins(''));
   }, []);
   return (
-    <section className={styles.container}>
+    <section>
       {isFetching ? (
-        <div className={styles.container}>
-          <Spinner entitie="Admins" />
-        </div>
+        <Spinner entitie="Admins" />
       ) : (
         <>
           {error ? (

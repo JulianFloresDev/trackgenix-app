@@ -4,7 +4,7 @@ const Spinner = ({ entitie }) => {
   return (
     <div className={styles.container}>
       <div className={styles.loading}></div>
-      <h2>Loading {`${entitie}`}</h2>
+      <h2>Loading {entitie || 'data'} . . .</h2>
     </div>
   );
 };
