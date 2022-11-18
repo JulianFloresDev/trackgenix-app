@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -24,15 +25,15 @@
   align-items: flex-end;
   width: 96%;
   margin-bottom: 4vh;
-  padding: 2% 2% 0;
+  padding: 2% 2%;
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
 }
 
-.tableContainer > div {
+.tableContainer {
   width: 100%;
-  max-height: 24.5vw;
-  overflow: auto;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 .container table {
@@ -40,13 +41,9 @@
   border-collapse: collapse;
 }
 
-/* .container table thead {
-  position: sticky;
-  top: 0;
-} */
 
 .tableContainer th, .tableContainer td {
-  height: 3.96vw;
+  padding: 20px;
 }
 
 .tableContainer th {
@@ -82,9 +79,6 @@
   cursor: pointer;
 }
 
-.tableContainer tbody {
-  overflow-y: scroll;
-}
 
 .tableContainer tbody tr {
   border-bottom: 1px solid var(--color-blue-primary);
