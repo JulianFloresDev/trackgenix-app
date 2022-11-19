@@ -1,13 +1,17 @@
 import styles from './form.module.css';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSuperAdmin } from '../../../redux/super-admins/thunks';
-import { createAdmin } from '../../../redux/admins/thunks';
-import { createEmployee, getEmployees } from '../../../redux/employees/thunks';
-import { createProject, getProjects } from '../../../redux/projects/thunks';
-import { createTimesheets } from '../../../redux/time-sheets/thunks';
-import { createTask, getTasks } from '../../../redux/tasks/thunks';
+import {
+  getSuperAdmins,
+  editSuperAdmin,
+  createSuperAdmin
+} from '../../../redux/super-admins/thunks';
+import { getAdmins, editAdmin, createAdmin } from '../../../redux/admins/thunks';
+import { getEmployees, editEmployee, createEmployee } from '../../../redux/employees/thunks';
+import { getProjects, editProject, createProject } from '../../../redux/projects/thunks';
+import { getTimesheets, editTimesheets, createTimesheets } from '../../../redux/time-sheets/thunks';
+import { getTasks, editTask, createTask } from '../../../redux/tasks/thunks';
 import { editItem, setShowModal, setModalContent } from '../../../redux/global/actions';
 import Modal from '../Modal';
 import modalStyles from '../Modal/modal.module.css';
@@ -21,58 +25,107 @@ const CreateForm = () => {
   const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
     (state) => state.global
   );
+  delete itemToPUT['_id'];
+  delete itemToPUT['__v'];
+  delete itemToPUT['createdAt'];
+  delete itemToPUT['updatedAt'];
+  const body = {
+    ...itemToPUT,
+    dni: itemToPUT.dni?.toString(),
+    phone: itemToPUT.phone?.toString(),
+    employee: itemToPUT.employee?._id || itemToPUT.employee,
+    task: itemToPUT.task?._id || itemToPUT.task,
+    project: itemToPUT.project?._id || itemToPUT.project,
+    teamMembers: itemToPUT.teamMembers?.map((member) => {
+      return { ...member, employee: member.employee?._id || member.employee };
+    })
+  };
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
+  const id = useParams().id;
 
   useEffect(async () => {
-    dispatch(getEmployees(''));
     switch (entitie) {
       case 'admins':
+        dispatch(
+          id
+            ? getAdmins(id)
+            : editItem({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                dni: '',
+                phone: '',
+                location: ''
+              })
+        );
+        break;
       case 'super-admins':
+        dispatch(
+          id
+            ? getSuperAdmins(id)
+            : editItem({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                dni: '',
+                phone: '',
+                location: ''
+              })
+        );
+        break;
       case 'employees':
         dispatch(
-          editItem({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            dni: '',
-            phone: '',
-            location: ''
-          })
+          id
+            ? getEmployees(id)
+            : editItem({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                dni: '',
+                phone: '',
+                location: ''
+              })
         );
         break;
       case 'projects':
         dispatch(
-          editItem({
-            name: '',
-            description: '',
-            startDate: '',
-            endDate: '',
-            active: '',
-            clientName: '',
-            teamMembers: [{ employee: '', role: '', rate: '' }]
-          })
+          id
+            ? getProjects(id)
+            : editItem({
+                name: '',
+                description: '',
+                startDate: '',
+                endDate: '',
+                active: '',
+                clientName: '',
+                teamMembers: [{ employee: '', role: '', rate: '' }]
+              })
         );
         break;
       case 'time-sheets':
         dispatch(
-          editItem({
-            description: '',
-            date: '',
-            task: '',
-            project: '',
-            employee: '',
-            hours: ''
-          })
+          id
+            ? getTimesheets(id)
+            : editItem({
+                description: '',
+                date: '',
+                task: '',
+                project: '',
+                employee: '',
+                hours: ''
+              })
         );
         break;
       case 'tasks':
-        dispatch(editItem({ description: '' }));
+        dispatch(id ? getTasks(id) : editItem({ description: '' }));
     }
   }, []);
 
@@ -112,6 +165,31 @@ const CreateForm = () => {
     }
   };
 
+  const editRow = () => {
+    switch (entitie) {
+      case 'employees':
+        dispatch(editEmployee(id, body));
+        break;
+      case 'admins':
+        dispatch(editAdmin(id, body));
+        break;
+      case 'projects':
+        dispatch(editProject(id, body));
+        break;
+      case 'super-admins':
+        dispatch(editSuperAdmin(id, body));
+        break;
+      case 'tasks':
+        dispatch(editTask(id, body));
+        break;
+      case 'time-sheets':
+        dispatch(editTimesheets(id, body));
+        break;
+      default:
+        break;
+    }
+  };
+
   const goBack = () => {
     dispatch(setShowModal(false));
     history.push(`/${entitie}`);
@@ -145,7 +223,7 @@ const CreateForm = () => {
             </div>
           </Modal>
           <section className={styles.formSection}>
-            <h2>Create {entitie.slice(0, -1)}</h2>
+            <h2>{`${id ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
             <form>
               {Object.keys(itemToPUT).map((prop /*, index*/) => {
                 switch (prop) {
@@ -208,7 +286,9 @@ const CreateForm = () => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    createRow();
+                    {
+                      id ? editRow() : createRow();
+                    }
                   }}
                 >
                   Create
