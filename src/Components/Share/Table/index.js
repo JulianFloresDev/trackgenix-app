@@ -15,10 +15,8 @@ const Table = ({ headers, data }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-
   const { showModal, modalContent } = useSelector((state) => state.global);
   const dispatch = useDispatch();
-
   const openModal = (id) => {
     dispatch(setShowModal(true));
     dispatch(
@@ -224,7 +222,7 @@ const Table = ({ headers, data }) => {
           <div className={styles.imgContainer}>
             <img
               src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
-              onClick={() => history.push(`/${entitie}/new`)}
+              onClick={() => history.push(`/${entitie}/form/0`)}
             />
           </div>
         </div>

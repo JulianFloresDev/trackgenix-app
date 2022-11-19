@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SuperAdmins from 'Components/SuperAdmins';
-// import Form from 'Components/Share/Form';
-import CreateForm from 'Components/Share/CreateForm';
+import Form from 'Components/Share/Form';
 
 const SuperAdminsRoutes = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/super-admins" component={SuperAdmins} />
-        <Route path="/super-admins/form/:id" render={() => <CreateForm />} />
-        <Route path="/super-admins/new" render={() => <CreateForm />} />
+        <Route path="/super-admins/form/:id" render={() => <Form />} />
       </Switch>
     </Router>
   );
