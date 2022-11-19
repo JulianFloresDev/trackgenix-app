@@ -19,8 +19,10 @@ import Spinner from '../Spinner';
 import { InputForm } from '../InputForm';
 import { SelectForm } from '../SelectForm';
 import TeamMembersTable from 'Components/Share/TeamMembersTable';
+import { useForm } from 'react-hook-form';
 
 const CreateForm = () => {
+  const { handleSubmit, register } = useForm();
   const dispatch = useDispatch();
   const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
     (state) => state.global
@@ -29,17 +31,17 @@ const CreateForm = () => {
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
   delete itemToPUT['updatedAt'];
-  const body = {
-    ...itemToPUT,
-    dni: itemToPUT.dni?.toString(),
-    phone: itemToPUT.phone?.toString(),
-    employee: itemToPUT.employee?._id || itemToPUT.employee,
-    task: itemToPUT.task?._id || itemToPUT.task,
-    project: itemToPUT.project?._id || itemToPUT.project,
-    teamMembers: itemToPUT.teamMembers?.map((member) => {
-      return { ...member, employee: member.employee?._id || member.employee };
-    })
-  };
+  // const body = {
+  //   ...itemToPUT,
+  //   dni: itemToPUT.dni?.toString(),
+  //   phone: itemToPUT.phone?.toString(),
+  //   employee: itemToPUT.employee?._id || itemToPUT.employee,
+  //   task: itemToPUT.task?._id || itemToPUT.task,
+  //   project: itemToPUT.project?._id || itemToPUT.project,
+  //   teamMembers: itemToPUT.teamMembers?.map((member) => {
+  //     return { ...member, employee: member.employee?._id || member.employee };
+  //   })
+  // };
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
@@ -105,56 +107,43 @@ const CreateForm = () => {
     dispatch(getTasks(''));
   }, []);
 
-  const modifyRow = async () => {
+  const modifyRow = async (data) => {
+    const body = {
+      ...data,
+      dni: data.dni?.toString(),
+      phone: data.phone?.toString(),
+      employee: data.employee?._id || data.employee,
+      task: data.task?._id || data.task,
+      project: data.project?._id || data.project,
+      teamMembers: data.teamMembers?.map((member) => {
+        return { ...member, employee: member.employee?._id || member.employee };
+      })
+    };
+    console.log(data);
     switch (entitie) {
       case 'employees':
-        dispatch(id === '0' ? createEmployee(itemToPUT) : editEmployee(id, body));
+        dispatch(id === '0' ? createEmployee(data) : editEmployee(id, body));
         break;
       case 'admins':
-        dispatch(id === '0' ? createAdmin(itemToPUT) : editAdmin(id, body));
+        dispatch(id === '0' ? createAdmin(data) : editAdmin(id, body));
         break;
       case 'super-admins':
-        dispatch(id === '0' ? createSuperAdmin(itemToPUT) : editSuperAdmin(id, body));
+        dispatch(id === '0' ? createSuperAdmin(data) : editSuperAdmin(id, body));
         break;
       case 'projects':
-        dispatch(id === '0' ? createProject(itemToPUT) : editProject(id, body));
+        dispatch(id === '0' ? createProject(data) : editProject(id, body));
         break;
       case 'tasks':
-        dispatch(id === '0' ? createTask(itemToPUT) : editTask(id, body));
+        dispatch(id === '0' ? createTask(data) : editTask(id, body));
         break;
       case 'time-sheets':
-        dispatch(id === '0' ? createTimesheets(itemToPUT) : editTimesheets(id, body));
+        dispatch(id === '0' ? createTimesheets(data) : editTimesheets(id, body));
         break;
       default:
         history.push('/');
         break;
     }
   };
-
-  // const editRow = () => {
-  //   switch (entitie) {
-  //     case 'employees':
-  //       dispatch(editEmployee(id, body));
-  //       break;
-  //     case 'admins':
-  //       dispatch(editAdmin(id, body));
-  //       break;
-  //     case 'projects':
-  //       dispatch(editProject(id, body));
-  //       break;
-  //     case 'super-admins':
-  //       dispatch(editSuperAdmin(id, body));
-  //       break;
-  //     case 'tasks':
-  //       dispatch(editTask(id, body));
-  //       break;
-  //     case 'time-sheets':
-  //       dispatch(editTimesheets(id, body));
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
 
   const goBack = () => {
     dispatch(setShowModal(false));
@@ -190,40 +179,143 @@ const CreateForm = () => {
           </Modal>
           <section className={styles.formSection}>
             <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
-            <form>
+            <form onSubmit={handleSubmit(modifyRow)}>
               {Object.keys(itemToPUT).map((prop /*, index*/) => {
                 switch (prop) {
                   case 'name':
-                    return <InputForm element={prop} label={'Project Name'} inputType={'text'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Project Name'}
+                        inputType={'text'}
+                        register={register}
+                      />
+                    );
                   case 'clientName':
-                    return <InputForm element={prop} label={'Client Name'} inputType={'text'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Client Name'}
+                        inputType={'text'}
+                        register={register}
+                      />
+                    );
                   case 'firstName':
-                    return <InputForm element={prop} label={'First Name'} inputType={'text'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'First Name'}
+                        inputType={'text'}
+                        register={register}
+                      />
+                    );
                   case 'lastName':
-                    return <InputForm element={prop} label={'Last Name'} inputType={'text'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Last Name'}
+                        inputType={'text'}
+                        register={register}
+                      />
+                    );
                   case 'email':
-                    return <InputForm element={prop} label={'Email'} inputType={'email'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Email'}
+                        inputType={'email'}
+                        register={register}
+                      />
+                    );
                   case 'location':
-                    return <InputForm element={prop} label={'Address'} inputType={'text'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Address'}
+                        inputType={'text'}
+                        register={register}
+                      />
+                    );
                   case 'description':
-                    return <InputForm element={prop} label={'Description'} inputType={'text'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Description'}
+                        inputType={'text'}
+                        register={register}
+                      />
+                    );
                   case 'password':
-                    return <InputForm element={prop} label={'Password'} inputType={'password'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Password'}
+                        inputType={'password'}
+                        register={register}
+                      />
+                    );
                   case 'dni':
-                    return <InputForm element={prop} label={'D.N.I.'} inputType={'number'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'D.N.I.'}
+                        inputType={'number'}
+                        register={register}
+                      />
+                    );
                   case 'hours':
-                    return <InputForm element={prop} label={'Hours'} inputType={'number'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Hours'}
+                        inputType={'number'}
+                        register={register}
+                      />
+                    );
                   case 'phone':
-                    return <InputForm element={prop} label={'Phone'} inputType={'phone'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Phone'}
+                        inputType={'phone'}
+                        register={register}
+                      />
+                    );
                   case 'date':
-                    return <InputForm element={prop} label={'Date'} inputType={'date'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Date'}
+                        inputType={'date'}
+                        register={register}
+                      />
+                    );
                   case 'startDate':
-                    return <InputForm element={prop} label={'Start Date'} inputType={'date'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'Start Date'}
+                        inputType={'date'}
+                        register={register}
+                      />
+                    );
                   case 'endDate':
-                    return <InputForm element={prop} label={'End Date'} inputType={'date'} />;
+                    return (
+                      <InputForm
+                        element={prop}
+                        label={'End Date'}
+                        inputType={'date'}
+                        register={register}
+                      />
+                    );
                   case 'active':
                     return (
-                      <InputForm element={prop} label={'Project State'} inputType={'checkbox'} />
+                      <InputForm
+                        element={prop}
+                        label={'Project State'}
+                        inputType={'checkbox'}
+                        register={register}
+                      />
                     );
                   case 'teamMembers':
                     return (
@@ -232,33 +324,42 @@ const CreateForm = () => {
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
+                        register={register}
                       />
                     );
                   case 'project':
                     return (
-                      <SelectForm element={prop} label={'Projects'} selectOptions={projectList} />
+                      <SelectForm
+                        element={prop}
+                        label={'Projects'}
+                        selectOptions={projectList}
+                        register={register}
+                      />
                     );
                   case 'task':
-                    return <SelectForm element={prop} label={'Tasks'} selectOptions={tasksList} />;
+                    return (
+                      <SelectForm
+                        element={prop}
+                        label={'Tasks'}
+                        selectOptions={tasksList}
+                        register={register}
+                      />
+                    );
                   case 'employee':
                     return (
-                      <SelectForm element={prop} label={'Employees'} selectOptions={employeeList} />
+                      <SelectForm
+                        element={prop}
+                        label={'Employees'}
+                        selectOptions={employeeList}
+                        register={register}
+                      />
                     );
                   default:
                     return null;
                 }
               })}
               <div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    {
-                      modifyRow();
-                    }
-                  }}
-                >
-                  Submit
-                </button>
+                <button type="submit">Submit</button>
                 <button
                   onClick={(e) => {
                     e.preventDefault();

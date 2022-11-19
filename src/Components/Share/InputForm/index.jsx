@@ -1,9 +1,10 @@
 import styles from './inputForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { editItem } from '../../../redux/global/actions';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { editItem } from '../../../redux/global/actions';
+import { useSelector } from 'react-redux';
 
-export const InputForm = ({ element, label, error, inputType }) => {
-  const dispatch = useDispatch();
+export const InputForm = ({ register, element, label, error, inputType }) => {
+  // const dispatch = useDispatch();
   const { itemToPUT } = useSelector((state) => state.global);
 
   return (
@@ -14,17 +15,18 @@ export const InputForm = ({ element, label, error, inputType }) => {
         </label>
       )}
       <input
+        {...register(element)}
         className={styles.flexImput}
         id={element}
         type={inputType}
         value={inputType === 'date' ? itemToPUT[element].substring(0, 10) : itemToPUT[element]}
-        checked={inputType === 'checkbox' && itemToPUT[element]}
-        onChange={(e) => {
-          e.target.type === 'checkbox'
-            ? (itemToPUT[element] = e.target.checked)
-            : (itemToPUT[element] = e.target.value);
-          dispatch(editItem({ ...itemToPUT }));
-        }}
+        // checked={inputType === 'checkbox' && itemToPUT[element]}
+        // onChange={(e) => {
+        //   e.target.type === 'checkbox'
+        //     ? (itemToPUT[element] = e.target.checked)
+        //     : (itemToPUT[element] = e.target.value);
+        //   dispatch(editItem({ ...itemToPUT }));
+        // }}
       ></input>
       {error && Array.isArray(error) ? (
         <ul className={styles.errorMessage}>
