@@ -14,6 +14,7 @@ import modalStyles from '../Modal/modal.module.css';
 import Spinner from '../Spinner';
 import { InputForm } from '../InputForm';
 import { SelectForm } from '../SelectForm';
+import TeamMembersTable from 'Components/Share/TeamMembersTable';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const CreateForm = () => {
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
-  const newTeamMember = { employee: '', role: '', rate: '' };
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
@@ -127,7 +127,7 @@ const CreateForm = () => {
   return (
     <>
       {isFetchingData ? (
-        <Spinner entitie="Admins" />
+        <Spinner entitie={entitie} />
       ) : (
         <>
           <Modal showModal={showModal}>
@@ -147,112 +147,7 @@ const CreateForm = () => {
           <section className={styles.formSection}>
             <h2>Create {entitie.slice(0, -1)}</h2>
             <form>
-              {Object.keys(itemToPUT).map((prop, index) => {
-                if (prop === 'teamMembers') {
-                  return (
-                    <div key={index} className={styles.teamMembers}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <table>
-                        <thead>
-                          <tr>
-                            {Object.keys(itemToPUT[prop][0]).map((key, index) => {
-                              return <th key={index}>{key}</th>;
-                            })}
-                            <th>
-                              <img
-                                src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  itemToPUT.teamMembers.unshift(newTeamMember);
-                                  dispatch(editItem({ ...itemToPUT }));
-                                }}
-                              />
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {itemToPUT[prop].map((item, index) => {
-                            return (
-                              <tr key={index}>
-                                {Object.keys(item).map((info) => {
-                                  if (info === 'role') {
-                                    return (
-                                      <td key={index}>
-                                        <select
-                                          value={item.employee ? item[info] : '-'}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        >
-                                          <option hidden>-</option>
-                                          <option>DEV</option>
-                                          <option>QA</option>
-                                          <option>PM</option>
-                                          <option>TL</option>
-                                        </select>
-                                      </td>
-                                    );
-                                  }
-                                  if (info === 'rate') {
-                                    return (
-                                      <td key={index}>
-                                        <input
-                                          type="number"
-                                          value={item.employee ? item[info] : 0}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        />
-                                      </td>
-                                    );
-                                  }
-                                  if (info === 'employee') {
-                                    return (
-                                      <td key={index}>
-                                        <select
-                                          value={item[info] ? item[info]._id : 0}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        >
-                                          {employeeList?.map((employee) => {
-                                            return (
-                                              <option key={employee._id} value={employee?._id}>
-                                                {employee.firstName} {employee.lastName}
-                                              </option>
-                                            );
-                                          })}
-                                          <option value={0} hidden>
-                                            Select an Employee
-                                          </option>
-                                        </select>
-                                      </td>
-                                    );
-                                  }
-                                })}
-                                <td>
-                                  {itemToPUT[prop].length > 1 && (
-                                    <img
-                                      src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        itemToPUT[prop].splice(index, 1);
-                                        dispatch(editItem({ ...itemToPUT }));
-                                      }}
-                                    />
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                }
+              {Object.keys(itemToPUT).map((prop /*, index*/) => {
                 switch (prop) {
                   case 'name':
                     return <InputForm element={prop} label={'Project Name'} inputType={'text'} />;
@@ -272,8 +167,6 @@ const CreateForm = () => {
                     return <InputForm element={prop} label={'Password'} inputType={'password'} />;
                   case 'dni':
                     return <InputForm element={prop} label={'D.N.I.'} inputType={'number'} />;
-                  case 'rate':
-                    return <InputForm element={prop} label={'Rate'} inputType={'number'} />;
                   case 'hours':
                     return <InputForm element={prop} label={'Hours'} inputType={'number'} />;
                   case 'phone':
@@ -288,17 +181,13 @@ const CreateForm = () => {
                     return (
                       <InputForm element={prop} label={'Project State'} inputType={'checkbox'} />
                     );
-                  case 'role':
+                  case 'teamMembers':
                     return (
-                      <SelectForm
+                      <TeamMembersTable
                         element={prop}
-                        label={'Role'}
-                        selectOptions={[
-                          { description: 'DEV' },
-                          { description: 'QA' },
-                          { description: 'TL' },
-                          { description: 'PM' }
-                        ]}
+                        label={'Team Members'}
+                        itemToPUT={itemToPUT}
+                        employeeList={employeeList}
                       />
                     );
                   case 'project':
@@ -309,11 +198,7 @@ const CreateForm = () => {
                     return <SelectForm element={prop} label={'Tasks'} selectOptions={tasksList} />;
                   case 'employee':
                     return (
-                      <SelectForm
-                        element={prop}
-                        label={'Team Members'}
-                        selectOptions={employeeList}
-                      />
+                      <SelectForm element={prop} label={'Employees'} selectOptions={employeeList} />
                     );
                   default:
                     return null;

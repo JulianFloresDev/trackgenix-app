@@ -8,12 +8,13 @@ import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks
 import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
 import { editProject, getProjects } from '../../../redux/projects/thunks';
 import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
-import { editItem, setShowModal, setModalContent } from '../../../redux/global/actions';
+import { setShowModal, setModalContent } from '../../../redux/global/actions';
 import { InputForm } from '../InputForm';
 import { SelectForm } from '../SelectForm';
 import Modal from '../Modal';
 import modalStyles from '../Modal/modal.module.css';
 import Spinner from '../Spinner';
+import TeamMembersTable from '../TeamMembersTable';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const Form = () => {
   const { list: tasksList } = useSelector((state) => state.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
-  const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
@@ -137,112 +137,7 @@ const Form = () => {
           <section className={styles.formSection}>
             <h2>Edit {entitie.slice(0, -1)}</h2>
             <form>
-              {Object.keys(itemToPUT)?.map((prop, index) => {
-                if (prop === 'teamMembers') {
-                  return (
-                    <div key={index} className={styles.teamMembers}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <table>
-                        <thead>
-                          <tr>
-                            {Object.keys(itemToPUT[prop][0]).map((key, index) => {
-                              return <th key={index}>{key}</th>;
-                            })}
-                            <th>
-                              <img
-                                src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  itemToPUT.teamMembers.unshift(newTeamMember);
-                                  dispatch(editItem({ ...itemToPUT }));
-                                }}
-                              />
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {itemToPUT[prop].map((item, index) => {
-                            return (
-                              <tr key={index}>
-                                {Object.keys(item).map((info) => {
-                                  if (info === 'role') {
-                                    return (
-                                      <td key={index}>
-                                        <select
-                                          value={item.employee ? item[info] : '-'}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        >
-                                          <option hidden>-</option>
-                                          <option>DEV</option>
-                                          <option>QA</option>
-                                          <option>PM</option>
-                                          <option>TL</option>
-                                        </select>
-                                      </td>
-                                    );
-                                  }
-                                  if (info === 'rate') {
-                                    return (
-                                      <td key={index}>
-                                        <input
-                                          type="number"
-                                          value={item.employee ? item[info] : 0}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        />
-                                      </td>
-                                    );
-                                  }
-                                  if (info === 'employee') {
-                                    return (
-                                      <td key={index}>
-                                        <select
-                                          value={item[info] ? item[info]._id : 0}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        >
-                                          {employeeList?.map((employee) => {
-                                            return (
-                                              <option key={employee._id} value={employee?._id}>
-                                                {employee.firstName} {employee.lastName}
-                                              </option>
-                                            );
-                                          })}
-                                          <option value={0} hidden>
-                                            Select an Employee
-                                          </option>
-                                        </select>
-                                      </td>
-                                    );
-                                  }
-                                })}
-                                <td>
-                                  {itemToPUT[prop].length > 1 && (
-                                    <img
-                                      src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        itemToPUT[prop].splice(index, 1);
-                                        dispatch(editItem({ ...itemToPUT }));
-                                      }}
-                                    />
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                }
+              {Object.keys(itemToPUT)?.map((prop) => {
                 switch (prop) {
                   case 'name':
                     return <InputForm element={prop} label={'Project Name'} inputType={'text'} />;
@@ -277,6 +172,15 @@ const Form = () => {
                   case 'active':
                     return (
                       <InputForm element={prop} label={'Project State'} inputType={'checkbox'} />
+                    );
+                  case 'teamMembers':
+                    return (
+                      <TeamMembersTable
+                        element={prop}
+                        label={'Team Members'}
+                        itemToPUT={itemToPUT}
+                        employeeList={employeeList}
+                      />
                     );
                   case 'role':
                     return (

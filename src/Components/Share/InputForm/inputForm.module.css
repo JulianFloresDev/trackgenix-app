@@ -15,7 +15,7 @@
 .flexLabel,
 .flexImput,
 .flexSelect {
-  width: 85%;
+  width: 100%;
   color: var(--color-blue-primary);
 }
 

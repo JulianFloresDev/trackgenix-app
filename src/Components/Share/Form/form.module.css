@@ -22,6 +22,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 60vw;
+  column-gap: 10px;
 }
 
 .formSection form > div {
