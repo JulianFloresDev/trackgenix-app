@@ -3,7 +3,7 @@ import modalStyles from '../Modal/modal.module.css';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { setModalContent, setShowModal } from '../../../redux/global/actions';
+import { editItem, setModalContent, setShowModal } from '../../../redux/global/actions';
 import { deleteTasks } from '../../../redux/tasks/thunks';
 import { deleteEmployees } from '../../../redux/employees/thunks';
 import { deleteAdminByID } from '../../../redux/admins/thunks';
@@ -200,6 +200,7 @@ const Table = ({ headers, data }) => {
                             src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                             className={styles.editBtn}
                             onClick={() => {
+                              dispatch(editItem(row));
                               history.push(`/${entitie}/form/${row._id}`);
                             }}
                           />
@@ -222,7 +223,10 @@ const Table = ({ headers, data }) => {
           <div className={styles.imgContainer}>
             <img
               src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
-              onClick={() => history.push(`/${entitie}/form/0`)}
+              onClick={() => {
+                dispatch(editItem({}));
+                history.push(`/${entitie}/form/0`);
+              }}
             />
           </div>
         </div>

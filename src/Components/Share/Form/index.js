@@ -22,7 +22,6 @@ import TeamMembersTable from 'Components/Share/TeamMembersTable';
 import { useForm } from 'react-hook-form';
 
 const CreateForm = () => {
-  const { handleSubmit, register } = useForm();
   const dispatch = useDispatch();
   const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
     (state) => state.global
@@ -31,17 +30,18 @@ const CreateForm = () => {
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
   delete itemToPUT['updatedAt'];
-  // const body = {
-  //   ...itemToPUT,
-  //   dni: itemToPUT.dni?.toString(),
-  //   phone: itemToPUT.phone?.toString(),
-  //   employee: itemToPUT.employee?._id || itemToPUT.employee,
-  //   task: itemToPUT.task?._id || itemToPUT.task,
-  //   project: itemToPUT.project?._id || itemToPUT.project,
-  //   teamMembers: itemToPUT.teamMembers?.map((member) => {
-  //     return { ...member, employee: member.employee?._id || member.employee };
-  //   })
-  // };
+  const defeaultValue = {
+    ...itemToPUT,
+    dni: itemToPUT.dni?.toString(),
+    phone: itemToPUT.phone?.toString(),
+    employee: itemToPUT.employee?._id || itemToPUT.employee,
+    task: itemToPUT.task?._id || itemToPUT.task,
+    project: itemToPUT.project?._id || itemToPUT.project,
+    teamMembers: itemToPUT.teamMembers?.map((member) => {
+      return { ...member, employee: member.employee?._id || member.employee };
+    })
+  };
+  console.log(defeaultValue);
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
@@ -90,11 +90,11 @@ const CreateForm = () => {
           id !== '0'
             ? getTimesheets(id)
             : editItem({
-                description: '',
                 date: '',
-                task: '',
-                project: '',
+                description: '',
                 employee: '',
+                project: '',
+                task: '',
                 hours: ''
               })
         );
@@ -107,6 +107,7 @@ const CreateForm = () => {
     dispatch(getTasks(''));
   }, []);
 
+  const { handleSubmit, register } = useForm({ defaultValues: defeaultValue, node: 'onChange' });
   const modifyRow = async (data) => {
     const body = {
       ...data,
@@ -119,7 +120,6 @@ const CreateForm = () => {
         return { ...member, employee: member.employee?._id || member.employee };
       })
     };
-    console.log(data);
     switch (entitie) {
       case 'employees':
         dispatch(id === '0' ? createEmployee(data) : editEmployee(id, body));
