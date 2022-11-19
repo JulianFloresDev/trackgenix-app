@@ -16,6 +16,7 @@ const Table = ({ headers, data }) => {
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
   const { showModal, modalContent } = useSelector((state) => state.global);
+  const newData = [...data];
   const dispatch = useDispatch();
   const openModal = (id) => {
     dispatch(setShowModal(true));
@@ -141,7 +142,7 @@ const Table = ({ headers, data }) => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((row) => {
+                {newData.reverse().map((row) => {
                   return (
                     <tr key={row._id}>
                       {headers.map((property, index) => {
