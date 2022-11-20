@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';
-import Spinner from 'Components/Share/Spinner';
+import { Spinner } from 'Components/Share';
 
 const Home = lazy(() => import('Components/Home'));
 const AdminsRoutes = lazy(() => import('routes/admins'));

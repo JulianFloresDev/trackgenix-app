@@ -1,6 +1,6 @@
 import styles from './inputForm.module.css';
 
-export const InputForm = ({ register, element, label, error, inputType }) => {
+const InputForm = ({ register, element, label, error, inputType }) => {
   return (
     <div className={styles.flexContainer}>
       {label && (
@@ -26,3 +26,5 @@ export const InputForm = ({ register, element, label, error, inputType }) => {
     </div>
   );
 };
+
+export default InputForm;

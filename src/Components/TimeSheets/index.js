@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTimesheets } from 'redux/time-sheets/thunks';
 import styles from './time-sheets.module.css';
-import Table from 'Components/Share/Table';
-import Spinner from 'Components/Share/Spinner';
+import { Table, Spinner } from 'Components/Share';
 
 function TimeSheets() {
   const { list, isFetching, error } = useSelector((state) => state.timeSheets);

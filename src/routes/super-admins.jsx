@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SuperAdmins from 'Components/SuperAdmins';
-import Form from 'Components/Share/Form';
+import { Form } from 'Components/Share';
 
 const SuperAdminsRoutes = () => {
   return (

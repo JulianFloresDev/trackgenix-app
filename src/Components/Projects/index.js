@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProjects } from 'redux/projects/thunks';
 import styles from './projects.module.css';
-import Table from 'Components/Share/Table';
-import Spinner from 'Components/Share/Spinner';
+import { Table, Spinner } from 'Components/Share';
 
 function Projects() {
   const dispatch = useDispatch();

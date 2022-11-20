@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Admins from 'Components/Admins';
-import Form from 'Components/Share/Form';
+import { Form } from 'Components/Share';
 
 const AdminsRoutes = () => {
   return (

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TimeSheets from 'Components/TimeSheets';
-import Form from 'Components/Share/Form';
+import { Form } from 'Components/Share';
 
 const TimeSheetsRoutes = () => {
   return (

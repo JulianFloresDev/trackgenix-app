@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdmins } from 'redux/admins/thunks';
-import Table from 'Components/Share/Table';
-import Spinner from 'Components/Share/Spinner';
+import { Table, Spinner } from 'Components/Share';
 
 function Admins() {
+  console.log(Table);
   const dispatch = useDispatch();
   const { list, isFetching, error } = useSelector((store) => store.admins);
 

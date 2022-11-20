@@ -3,9 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import styles from './form.module.css';
-import TeamMembersTable from 'Components/Share/TeamMembersTable';
-import Spinner from 'Components/Share/Spinner';
-import Modal from 'Components/Share/Modal';
+import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { getSuperAdmins, editSuperAdmin, createSuperAdmin } from 'redux/super-admins/thunks';
 import { getAdmins, editAdmin, createAdmin } from 'redux/admins/thunks';
@@ -14,8 +12,6 @@ import { getProjects, editProject, createProject } from 'redux/projects/thunks';
 import { getTimesheets, editTimesheets, createTimesheets } from 'redux/time-sheets/thunks';
 import { getTasks, editTask, createTask } from 'redux/tasks/thunks';
 import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
-import { InputForm } from 'Components/Share/InputForm';
-import { SelectForm } from 'Components/Share/SelectForm';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -37,7 +33,6 @@ const CreateForm = () => {
       return { ...member, employee: member.employee?._id || member.employee };
     })
   };
-  console.log(defeaultValue);
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);

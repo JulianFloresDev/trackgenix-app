@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Employees from 'Components/Employees';
-import Form from 'Components/Share/Form';
+import { Form } from 'Components/Share';
 
 const EmployeesRoutes = () => {
   return (

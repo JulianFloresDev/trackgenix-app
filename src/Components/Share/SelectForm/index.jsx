@@ -1,6 +1,6 @@
 import styles from './selectForm.module.css';
 
-export const SelectForm = ({ register, element, label, selectOptions, error }) => {
+const SelectForm = ({ register, element, label, selectOptions, error }) => {
   return (
     <div className={styles.flexContainer}>
       {label && (
@@ -31,3 +31,5 @@ export const SelectForm = ({ register, element, label, selectOptions, error }) =
     </div>
   );
 };
+
+export default SelectForm;

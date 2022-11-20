@@ -1,8 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './table.module.css';
+import { Modal } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
-import Modal from 'Components/Share/Modal';
 import { editItem, setModalContent, setShowModal } from 'redux/global/actions';
 import { deleteTasks } from 'redux/tasks/thunks';
 import { deleteEmployees } from 'redux/employees/thunks';
