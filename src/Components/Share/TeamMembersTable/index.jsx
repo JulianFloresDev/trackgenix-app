@@ -11,15 +11,16 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
       <table id={element}>
         <thead>
           <tr>
-            {Object.keys(itemToPUT[element][0]).map((key, index) => {
-              return <th key={index}>{key}</th>;
-            })}
+            {element &&
+              Object.keys(element[0]).map((key, index) => {
+                return <th key={index}>{key}</th>;
+              })}
             <th>
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
                 onClick={(e) => {
                   e.preventDefault();
-                  itemToPUT.teamMembers.unshift(newTeamMember);
+                  itemToPUT.teamMembers.push(newTeamMember);
                   dispatch(editItem({ ...itemToPUT }));
                 }}
               />
@@ -29,11 +30,11 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
         <tbody>
           {itemToPUT[element].map((item, index) => {
             return (
-              <tr key={index}>
+              <tr key={index + 10}>
                 {Object.keys(item).map((info) => {
                   if (info === 'role') {
                     return (
-                      <td key={index}>
+                      <td key={index + 10}>
                         <select
                           value={item.employee ? item[info] : '-'}
                           onChange={(e) => {
@@ -52,7 +53,7 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
                   }
                   if (info === 'rate') {
                     return (
-                      <td key={index}>
+                      <td key={index + 20}>
                         <input
                           type="number"
                           value={item.employee ? item[info] : 0}
@@ -66,7 +67,7 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
                   }
                   if (info === 'employee') {
                     return (
-                      <td key={index}>
+                      <td key={index + 30}>
                         <select
                           value={item[info] ? item[info]._id : 0}
                           onChange={(e) => {

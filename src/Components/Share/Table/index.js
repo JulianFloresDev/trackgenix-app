@@ -141,15 +141,15 @@ const Table = ({ headers, data }) => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((row) => {
+                {data.map((row, index) => {
                   return (
-                    <tr key={row._id}>
+                    <tr key={index}>
                       {headers.map((property, index) => {
                         if (typeof row[property] === 'boolean') {
                           if (row[property]) {
-                            return <td key={index}>Active</td>;
+                            return <td key={index + 500}>Active</td>;
                           } else {
-                            return <td key={index}>Finish</td>;
+                            return <td key={index + 500}>Finish</td>;
                           }
                         }
                         if (
@@ -163,12 +163,12 @@ const Table = ({ headers, data }) => {
                           ) {
                             row[property] = row[property].substring(0, 10);
                           }
-                          return <td key={index}>{row[property]}</td>;
+                          return <td key={index + 500}>{row[property]}</td>;
                         }
                         if (Array.isArray(row[property])) {
                           return (
                             <>
-                              <td key={index}>
+                              <td key={index + 500}>
                                 <button
                                   className={styles.showListBtn}
                                   onClick={(e) => {
@@ -183,10 +183,10 @@ const Table = ({ headers, data }) => {
                           );
                         }
                         if (!row[property]) {
-                          return <td key={index}>Element Not Found</td>;
+                          return <td key={index + 500}>Element Not Found</td>;
                         }
                         return (
-                          <td key={index} className={styles.optionInvalid}>
+                          <td key={index + 500} className={styles.optionInvalid}>
                             {row[property].description && row[property].description}
                             {row[property].name && row[property].name}
                             {row[property].firstName && row[property].firstName}{' '}

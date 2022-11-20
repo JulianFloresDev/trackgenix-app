@@ -15,7 +15,7 @@ export const InputForm = ({ register, element, label, error, inputType }) => {
         </label>
       )}
       <input
-        {...register(element)}
+        {...register(element)} // ...register('firstName')
         className={styles.flexImput}
         id={element}
         type={inputType}

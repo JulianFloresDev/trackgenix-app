@@ -108,6 +108,7 @@ const CreateForm = () => {
   }, []);
 
   const { handleSubmit, register } = useForm({ defaultValues: defeaultValue, node: 'onChange' });
+
   const modifyRow = async (data) => {
     const body = {
       ...data,
@@ -116,7 +117,7 @@ const CreateForm = () => {
       employee: data.employee?._id || data.employee,
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
-      teamMembers: data.teamMembers?.map((member) => {
+      teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       })
     };
@@ -180,11 +181,12 @@ const CreateForm = () => {
           <section className={styles.formSection}>
             <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
             <form onSubmit={handleSubmit(modifyRow)}>
-              {Object.keys(itemToPUT).map((prop /*, index*/) => {
+              {Object.keys(itemToPUT).map((prop, index) => {
                 switch (prop) {
                   case 'name':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Project Name'}
                         inputType={'text'}
@@ -194,6 +196,7 @@ const CreateForm = () => {
                   case 'clientName':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Client Name'}
                         inputType={'text'}
@@ -203,6 +206,7 @@ const CreateForm = () => {
                   case 'firstName':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'First Name'}
                         inputType={'text'}
@@ -212,6 +216,7 @@ const CreateForm = () => {
                   case 'lastName':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Last Name'}
                         inputType={'text'}
@@ -221,6 +226,7 @@ const CreateForm = () => {
                   case 'email':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Email'}
                         inputType={'email'}
@@ -230,6 +236,7 @@ const CreateForm = () => {
                   case 'location':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Address'}
                         inputType={'text'}
@@ -239,6 +246,7 @@ const CreateForm = () => {
                   case 'description':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Description'}
                         inputType={'text'}
@@ -248,6 +256,7 @@ const CreateForm = () => {
                   case 'password':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Password'}
                         inputType={'password'}
@@ -257,6 +266,7 @@ const CreateForm = () => {
                   case 'dni':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'D.N.I.'}
                         inputType={'number'}
@@ -266,6 +276,7 @@ const CreateForm = () => {
                   case 'hours':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Hours'}
                         inputType={'number'}
@@ -275,6 +286,7 @@ const CreateForm = () => {
                   case 'phone':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Phone'}
                         inputType={'phone'}
@@ -284,6 +296,7 @@ const CreateForm = () => {
                   case 'date':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Date'}
                         inputType={'date'}
@@ -293,6 +306,7 @@ const CreateForm = () => {
                   case 'startDate':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Start Date'}
                         inputType={'date'}
@@ -302,6 +316,7 @@ const CreateForm = () => {
                   case 'endDate':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'End Date'}
                         inputType={'date'}
@@ -311,6 +326,7 @@ const CreateForm = () => {
                   case 'active':
                     return (
                       <InputForm
+                        key={index}
                         element={prop}
                         label={'Project State'}
                         inputType={'checkbox'}
@@ -320,16 +336,18 @@ const CreateForm = () => {
                   case 'teamMembers':
                     return (
                       <TeamMembersTable
+                        key={index}
                         element={prop}
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
-                        register={register}
+                        {...register('teamMembers')}
                       />
                     );
                   case 'project':
                     return (
                       <SelectForm
+                        key={index}
                         element={prop}
                         label={'Projects'}
                         selectOptions={projectList}
@@ -339,6 +357,7 @@ const CreateForm = () => {
                   case 'task':
                     return (
                       <SelectForm
+                        key={index}
                         element={prop}
                         label={'Tasks'}
                         selectOptions={tasksList}
@@ -348,6 +367,7 @@ const CreateForm = () => {
                   case 'employee':
                     return (
                       <SelectForm
+                        key={index}
                         element={prop}
                         label={'Employees'}
                         selectOptions={employeeList}
