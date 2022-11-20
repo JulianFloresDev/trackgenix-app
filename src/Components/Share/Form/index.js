@@ -25,17 +25,6 @@ const CreateForm = () => {
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
   delete itemToPUT['updatedAt'];
-  // const defeaultValue = { //Ya no se usa explicacion en linea 83  BORRAR LINEAS COMENTADAS DSPS DE LEER
-  //   ...itemToPUT,
-  //   dni: itemToPUT.dni?.toString(),
-  //   phone: itemToPUT.phone?.toString(),
-  //   employee: itemToPUT.employee?._id || itemToPUT.employee,
-  //   task: itemToPUT.task?._id || itemToPUT.task,
-  //   project: itemToPUT.project?._id || itemToPUT.project,
-  //   teamMembers: itemToPUT.teamMembers?.map((member) => {
-  //     return { ...member, employee: member.employee?._id || member.employee };
-  //   })
-  // };
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
@@ -53,7 +42,6 @@ const CreateForm = () => {
     location: ''
   };
 
-  //Este esquema de validaciones está duplicado y más completo en el archivo 'schema.js' de la misma carpeta que este archivo, pero no funciona el import, tira error.
   const schema = Joi.object({
     firstName: Joi.string()
       .required()
@@ -61,11 +49,11 @@ const CreateForm = () => {
       .max(30)
       .regex(/^[\w\s]+$/)
       .messages({
-        'string.empty': 'First name required',
         'string.pattern.base': 'First name should be letters and spaces only',
         'string.min': 'First name should have betwen 2 and 30 characters only',
         'string.max': 'First name should have betwen 2 and 30 characters only',
-        'any.required': 'First name required'
+        'any.required': 'First name required',
+        'string.empty': 'First name required'
       }),
     lastName: Joi.string(),
     email: Joi.string(),
@@ -82,10 +70,10 @@ const CreateForm = () => {
     reset
   } = useForm({
     node: 'onChange',
-    // defaultValues: defeaultValue,
-    //Se reemplaza por la función reset que se llama en la linea 130 para setear la data de la variable global itemToPUT
     resolver: joiResolver(schema)
   });
+
+  console.log(errors);
 
   useEffect(async () => {
     switch (entitie) {
