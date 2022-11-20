@@ -1,18 +1,17 @@
 import { lazy, Suspense } from 'react';
-import styles from './layout.module.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';
+import Spinner from 'Components/Share/Spinner';
 
 const Home = lazy(() => import('Components/Home'));
-const AdminsRoutes = lazy(() => import('./admins'));
-const EmployeesRoutes = lazy(() => import('./employees'));
+const AdminsRoutes = lazy(() => import('routes/admins'));
+const EmployeesRoutes = lazy(() => import('routes/employees'));
 const ProjectsRoutes = lazy(() => import('./projects'));
-const SuperAdminsRoutes = lazy(() => import('./super-admins'));
-const TasksRoutes = lazy(() => import('./tasks'));
-const TimeSheetsRoutes = lazy(() => import('./time-sheets'));
-
-import Spinner from 'Components/Share/Spinner';
+const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
+const TasksRoutes = lazy(() => import('routes/tasks'));
+const TimeSheetsRoutes = lazy(() => import('routes/time-sheets'));
 
 function Layout() {
   return (

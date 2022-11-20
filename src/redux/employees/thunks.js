@@ -10,8 +10,8 @@ import {
   editItem,
   fetchDataOn,
   fetchDataOff
-} from '../global/actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+} from 'redux/global/actions';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getEmployees = (id) => {
   return async (dispatch) => {

@@ -4,7 +4,7 @@ import {
   setShowModal,
   fetchDataOn,
   fetchDataOff
-} from '../global/actions';
+} from 'redux/global/actions';
 import {
   getProjectsError,
   getProjectsPending,
@@ -13,7 +13,7 @@ import {
   deleteProjectSuccess,
   deleteProjectError
 } from './actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getProjects = (id) => {
   return async (dispatch) => {

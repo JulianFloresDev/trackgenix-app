@@ -1,9 +1,9 @@
-import Table from '../Share/Table';
-import styles from './tasks.module.css';
-import Spinner from '../Share/Spinner';
-import { useSelector, useDispatch } from 'react-redux';
-import { getTasks } from '../../redux/tasks/thunks';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTasks } from 'redux/tasks/thunks';
+import styles from './tasks.module.css';
+import Table from 'Components/Share/Table';
+import Spinner from 'Components/Share/Spinner';
 
 function Tasks() {
   const { list, isFetching, error } = useSelector((state) => state.tasks);

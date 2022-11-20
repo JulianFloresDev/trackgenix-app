@@ -1,6 +1,6 @@
-import styles from './table.module.css';
 import { useDispatch } from 'react-redux';
-import { editItem } from '../../../redux/global/actions';
+import { editItem } from 'redux/global/actions';
+import styles from './table.module.css';
 
 const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
   const dispatch = useDispatch();

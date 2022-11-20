@@ -1,9 +1,9 @@
-import styles from './projects.module.css';
 import { useEffect } from 'react';
-import Table from '../Share/Table';
-import Spinner from '../Share/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProjects } from '../../redux/projects/thunks';
+import { getProjects } from 'redux/projects/thunks';
+import styles from './projects.module.css';
+import Table from 'Components/Share/Table';
+import Spinner from 'Components/Share/Spinner';
 
 function Projects() {
   const dispatch = useDispatch();

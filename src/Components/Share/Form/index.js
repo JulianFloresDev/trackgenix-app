@@ -1,25 +1,21 @@
-import styles from './form.module.css';
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getSuperAdmins,
-  editSuperAdmin,
-  createSuperAdmin
-} from '../../../redux/super-admins/thunks';
-import { getAdmins, editAdmin, createAdmin } from '../../../redux/admins/thunks';
-import { getEmployees, editEmployee, createEmployee } from '../../../redux/employees/thunks';
-import { getProjects, editProject, createProject } from '../../../redux/projects/thunks';
-import { getTimesheets, editTimesheets, createTimesheets } from '../../../redux/time-sheets/thunks';
-import { getTasks, editTask, createTask } from '../../../redux/tasks/thunks';
-import { editItem, setShowModal, setModalContent } from '../../../redux/global/actions';
-import Modal from '../Modal';
-import modalStyles from '../Modal/modal.module.css';
-import Spinner from '../Spinner';
-import { InputForm } from '../InputForm';
-import { SelectForm } from '../SelectForm';
-import TeamMembersTable from 'Components/Share/TeamMembersTable';
 import { useForm } from 'react-hook-form';
+import styles from './form.module.css';
+import TeamMembersTable from 'Components/Share/TeamMembersTable';
+import Spinner from 'Components/Share/Spinner';
+import Modal from 'Components/Share/Modal';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
+import { getSuperAdmins, editSuperAdmin, createSuperAdmin } from 'redux/super-admins/thunks';
+import { getAdmins, editAdmin, createAdmin } from 'redux/admins/thunks';
+import { getEmployees, editEmployee, createEmployee } from 'redux/employees/thunks';
+import { getProjects, editProject, createProject } from 'redux/projects/thunks';
+import { getTimesheets, editTimesheets, createTimesheets } from 'redux/time-sheets/thunks';
+import { getTasks, editTask, createTask } from 'redux/tasks/thunks';
+import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
+import { InputForm } from 'Components/Share/InputForm';
+import { SelectForm } from 'Components/Share/SelectForm';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -341,7 +337,6 @@ const CreateForm = () => {
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
-                        {...register('teamMembers')}
                       />
                     );
                   case 'project':

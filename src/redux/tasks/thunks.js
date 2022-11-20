@@ -12,8 +12,8 @@ import {
   setModalContent,
   fetchDataOn,
   fetchDataOff
-} from '../global/actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+} from 'redux/global/actions';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getTasks = (id) => {
   return async (dispatch) => {

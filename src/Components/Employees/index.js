@@ -1,9 +1,9 @@
-import styles from './employees.module.css';
-import Table from '../Share/Table';
-import Spinner from '../Share/Spinner';
-import { useSelector, useDispatch } from 'react-redux';
-import { getEmployees } from '../../redux/employees/thunks';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getEmployees } from 'redux/employees/thunks';
+import styles from './employees.module.css';
+import Table from 'Components/Share/Table';
+import Spinner from 'Components/Share/Spinner';
 
 function Employees() {
   const { list, isFetching, error } = useSelector((state) => state.employees);

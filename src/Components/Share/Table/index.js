@@ -1,15 +1,15 @@
-import styles from './table.module.css';
-import modalStyles from '../Modal/modal.module.css';
 import { useHistory } from 'react-router-dom';
-import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { editItem, setModalContent, setShowModal } from '../../../redux/global/actions';
-import { deleteTasks } from '../../../redux/tasks/thunks';
-import { deleteEmployees } from '../../../redux/employees/thunks';
-import { deleteAdminByID } from '../../../redux/admins/thunks';
-import { deleteTimesheets } from '../../../redux/time-sheets/thunks';
-import { deleteProject } from '../../../redux/projects/thunks';
-import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
+import styles from './table.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
+import Modal from 'Components/Share/Modal';
+import { editItem, setModalContent, setShowModal } from 'redux/global/actions';
+import { deleteTasks } from 'redux/tasks/thunks';
+import { deleteEmployees } from 'redux/employees/thunks';
+import { deleteAdminByID } from 'redux/admins/thunks';
+import { deleteTimesheets } from 'redux/time-sheets/thunks';
+import { deleteProject } from 'redux/projects/thunks';
+import { deleteSuperAdmins } from 'redux/super-admins/thunks';
 
 const Table = ({ headers, data }) => {
   const history = useHistory();

@@ -1,12 +1,6 @@
 import styles from './selectForm.module.css';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { editItem } from '../../../redux/global/actions';
-// import { useSelector } from 'react-redux';
 
 export const SelectForm = ({ register, element, label, selectOptions, error }) => {
-  // const dispatch = useDispatch();
-  // const { itemToPUT } = useSelector((state) => state.global);
-
   return (
     <div className={styles.flexContainer}>
       {label && (
@@ -14,17 +8,7 @@ export const SelectForm = ({ register, element, label, selectOptions, error }) =
           {label}
         </label>
       )}
-      <select
-        {...register(element)}
-        className={styles.flexSelect}
-        id={element}
-        name={element}
-        // value={itemToPUT[element] ? itemToPUT[element]._id : 0}
-        // onChange={(e) => {
-        //   itemToPUT[element] = e.target.value;
-        //   dispatch(editItem({ ...itemToPUT }));
-        // }}
-      >
+      <select {...register(element)} className={styles.flexSelect} id={element} name={element}>
         <option hidden>{`Select ${element}`}</option>
         {selectOptions.map((option, index) => {
           return (

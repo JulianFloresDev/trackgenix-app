@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdmins } from '../../redux/admins/thunks';
-import Table from '../Share/Table';
-import Spinner from '../Share/Spinner';
+import { getAdmins } from 'redux/admins/thunks';
+import Table from 'Components/Share/Table';
+import Spinner from 'Components/Share/Spinner';
 
 function Admins() {
   const dispatch = useDispatch();

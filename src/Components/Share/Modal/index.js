@@ -1,6 +1,6 @@
-import styles from './modal.module.css';
-import { setShowModal } from '../../../redux/global/actions';
 import { useDispatch } from 'react-redux';
+import { setShowModal } from 'redux/global/actions';
+import styles from './modal.module.css';
 
 const Modal = ({ children, showModal }) => {
   const dispatch = useDispatch();

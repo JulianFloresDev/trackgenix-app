@@ -13,7 +13,7 @@ import {
   deleteAdminsSuccess,
   deleteAdminsError
 } from './actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getAdmins = (id) => {
   return async (dispatch) => {
