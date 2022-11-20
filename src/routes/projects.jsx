@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Projects from 'Components/Projects';
 import Form from 'Components/Share/Form';
-import CreateForm from 'Components/Share/CreateForm';
 
 const ProjectsRoutes = () => {
   return (
@@ -9,7 +8,6 @@ const ProjectsRoutes = () => {
       <Switch>
         <Route exact path="/projects" component={Projects} />
         <Route path="/projects/form/:id" render={() => <Form />} />
-        <Route path="/projects/new" render={() => <CreateForm />} />
       </Switch>
     </Router>
   );

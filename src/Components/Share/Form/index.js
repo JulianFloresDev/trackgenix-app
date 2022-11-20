@@ -2,26 +2,29 @@ import styles from './form.module.css';
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { editTask, getTasks } from '../../../redux/tasks/thunks';
-import { editEmployee, getEmployees } from '../../../redux/employees/thunks';
-import { getTimesheets, editTimesheets } from '../../../redux/time-sheets/thunks';
-import { editSuperAdmin, getSuperAdmins } from '../../../redux/super-admins/thunks';
-import { editProject, getProjects } from '../../../redux/projects/thunks';
-import { getAdmins, editAdmin } from '../../../redux/admins/thunks';
+import {
+  getSuperAdmins,
+  editSuperAdmin,
+  createSuperAdmin
+} from '../../../redux/super-admins/thunks';
+import { getAdmins, editAdmin, createAdmin } from '../../../redux/admins/thunks';
+import { getEmployees, editEmployee, createEmployee } from '../../../redux/employees/thunks';
+import { getProjects, editProject, createProject } from '../../../redux/projects/thunks';
+import { getTimesheets, editTimesheets, createTimesheets } from '../../../redux/time-sheets/thunks';
+import { getTasks, editTask, createTask } from '../../../redux/tasks/thunks';
 import { editItem, setShowModal, setModalContent } from '../../../redux/global/actions';
 import Modal from '../Modal';
 import modalStyles from '../Modal/modal.module.css';
 import Spinner from '../Spinner';
+import { InputForm } from '../InputForm';
+import { SelectForm } from '../SelectForm';
+import TeamMembersTable from 'Components/Share/TeamMembersTable';
 
-const Form = () => {
+const CreateForm = () => {
   const dispatch = useDispatch();
-  const { showModal, modalContent, itemToPUT, isFetchingData } = useSelector(
+  const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
     (state) => state.global
   );
-  const { list: taskList } = useSelector((state) => state.tasks);
-  const { list: employeeList } = useSelector((state) => state.employees);
-  const { list: projectList } = useSelector((state) => state.projects);
-  const newTeamMember = { employee: '', role: '', rate: '' };
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
@@ -37,68 +40,121 @@ const Form = () => {
       return { ...member, employee: member.employee?._id || member.employee };
     })
   };
+  const { list: tasksList } = useSelector((store) => store.tasks);
+  const { list: employeeList } = useSelector((state) => state.employees);
+  const { list: projectList } = useSelector((state) => state.projects);
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
-  const id = useParams().id;
   const entitie = URLPath[1];
+  const id = useParams().id;
+  const usersStructure = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    dni: '',
+    phone: '',
+    location: ''
+  };
 
   useEffect(async () => {
-    try {
-      switch (entitie) {
-        case 'employees':
-          dispatch(getEmployees(id));
-          break;
-        case 'admins':
-          dispatch(getAdmins(id));
-          break;
-        case 'super-admins':
-          dispatch(getSuperAdmins(id));
-          break;
-        case 'tasks':
-          dispatch(getTasks(id));
-          break;
-        case 'projects':
-          dispatch(getProjects(id));
-          break;
-        case 'time-sheets':
-          dispatch(getTimesheets(id));
-          break;
-        default:
-          history.push(`/`);
-          break;
-      }
-      dispatch(getEmployees(''));
-      dispatch(getProjects(''));
-      dispatch(getTasks(''));
-    } catch (err) {
-      console.error(err);
-    }
-  }, []);
-
-  const editRow = () => {
     switch (entitie) {
-      case 'employees':
-        dispatch(editEmployee(id, body));
-        break;
       case 'admins':
-        dispatch(editAdmin(id, body));
-        break;
-      case 'projects':
-        dispatch(editProject(id, body));
+        dispatch(id !== '0' ? getAdmins(id) : editItem(usersStructure));
         break;
       case 'super-admins':
-        dispatch(editSuperAdmin(id, body));
+        dispatch(id !== '0' ? getSuperAdmins(id) : editItem(usersStructure));
         break;
-      case 'tasks':
-        dispatch(editTask(id, body));
+      case 'employees':
+        dispatch(id !== '0' ? getEmployees(id) : editItem(usersStructure));
+        break;
+      case 'projects':
+        dispatch(
+          id !== '0'
+            ? getProjects(id)
+            : editItem({
+                name: '',
+                description: '',
+                startDate: '',
+                endDate: '',
+                active: '',
+                clientName: '',
+                teamMembers: [{ employee: '', role: '', rate: '' }]
+              })
+        );
         break;
       case 'time-sheets':
-        dispatch(editTimesheets(id, body));
+        dispatch(
+          id !== '0'
+            ? getTimesheets(id)
+            : editItem({
+                description: '',
+                date: '',
+                task: '',
+                project: '',
+                employee: '',
+                hours: ''
+              })
+        );
+        break;
+      case 'tasks':
+        dispatch(id !== '0' ? getTasks(id) : editItem({ description: '' }));
+    }
+    dispatch(getEmployees(''));
+    dispatch(getProjects(''));
+    dispatch(getTasks(''));
+  }, []);
+
+  const modifyRow = async () => {
+    switch (entitie) {
+      case 'employees':
+        dispatch(id === '0' ? createEmployee(itemToPUT) : editEmployee(id, body));
+        break;
+      case 'admins':
+        dispatch(id === '0' ? createAdmin(itemToPUT) : editAdmin(id, body));
+        break;
+      case 'super-admins':
+        dispatch(id === '0' ? createSuperAdmin(itemToPUT) : editSuperAdmin(id, body));
+        break;
+      case 'projects':
+        dispatch(id === '0' ? createProject(itemToPUT) : editProject(id, body));
+        break;
+      case 'tasks':
+        dispatch(id === '0' ? createTask(itemToPUT) : editTask(id, body));
+        break;
+      case 'time-sheets':
+        dispatch(id === '0' ? createTimesheets(itemToPUT) : editTimesheets(id, body));
         break;
       default:
+        history.push('/');
         break;
     }
   };
+
+  // const editRow = () => {
+  //   switch (entitie) {
+  //     case 'employees':
+  //       dispatch(editEmployee(id, body));
+  //       break;
+  //     case 'admins':
+  //       dispatch(editAdmin(id, body));
+  //       break;
+  //     case 'projects':
+  //       dispatch(editProject(id, body));
+  //       break;
+  //     case 'super-admins':
+  //       dispatch(editSuperAdmin(id, body));
+  //       break;
+  //     case 'tasks':
+  //       dispatch(editTask(id, body));
+  //       break;
+  //     case 'time-sheets':
+  //       dispatch(editTimesheets(id, body));
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   const goBack = () => {
     dispatch(setShowModal(false));
@@ -115,7 +171,7 @@ const Form = () => {
   return (
     <>
       {isFetchingData ? (
-        <Spinner entitie="Admins" />
+        <Spinner entitie={entitie} />
       ) : (
         <>
           <Modal showModal={showModal}>
@@ -133,220 +189,72 @@ const Form = () => {
             </div>
           </Modal>
           <section className={styles.formSection}>
-            <h2>Edit {entitie.slice(0, -1)}</h2>
+            <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
             <form>
-              {Object.keys(itemToPUT)?.map((prop, index) => {
-                if (prop === 'employee') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
-                      >
-                        {employeeList.map((employee) => {
-                          return (
-                            <option
-                              value={employee?._id}
-                              key={employee?._id}
-                            >{`${employee?.firstName} ${employee?.lastName}`}</option>
-                          );
-                        })}
-                        <option value={0}>Select Employee</option>
-                      </select>
-                    </div>
-                  );
+              {Object.keys(itemToPUT).map((prop /*, index*/) => {
+                switch (prop) {
+                  case 'name':
+                    return <InputForm element={prop} label={'Project Name'} inputType={'text'} />;
+                  case 'clientName':
+                    return <InputForm element={prop} label={'Client Name'} inputType={'text'} />;
+                  case 'firstName':
+                    return <InputForm element={prop} label={'First Name'} inputType={'text'} />;
+                  case 'lastName':
+                    return <InputForm element={prop} label={'Last Name'} inputType={'text'} />;
+                  case 'email':
+                    return <InputForm element={prop} label={'Email'} inputType={'email'} />;
+                  case 'location':
+                    return <InputForm element={prop} label={'Address'} inputType={'text'} />;
+                  case 'description':
+                    return <InputForm element={prop} label={'Description'} inputType={'text'} />;
+                  case 'password':
+                    return <InputForm element={prop} label={'Password'} inputType={'password'} />;
+                  case 'dni':
+                    return <InputForm element={prop} label={'D.N.I.'} inputType={'number'} />;
+                  case 'hours':
+                    return <InputForm element={prop} label={'Hours'} inputType={'number'} />;
+                  case 'phone':
+                    return <InputForm element={prop} label={'Phone'} inputType={'phone'} />;
+                  case 'date':
+                    return <InputForm element={prop} label={'Date'} inputType={'date'} />;
+                  case 'startDate':
+                    return <InputForm element={prop} label={'Start Date'} inputType={'date'} />;
+                  case 'endDate':
+                    return <InputForm element={prop} label={'End Date'} inputType={'date'} />;
+                  case 'active':
+                    return (
+                      <InputForm element={prop} label={'Project State'} inputType={'checkbox'} />
+                    );
+                  case 'teamMembers':
+                    return (
+                      <TeamMembersTable
+                        element={prop}
+                        label={'Team Members'}
+                        itemToPUT={itemToPUT}
+                        employeeList={employeeList}
+                      />
+                    );
+                  case 'project':
+                    return (
+                      <SelectForm element={prop} label={'Projects'} selectOptions={projectList} />
+                    );
+                  case 'task':
+                    return <SelectForm element={prop} label={'Tasks'} selectOptions={tasksList} />;
+                  case 'employee':
+                    return (
+                      <SelectForm element={prop} label={'Employees'} selectOptions={employeeList} />
+                    );
+                  default:
+                    return null;
                 }
-                if (prop === 'project') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
-                      >
-                        {projectList.map((project) => {
-                          return (
-                            <option value={project?._id} key={project?._id}>
-                              {project?.name}
-                            </option>
-                          );
-                        })}
-                        <option value={0}>Select Project</option>
-                      </select>
-                    </div>
-                  );
-                }
-                if (prop === 'task') {
-                  return (
-                    <div key={index}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <select
-                        name={prop}
-                        onChange={(e) => {
-                          itemToPUT[prop] = e.target.value;
-                          dispatch(editItem({ ...itemToPUT }));
-                        }}
-                        value={itemToPUT[prop] ? itemToPUT[prop]._id : 0}
-                      >
-                        {taskList.map((task) => {
-                          return (
-                            <option value={task?._id} key={task?._id}>
-                              {task?.description}
-                            </option>
-                          );
-                        })}
-                        <option value={0}>Select Task</option>
-                      </select>
-                    </div>
-                  );
-                }
-                if (prop === 'teamMembers') {
-                  return (
-                    <div key={index} className={styles.teamMembers}>
-                      <label htmlFor={prop}>{prop}</label>
-                      <table>
-                        <thead>
-                          <tr>
-                            {itemToPUT[prop][0] &&
-                              Object.keys(itemToPUT[prop][0])?.map((key, index) => {
-                                return <th key={index}>{key}</th>;
-                              })}
-                            <th>
-                              <img
-                                src={`${process.env.PUBLIC_URL}/assets/images/addMember.svg`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  itemToPUT.teamMembers = [newTeamMember, ...itemToPUT.teamMembers];
-                                  dispatch(editItem({ ...itemToPUT }));
-                                }}
-                              />
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {itemToPUT[prop]?.map((item, index) => {
-                            return (
-                              <tr key={index}>
-                                {Object.keys(item)?.map((info) => {
-                                  if (info === 'role') {
-                                    return (
-                                      <td key={index}>
-                                        <select
-                                          value={item.employee ? item[info] : '-'}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        >
-                                          <option>-</option>
-                                          <option>DEV</option>
-                                          <option>QA</option>
-                                          <option>PM</option>
-                                          <option>TL</option>
-                                        </select>
-                                      </td>
-                                    );
-                                  }
-                                  if (info === 'rate') {
-                                    return (
-                                      <td key={index}>
-                                        <input
-                                          type="number"
-                                          value={item.employee ? item[info] : 0}
-                                          min={0}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        />
-                                      </td>
-                                    );
-                                  }
-                                  if (info === 'employee') {
-                                    return (
-                                      <td key={index}>
-                                        <select
-                                          value={item[info] ? item[info]._id : 0}
-                                          onChange={(e) => {
-                                            item[info] = e.target.value;
-                                            dispatch(editItem({ ...itemToPUT }));
-                                          }}
-                                        >
-                                          {employeeList?.map((employee) => {
-                                            return (
-                                              <option key={employee._id} value={employee?._id}>
-                                                {employee.firstName} {employee.lastName}
-                                              </option>
-                                            );
-                                          })}
-                                          <option value={0}>Select Employee</option>
-                                        </select>
-                                      </td>
-                                    );
-                                  }
-                                })}
-                                <td>
-                                  {itemToPUT[prop].length > 1 && (
-                                    <img
-                                      src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        itemToPUT[prop].splice(index, 1);
-                                        dispatch(editItem({ ...itemToPUT }));
-                                      }}
-                                    />
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                }
-                let inputType = 'text';
-                if (prop.match('date') || prop.match('endDate') || prop.match('startDate')) {
-                  inputType = 'date';
-                  itemToPUT[prop] = itemToPUT[prop].substring(0, 10);
-                }
-                prop.includes('hours') && (inputType = 'number');
-                prop.includes('active') && (inputType = 'checkbox');
-                prop.includes('password') && (inputType = 'password');
-                return (
-                  <div key={index}>
-                    <label htmlFor={prop} id={styles[`label-${prop}`]}>
-                      {prop}
-                    </label>
-                    <input
-                      id={prop}
-                      type={inputType}
-                      value={itemToPUT[prop]}
-                      checked={itemToPUT[prop]}
-                      onChange={(e) => {
-                        e.target.type === 'checkbox'
-                          ? (itemToPUT[prop] = e.target.checked)
-                          : (itemToPUT[prop] = e.target.value);
-                        dispatch(editItem({ ...itemToPUT }));
-                      }}
-                    />
-                  </div>
-                );
               })}
               <div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    editRow();
+                    {
+                      modifyRow();
+                    }
                   }}
                 >
                   Submit
@@ -368,4 +276,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default CreateForm;
