@@ -4,7 +4,6 @@ import { getAdmins } from 'redux/admins/thunks';
 import { Table, Spinner } from 'Components/Share';
 
 function Admins() {
-  console.log(Table);
   const dispatch = useDispatch();
   const { list, isFetching, error } = useSelector((store) => store.admins);
 

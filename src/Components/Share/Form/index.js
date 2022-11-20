@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
+// import { schema } from './schema';
+import Joi from 'joi';
 import styles from './form.module.css';
 import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
@@ -22,17 +25,17 @@ const CreateForm = () => {
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
   delete itemToPUT['updatedAt'];
-  const defeaultValue = {
-    ...itemToPUT,
-    dni: itemToPUT.dni?.toString(),
-    phone: itemToPUT.phone?.toString(),
-    employee: itemToPUT.employee?._id || itemToPUT.employee,
-    task: itemToPUT.task?._id || itemToPUT.task,
-    project: itemToPUT.project?._id || itemToPUT.project,
-    teamMembers: itemToPUT.teamMembers?.map((member) => {
-      return { ...member, employee: member.employee?._id || member.employee };
-    })
-  };
+  // const defeaultValue = { //Ya no se usa explicacion en linea 83  BORRAR LINEAS COMENTADAS DSPS DE LEER
+  //   ...itemToPUT,
+  //   dni: itemToPUT.dni?.toString(),
+  //   phone: itemToPUT.phone?.toString(),
+  //   employee: itemToPUT.employee?._id || itemToPUT.employee,
+  //   task: itemToPUT.task?._id || itemToPUT.task,
+  //   project: itemToPUT.project?._id || itemToPUT.project,
+  //   teamMembers: itemToPUT.teamMembers?.map((member) => {
+  //     return { ...member, employee: member.employee?._id || member.employee };
+  //   })
+  // };
   const { list: tasksList } = useSelector((store) => store.tasks);
   const { list: employeeList } = useSelector((state) => state.employees);
   const { list: projectList } = useSelector((state) => state.projects);
@@ -49,6 +52,39 @@ const CreateForm = () => {
     phone: '',
     location: ''
   };
+
+  //Este esquema de validaciones está duplicado y más completo en el archivo 'schema.js' de la misma carpeta que este archivo, pero no funciona el import, tira error.
+  const schema = Joi.object({
+    firstName: Joi.string()
+      .required()
+      .min(3)
+      .max(30)
+      .regex(/^[\w\s]+$/)
+      .messages({
+        'string.empty': 'First name required',
+        'string.pattern.base': 'First name should be letters and spaces only',
+        'string.min': 'First name should have betwen 2 and 30 characters only',
+        'string.max': 'First name should have betwen 2 and 30 characters only',
+        'any.required': 'First name required'
+      }),
+    lastName: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string(),
+    dni: Joi.string(),
+    phone: Joi.string(),
+    location: Joi.string()
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset
+  } = useForm({
+    node: 'onChange',
+    // defaultValues: defeaultValue, //Se reemplaza por la función reset que se llama en la linea 130 para setear la data de la variable global itemToPUT
+    resolver: joiResolver(schema)
+  });
 
   useEffect(async () => {
     switch (entitie) {
@@ -93,12 +129,11 @@ const CreateForm = () => {
       case 'tasks':
         dispatch(id !== '0' ? getTasks(id) : editItem({ description: '' }));
     }
+    reset(itemToPUT);
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
   }, []);
-
-  const { handleSubmit, register } = useForm({ defaultValues: defeaultValue, node: 'onChange' });
 
   const modifyRow = async (data) => {
     const body = {
@@ -182,6 +217,7 @@ const CreateForm = () => {
                         label={'Project Name'}
                         inputType={'text'}
                         register={register}
+                        error={errors.name?.message}
                       />
                     );
                   case 'clientName':
@@ -192,6 +228,7 @@ const CreateForm = () => {
                         label={'Client Name'}
                         inputType={'text'}
                         register={register}
+                        error={errors.clientName?.message}
                       />
                     );
                   case 'firstName':
@@ -202,6 +239,7 @@ const CreateForm = () => {
                         label={'First Name'}
                         inputType={'text'}
                         register={register}
+                        error={errors.firstName?.message}
                       />
                     );
                   case 'lastName':
@@ -212,6 +250,7 @@ const CreateForm = () => {
                         label={'Last Name'}
                         inputType={'text'}
                         register={register}
+                        error={errors.lastName?.message}
                       />
                     );
                   case 'email':
@@ -222,6 +261,7 @@ const CreateForm = () => {
                         label={'Email'}
                         inputType={'email'}
                         register={register}
+                        error={errors.email?.message}
                       />
                     );
                   case 'location':
@@ -232,6 +272,7 @@ const CreateForm = () => {
                         label={'Address'}
                         inputType={'text'}
                         register={register}
+                        error={errors.location?.message}
                       />
                     );
                   case 'description':
@@ -242,6 +283,7 @@ const CreateForm = () => {
                         label={'Description'}
                         inputType={'text'}
                         register={register}
+                        error={errors.description?.message}
                       />
                     );
                   case 'password':
@@ -252,6 +294,7 @@ const CreateForm = () => {
                         label={'Password'}
                         inputType={'password'}
                         register={register}
+                        error={errors.password?.message}
                       />
                     );
                   case 'dni':
@@ -262,6 +305,7 @@ const CreateForm = () => {
                         label={'D.N.I.'}
                         inputType={'number'}
                         register={register}
+                        error={errors.dni?.message}
                       />
                     );
                   case 'hours':
@@ -272,6 +316,7 @@ const CreateForm = () => {
                         label={'Hours'}
                         inputType={'number'}
                         register={register}
+                        error={errors.hours?.message}
                       />
                     );
                   case 'phone':
@@ -282,6 +327,7 @@ const CreateForm = () => {
                         label={'Phone'}
                         inputType={'phone'}
                         register={register}
+                        error={errors.phone?.message}
                       />
                     );
                   case 'date':
@@ -292,6 +338,7 @@ const CreateForm = () => {
                         label={'Date'}
                         inputType={'date'}
                         register={register}
+                        error={errors.date?.message}
                       />
                     );
                   case 'startDate':
@@ -302,6 +349,7 @@ const CreateForm = () => {
                         label={'Start Date'}
                         inputType={'date'}
                         register={register}
+                        error={errors.startDate?.message}
                       />
                     );
                   case 'endDate':
@@ -312,6 +360,7 @@ const CreateForm = () => {
                         label={'End Date'}
                         inputType={'date'}
                         register={register}
+                        error={errors.endDate?.message}
                       />
                     );
                   case 'active':
@@ -322,6 +371,7 @@ const CreateForm = () => {
                         label={'Project State'}
                         inputType={'checkbox'}
                         register={register}
+                        error={errors.active?.message}
                       />
                     );
                   case 'teamMembers':
@@ -332,6 +382,10 @@ const CreateForm = () => {
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
+                        //A este input hay que agregarle validaciones
+                        //pero primero hay que solucionar el envío de datos desde la tabla para que
+                        //efectivamente se envien... con el {...resolver('teamMembers')}
+                        //que no se donde ponerlo en el componente porque eso ^ se pone en un input o select...
                       />
                     );
                   case 'project':
@@ -342,6 +396,7 @@ const CreateForm = () => {
                         label={'Projects'}
                         selectOptions={projectList}
                         register={register}
+                        error={errors.project?.message}
                       />
                     );
                   case 'task':
@@ -352,6 +407,7 @@ const CreateForm = () => {
                         label={'Tasks'}
                         selectOptions={tasksList}
                         register={register}
+                        error={errors.task?.message}
                       />
                     );
                   case 'employee':
@@ -362,6 +418,7 @@ const CreateForm = () => {
                         label={'Employees'}
                         selectOptions={employeeList}
                         register={register}
+                        error={errors.employee?.message}
                       />
                     );
                   default:
