@@ -3,8 +3,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-// import { schema } from './schema';
-import Joi from 'joi';
+import { schema } from './schema';
+// import Joi from 'joi';
 import styles from './form.module.css';
 import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
@@ -42,27 +42,6 @@ const CreateForm = () => {
     location: ''
   };
 
-  const schema = Joi.object({
-    firstName: Joi.string()
-      .required()
-      .min(3)
-      .max(30)
-      .regex(/^[\w\s]+$/)
-      .messages({
-        'string.pattern.base': 'First name should be letters and spaces only',
-        'string.min': 'First name should have betwen 2 and 30 characters only',
-        'string.max': 'First name should have betwen 2 and 30 characters only',
-        'any.required': 'First name required',
-        'string.empty': 'First name required'
-      }),
-    lastName: Joi.string(),
-    email: Joi.string(),
-    password: Joi.string(),
-    dni: Joi.string(),
-    phone: Joi.string(),
-    location: Joi.string()
-  });
-
   const {
     handleSubmit,
     register,
@@ -72,9 +51,7 @@ const CreateForm = () => {
     node: 'onChange',
     resolver: joiResolver(schema)
   });
-
   console.log(errors);
-
   useEffect(async () => {
     switch (entitie) {
       case 'admins':
@@ -159,7 +136,7 @@ const CreateForm = () => {
         history.push('/');
         break;
     }
-    reset();
+    !id && reset();
   };
 
   const goBack = () => {
