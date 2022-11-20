@@ -82,7 +82,8 @@ const CreateForm = () => {
     reset
   } = useForm({
     node: 'onChange',
-    // defaultValues: defeaultValue, //Se reemplaza por la función reset que se llama en la linea 130 para setear la data de la variable global itemToPUT
+    // defaultValues: defeaultValue,
+    //Se reemplaza por la función reset que se llama en la linea 130 para setear la data de la variable global itemToPUT
     resolver: joiResolver(schema)
   });
 
@@ -170,6 +171,7 @@ const CreateForm = () => {
         history.push('/');
         break;
     }
+    reset();
   };
 
   const goBack = () => {
@@ -427,6 +429,9 @@ const CreateForm = () => {
               })}
               <div>
                 <button type="submit">Submit</button>
+                <button type="button" onClick={() => reset()}>
+                  Reset Form
+                </button>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
