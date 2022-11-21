@@ -188,8 +188,7 @@ const Table = ({ headers, data }) => {
                         }
                         return (
                           <td key={index + 500} className={styles.optionInvalid}>
-                            {row[property].description && row[property].description}
-                            {row[property].name && row[property].name}
+                            {row[property].name ? row[property].name : row[property].description}
                             {row[property].firstName && row[property].firstName}{' '}
                             {row[property].lastName}
                           </td>
@@ -202,9 +201,7 @@ const Table = ({ headers, data }) => {
                             className={styles.editBtn}
                             onClick={() => {
                               dispatch(editItem(row));
-                              entitie
-                                ? history.push(`/${entitie}/form/${row._id}`)
-                                : history.push(`/time-sheets/form/${row._id}`);
+                              history.push(`/${entitie}/form/${row._id}`);
                             }}
                           />
                           <img
@@ -228,7 +225,7 @@ const Table = ({ headers, data }) => {
               src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
               onClick={() => {
                 dispatch(editItem({}));
-                entitie ? history.push(`/${entitie}/form/0`) : history.push(`/time-sheets/form/0`);
+                history.push(`/${entitie}/form/0`);
               }}
             />
           </div>
