@@ -16,7 +16,7 @@ const Table = ({ headers, data }) => {
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
   const { showModal, modalContent } = useSelector((state) => state.global);
-  const newData = [...data];
+  const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openModal = (id) => {
     dispatch(setShowModal(true));
@@ -135,17 +135,17 @@ const Table = ({ headers, data }) => {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  {headers.map((header, index) => {
+                  {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {newData.reverse().map((row, index) => {
+                {newData?.reverse()?.map((row, index) => {
                   return (
                     <tr key={index}>
-                      {headers.map((property, index) => {
+                      {headers?.map((property, index) => {
                         if (typeof row[property] === 'boolean') {
                           if (row[property]) {
                             return <td key={index + 500}>Active</td>;
