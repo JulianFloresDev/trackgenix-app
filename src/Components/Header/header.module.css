@@ -15,7 +15,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
+  cursor: pointer;
 }
 
 .logoRR > img:first-child {

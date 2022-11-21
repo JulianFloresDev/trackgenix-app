@@ -1,10 +1,12 @@
 import styles from './header.module.css';
+import { useHistory } from 'react-router-dom';
 
 function Header() {
+  const history = useHistory();
   return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
-        <div className={styles.logoRR}>
+        <div className={styles.logoRR} onClick={() => history.push('/')}>
           <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
           <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
         </div>
