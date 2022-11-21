@@ -18,7 +18,7 @@ import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
-  const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
+  const { isFetchingData, showModal, modalContent, itemToPUT, user } = useSelector(
     (state) => state.global
   );
   delete itemToPUT['_id'];
@@ -157,8 +157,12 @@ const CreateForm = () => {
         dispatch(id === '0' ? createTask(data) : editTask(id, body));
         break;
       case 'time-sheets':
-      case 'home':
         dispatch(id === '0' ? createTimesheets(data) : editTimesheets(id, body));
+        break;
+      case 'home':
+        dispatch(
+          id === '0' ? createTimesheets({ ...data, employee: user._id }) : editTimesheets(id, body)
+        );
         break;
       default:
         history.push('/');
