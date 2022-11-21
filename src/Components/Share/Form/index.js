@@ -51,7 +51,8 @@ const Form = () => {
     node: 'onChange',
     resolver: joiResolver(schema)
   });
-  useEffect(async () => {
+  useEffect(() => {
+    console.log(itemToPUT);
     switch (entitie) {
       case 'admins':
         dispatch(id !== '0' ? getAdmins(id) : editItem(usersStructure));
@@ -98,7 +99,7 @@ const Form = () => {
             : editItem({
                 date: '',
                 description: '',
-                employee: itemToPUT.employee?._id || itemToPUT.employee,
+                employee: '',
                 project: '',
                 task: '',
                 hours: ''
@@ -122,8 +123,11 @@ const Form = () => {
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
+    setTimeout(() => {
+      reset();
+      console.log(itemToPUT);
+    }, 200);
   }, []);
-
   const modifyRow = (data) => {
     const body = {
       ...data,
@@ -402,16 +406,20 @@ const Form = () => {
                       />
                     );
                   case 'employee':
-                    return (
-                      <SelectForm
-                        key={index}
-                        element={prop}
-                        label={'Employees'}
-                        selectOptions={employeeList}
-                        register={register}
-                        error={errors.employee?.message}
-                      />
-                    );
+                    if (entitie === 'home') {
+                      return null;
+                    } else {
+                      return (
+                        <SelectForm
+                          key={index}
+                          element={prop}
+                          label={'Employees'}
+                          selectOptions={employeeList}
+                          register={register}
+                          error={errors.employee?.message}
+                        />
+                      );
+                    }
                   default:
                     return null;
                 }

@@ -15,15 +15,17 @@ function Home() {
     dispatch(getUser('636b0b63350845234e4661c3'));
   }, []);
   return (
-    <section className={styles.container}>
+    <>
       <h2>
         Employee {user.firstName} {user.lastName}
       </h2>
-      <Table
-        headers={['description', 'project', 'task', 'hours', 'date']}
-        data={timeSheetsList.filter((timeSheet) => timeSheet.employee?._id === user._id)}
-      />
-    </section>
+      <section className={styles.container}>
+        <Table
+          headers={['description', 'project', 'task', 'hours', 'date']}
+          data={timeSheetsList.filter((timeSheet) => timeSheet.employee?._id === user._id)}
+        />
+      </section>
+    </>
   );
 }
 
