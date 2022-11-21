@@ -51,7 +51,8 @@ const CreateForm = () => {
     node: 'onChange',
     resolver: joiResolver(schema)
   });
-  console.log(errors);
+  console.log('erorrs: ', errors);
+  console.log('itemToPUT: ', itemToPUT);
   useEffect(async () => {
     switch (entitie) {
       case 'admins':
@@ -351,7 +352,7 @@ const CreateForm = () => {
                         employeeList={employeeList}
                         //A este input hay que agregarle validaciones
                         //pero primero hay que solucionar el envío de datos desde la tabla para que
-                        //efectivamente se envien... con el {...resolver('teamMembers')}
+                        //efectivamente se envien... con el {...register('teamMembers')}
                         //que no se donde ponerlo en el componente porque eso ^ se pone en un input o select...
                       />
                     );

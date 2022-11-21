@@ -20,7 +20,7 @@ function TimeSheets() {
         </div>
       ) : (
         <Table
-          headers={['description', 'date', 'task', 'project', 'employee', 'hours']}
+          headers={['employee', 'projects', 'description', 'task', 'date', 'hours']}
           data={list}
         />
       )}
