@@ -14,8 +14,6 @@ function Home() {
     dispatch(getTimesheets(''));
     dispatch(getEmployees('636b0b63350845234e4661c3'));
   }, []);
-  console.log(timeSheetsList);
-  console.log(itemToPUT);
   return (
     <section className={styles.container}>
       <h2>

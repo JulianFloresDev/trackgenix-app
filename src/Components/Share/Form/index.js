@@ -6,8 +6,8 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { schema } from './schema';
 // import Joi from 'joi';
 import styles from './form.module.css';
-import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
+import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
 import { getSuperAdmins, editSuperAdmin, createSuperAdmin } from 'redux/super-admins/thunks';
 import { getAdmins, editAdmin, createAdmin } from 'redux/admins/thunks';
 import { getEmployees, editEmployee, createEmployee } from 'redux/employees/thunks';
@@ -16,7 +16,7 @@ import { getTimesheets, editTimesheets, createTimesheets } from 'redux/time-shee
 import { getTasks, editTask, createTask } from 'redux/tasks/thunks';
 import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
 
-const CreateForm = () => {
+const Form = () => {
   const dispatch = useDispatch();
   const { isFetchingData, showModal, modalContent, itemToPUT } = useSelector(
     (state) => state.global
@@ -51,9 +51,7 @@ const CreateForm = () => {
     node: 'onChange',
     resolver: joiResolver(schema)
   });
-  console.log('erorrs: ', errors);
-  console.log('itemToPUT: ', itemToPUT);
-  useEffect(async () => {
+  useEffect(() => {
     switch (entitie) {
       case 'admins':
         dispatch(id !== '0' ? getAdmins(id) : editItem(usersStructure));
@@ -415,4 +413,4 @@ const CreateForm = () => {
   );
 };
 
-export default CreateForm;
+export default Form;
