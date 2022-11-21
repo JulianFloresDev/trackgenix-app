@@ -202,7 +202,9 @@ const Table = ({ headers, data }) => {
                             className={styles.editBtn}
                             onClick={() => {
                               dispatch(editItem(row));
-                              history.push(`/${entitie}/form/${row._id}`);
+                              entitie
+                                ? history.push(`/${entitie}/form/${row._id}`)
+                                : history.push(`/time-sheets/form/${row._id}`);
                             }}
                           />
                           <img
@@ -226,7 +228,7 @@ const Table = ({ headers, data }) => {
               src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
               onClick={() => {
                 dispatch(editItem({}));
-                history.push(`/${entitie}/form/0`);
+                entitie ? history.push(`/${entitie}/form/0`) : history.push(`/time-sheets/form/0`);
               }}
             />
           </div>

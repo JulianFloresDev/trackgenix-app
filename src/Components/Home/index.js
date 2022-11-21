@@ -11,15 +11,19 @@ function Home() {
   const { list: timeSheetsList } = useSelector((state) => state.timeSheets);
   const { itemToPUT } = useSelector((state) => state.global);
   useEffect(() => {
-    dispatch(getEmployees('636c1e8ddabe537336ae082a'));
     dispatch(getTimesheets(''));
+    dispatch(getEmployees('636b0b63350845234e4661c3'));
   }, []);
+  console.log(timeSheetsList);
+  console.log(itemToPUT);
   return (
     <section className={styles.container}>
-      <h2>Employee Jorge Fix</h2>
+      <h2>
+        Employee {itemToPUT.firstName} {itemToPUT.lastName}
+      </h2>
       <Table
-        headers={['projects', 'tasks', 'hours', 'date']}
-        data={timeSheetsList.filter((timeSheet) => timeSheet.employee === itemToPUT._id)}
+        headers={['project', 'task', 'hours', 'date']}
+        data={timeSheetsList.filter((timeSheet) => timeSheet.employee._id === itemToPUT._id)}
       />
     </section>
   );
