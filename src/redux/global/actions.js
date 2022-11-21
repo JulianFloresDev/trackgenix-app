@@ -4,7 +4,9 @@ import {
   EDIT_ITEM,
   DISABLE_BTN,
   FETCH_DATA_OFF,
-  FETCH_DATA_ON
+  FETCH_DATA_ON,
+  SET_USER,
+  GET_USER_ERROR
 } from './constants';
 
 export const setShowModal = (payload) => {
@@ -44,5 +46,18 @@ export const fetchDataOn = () => {
 export const fetchDataOff = () => {
   return {
     type: FETCH_DATA_OFF
+  };
+};
+
+export const setUser = (payload) => {
+  return {
+    type: SET_USER,
+    payload
+  };
+};
+
+export const getUserError = () => {
+  return {
+    type: GET_USER_ERROR
   };
 };

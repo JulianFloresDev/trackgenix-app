@@ -23,7 +23,7 @@ function Layout() {
           </div>
           <div className={styles.bodyContainer}>
             <Switch>
-              <Route exact path={'/'} component={HomeRoutes} />
+              <Route exact path={'/home'} component={HomeRoutes} />
               <Route exact path={'/admins'} component={AdminsRoutes} />
               <Route exact path={'/employees'} component={EmployeesRoutes} />
               <Route exact path={'/projects'} component={ProjectsRoutes} />

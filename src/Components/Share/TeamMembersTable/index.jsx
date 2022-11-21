@@ -12,7 +12,7 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
         <thead>
           <tr>
             {element &&
-              Object.keys(element[0]).map((key, index) => {
+              Object.keys(itemToPUT[element][0]).map((key, index) => {
                 return <th key={index}>{key}</th>;
               })}
             <th>

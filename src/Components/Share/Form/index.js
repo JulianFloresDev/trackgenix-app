@@ -51,7 +51,7 @@ const Form = () => {
     node: 'onChange',
     resolver: joiResolver(schema)
   });
-  useEffect(() => {
+  useEffect(async () => {
     switch (entitie) {
       case 'admins':
         dispatch(id !== '0' ? getAdmins(id) : editItem(usersStructure));
@@ -91,16 +91,40 @@ const Form = () => {
               })
         );
         break;
+      case 'home':
+        dispatch(
+          id !== '0'
+            ? getTimesheets(id)
+            : editItem({
+                date: '',
+                description: '',
+                employee: itemToPUT.employee?._id || itemToPUT.employee,
+                project: '',
+                task: '',
+                hours: ''
+              })
+        );
+        break;
       case 'tasks':
         dispatch(id !== '0' ? getTasks(id) : editItem({ description: '' }));
     }
-    reset(itemToPUT);
+    reset({
+      ...itemToPUT,
+      dni: itemToPUT.dni?.toString(),
+      phone: itemToPUT.phone?.toString(),
+      employee: itemToPUT.employee?._id || itemToPUT.employee,
+      task: itemToPUT.task?._id || itemToPUT.task,
+      project: itemToPUT.project?._id || itemToPUT.project,
+      teamMembers: itemToPUT.teamMembers?.map((member) => {
+        return { ...member, employee: member.employee?._id || member.employee };
+      })
+    });
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
   }, []);
 
-  const modifyRow = async (data) => {
+  const modifyRow = (data) => {
     const body = {
       ...data,
       dni: data.dni?.toString(),
@@ -129,6 +153,7 @@ const Form = () => {
         dispatch(id === '0' ? createTask(data) : editTask(id, body));
         break;
       case 'time-sheets':
+      case 'home':
         dispatch(id === '0' ? createTimesheets(data) : editTimesheets(id, body));
         break;
       default:
@@ -399,10 +424,11 @@ const Form = () => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
+                    dispatch(editItem(id));
                     history.push(`/${entitie}`);
                   }}
                 >
-                  Close
+                  Back
                 </button>
               </div>
             </form>

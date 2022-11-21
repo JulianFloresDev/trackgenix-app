@@ -6,8 +6,8 @@ const HomeRoutes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/time-sheets/form/:id" render={() => <Form />} />
+        <Route exact path="/home" component={Home} />
+        <Route path="/home/form/:id" render={() => <Form />} />
       </Switch>
     </Router>
   );
