@@ -11,19 +11,19 @@
   background-color: #373867;
 }
 
-.logoRR {
+.logoRR > a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   cursor: pointer;
 }
 
-.logoRR > img:first-child {
+.logoRR > a > img:first-child {
   margin: 20px 0 10px;
   width: 40%;
 }
 
-.logoRR > img:nth-child(2) {
+.logoRR > a > img:nth-child(2) {
   width: 61%;
 }
 
