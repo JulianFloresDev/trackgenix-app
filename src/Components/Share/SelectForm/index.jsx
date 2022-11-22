@@ -14,7 +14,7 @@ const SelectForm = ({ register, element, label, selectOptions, error }) => {
           return (
             <option key={index} value={option?._id}>
               {option?.firstName && option.firstName + ' ' + option.lastName}
-              {(option?.name && option.name) || option?.description}
+              {(option?.name && option.name) || option?.description || option?.type}
             </option>
           );
         })}
