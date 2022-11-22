@@ -21,7 +21,7 @@ function TimeSheets() {
         </div>
       ) : user._id ? (
         <Table
-          headers={['employee', 'project', 'description', 'task', 'date', 'hours']}
+          headers={['project', 'description', 'task', 'date', 'hours']}
           data={list.filter((item) => item.employee?._id === user._id)}
         />
       ) : (
