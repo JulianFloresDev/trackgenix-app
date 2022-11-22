@@ -15,7 +15,7 @@ const Table = ({ headers, data }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const { showModal, modalContent } = useSelector((state) => state.global);
+  const { user, showModal, modalContent } = useSelector((state) => state.global);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openModal = (id) => {
@@ -220,15 +220,17 @@ const Table = ({ headers, data }) => {
               </tbody>
             </table>
           </div>
-          <div className={styles.imgContainer}>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
-              onClick={() => {
-                dispatch(editItem({}));
-                history.push(`/${entitie}/form/0`);
-              }}
-            />
-          </div>
+          {(user.token !== 'employee' || entitie === 'time-sheets') && (
+            <div className={styles.imgContainer}>
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
+                onClick={() => {
+                  dispatch(editItem({}));
+                  history.push(`/${entitie}/form/0`);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

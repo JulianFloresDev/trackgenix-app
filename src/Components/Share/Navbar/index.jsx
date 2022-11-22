@@ -36,8 +36,8 @@ const Navbar = ({ navOptions }) => {
       (employee) => employee.email === data.email && employee.password === data.password
     );
     userExist &&
+      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' })),
       (dispatch(setUser(userLogged)),
-      sessionStorage.setItem('userLogged', JSON.stringify(userLogged)),
       dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
       setTimeout(() => dispatch(setShowModal(false)), 1000));
     //   : ((errors.email = { message: 'Invalid email or password.' }),
