@@ -137,26 +137,28 @@ const Form = () => {
         return { ...member, employee: member.employee?._id || member.employee };
       })
     };
+    console.log('Body: ', body);
+    console.log('ItemToPUT: ', itemToPUT);
     switch (entitie) {
       case 'employees':
-        dispatch(id === '0' ? createEmployee(data) : editEmployee(id, body));
+        dispatch(id === '0' ? createEmployee(body) : editEmployee(id, body));
         break;
       case 'admins':
-        dispatch(id === '0' ? createAdmin(data) : editAdmin(id, body));
+        dispatch(id === '0' ? createAdmin(body) : editAdmin(id, body));
         break;
       case 'super-admins':
-        dispatch(id === '0' ? createSuperAdmin(data) : editSuperAdmin(id, body));
+        dispatch(id === '0' ? createSuperAdmin(body) : editSuperAdmin(id, body));
         break;
       case 'projects':
-        dispatch(id === '0' ? createProject(data) : editProject(id, body));
+        dispatch(id === '0' ? createProject(body) : editProject(id, body));
         break;
       case 'tasks':
-        dispatch(id === '0' ? createTask(data) : editTask(id, body));
+        dispatch(id === '0' ? createTask(body) : editTask(id, body));
         break;
       case 'time-sheets':
         dispatch(
           id === '0'
-            ? createTimesheets(user._id ? { ...data, employee: user._id } : data)
+            ? createTimesheets(user._id ? { ...body, employee: user._id } : body)
             : editTimesheets(id, body)
         );
         break;

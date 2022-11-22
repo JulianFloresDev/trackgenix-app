@@ -11,7 +11,7 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList }) => {
       <table id={element}>
         <thead>
           <tr>
-            {element &&
+            {itemToPUT[element][0] &&
               Object.keys(itemToPUT[element][0]).map((key, index) => {
                 return <th key={index}>{key}</th>;
               })}
