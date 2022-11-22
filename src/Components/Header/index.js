@@ -7,10 +7,10 @@ function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
-        <div className={styles.logoRR}>
+        <a className={styles.logoRR} href="/">
           <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
           <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
-        </div>
+        </a>
         {user._id ? (
           <Navbar navOptions={['time-sheets', 'projects', 'profile']} />
         ) : (

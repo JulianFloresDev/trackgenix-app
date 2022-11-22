@@ -5,7 +5,7 @@ import Header from 'Components/Header';
 import Footer from 'Components/Footer';
 import { Spinner } from 'Components/Share';
 
-const HomeRoutes = lazy(() => import('routes/home'));
+const Home = lazy(() => import('Components/Home'));
 const AdminsRoutes = lazy(() => import('routes/admins'));
 const EmployeesRoutes = lazy(() => import('routes/employees'));
 const ProjectsRoutes = lazy(() => import('./projects'));
@@ -23,7 +23,7 @@ function Layout() {
           </div>
           <div className={styles.bodyContainer}>
             <Switch>
-              <Route exact path={'/home'} component={HomeRoutes} />
+              <Route exact path={'/'} component={Home} />
               <Route exact path={'/admins'} component={AdminsRoutes} />
               <Route exact path={'/employees'} component={EmployeesRoutes} />
               <Route exact path={'/projects'} component={ProjectsRoutes} />

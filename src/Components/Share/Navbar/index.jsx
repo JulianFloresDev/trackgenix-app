@@ -26,16 +26,18 @@ const Navbar = ({ navOptions }) => {
     const userExist = usersList.some(
       (employee) => employee.email === data.email && employee.password === data.password
     );
-    userExist &&
-      dispatch(
-        setUser(
-          usersList.find(
-            (employee) => employee.email === data.email && employee.password === data.password
+    userExist
+      ? (dispatch(
+          setUser(
+            usersList.find(
+              (employee) => employee.email === data.email && employee.password === data.password
+            )
           )
-        )
-      );
-    dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>));
-    setTimeout(() => dispatch(setShowModal(false)), 1000);
+        ),
+        dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
+        setTimeout(() => dispatch(setShowModal(false)), 1000))
+      : (dispatch(setModalContent(<h3>User not found</h3>)),
+        setTimeout(() => dispatch(setShowModal(false)), 3000));
   };
 
   const logIn = () => {
