@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { schema } from './schema';
-// import Joi from 'joi';
 import styles from './form.module.css';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
@@ -283,6 +282,17 @@ const Form = () => {
                         error={errors.description?.message}
                       />
                     );
+                  case 'type':
+                    return (
+                      <InputForm
+                        key={index}
+                        element={prop}
+                        label={'Task Type'}
+                        inputType={'text'}
+                        register={register}
+                        error={errors.type?.message}
+                      />
+                    );
                   case 'password':
                     return (
                       <InputForm
@@ -379,10 +389,6 @@ const Form = () => {
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
-                        //A este input hay que agregarle validaciones
-                        //pero primero hay que solucionar el envío de datos desde la tabla para que
-                        //efectivamente se envien... con el {...register('teamMembers')}
-                        //que no se donde ponerlo en el componente porque eso ^ se pone en un input o select...
                       />
                     );
                   case 'project':

@@ -64,19 +64,18 @@ export const schema = Joi.object({
     'string.min': 'Address should have betwen 3 and 50 characters',
     'string.max': 'Address should have betwen 3 and 50 characters'
   }),
-  // description: Joi.string().valid('Frontend', 'Backend', 'Testing').messages({
-  //   'string.empty': 'A description is required',
-  //   'any.only': 'Description should be Frontend, Backend or Testing'
-  // }),
+  type: Joi.string().valid('Frontend', 'Backend', 'Testing').messages({
+    'string.empty': 'A description is required',
+    'any.only': 'Description should be Frontend, Backend or Testing'
+  }),
   date: Joi.date().iso().messages({
     'any.empty': 'Date is required',
     'date.base': 'Date have an invalid format',
     'date.format': 'Date is required'
   }),
-  //! Vamos a tener que cambiar la decripcion del timeSheet a 'timeSheetDescription'
-  description: Joi.string().min(3).max(150).messages({
+  description: Joi.string().min(5).max(150).messages({
     'string.empty': 'Description is required',
-    'string.min': 'Description should have a minimum length of 3 characters',
+    'string.min': 'Description should have a minimum length of 5 characters',
     'string.max': 'Description should have a maximum length of 150 characters'
   }),
   task: Joi.string().messages({
@@ -103,12 +102,6 @@ export const schema = Joi.object({
       'string.min': 'Name should have a minimum length of 3 characters',
       'string.max': 'Name should have a maximum length of 30 characters'
     }),
-  //! Vamos a tener que cambiar la decripcion del project a 'projectDescription'
-  // description: Joi.string().min(5).max(150).messages({
-  //   'string.empty': 'Description required',
-  //   'string.min': 'Description should have a minimum length of 5 characters',
-  //   'string.max': 'Description should have a maximum length of 150 characters'
-  // }),
   startDate: Joi.date().messages({
     'string.empty': 'StartDate required'
   }),
