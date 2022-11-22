@@ -154,11 +154,10 @@ const Form = () => {
         dispatch(id === '0' ? createTask(data) : editTask(id, body));
         break;
       case 'time-sheets':
-        dispatch(id === '0' ? createTimesheets(data) : editTimesheets(id, body));
-        break;
-      case 'home':
         dispatch(
-          id === '0' ? createTimesheets({ ...data, employee: user._id }) : editTimesheets(id, body)
+          id === '0'
+            ? createTimesheets(user._id ? { ...data, employee: user._id } : data)
+            : editTimesheets(id, body)
         );
         break;
       default:
@@ -407,7 +406,7 @@ const Form = () => {
                       />
                     );
                   case 'employee':
-                    if (entitie === 'home') {
+                    if (user._id) {
                       return null;
                     } else {
                       return (

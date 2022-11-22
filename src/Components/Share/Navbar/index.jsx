@@ -5,12 +5,14 @@ import { InputForm, Modal } from 'Components/Share';
 import { setModalContent, setShowModal, setUser } from 'redux/global/actions';
 import { useForm } from 'react-hook-form';
 import { getEmployees } from 'redux/employees/thunks';
+import { useHistory } from 'react-router-dom';
 
 const Navbar = ({ navOptions }) => {
   useEffect(() => {
     dispatch(getEmployees(''));
   }, []);
 
+  const history = useHistory();
   const dispatch = useDispatch();
   const { user, showModal, modalContent } = useSelector((state) => state.global);
   const { list: usersList } = useSelector((state) => state.employees);
@@ -26,14 +28,13 @@ const Navbar = ({ navOptions }) => {
     const userExist = usersList.some(
       (employee) => employee.email === data.email && employee.password === data.password
     );
+    const userLogged = usersList.find(
+      (employee) => employee.email === data.email && employee.password === data.password
+    );
+    console.log(userLogged);
     userExist
-      ? (dispatch(
-          setUser(
-            usersList.find(
-              (employee) => employee.email === data.email && employee.password === data.password
-            )
-          )
-        ),
+      ? (dispatch(setUser(userLogged)),
+        sessionStorage.setItem('userLogged', JSON.stringify(userLogged)),
         dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
         setTimeout(() => dispatch(setShowModal(false)), 1000))
       : (dispatch(setModalContent(<h3>User not found</h3>)),
@@ -91,7 +92,14 @@ const Navbar = ({ navOptions }) => {
             </button>
           )}
           {user._id && (
-            <button className={styles.buttonItem} onClick={() => dispatch(setUser({}))}>
+            <button
+              className={styles.buttonItem}
+              onClick={() => {
+                dispatch(setUser({}));
+                sessionStorage.removeItem('userLogged');
+                history.push('/');
+              }}
+            >
               Log Out
             </button>
           )}
