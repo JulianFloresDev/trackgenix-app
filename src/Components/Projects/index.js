@@ -18,7 +18,7 @@ function Projects() {
       ) : (
         <>
           {error ? (
-            <div>
+            <div className={styles.container}>
               <h2>404: Unable to access server</h2>
             </div>
           ) : user._id ? (
