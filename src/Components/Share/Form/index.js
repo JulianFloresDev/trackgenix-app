@@ -51,7 +51,6 @@ const Form = () => {
     resolver: joiResolver(schema)
   });
   useEffect(() => {
-    console.log(itemToPUT);
     switch (entitie) {
       case 'admins':
         dispatch(id !== '0' ? getAdmins(id) : editItem(usersStructure));
@@ -106,7 +105,7 @@ const Form = () => {
         );
         break;
       case 'tasks':
-        dispatch(id !== '0' ? getTasks(id) : editItem({ description: '' }));
+        dispatch(id !== '0' ? getTasks(id) : editItem({ type: '' }));
     }
     reset({
       ...itemToPUT,
@@ -136,8 +135,6 @@ const Form = () => {
         return { ...member, employee: member.employee?._id || member.employee };
       })
     };
-    console.log('Body: ', body);
-    console.log('ItemToPUT: ', itemToPUT);
     switch (entitie) {
       case 'employees':
         dispatch(id === '0' ? createEmployee(body) : editEmployee(id, body));

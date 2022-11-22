@@ -65,8 +65,8 @@ export const schema = Joi.object({
     'string.max': 'Address should have betwen 3 and 50 characters'
   }),
   type: Joi.string().valid('Frontend', 'Backend', 'Testing').messages({
-    'string.empty': 'A description is required',
-    'any.only': 'Description should be Frontend, Backend or Testing'
+    'string.empty': 'Type is required',
+    'any.only': 'Task type should be Frontend, Backend or Testing'
   }),
   date: Joi.date().iso().messages({
     'any.empty': 'Date is required',

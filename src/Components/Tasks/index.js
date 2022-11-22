@@ -20,7 +20,7 @@ function Tasks() {
           <h2>404: server not found</h2>
         </div>
       ) : (
-        <Table headers={['description', 'createdAt', 'updatedAt']} data={list} />
+        <Table headers={['type', 'createdAt', 'updatedAt']} data={list} />
       )}
     </section>
   );
