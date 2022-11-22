@@ -188,7 +188,7 @@ const Table = ({ headers, data }) => {
                         }
                         return (
                           <td key={index + 500} className={styles.optionInvalid}>
-                            {row[property].name ? row[property].name : row[property].description}
+                            {row[property].name ? row[property].name : row[property].type}
                             {row[property].firstName && row[property].firstName}{' '}
                             {row[property].lastName}
                           </td>
