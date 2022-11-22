@@ -196,26 +196,28 @@ const Table = ({ headers, data }) => {
                           </td>
                         );
                       })}
-                      <td className={styles.buttonsContainer}>
-                        <div>
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
-                            className={styles.editBtn}
-                            onClick={() => {
-                              dispatch(editItem(row));
-                              history.push(`/${entitie}/form/${row._id}`);
-                            }}
-                          />
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                            className={styles.closeBtn}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              openModal(row._id);
-                            }}
-                          />
-                        </div>
-                      </td>
+                      {(user?.token !== 'employee' || user === {}) && (
+                        <td className={styles.buttonsContainer}>
+                          <div>
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
+                              className={styles.editBtn}
+                              onClick={() => {
+                                dispatch(editItem(row));
+                                history.push(`/${entitie}/form/${row._id}`);
+                              }}
+                            />
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
+                              className={styles.closeBtn}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                openModal(row._id);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}

@@ -39,11 +39,10 @@ const Navbar = ({ navOptions }) => {
       sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' })),
       (dispatch(setUser(userLogged)),
       dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
-      setTimeout(() => dispatch(setShowModal(false)), 1000));
-    //   : ((errors.email = { message: 'Invalid email or password.' }),
-    //     (errors.password = { message: 'Invalid email or password' }));
-    // // (dispatch(setModalContent(<h3>User not found</h3>)),
-    // //   setTimeout(() => dispatch(setShowModal(false)), 3000));
+      setTimeout(() => {
+        dispatch(setShowModal(false));
+        history.push('/');
+      }, 1000));
   };
 
   const logIn = () => {

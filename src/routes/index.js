@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';
@@ -30,6 +30,7 @@ function Layout() {
               <Route exact path={'/super-admins'} component={SuperAdminsRoutes} />
               <Route exact path={'/tasks'} component={TasksRoutes} />
               <Route exact path={'/time-sheets'} component={TimeSheetsRoutes} />
+              <Redirect to={'/'} />
             </Switch>
             <Footer />
           </div>
