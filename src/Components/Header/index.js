@@ -1,36 +1,21 @@
 import styles from './header.module.css';
+import { Navbar } from 'Components/Share';
+import { useSelector } from 'react-redux';
 
 function Header() {
+  const { user } = useSelector((state) => state.global);
   return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
         <div className={styles.logoRR}>
-          <a href="/home">
-            <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
-            <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
-          </a>
+          <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
+          <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
         </div>
-        <ul className={styles.rutes}>
-          <li>
-            <a href="/admins">admins</a>
-          </li>
-          <li>
-            <a href="/super-admins">super admins</a>
-          </li>
-          <li>
-            <a href="/employees">employees</a>
-          </li>
-          <li>
-            <a href="/projects">projects</a>
-          </li>
-          <li>
-            <a href="/time-sheets">timesheets</a>
-          </li>
-          <li>
-            <a href="/tasks">tasks</a>
-          </li>
-        </ul>
-        <button>Log Out</button>
+        {user._id ? (
+          <Navbar navOptions={['time-sheets', 'projects', 'profile']} />
+        ) : (
+          <Navbar navOptions={[]} />
+        )}
       </nav>
     </header>
   );

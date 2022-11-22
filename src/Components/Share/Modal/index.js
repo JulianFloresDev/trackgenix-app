@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setShowModal } from 'redux/global/actions';
+import { setModalContent, setShowModal } from 'redux/global/actions';
 import styles from './modal.module.css';
 
 const Modal = ({ children, showModal }) => {
@@ -12,7 +12,13 @@ const Modal = ({ children, showModal }) => {
     <div className={styles.modalOverlay}>
       <div className={styles.modalWrapper}>
         <div>
-          <div onClick={() => dispatch(setShowModal(false))} className={styles.closeModalBtn}>
+          <div
+            onClick={() => {
+              dispatch(setShowModal(false));
+              dispatch(setModalContent(<></>));
+            }}
+            className={styles.closeModalBtn}
+          >
             <span className={styles.line}></span>
             <span className={styles.line}></span>
           </div>

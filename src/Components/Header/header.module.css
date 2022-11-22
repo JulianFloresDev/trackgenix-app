@@ -11,19 +11,18 @@
   background-color: #373867;
 }
 
-.logoRR > a {
+.logoRR {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  cursor: pointer;
 }
 
-.logoRR > a > img:first-child {
+.logoRR>img:first-child {
   margin: 20px 0 10px;
   width: 40%;
 }
 
-.logoRR > a > img:nth-child(2) {
+.logoRR>img:nth-child(2) {
   width: 61%;
 }
 
@@ -35,11 +34,11 @@
   align-content: center;
 }
 
-.rutes > li {
+.rutes>li {
   text-align: center;
 }
 
-.rutes > li > a {
+.rutes>li {
   color: #ffffff;
   font-size: 1.6vw;
   font-weight: 600;

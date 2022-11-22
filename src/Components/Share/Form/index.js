@@ -123,10 +123,7 @@ const Form = () => {
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
-    setTimeout(() => {
-      reset();
-      console.log(itemToPUT);
-    }, 200);
+    setTimeout(() => reset(), 200);
   }, []);
   const modifyRow = (data) => {
     const body = {
