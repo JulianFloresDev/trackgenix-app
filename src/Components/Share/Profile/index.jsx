@@ -1,9 +1,11 @@
 import styles from './profile.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { editItem } from 'redux/global/actions';
 
 const Profile = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.global);
   const userToShow = { ...user };
   delete userToShow['_id'];
@@ -27,7 +29,8 @@ const Profile = () => {
           <button
             onClick={(e) => {
               e.preventDefault();
-              history.push(`/employees/form/${user._id}`);
+              dispatch(editItem(user));
+              history.push(`/${user.token}/form/${user._id}`);
             }}
           >
             Edit Profile
