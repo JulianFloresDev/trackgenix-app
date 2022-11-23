@@ -7,11 +7,15 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { InputForm, Modal } from 'Components/Share';
 import { setModalContent, setShowModal, setUser } from 'redux/global/actions';
-import { getEmployees } from 'redux/employees/thunks';
 import { userValidation } from './userValidation';
+import { getSuperAdmins } from 'redux/super-admins/thunks';
+import { getAdmins } from 'redux/admins/thunks';
+import { getEmployees } from 'redux/employees/thunks';
 
 const Navbar = ({ navOptions }) => {
   useEffect(() => {
+    dispatch(getSuperAdmins(''));
+    dispatch(getAdmins(''));
     dispatch(getEmployees(''));
   }, []);
 
@@ -31,14 +35,14 @@ const Navbar = ({ navOptions }) => {
   });
 
   const submitUserLogInData = (data) => {
-    const isEmployee = employeeList.some(
-      (employee) => employee.email === data.email && employee.password === data.password
+    const isSuperAdmin = superAdminsList.some(
+      (superAdmin) => superAdmin.email === data.email && superAdmin.password === data.password
     );
-    const isAdmin = employeeList.some(
+    const isAdmin = adminsList.some(
       (admin) => admin.email === data.email && admin.password === data.password
     );
-    const isSuperAdmin = employeeList.some(
-      (superAdmin) => superAdmin.email === data.email && superAdmin.password === data.password
+    const isEmployee = employeeList.some(
+      (employee) => employee.email === data.email && employee.password === data.password
     );
     const userLogged =
       superAdminsList.find(
@@ -47,16 +51,27 @@ const Navbar = ({ navOptions }) => {
       adminsList.find((admin) => admin.email === data.email && admin.password === data.password) ||
       employeeList.find((emp) => emp.email === data.email && emp.password === data.password);
 
-    isSuperAdmin &&
-      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'superAdmin' }));
-    isAdmin &&
-      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'admin' }));
-    isEmployee &&
-      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' }));
-
+    switch (true) {
+      case isSuperAdmin:
+        dispatch(setUser({ ...userLogged, token: 'superAdmin' }));
+        sessionStorage.setItem(
+          'userLogged',
+          JSON.stringify({ ...userLogged, token: 'superAdmin' })
+        );
+        break;
+      case isAdmin:
+        dispatch(setUser({ ...userLogged, token: 'admin' }));
+        sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'admin' }));
+        break;
+      case isEmployee:
+        dispatch(setUser({ ...userLogged, token: 'employee' }));
+        sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' }));
+        break;
+      default:
+        console.log('None user found on DB');
+    }
     (isSuperAdmin || isAdmin || isEmployee) &&
-      (dispatch(setUser(userLogged)),
-      dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
+      (dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
       setTimeout(() => {
         dispatch(setShowModal(false));
         history.push('/');
@@ -105,7 +120,7 @@ const Navbar = ({ navOptions }) => {
           })}
         </ul>
         <div className={styles.buttonsContainer}>
-          {!user._id && (
+          {Object.keys(user).length === 0 && (
             <button
               className={styles.buttonItem}
               onClick={() => {
@@ -115,7 +130,7 @@ const Navbar = ({ navOptions }) => {
               Log In
             </button>
           )}
-          {user._id && (
+          {user?._id && (
             <button
               className={styles.buttonItem}
               onClick={() => {
