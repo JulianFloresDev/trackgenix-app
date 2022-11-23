@@ -25,10 +25,10 @@ function Layout() {
             <Switch>
               <Route exact path={'/'} component={Home} />
               <Route path={'/admins'} component={AdminsRoutes} />
-              <Route path={'/employees'} component={EmployeesRoutes} />
-              <Route path={'/projects'} component={ProjectsRoutes} />
               <Route path={'/super-admins'} component={SuperAdminsRoutes} />
+              <Route path={'/employees'} component={EmployeesRoutes} />
               <Route path={'/tasks'} component={TasksRoutes} />
+              <Route path={'/projects'} component={ProjectsRoutes} />
               <Route path={'/time-sheets'} component={TimeSheetsRoutes} />
               <Redirect to={'/'} />
             </Switch>

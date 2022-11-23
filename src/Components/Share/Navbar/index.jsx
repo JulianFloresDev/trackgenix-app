@@ -114,7 +114,9 @@ const Navbar = ({ navOptions }) => {
           {navOptions?.map((endPoint, index) => {
             return (
               <li key={index}>
-                <a href={`/${endPoint}`}>{endPoint.toUpperCase()}</a>
+                <a href={endPoint === 'profile' ? `/employees/${user._id}` : `/${endPoint}`}>
+                  {endPoint.toUpperCase()}
+                </a>
               </li>
             );
           })}
