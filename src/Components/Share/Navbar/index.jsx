@@ -53,19 +53,19 @@ const Navbar = ({ navOptions }) => {
 
     switch (true) {
       case isSuperAdmin:
-        dispatch(setUser({ ...userLogged, token: 'superAdmin' }));
+        dispatch(setUser({ ...userLogged, token: 'super-admins' }));
         sessionStorage.setItem(
           'userLogged',
-          JSON.stringify({ ...userLogged, token: 'superAdmin' })
+          JSON.stringify({ ...userLogged, token: 'super-admins' })
         );
         break;
       case isAdmin:
-        dispatch(setUser({ ...userLogged, token: 'admin' }));
-        sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'admin' }));
+        dispatch(setUser({ ...userLogged, token: 'admins' }));
+        sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'admins' }));
         break;
       case isEmployee:
-        dispatch(setUser({ ...userLogged, token: 'employee' }));
-        sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' }));
+        dispatch(setUser({ ...userLogged, token: 'employees' }));
+        sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employees' }));
         break;
       default:
         console.log('None user found on DB');
@@ -114,7 +114,7 @@ const Navbar = ({ navOptions }) => {
           {navOptions?.map((endPoint, index) => {
             return (
               <li key={index}>
-                <a href={endPoint === 'profile' ? `/employees/${user._id}` : `/${endPoint}`}>
+                <a href={endPoint === 'profile' ? `/${user.token}/${user._id}` : `/${endPoint}`}>
                   {endPoint.toUpperCase()}
                 </a>
               </li>

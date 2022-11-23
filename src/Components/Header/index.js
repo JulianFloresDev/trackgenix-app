@@ -11,15 +11,15 @@ function Header() {
           <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
           <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
         </a>
-        {user?.token === 'superAdmin' && (
+        {user?.token === 'super-admins' && (
           <Navbar
             navOptions={['admins', 'employees', 'projects', 'time-sheets', 'tasks', 'profile']}
           />
         )}
-        {user?.token === 'admin' && (
+        {user?.token === 'admins' && (
           <Navbar navOptions={['employees', 'projects', 'time-sheets', 'profile']} />
         )}
-        {user?.token === 'employee' && (
+        {user?.token === 'employees' && (
           <Navbar navOptions={['time-sheets', 'projects', 'profile']} />
         )}
         {Object.keys(user).length === 0 && <Navbar navOptions={[]} />}
