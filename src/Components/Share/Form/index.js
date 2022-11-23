@@ -200,7 +200,7 @@ const Form = () => {
           <section className={styles.formSection}>
             <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
             <form onSubmit={handleSubmit(modifyRow)}>
-              {Object.keys(itemToPUT).map((prop, index) => {
+              {Object.keys(itemToPUT || user).map((prop, index) => {
                 switch (prop) {
                   case 'name':
                     return (
@@ -438,7 +438,7 @@ const Form = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch(editItem(id));
-                    history.push(`/${entitie}`);
+                    history.goBack();
                   }}
                 >
                   Back

@@ -28,9 +28,18 @@
 .flexImput {
   line-height: 1.2rem;
   padding: 5px;
+  border: 1px solid var(--color-blue-primary);
+  border-radius: 8px;
   cursor: text;
+  /* transition: trnasform 1s; */
 }
-
+.flexImput:focus,
+.flexImput:focus-visible,
+.flexImput:target {
+  outline: none;
+  box-shadow: 2px 2px 10px 2px var(--color-greyblue-1);
+  background-color: var(--color-white-ligthblue);
+}
 .errorMessage {
   color: var(--color-red-primary);
   font-weight: 500;
