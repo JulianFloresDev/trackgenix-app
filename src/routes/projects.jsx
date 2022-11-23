@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Projects from 'Components/Projects';
 import { Form } from 'Components/Share';
 
@@ -8,6 +8,7 @@ const ProjectsRoutes = () => {
       <Switch>
         <Route exact path="/projects" component={Projects} />
         <Route path="/projects/form/:id" render={() => <Form />} />
+        <Redirect to={'/projects'} />
       </Switch>
     </Router>
   );

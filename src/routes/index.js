@@ -24,12 +24,12 @@ function Layout() {
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/'} component={Home} />
-              <Route exact path={'/admins'} component={AdminsRoutes} />
-              <Route exact path={'/employees'} component={EmployeesRoutes} />
-              <Route exact path={'/projects'} component={ProjectsRoutes} />
-              <Route exact path={'/super-admins'} component={SuperAdminsRoutes} />
-              <Route exact path={'/tasks'} component={TasksRoutes} />
-              <Route exact path={'/time-sheets'} component={TimeSheetsRoutes} />
+              <Route path={'/admins'} component={AdminsRoutes} />
+              <Route path={'/employees'} component={EmployeesRoutes} />
+              <Route path={'/projects'} component={ProjectsRoutes} />
+              <Route path={'/super-admins'} component={SuperAdminsRoutes} />
+              <Route path={'/tasks'} component={TasksRoutes} />
+              <Route path={'/time-sheets'} component={TimeSheetsRoutes} />
               <Redirect to={'/'} />
             </Switch>
             <Footer />
