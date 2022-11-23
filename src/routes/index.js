@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';
@@ -24,13 +24,13 @@ function Layout() {
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/'} component={Home} />
-              <Route exact path={'/admins'} component={AdminsRoutes} />
-              <Route exact path={'/super-admins'} component={SuperAdminsRoutes} />
-              <Route exact path={'/employees'} component={EmployeesRoutes} />
-              <Route exact path={'/employees/:id'} component={EmployeesRoutes} />
-              <Route exact path={'/tasks'} component={TasksRoutes} />
-              <Route exact path={'/projects'} component={ProjectsRoutes} />
-              <Route exact path={'/time-sheets'} component={TimeSheetsRoutes} />
+              <Route path={'/admins'} component={AdminsRoutes} />
+              <Route path={'/super-admins'} component={SuperAdminsRoutes} />
+              <Route path={'/employees'} component={EmployeesRoutes} />
+              <Route path={'/tasks'} component={TasksRoutes} />
+              <Route path={'/projects'} component={ProjectsRoutes} />
+              <Route path={'/time-sheets'} component={TimeSheetsRoutes} />
+              <Redirect to={'/'} />
             </Switch>
             <Footer />
           </div>

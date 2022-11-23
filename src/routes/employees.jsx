@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Form, Profile } from 'Components/Share';
 import Employees from 'Components/Employees';
-import Profile from 'Components/Share/Profile';
-import { Form } from 'Components/Share';
 
 const EmployeesRoutes = () => {
   return (
@@ -9,7 +8,8 @@ const EmployeesRoutes = () => {
       <Switch>
         <Route exact path="/employees" component={Employees} />
         <Route exact path="/employees/:id" component={Profile} />
-        <Route path="/employees/form/:id" render={() => <Form />} />
+        <Route exact path="/employees/form/:id" render={() => <Form />} />
+        <Redirect to={'/employees'} />
       </Switch>
     </Router>
   );
