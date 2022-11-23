@@ -7,7 +7,7 @@ const TasksRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/tasks" component={Tasks} />
-        <Route path="/tasks/form/:id" render={() => <Form />} />
+        <Route exact path="/tasks/form/:id" render={() => <Form />} />
         <Redirect to={'/tasks'} />
       </Switch>
     </Router>

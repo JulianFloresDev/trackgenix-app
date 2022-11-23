@@ -7,7 +7,7 @@ const ProjectsRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/projects" component={Projects} />
-        <Route path="/projects/form/:id" render={() => <Form />} />
+        <Route exact path="/projects/form/:id" render={() => <Form />} />
         <Redirect to={'/projects'} />
       </Switch>
     </Router>

@@ -8,7 +8,7 @@ import { Spinner } from 'Components/Share';
 const Home = lazy(() => import('Components/Home'));
 const AdminsRoutes = lazy(() => import('routes/admins'));
 const EmployeesRoutes = lazy(() => import('routes/employees'));
-const ProjectsRoutes = lazy(() => import('./projects'));
+const ProjectsRoutes = lazy(() => import('routes/projects'));
 const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
 const TasksRoutes = lazy(() => import('routes/tasks'));
 const TimeSheetsRoutes = lazy(() => import('routes/time-sheets'));

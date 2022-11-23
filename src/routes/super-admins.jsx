@@ -7,7 +7,7 @@ const SuperAdminsRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/super-admins" component={SuperAdmins} />
-        <Route path="/super-admins/form/:id" render={() => <Form />} />
+        <Route exact path="/super-admins/form/:id" render={() => <Form />} />
         <Redirect to={'/super-admins'} />
       </Switch>
     </Router>

@@ -18,7 +18,9 @@ const Navbar = ({ navOptions }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { user, showModal, modalContent } = useSelector((state) => state.global);
-  const { list: usersList } = useSelector((state) => state.employees);
+  const { list: superAdminsList } = useSelector((state) => state.superAdmins);
+  const { list: adminsList } = useSelector((state) => state.admins);
+  const { list: employeeList } = useSelector((state) => state.employees);
   const {
     handleSubmit,
     register,
@@ -29,14 +31,30 @@ const Navbar = ({ navOptions }) => {
   });
 
   const submitUserLogInData = (data) => {
-    const userExist = usersList.some(
+    const isEmployee = employeeList.some(
       (employee) => employee.email === data.email && employee.password === data.password
     );
-    const userLogged = usersList.find(
-      (employee) => employee.email === data.email && employee.password === data.password
+    const isAdmin = employeeList.some(
+      (admin) => admin.email === data.email && admin.password === data.password
     );
-    userExist &&
-      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' })),
+    const isSuperAdmin = employeeList.some(
+      (superAdmin) => superAdmin.email === data.email && superAdmin.password === data.password
+    );
+    const userLogged =
+      superAdminsList.find(
+        (superAdmin) => superAdmin.email === data.email && superAdmin.password === data.password
+      ) ||
+      adminsList.find((admin) => admin.email === data.email && admin.password === data.password) ||
+      employeeList.find((emp) => emp.email === data.email && emp.password === data.password);
+
+    isSuperAdmin &&
+      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'superAdmin' }));
+    isAdmin &&
+      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'admin' }));
+    isEmployee &&
+      sessionStorage.setItem('userLogged', JSON.stringify({ ...userLogged, token: 'employee' }));
+
+    (isSuperAdmin || isAdmin || isEmployee) &&
       (dispatch(setUser(userLogged)),
       dispatch(setModalContent(<h3>Logged Sussfully!!!</h3>)),
       setTimeout(() => {

@@ -7,7 +7,7 @@ const TimeSheetsRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/time-sheets" component={TimeSheets} />
-        <Route path="/time-sheets/form/:id" render={() => <Form />} />
+        <Route exact path="/time-sheets/form/:id" render={() => <Form />} />
         <Redirect to={'/time-sheets'} />
       </Switch>
     </Router>

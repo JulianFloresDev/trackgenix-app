@@ -7,7 +7,7 @@ const EmployeesRoutes = () => {
     <Router>
       <Switch>
         <Route exact path="/employees" component={Employees} />
-        <Route path="/employees/form/:id" render={() => <Form />} />
+        <Route exact path="/employees/form/:id" render={() => <Form />} />
         <Redirect to={'/employees'} />
       </Switch>
     </Router>
