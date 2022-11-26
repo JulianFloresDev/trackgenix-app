@@ -1,0 +1,48 @@
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 25px 0;
+}
+
+.rutes {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.rutes>li {
+  text-align: center;
+}
+
+.rutes>li>a {
+  color: #ffffff;
+  font-size: 1.6vw;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.buttonItem{
+  padding: 8px 25px;
+  border-radius: 5px;
+  border: 2px solid var(--color-blue-border);
+  background-color: var(--color-white-ligthblue);
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-blue-primary);
+  cursor: pointer;
+}
+.buttonItem:hover{
+  background-color: var(--color-green-primary);
+}

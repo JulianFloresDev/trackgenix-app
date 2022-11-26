@@ -1,22 +1,22 @@
-import styles from './table.module.css';
-import modalStyles from '../Modal/modal.module.css';
 import { useHistory } from 'react-router-dom';
-import Modal from '../Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { setModalContent, setShowModal } from '../../../redux/global/actions';
-import { deleteTasks } from '../../../redux/tasks/thunks';
-import { deleteEmployees } from '../../../redux/employees/thunks';
-import { deleteAdminByID } from '../../../redux/admins/thunks';
-import { deleteTimesheets } from '../../../redux/time-sheets/thunks';
-import { deleteProject } from '../../../redux/projects/thunks';
-import { deleteSuperAdmins } from '../../../redux/super-admins/thunks';
+import styles from './table.module.css';
+import { Modal } from 'Components/Share';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
+import { editItem, setModalContent, setShowModal } from 'redux/global/actions';
+import { deleteTasks } from 'redux/tasks/thunks';
+import { deleteEmployees } from 'redux/employees/thunks';
+import { deleteAdminByID } from 'redux/admins/thunks';
+import { deleteTimesheets } from 'redux/time-sheets/thunks';
+import { deleteProject } from 'redux/projects/thunks';
+import { deleteSuperAdmins } from 'redux/super-admins/thunks';
 
 const Table = ({ headers, data }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const { showModal, modalContent } = useSelector((state) => state.global);
-  const newData = [...data];
+  const { user, showModal, modalContent } = useSelector((state) => state.global);
+  const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openModal = (id) => {
     dispatch(setShowModal(true));
@@ -135,22 +135,22 @@ const Table = ({ headers, data }) => {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  {headers.map((header, index) => {
+                  {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {newData.reverse().map((row) => {
+                {newData?.reverse()?.map((row, index) => {
                   return (
-                    <tr key={row._id}>
-                      {headers.map((property, index) => {
+                    <tr key={index}>
+                      {headers?.map((property, index) => {
                         if (typeof row[property] === 'boolean') {
                           if (row[property]) {
-                            return <td key={index}>Active</td>;
+                            return <td key={index + 500}>Active</td>;
                           } else {
-                            return <td key={index}>Finish</td>;
+                            return <td key={index + 500}>Finish</td>;
                           }
                         }
                         if (
@@ -164,12 +164,12 @@ const Table = ({ headers, data }) => {
                           ) {
                             row[property] = row[property].substring(0, 10);
                           }
-                          return <td key={index}>{row[property]}</td>;
+                          return <td key={index + 500}>{row[property]}</td>;
                         }
                         if (Array.isArray(row[property])) {
                           return (
                             <>
-                              <td key={index}>
+                              <td key={index + 500}>
                                 <button
                                   className={styles.showListBtn}
                                   onClick={(e) => {
@@ -184,48 +184,57 @@ const Table = ({ headers, data }) => {
                           );
                         }
                         if (!row[property]) {
-                          return <td key={index}>Element Not Found</td>;
+                          return <td key={index + 500}>Element Not Found</td>;
                         }
                         return (
-                          <td key={index} className={styles.optionInvalid}>
-                            {row[property].description && row[property].description}
-                            {row[property].name && row[property].name}
+                          <td key={index + 500} className={styles.optionInvalid}>
+                            {row[property].name
+                              ? row[property].name
+                              : row[property].description || row[property].type}
                             {row[property].firstName && row[property].firstName}{' '}
                             {row[property].lastName}
                           </td>
                         );
                       })}
-                      <td className={styles.buttonsContainer}>
-                        <div>
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
-                            className={styles.editBtn}
-                            onClick={() => {
-                              history.push(`/${entitie}/form/${row._id}`);
-                            }}
-                          />
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                            className={styles.closeBtn}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              openModal(row._id);
-                            }}
-                          />
-                        </div>
-                      </td>
+                      {(user?.token !== 'employee' || user === {}) && (
+                        <td className={styles.buttonsContainer}>
+                          <div>
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
+                              className={styles.editBtn}
+                              onClick={() => {
+                                dispatch(editItem(row));
+                                history.push(`/${entitie}/form/${row._id}`);
+                              }}
+                            />
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
+                              className={styles.closeBtn}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                openModal(row._id);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}
               </tbody>
             </table>
           </div>
-          <div className={styles.imgContainer}>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
-              onClick={() => history.push(`/${entitie}/form/0`)}
-            />
-          </div>
+          {(user.token !== 'employee' || entitie === 'time-sheets') && (
+            <div className={styles.imgContainer}>
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
+                onClick={() => {
+                  dispatch(editItem({}));
+                  history.push(`/${entitie}/form/0`);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
