@@ -7,7 +7,7 @@ export const userValidation = Joi.object({
     .messages({
       'string.empty': 'Email is required',
       'string.required': 'Email is required',
-      'string.email': 'Email must be a falid email format'
+      'string.email': 'Email must be a valid email format'
     }),
   password: Joi.string().alphanum().required().min(8).max(25).messages({
     'string.empty': 'Password is required',
