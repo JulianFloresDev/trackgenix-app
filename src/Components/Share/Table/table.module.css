@@ -32,7 +32,7 @@
 .tableContainer > .tableContainer2  {
   width: 100%;
   max-height: 50vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .container table {
@@ -86,7 +86,9 @@
 .tableContainer tbody tr {
   border-bottom: 1px solid var(--color-blue-primary);
 }
-
+.tableContainer tbody tr:last-of-type {
+  border: none;
+}
 .imgContainer {
   margin: 15px;
 }

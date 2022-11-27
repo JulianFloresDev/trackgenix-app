@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30vw;
+  width: 100%;
   margin: .5vw 0;
 }
 
@@ -80,65 +80,3 @@
 
 /*Team Members*/
 
-.formSection form > .teamMembers {
-  width: 100%;
-  max-height: 15vw;
-  margin-top: 1vw;
-  align-items: center;
-  overflow: auto;
-}
-
-.teamMembers > label {
-  width: 100%;
-  position: sticky;
-  top: 0;
-  margin-bottom: 0 !important;
-  background-color: #FFFFFF;
-  z-index: 1;
-  text-align: center;
-}
-
-.teamMembers thead {
-  position: sticky;
-  top: 1.6vw;
-  background-color: #FFFFFF;
-  text-transform: capitalize;
-  z-index: 1;
-}
-
-.teamMembers > table {
-  width: 80%;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-.teamMembers th:first-child {
-  border-radius: 15px 0 0 15px;
-}
-
-.teamMembers th:last-child {
-  border-radius: 0 15px 15px 0;
-}
-
-.teamMembers th img {
-  width: 3vw;
-  cursor: pointer;
-}
-
-.teamMembers th, .teamMembers td {
-  width: 25%;
-  height: 2.2vw;
-}
-
-.teamMembers input, .teamMembers select {
-  width: 95%;
-  height: 2vw;
-  font-size: 1.2vw;
-  text-align: center;
-  color: #373867;
-}
-
-.teamMembers td img {
-  width: 1.5vw;
-  cursor: pointer;
-}

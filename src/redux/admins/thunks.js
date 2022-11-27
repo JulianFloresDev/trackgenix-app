@@ -13,7 +13,7 @@ import {
   deleteAdminsSuccess,
   deleteAdminsError
 } from './actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getAdmins = (id) => {
   return async (dispatch) => {
@@ -111,7 +111,9 @@ export const createAdmin = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

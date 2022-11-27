@@ -4,14 +4,14 @@ import {
   editItem,
   fetchDataOff,
   fetchDataOn
-} from '../global/actions';
+} from 'redux/global/actions';
 import {
   getTimesheetsPending,
   getTimesheetsSuccess,
   getTimesheetsError,
   deleteTimesheetsSuccess
 } from './actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getTimesheets = (id) => {
   return async (dispatch) => {

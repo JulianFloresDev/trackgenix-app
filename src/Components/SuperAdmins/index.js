@@ -1,9 +1,8 @@
-import styles from './super-admins.module.css';
-import Table from '../Share/Table';
-import Spinner from '../Share/Spinner';
-import { useSelector, useDispatch } from 'react-redux';
-import { getSuperAdmins } from '../../redux/super-admins/thunks';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSuperAdmins } from 'redux/super-admins/thunks';
+import styles from './super-admins.module.css';
+import { Table, Spinner } from 'Components/Share';
 
 function SuperAdmins() {
   const { list, isFetching, error } = useSelector((state) => state.superAdmins);
