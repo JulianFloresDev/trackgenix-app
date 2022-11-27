@@ -1,5 +1,6 @@
-import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { tokenListener } from 'helpers/firebase';
+import { lazy, Suspense, useEffect } from 'react';
 import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';
@@ -14,6 +15,7 @@ const TasksRoutes = lazy(() => import('routes/tasks'));
 const TimeSheetsRoutes = lazy(() => import('routes/time-sheets'));
 
 function Layout() {
+  useEffect(() => tokenListener(), []);
   return (
     <Suspense fallback={<Spinner />}>
       <Router>
