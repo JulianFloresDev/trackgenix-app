@@ -11,18 +11,18 @@ function Header() {
           <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
           <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
         </a>
-        {authenticated && role === 'SUPER_ADMIN' && (
+        {authenticated && role === 'super-admin' && (
           <Navbar
             navOptions={['admins', 'employees', 'projects', 'time-sheets', 'tasks', 'profile']}
           />
         )}
-        {authenticated && role === 'ADMIN' && (
+        {authenticated && role === 'admin' && (
           <Navbar navOptions={['employees', 'projects', 'time-sheets', 'profile']} />
         )}
-        {authenticated && role === 'EMPLOYEE' && (
+        {authenticated && role === 'employee' && (
           <Navbar navOptions={['time-sheets', 'projects', 'profile']} />
         )}
-        {!authenticated && <Navbar navOptions={['']} />}
+        {!authenticated && <Navbar navOptions={[]} />}
       </nav>
     </header>
   );

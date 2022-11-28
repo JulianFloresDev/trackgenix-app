@@ -8,7 +8,7 @@ import { getEmployees } from 'redux/employees/thunks';
 import { logout } from 'redux/Auth/thunks';
 
 const Navbar = ({ navOptions }) => {
-  const { authenticated } = useSelector((state) => state.auth);
+  const { authenticated, role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -24,7 +24,9 @@ const Navbar = ({ navOptions }) => {
           {navOptions?.map((endPoint, index) => {
             return (
               <li key={index}>
-                <a href={endPoint === 'profile' ? '/' : `/${endPoint}`}>{endPoint.toUpperCase()}</a>
+                <a href={endPoint === 'profile' ? `/${role}s` : `/${endPoint}`}>
+                  {endPoint.toUpperCase()}
+                </a>
               </li>
             );
           })}

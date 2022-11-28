@@ -26,13 +26,13 @@ const Login = () => {
       const role = dispatch(login(inputData));
       if (role) {
         switch (role) {
-          case 'SUPER_ADMIN':
+          case 'super-admin':
             history.push('/super-admins');
             break;
-          case 'ADMIN':
+          case 'admin':
             history.push('/admins');
             break;
-          case 'EMPLOYEE':
+          case 'employee':
             history.push('/employees');
             break;
           default:
