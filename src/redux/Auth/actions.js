@@ -5,9 +5,6 @@ import {
   SET_LOGGED_OUT,
   LOGOUT_PENDING,
   LOGOUT_ERROR,
-  SIGN_UP_PENDING,
-  SIGN_UP_SUCCESS,
-  SIGN_UP_ERROR,
   SET_AUTHENTICATION
 } from './constans';
 
@@ -20,12 +17,6 @@ export const loginPending = () => {
 export const logoutPending = () => {
   return {
     type: LOGOUT_PENDING
-  };
-};
-
-export const singupPending = () => {
-  return {
-    type: SIGN_UP_PENDING
   };
 };
 
@@ -43,13 +34,6 @@ export const logoutError = (error) => {
   };
 };
 
-export const signupError = (error) => {
-  return {
-    type: SIGN_UP_ERROR,
-    payload: error
-  };
-};
-
 export const loginSuccess = (data) => {
   return {
     type: SET_LOGGED_IN,
@@ -60,13 +44,6 @@ export const loginSuccess = (data) => {
 export const logoutSuccess = (data) => {
   return {
     type: SET_LOGGED_OUT,
-    payload: data
-  };
-};
-
-export const signupSuccess = (data) => {
-  return {
-    type: SIGN_UP_SUCCESS,
     payload: data
   };
 };
