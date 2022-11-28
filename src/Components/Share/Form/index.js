@@ -133,7 +133,8 @@ const Form = () => {
       project: data.project?._id || data.project,
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
-      })
+      }),
+      firebaseUid: itemToPUT.firebaseUid
     };
     switch (entitie) {
       case 'employees':

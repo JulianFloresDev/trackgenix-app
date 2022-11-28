@@ -1,72 +1,49 @@
 import {
-  SIGN_UP_PENDING,
-  LOGIN_PENDING,
-  LOGOUT_PENDING,
-  SIGN_UP_SUCCESS,
   SET_LOGGED_IN,
-  SET_LOGGED_OUT,
-  SIGN_UP_ERROR,
+  LOGIN_PENDING,
   LOGIN_ERROR,
+  SET_LOGGED_OUT,
+  LOGOUT_PENDING,
   LOGOUT_ERROR,
   SET_AUTHENTICATION
 } from './constans';
 
-export const setLoggInPending = () => {
+export const loginPending = () => {
   return {
     type: LOGIN_PENDING
   };
 };
 
-export const setLoggOutPending = () => {
+export const logoutPending = () => {
   return {
     type: LOGOUT_PENDING
   };
 };
 
-export const setSingUpPending = () => {
-  return {
-    type: SIGN_UP_PENDING
-  };
-};
-
-export const setLoggedInError = (error) => {
+export const loginError = (error) => {
   return {
     type: LOGIN_ERROR,
     payload: error
   };
 };
 
-export const setLoggedOutError = (error) => {
+export const logoutError = (error) => {
   return {
     type: LOGOUT_ERROR,
     payload: error
   };
 };
 
-export const setSignUpError = (error) => {
-  return {
-    type: SIGN_UP_ERROR,
-    payload: error
-  };
-};
-
-export const setLoggedInSuccess = (data) => {
+export const loginSuccess = (data) => {
   return {
     type: SET_LOGGED_IN,
     payload: data
   };
 };
 
-export const setLoggedOutSuccess = (data) => {
+export const logoutSuccess = (data) => {
   return {
     type: SET_LOGGED_OUT,
-    payload: data
-  };
-};
-
-export const setSignUpSuccess = (data) => {
-  return {
-    type: SIGN_UP_SUCCESS,
     payload: data
   };
 };

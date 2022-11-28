@@ -6,8 +6,4 @@ export const SET_LOGGED_OUT = 'SET_LOGGED_OUT';
 export const LOGOUT_ERROR = 'LOGOUT_ERROR';
 export const LOGOUT_PENDING = 'LOGOUT_PENDING';
 
-export const SIGN_UP_PENDING = 'SIGN_IN_PENDING';
-export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
-export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
-
 export const SET_AUTHENTICATION = 'SET_AUTHENTICATION';
