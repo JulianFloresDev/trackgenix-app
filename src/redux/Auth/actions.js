@@ -41,10 +41,9 @@ export const loginSuccess = (data) => {
   };
 };
 
-export const logoutSuccess = (data) => {
+export const logoutSuccess = () => {
   return {
-    type: SET_LOGGED_OUT,
-    payload: data
+    type: SET_LOGGED_OUT
   };
 };
 

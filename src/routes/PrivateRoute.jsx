@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { Spinner } from 'Components/Share';
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   const auth = useSelector((store) => store.auth);
@@ -9,9 +10,9 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
       {...rest}
       render={(routeProps) => {
         if (auth.isLoading) {
-          return <></>;
+          return <Spinner />;
         }
-        if (auth.role === rest.role) {
+        if (rest.role.includes(auth.role)) {
           return <RouteComponent {...routeProps} />;
         }
         return <Redirect to={'auth/login'} />;
