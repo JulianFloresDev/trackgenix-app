@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { tokenListener } from 'helpers/firebase';
 import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';

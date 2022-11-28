@@ -109,7 +109,9 @@ export const createSuperAdmin = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

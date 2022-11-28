@@ -7,6 +7,7 @@ import projectsReducer from './projects/reducer';
 import superAdminsReducer from './super-admins/reducer';
 import tasksReducer from './tasks/reducer';
 import timeSheetsReducer from './time-sheets/reducer';
+import authReducer from './Auth/reducer';
 
 const rootReducer = combineReducers({
   admins: adminsReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   superAdmins: superAdminsReducer,
   tasks: tasksReducer,
   timeSheets: timeSheetsReducer,
-  global: globalReducer
+  global: globalReducer,
+  auth: authReducer
 });
 
 export default rootReducer;

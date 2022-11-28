@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { schema } from './schema';
+import { formSchema } from '../../../Validations/formSchema';
 import styles from './form.module.css';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
@@ -48,7 +48,7 @@ const Form = () => {
     reset
   } = useForm({
     node: 'onChange',
-    resolver: joiResolver(schema)
+    resolver: joiResolver(formSchema)
   });
   useEffect(() => {
     switch (entitie) {
