@@ -12,11 +12,11 @@ import {
 } from './constans';
 
 const INITIAL_STATE = {
-  isLoading: true,
+  isLoading: false,
   authenticated: false,
-  role: null,
-  email: null,
-  error: null
+  role: '',
+  email: '',
+  error: ''
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -48,7 +48,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: false,
         authenticated: false,
-        role: null
+        role: ''
       };
     case SIGN_UP_SUCCESS:
       return {
@@ -62,6 +62,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         role: action.payload.role,
         email: action.payload.email
       };
+    default:
+      return state;
   }
 };
 

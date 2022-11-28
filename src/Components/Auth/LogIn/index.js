@@ -8,9 +8,10 @@ import { useHistory } from 'react-router-dom';
 import { InputForm } from 'Components/Share';
 
 const Login = () => {
+  console.log('LOGIN');
   const dispatch = useDispatch();
   const history = useHistory();
-  const error = useSelector((state) => state.auth.error);
+  const { error } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -21,7 +22,7 @@ const Login = () => {
   });
 
   const onSubmit = (inputData) => {
-    if (Object.values(error).length === 0) {
+    if (!error) {
       const role = dispatch(login(inputData));
       if (role) {
         switch (role) {
