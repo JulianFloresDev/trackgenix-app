@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { loginSchema } from 'Validations/loginSchema';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from 'redux/auth/thunks';
+import { login } from 'redux/Auth/thunks';
 import { useHistory } from 'react-router-dom';
 import { InputForm } from 'Components/Share';
 

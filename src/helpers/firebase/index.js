@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, onIdTokenChanged } from 'firebase/auth';
 import store from 'redux/store';
-import { setAuthentication, logoutSuccess, logoutError } from 'redux/auth/actions';
+import { setAuthentication, logoutSuccess, logoutError } from 'redux/Auth/actions';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -36,7 +36,7 @@ export const tokenListener = () => {
         return store.dispatch(logoutError());
       }
     } else {
-      console.log('ELSE');
+      console.log('No user Logged! Else dispatch(logoutSuccess())');
       return store.dispatch(logoutSuccess());
     }
   });

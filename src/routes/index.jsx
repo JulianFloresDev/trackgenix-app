@@ -47,7 +47,7 @@ function Layout() {
                 component={TimeSheetsRoutes}
               />
               <Route path={'/auth'} component={AuthRoutes} />
-              <Redirect to={'/auth'} />
+              <Redirect to={'/'} />
             </Switch>
             <Footer />
           </div>
