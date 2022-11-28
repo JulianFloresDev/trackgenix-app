@@ -8,9 +8,10 @@ import { Spinner } from 'Components/Share';
 import PrivateRoute from './PrivateRoute';
 
 const Home = lazy(() => import('Components/Home'));
+const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
+const AdminsRoutes = lazy(() => import('routes/admins'));
 const EmployeesRoutes = lazy(() => import('routes/employees'));
 const ProjectsRoutes = lazy(() => import('routes/projects'));
-const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
 const TasksRoutes = lazy(() => import('routes/tasks'));
 const TimeSheetsRoutes = lazy(() => import('routes/time-sheets'));
 const AuthRoutes = lazy(() => import('routes/auth'));
