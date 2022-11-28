@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 import { InputForm } from 'Components/Share';
 
 const Login = () => {
-  console.log('LOGIN');
   const dispatch = useDispatch();
   const history = useHistory();
   const { error } = useSelector((state) => state.auth);
@@ -18,7 +17,7 @@ const Login = () => {
     formState: { errors }
   } = useForm({
     resolver: joiResolver(loginSchema),
-    mode: 'onBlur'
+    mode: 'onChange'
   });
 
   const onSubmit = (inputData) => {
@@ -36,7 +35,7 @@ const Login = () => {
             history.push('/employees');
             break;
           default:
-            history.push('/');
+            history.push('/home');
         }
       }
     }

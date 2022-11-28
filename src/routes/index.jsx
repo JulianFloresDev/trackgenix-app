@@ -7,6 +7,7 @@ import Footer from 'Components/Footer';
 import { Spinner } from 'Components/Share';
 import PrivateRoute from './PrivateRoute';
 
+// const Login = lazy(() => import('Components/Auth/Login'));
 const Home = lazy(() => import('Components/Home'));
 const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
 const AdminsRoutes = lazy(() => import('routes/admins'));
@@ -27,7 +28,7 @@ function Layout() {
           </div>
           <div className={styles.bodyContainer}>
             <Switch>
-              <Route exact path={'/'} component={Home} />
+              <Route exact path={'/home'} component={Home} />
               <PrivateRoute path={'/admins'} role={'ADMIN'} component={AdminsRoutes} />
               <PrivateRoute path={'/super-admins'} role={'ADMIN'} component={SuperAdminsRoutes} />
               <PrivateRoute path={'/employees'} role={'ADMIN'} component={EmployeesRoutes} />
@@ -47,7 +48,7 @@ function Layout() {
                 component={TimeSheetsRoutes}
               />
               <Route path={'/auth'} component={AuthRoutes} />
-              <Redirect to={'/'} />
+              <Redirect to={'/home'} />
             </Switch>
             <Footer />
           </div>
