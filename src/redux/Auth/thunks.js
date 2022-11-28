@@ -1,15 +1,8 @@
-import {
-  setSingUpPending,
-  setSignUpSuccess,
-  setSignUpError,
-  setLoggInPending,
-  setLoggedInSuccess,
-  setLoggedInError,
-  setLoggOutPending,
-  setLoggedOutSuccess,
-  setLoggedOutError
-} from './actions';
+import { loginPending, loginError, logoutPending, logoutError } from './actions';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth } from 'helpers/firebase';
 
+/*
 export const signUp = (data) => {
   return async (dispatch) => {
     dispatch(setSingUpPending());
@@ -32,55 +25,41 @@ export const signUp = (data) => {
     }
   };
 };
+*/
 
-export const login = (credentials) => {
+export const login = (inputData) => {
   return async (dispatch) => {
-    dispatch(setLoggInPending);
+    dispatch(loginPending());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-      });
-      const response = await request.json();
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        inputData.email,
+        inputData.password
+      );
 
-      if (response.error) {
-        throw new Error(response.message);
-      }
+      const {
+        token,
+        claims: { role }
+      } = await userCredentials.user.getIdTokenResult();
 
-      sessionStorage.setItem('token', response.data.token);
-      sessionStorage.setItem('role', response.data.role);
-      sessionStorage.setItem('email', response.data.email);
-      return dispatch(setLoggedInSuccess(response.data));
+      sessionStorage.setItem('token', token);
+
+      return role;
     } catch (error) {
-      return dispatch(setLoggedInError(error.toString()));
+      return dispatch(loginError());
     }
   };
 };
 
 export const logout = () => {
   return async (dispatch) => {
-    dispatch(setLoggOutPending());
+    dispatch(logoutPending());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/auth/logout`, {
-        method: 'POST',
-        headers: {
-          toke: sessionStorage.getItem('token')
-        }
-      });
-      const response = await request.json();
-
-      if (response.error) {
-        throw new Error(response.message);
-      }
-
+      const signOutReturn = await signOut(auth);
       sessionStorage.clear();
-      return dispatch(setLoggedOutSuccess(response.data));
+      return signOutReturn;
     } catch (error) {
-      return dispatch(setLoggedOutError(error.toString()));
+      return dispatch(logoutError(error.toString()));
     }
   };
 };
