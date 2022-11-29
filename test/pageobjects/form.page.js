@@ -40,7 +40,7 @@ class FormPage {
         return $('//*[@id="root"]/div/div[2]/div/div/div[2]/div/button[2]')
     }
 
-    async newadmin (name, lastname, email, password, DNI, phone, Address) {
+    async dataadmin (name, lastname, email, password, DNI, phone, Address) {
         await this.inputFirstName.setValue(name);
         await this.inputLastName.setValue(lastname);
         await this.inputEmail.setValue(email);
