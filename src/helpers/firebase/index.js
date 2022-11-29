@@ -19,14 +19,11 @@ export const auth = getAuth(firebaseApp);
 export const tokenListener = () => {
   onIdTokenChanged(auth, async (user) => {
     if (user) {
-      console.log('Before try');
       try {
-        console.log('After try');
         const {
           token,
           claims: { role, email }
         } = await user.getIdTokenResult();
-        console.log('After token');
         if (token) {
           sessionStorage.setItem('token', token);
           return store.dispatch(setAuthentication(role, email));
@@ -36,7 +33,6 @@ export const tokenListener = () => {
         return store.dispatch(logoutError());
       }
     } else {
-      console.log('No user Logged! Else dispatch(logoutSuccess())');
       return store.dispatch(logoutSuccess());
     }
   });

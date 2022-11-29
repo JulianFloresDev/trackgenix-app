@@ -20,7 +20,13 @@ export const getAdmins = (id) => {
     dispatch(getAdminsPending());
     dispatch(fetchDataOn());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
@@ -43,7 +49,8 @@ export const deleteAdminByID = (id) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (request.status >= 400) {
@@ -68,7 +75,8 @@ export const editAdmin = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -111,7 +119,6 @@ export const createAdmin = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
           token: sessionStorage.getItem('token')
         },

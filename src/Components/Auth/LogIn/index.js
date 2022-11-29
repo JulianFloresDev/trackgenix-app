@@ -20,6 +20,8 @@ const Login = () => {
     mode: 'onChange'
   });
 
+  // sessionStorage.getItem('token') && history.push('/home');
+
   const onSubmit = (inputData) => {
     if (!error) {
       const role = dispatch(login(inputData));

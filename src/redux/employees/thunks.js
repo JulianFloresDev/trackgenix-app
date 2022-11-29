@@ -18,7 +18,13 @@ export const getEmployees = (id) => {
     try {
       dispatch(getEmployeesPending());
       dispatch(fetchDataOn());
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const data = await response.json();
       if (data.error) {
         throw new Error();
@@ -40,7 +46,8 @@ export const deleteEmployees = (id) => {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (req.status >= 400) {
@@ -64,7 +71,8 @@ export const editEmployee = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -107,7 +115,8 @@ export const createEmployee = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/employees`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

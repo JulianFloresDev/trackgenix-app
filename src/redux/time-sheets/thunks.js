@@ -18,7 +18,13 @@ export const getTimesheets = (id) => {
     try {
       dispatch(fetchDataOn());
       dispatch(getTimesheetsPending());
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error();
@@ -40,7 +46,8 @@ export const deleteTimesheets = (id) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (request.status >= 400) {
@@ -64,7 +71,8 @@ export const editTimesheets = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -107,7 +115,8 @@ export const createTimesheets = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/time-sheets`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

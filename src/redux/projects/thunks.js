@@ -20,7 +20,13 @@ export const getProjects = (id) => {
     dispatch(getProjectsPending());
     dispatch(fetchDataOn());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
@@ -43,7 +49,8 @@ export const deleteProject = (id) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (request.status >= 400) {
@@ -67,7 +74,8 @@ export const editProject = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -110,7 +118,8 @@ export const createProject = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

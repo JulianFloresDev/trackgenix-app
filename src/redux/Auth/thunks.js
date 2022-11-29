@@ -1,4 +1,4 @@
-import { loginPending, loginError, logoutPending, logoutError, setAuthentication } from './actions';
+import { loginPending, loginError, logoutPending, logoutError, loginSuccess } from './actions';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from 'helpers/firebase';
 
@@ -17,11 +17,8 @@ export const login = (inputData) => {
         claims: { role }
       } = await userCredentials.user.getIdTokenResult();
 
-      dispatch(setAuthentication(inputData.email, role));
       sessionStorage.setItem('token', token);
-      sessionStorage.setItem('role', role);
-      sessionStorage.setItem('email', inputData.email);
-
+      dispatch(loginSuccess(role));
       return role;
     } catch (error) {
       return dispatch(loginError());
