@@ -1,16 +1,15 @@
-import React from 'react';
+import styles from './signup.module.css';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createEmployee } from 'redux/employees/thunks';
-import { useForm } from 'react-hook-form';
-import { InputForm } from 'Components/Share';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { signupSchema } from 'Validations/signupSchema';
+import { InputForm } from 'Components/Share';
+import { createEmployee } from 'redux/employees/thunks';
 
 const SignUp = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  // const isLoading = useSelector((state) => state.auth.isLoading);
 
   const {
     handleSubmit,
@@ -26,7 +25,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <section className={styles.sectionContainer}>
       <h2>Register Employee</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputForm
@@ -90,7 +89,7 @@ const SignUp = () => {
           </button>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
