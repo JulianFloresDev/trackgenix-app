@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 
 class LoginPage {
 
@@ -14,7 +15,7 @@ class LoginPage {
     }
 
     get confirmLoginButton () {
-        return $('#root > div > div.layout_navBar__cBGea > header > nav > div.modal_modalOverlay__4lnsf > div > div.modal_content__-hSQp > div > form > button')
+        return $('//*[@id="root"]/div/div[1]/header/nav/div[1]/div/div[2]/div/form/button')
     }
 
     async login (username, password)  {
