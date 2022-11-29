@@ -21,7 +21,9 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/*.js'
+        './test/specs/super-admin-add-new.e2e.js',
+        './test/specs/super-admin-edit.e2e.js',
+        './test/specs/super-admin-delete.e2e.js'
     ],
     // Patterns to exclude.
     exclude: [
