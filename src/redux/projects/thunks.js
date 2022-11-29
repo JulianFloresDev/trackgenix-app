@@ -21,7 +21,7 @@ export const getProjects = (id) => {
     dispatch(fetchDataOn());
     try {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           token: sessionStorage.getItem('token')
