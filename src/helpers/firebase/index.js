@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, onIdTokenChanged } from 'firebase/auth';
 import store from 'redux/store';
-import { setAuthentication, logoutSuccess, logoutError } from 'redux/Auth/actions';
+import { setAuthentication, logoutSuccess, logoutError } from 'redux/auth/actions';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -20,6 +20,7 @@ export const tokenListener = () => {
   onIdTokenChanged(auth, async (user) => {
     if (user) {
       try {
+        console.log(user);
         const {
           token,
           claims: { role, email }

@@ -115,8 +115,8 @@ export const createEmployee = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/employees`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          token: sessionStorage.getItem('token')
+          'Content-Type': 'application/json'
+          // token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

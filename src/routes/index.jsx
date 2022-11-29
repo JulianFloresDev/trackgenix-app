@@ -29,22 +29,34 @@ function Layout() {
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/home'} component={Home} />
-              <PrivateRoute path={'/admins'} role={'ADMIN'} component={AdminsRoutes} />
-              <PrivateRoute path={'/super-admins'} role={'ADMIN'} component={SuperAdminsRoutes} />
-              <PrivateRoute path={'/employees'} role={'ADMIN'} component={EmployeesRoutes} />
+              <PrivateRoute
+                path={'/admins'}
+                role={['super-admin', 'admin']}
+                component={AdminsRoutes}
+              />
+              <PrivateRoute
+                path={'/super-admins'}
+                role={['super-admin']}
+                component={SuperAdminsRoutes}
+              />
+              <PrivateRoute
+                path={'/employees'}
+                role={['admin', 'super-admin', 'employee']}
+                component={EmployeesRoutes}
+              />
               <PrivateRoute
                 path={'/tasks'}
-                role={['ADMIN', 'SUPER_ADMIN', 'EMPLOYEE']}
+                role={['admin', 'super-admin', 'employee']}
                 component={TasksRoutes}
               />
               <PrivateRoute
                 path={'/projects'}
-                role={['ADMIN', 'SUPER_ADMIN', 'EMPLOYEE']}
+                role={['admin', 'super-admin', 'employee']}
                 component={ProjectsRoutes}
               />
               <PrivateRoute
                 path={'/time-sheets'}
-                role={['ADMIN', 'SUPER_ADMIN', 'EMPLOYEE']}
+                role={['admin', 'super-admin', 'employee']}
                 component={TimeSheetsRoutes}
               />
               <Route path={'/auth'} component={AuthRoutes} />
