@@ -4,8 +4,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { Spinner } from 'Components/Share';
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  const { role, isLoading } = useSelector((store) => store.auth);
-  console.log('Role: ', role);
+  const { role, isLoading } = useSelector((state) => state.auth);
+
   return (
     <Route
       {...rest}

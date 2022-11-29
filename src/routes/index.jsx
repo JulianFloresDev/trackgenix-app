@@ -7,7 +7,6 @@ import Footer from 'Components/Footer';
 import { Spinner } from 'Components/Share';
 import PrivateRoute from './PrivateRoute';
 
-// const Login = lazy(() => import('Components/Auth/Login'));
 const Home = lazy(() => import('Components/Home'));
 const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
 const AdminsRoutes = lazy(() => import('routes/admins'));
