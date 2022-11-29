@@ -33,7 +33,7 @@ const Navbar = ({ navOptions }) => {
         </ul>
         <div className={styles.buttonsContainer}>
           {!authenticated && (
-            <div>
+            <div className={styles.logginOptions}>
               <button
                 className={styles.buttonItem}
                 onClick={() => {
@@ -42,7 +42,7 @@ const Navbar = ({ navOptions }) => {
               >
                 Log In
               </button>
-              <a href={'/auth/sign-up'}>Create an account.</a>
+              <a href={'/auth/sign-up'}>{`Don't have account? Create one here.`}</a>
             </div>
           )}
           {authenticated && (
