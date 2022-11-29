@@ -7,7 +7,7 @@ import projectsReducer from './projects/reducer';
 import superAdminsReducer from './super-admins/reducer';
 import tasksReducer from './tasks/reducer';
 import timeSheetsReducer from './time-sheets/reducer';
-import authReducer from './Auth/reducer';
+import authReducer from './auth/reducer';
 
 const rootReducer = combineReducers({
   admins: adminsReducer,

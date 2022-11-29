@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSuperAdmins } from 'redux/super-admins/thunks';
 import { getAdmins } from 'redux/admins/thunks';
 import { getEmployees } from 'redux/employees/thunks';
-import { logout } from 'redux/Auth/thunks';
+import { logout } from 'redux/auth/thunks';
 
 const Navbar = ({ navOptions }) => {
   const { authenticated, role } = useSelector((state) => state.auth);

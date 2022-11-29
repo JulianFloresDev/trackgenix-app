@@ -40,22 +40,22 @@ function Layout() {
               />
               <PrivateRoute
                 path={'/employees'}
-                role={['super-admin', 'admin', 'employee']}
+                role={['admin', 'super-admin', 'employee']}
                 component={EmployeesRoutes}
               />
               <PrivateRoute
                 path={'/tasks'}
-                role={['super-admin', 'admin', 'employee']}
+                role={['admin', 'super-admin', 'employee']}
                 component={TasksRoutes}
               />
               <PrivateRoute
                 path={'/projects'}
-                role={['super-admin', 'admin', 'employee']}
+                role={['admin', 'super-admin', 'employee']}
                 component={ProjectsRoutes}
               />
               <PrivateRoute
                 path={'/time-sheets'}
-                role={['super-admin', 'admin', 'employee']}
+                role={['admin', 'super-admin', 'employee']}
                 component={TimeSheetsRoutes}
               />
               <Route path={'/auth'} component={AuthRoutes} />
