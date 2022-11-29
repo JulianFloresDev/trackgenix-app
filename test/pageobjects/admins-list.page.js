@@ -1,7 +1,7 @@
 class AdminsListPage {
 
     get addButton () {
-        return $('#root > div > div.layout_bodyContainer__ImN\+9 > section > div > div > div.table_imgContainer__zWitb > img')
+        return $('[src="/assets/images/add.svg"]')
     }
 }
 

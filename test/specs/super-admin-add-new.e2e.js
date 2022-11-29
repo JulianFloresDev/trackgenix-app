@@ -1,6 +1,7 @@
 const LoginPage = require ('../pageobjects/login.page')
 const SuperAdminPage = require ('../pageobjects/super-admin.page')
 const AdminsListPage = require ('../pageobjects/admins-list.page')
+const FormPage = require ('../pageobjects/form.page')
 
 describe('Add new Admin', () => {
     beforeAll('Navigate URL', () => {
@@ -14,5 +15,9 @@ describe('Add new Admin', () => {
        await SuperAdminPage.selectAdmins.click();
        await expect(browser).toHaveUrl('https://alfon-a-trackgenix-eejrv4lm4-basp-a2022.vercel.app/admins');
        await AdminsListPage.addButton.click();
+       await expect(browser).toHaveUrl('https://alfon-a-trackgenix-eejrv4lm4-basp-a2022.vercel.app/admins/form/0');
+       await FormPage.newadmin('Test', 'Automation', 'algo@algo.com', 'Abcd1234', '47112225', '77547774', 'Lugar 1234');
+       await expect(FormPage.successfullyMessage).toHaveTextContaining('Admin created successfully!')
+       await FormPage.confirmButton.click();
+       await browser.pause(5000);
     });
-});
