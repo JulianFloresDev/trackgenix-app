@@ -41,7 +41,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: false,
         authenticated: true,
-        role: action.payload.role
+        role: action.payload
       };
     case SET_LOGGED_OUT:
       return {

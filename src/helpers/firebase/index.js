@@ -20,7 +20,6 @@ export const tokenListener = () => {
   onIdTokenChanged(auth, async (user) => {
     if (user) {
       try {
-        console.log(user);
         const {
           token,
           claims: { role, email }
