@@ -21,3 +21,4 @@ describe('Add new Admin', () => {
        await FormPage.confirmButton.click();
        await browser.pause(5000);
     });
+});
