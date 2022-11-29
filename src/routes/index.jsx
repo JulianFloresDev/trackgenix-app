@@ -7,7 +7,6 @@ import Footer from 'Components/Footer';
 import { Spinner } from 'Components/Share';
 import PrivateRoute from './PrivateRoute';
 
-// const Login = lazy(() => import('Components/Auth/Login'));
 const Home = lazy(() => import('Components/Home'));
 const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
 const AdminsRoutes = lazy(() => import('routes/admins'));
@@ -29,22 +28,34 @@ function Layout() {
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/home'} component={Home} />
-              <PrivateRoute path={'/admins'} role={'ADMIN'} component={AdminsRoutes} />
-              <PrivateRoute path={'/super-admins'} role={'ADMIN'} component={SuperAdminsRoutes} />
-              <PrivateRoute path={'/employees'} role={'ADMIN'} component={EmployeesRoutes} />
+              <PrivateRoute
+                path={'/admins'}
+                role={['super-admin', 'admin']}
+                component={AdminsRoutes}
+              />
+              <PrivateRoute
+                path={'/super-admins'}
+                role={['super-admin']}
+                component={SuperAdminsRoutes}
+              />
+              <PrivateRoute
+                path={'/employees'}
+                role={['super-admin', 'admin', 'employee']}
+                component={EmployeesRoutes}
+              />
               <PrivateRoute
                 path={'/tasks'}
-                role={['ADMIN', 'SUPER_ADMIN', 'EMPLOYEE']}
+                role={['super-admin', 'admin', 'employee']}
                 component={TasksRoutes}
               />
               <PrivateRoute
                 path={'/projects'}
-                role={['ADMIN', 'SUPER_ADMIN', 'EMPLOYEE']}
+                role={['super-admin', 'admin', 'employee']}
                 component={ProjectsRoutes}
               />
               <PrivateRoute
                 path={'/time-sheets'}
-                role={['ADMIN', 'SUPER_ADMIN', 'EMPLOYEE']}
+                role={['super-admin', 'admin', 'employee']}
                 component={TimeSheetsRoutes}
               />
               <Route path={'/auth'} component={AuthRoutes} />

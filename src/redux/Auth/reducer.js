@@ -12,7 +12,7 @@ import {
 } from './constans';
 
 const INITIAL_STATE = {
-  isLoading: false,
+  isLoading: true,
   authenticated: false,
   role: '',
   email: '',
@@ -60,7 +60,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         authenticated: true,
         role: action.payload.role,
-        email: action.payload.email
+        email: action.payload.email,
+        isLoading: false
       };
     default:
       return state;

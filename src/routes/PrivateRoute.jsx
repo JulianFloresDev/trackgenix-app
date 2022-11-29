@@ -4,7 +4,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { Spinner } from 'Components/Share';
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  const { role, isLoading } = useSelector((store) => store.auth);
+  const { role, isLoading } = useSelector((state) => state.auth);
+
   return (
     <Route
       {...rest}
@@ -12,7 +13,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
         if (isLoading) {
           return <Spinner />;
         }
-        if (role === rest.role) {
+        if (rest.role.includes(role)) {
           return <RouteComponent {...routeProps} />;
         }
         return <Redirect to={'/auth/login'} />;
