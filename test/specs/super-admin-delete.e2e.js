@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-const LoginPage = require ('../pageobjects/login.page')
-const SuperAdminPage = require ('../pageobjects/super-admin.page')
+const LoginPage = require ('../pageobjects/login.page');
+const SuperAdminPage = require ('../pageobjects/super-admin.page');
 const AdminsListPage = require ('../pageobjects/admins-list.page');
 
 

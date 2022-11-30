@@ -3,19 +3,19 @@
 class LoginPage {
 
     get loginButton () {
-        return $('.navbar_buttonItem__IZsPX')
+        return $('.navbar_buttonItem__IZsPX');
     }
 
     get inputUserName () {
-        return $('#email')
+        return $('#email');
     }
 
     get inputPassword () {
-        return $('#password')
+        return $('#password');
     }
 
     get confirmLoginButton () {
-        return $('//*[@id="root"]/div/div[1]/header/nav/div[1]/div/div[2]/div/form/button')
+        return $('//*[@id="root"]/div/div[1]/header/nav/div[1]/div/div[2]/div/form/button');
     }
 
     async login (username, password)  {

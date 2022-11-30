@@ -2,35 +2,35 @@
 class FormPage {
 
     get inputFirstName () {
-        return $('#firstName')
+        return $('#firstName');
     }
 
     get inputLastName () {
-        return $('#lastName')
+        return $('#lastName');
     }
 
     get inputEmail () {
-        return $('#email')
+        return $('#email');
     }
 
     get inputPassword () {
-        return $('#password')
+        return $('#password');
     }
 
     get inputDni () {
-        return $('#dni')
+        return $('#dni');
     }
 
     get inputPhone () {
-        return $('#phone')
+        return $('#phone');
     }
 
     get inputAddress () {
-        return $('#location')
+        return $('#location');
     }
 
     get submitButton () {
-        return $('[type="submit"]')
+        return $('[type="submit"]');
     }
 
     get successfullyMessage () {
@@ -38,7 +38,7 @@ class FormPage {
     }
 
     get confirmButton () {
-        return $('//*[@id="root"]/div/div[2]/div/div/div[2]/div/button[2]')
+        return $('//*[@id="root"]/div/div[2]/div/div/div[2]/div/button[2]');
     }
 
     async dataadmin (name, lastname, email, password, DNI, phone, Address) {

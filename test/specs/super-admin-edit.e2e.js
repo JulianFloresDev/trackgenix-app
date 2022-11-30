@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
-const LoginPage = require ('../pageobjects/login.page')
-const SuperAdminPage = require ('../pageobjects/super-admin.page')
-const AdminsListPage = require ('../pageobjects/admins-list.page')
-const FormPage = require ('../pageobjects/form.page')
+const LoginPage = require ('../pageobjects/login.page');
+const SuperAdminPage = require ('../pageobjects/super-admin.page');
+const AdminsListPage = require ('../pageobjects/admins-list.page');
+const FormPage = require ('../pageobjects/form.page');
 
 describe('Edit an Admin', () => {
     beforeAll('Navigate URL', () => {
         browser.url('https://alfon-a-trackgenix-eejrv4lm4-basp-a2022.vercel.app/');
     });
 
-    it('should added admin successfully', async () => {
+    it('should edited admin successfully', async () => {
         await LoginPage.loginButton.click();
         await LoginPage.login('orodrig9@hostgator.com', 'q3obMq4sAa0');
         await expect(browser).toHaveUrl('https://alfon-a-trackgenix-eejrv4lm4-basp-a2022.vercel.app/');
