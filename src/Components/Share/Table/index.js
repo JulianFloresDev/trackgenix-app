@@ -62,7 +62,6 @@ const Table = ({ headers, data }) => {
         break;
       default:
         dispatch(setModalContent(<p>Can not delete entitie</p>));
-        setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 
@@ -212,6 +211,7 @@ const Table = ({ headers, data }) => {
                               className={styles.closeBtn}
                               onClick={(e) => {
                                 e.preventDefault();
+                                dispatch(editItem(row));
                                 openModal(row._id);
                               }}
                             />
