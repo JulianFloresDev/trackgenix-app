@@ -1,21 +1,12 @@
 import styles from './navbar.module.css';
-import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSuperAdmins } from 'redux/super-admins/thunks';
-import { getAdmins } from 'redux/admins/thunks';
-import { getEmployees } from 'redux/employees/thunks';
 import { logout } from 'redux/auth/thunks';
 
 const Navbar = ({ navOptions }) => {
   const { authenticated, role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  useEffect(() => {
-    authenticated &&
-      (dispatch(getSuperAdmins('')), dispatch(getAdmins('')), dispatch(getEmployees('')));
-  }, []);
 
   return (
     <>
@@ -24,7 +15,7 @@ const Navbar = ({ navOptions }) => {
           {navOptions?.map((endPoint, index) => {
             return (
               <li key={index}>
-                <a href={endPoint === 'profile' ? `/${role}s` : `/${endPoint}`}>
+                <a href={endPoint === 'profile' ? `/${role}s/` : `/${endPoint}`}>
                   {endPoint.toUpperCase()}
                 </a>
               </li>

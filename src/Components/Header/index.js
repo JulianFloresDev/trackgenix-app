@@ -13,7 +13,15 @@ function Header() {
         </a>
         {role === 'super-admin' && (
           <Navbar
-            navOptions={['admins', 'employees', 'projects', 'time-sheets', 'tasks', 'profile']}
+            navOptions={[
+              'super-admins',
+              'admins',
+              'employees',
+              'projects',
+              'time-sheets',
+              'tasks',
+              'profile'
+            ]}
           />
         )}
         {role === 'admin' && (
