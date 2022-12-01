@@ -18,7 +18,13 @@ export const getSuperAdmins = (id) => {
     try {
       dispatch(getSuperAdminsPending());
       dispatch(fetchDataOn());
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error();
@@ -40,7 +46,8 @@ export const deleteSuperAdmins = (id) => {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (req.status >= 400) {
@@ -66,7 +73,8 @@ export const editSuperAdmin = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -109,7 +117,8 @@ export const createSuperAdmin = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });

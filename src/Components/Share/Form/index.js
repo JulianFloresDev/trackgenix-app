@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { schema } from './schema';
+import { formSchema } from 'Validations/formSchema';
 import styles from './form.module.css';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
@@ -13,7 +13,7 @@ import { getEmployees, editEmployee, createEmployee } from 'redux/employees/thun
 import { getProjects, editProject, createProject } from 'redux/projects/thunks';
 import { getTimesheets, editTimesheets, createTimesheets } from 'redux/time-sheets/thunks';
 import { getTasks, editTask, createTask } from 'redux/tasks/thunks';
-import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
+import { editItem, setShowModal } from 'redux/global/actions';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const Form = () => {
     reset
   } = useForm({
     node: 'onChange',
-    resolver: joiResolver(schema)
+    resolver: joiResolver(formSchema)
   });
   useEffect(() => {
     switch (entitie) {
@@ -121,8 +121,8 @@ const Form = () => {
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
-    setTimeout(() => reset(), 200);
   }, []);
+
   const modifyRow = (data) => {
     const body = {
       ...data,
@@ -133,7 +133,8 @@ const Form = () => {
       project: data.project?._id || data.project,
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
-      })
+      }),
+      firebaseUid: itemToPUT.firebaseUid
     };
     switch (entitie) {
       case 'employees':
@@ -169,13 +170,6 @@ const Form = () => {
     dispatch(setShowModal(false));
     history.push(`/${entitie}`);
   };
-
-  window.addEventListener('keydown', (e) => {
-    if (showModal && e.code === 'Escape') {
-      dispatch(setModalContent(<></>));
-      dispatch(setShowModal(!showModal));
-    }
-  });
 
   return (
     <>

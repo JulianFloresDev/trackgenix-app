@@ -15,7 +15,7 @@ const teamMembersValidation = Joi.object({
     'number.max': 'Rate should have a maximum of 1000'
   })
 });
-export const schema = Joi.object({
+export const formSchema = Joi.object({
   firstName: Joi.string()
     .regex(/^[\w\s]+$/)
     .min(3)
@@ -116,5 +116,6 @@ export const schema = Joi.object({
     'string.min': 'clientName should have a minimum length of 2 characters',
     'string.max': 'clientName should have a maximum length of 30 characters'
   }),
-  teamMembers: Joi.array().items(teamMembersValidation)
+  teamMembers: Joi.array().items(teamMembersValidation),
+  firebaseUid: Joi.string()
 });
