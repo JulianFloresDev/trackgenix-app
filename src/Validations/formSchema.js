@@ -116,5 +116,6 @@ export const formSchema = Joi.object({
     'string.min': 'clientName should have a minimum length of 2 characters',
     'string.max': 'clientName should have a maximum length of 30 characters'
   }),
-  teamMembers: Joi.array().items(teamMembersValidation)
+  teamMembers: Joi.array().items(teamMembersValidation),
+  firebaseUid: Joi.string()
 });
