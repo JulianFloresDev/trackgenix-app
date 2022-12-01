@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { formSchema } from '../../../Validations/formSchema';
+import { formSchema } from 'Validations/formSchema';
 import styles from './form.module.css';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
@@ -121,8 +121,8 @@ const Form = () => {
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
-    setTimeout(() => reset(), 200);
   }, []);
+
   const modifyRow = (data) => {
     const body = {
       ...data,

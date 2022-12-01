@@ -16,6 +16,7 @@ const teamMembersValidation = Joi.object({
   })
 });
 export const formSchema = Joi.object({
+  firebaseUid: Joi.string(),
   firstName: Joi.string()
     .regex(/^[\w\s]+$/)
     .min(3)

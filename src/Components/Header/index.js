@@ -25,7 +25,7 @@ function Header() {
           />
         )}
         {role === 'admin' && (
-          <Navbar navOptions={['employees', 'projects', 'time-sheets', 'profile']} />
+          <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
         )}
         {role === 'employee' && <Navbar navOptions={['time-sheets', 'projects', 'profile']} />}
         {!role && <Navbar navOptions={[]} />}
