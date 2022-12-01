@@ -26,7 +26,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case SIGN_UP_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: ''
       };
     case LOGIN_ERROR:
     case LOGOUT_ERROR:
@@ -41,6 +42,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: false,
         authenticated: true,
+        error: '',
         role: action.payload
       };
     case SET_LOGGED_OUT:

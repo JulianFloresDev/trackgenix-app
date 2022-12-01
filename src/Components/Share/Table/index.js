@@ -118,12 +118,7 @@ const Table = ({ headers, data }) => {
       dispatch(setShowModal(true));
     }
   };
-  window.addEventListener('keydown', (e) => {
-    if (showModal && e.code === 'Escape') {
-      dispatch(setModalContent(<></>));
-      dispatch(setShowModal(!showModal));
-    }
-  });
+
   return (
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>

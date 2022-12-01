@@ -13,7 +13,7 @@ import { getEmployees, editEmployee, createEmployee } from 'redux/employees/thun
 import { getProjects, editProject, createProject } from 'redux/projects/thunks';
 import { getTimesheets, editTimesheets, createTimesheets } from 'redux/time-sheets/thunks';
 import { getTasks, editTask, createTask } from 'redux/tasks/thunks';
-import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
+import { editItem, setShowModal } from 'redux/global/actions';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -170,13 +170,6 @@ const Form = () => {
     dispatch(setShowModal(false));
     history.push(`/${entitie}`);
   };
-
-  window.addEventListener('keydown', (e) => {
-    if (showModal && e.code === 'Escape') {
-      dispatch(setModalContent(<></>));
-      dispatch(setShowModal(!showModal));
-    }
-  });
 
   return (
     <>

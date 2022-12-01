@@ -21,7 +21,7 @@ export const login = (inputData) => {
       dispatch(loginSuccess(role));
       return role;
     } catch (error) {
-      return dispatch(loginError());
+      return dispatch(loginError(error));
     }
   };
 };

@@ -8,6 +8,13 @@ const Modal = ({ children, showModal }) => {
     return null;
   }
 
+  window.addEventListener('keydown', (e) => {
+    if (showModal && e.code === 'Escape') {
+      dispatch(setModalContent(<></>));
+      dispatch(setShowModal(!showModal));
+    }
+  });
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalWrapper}>
