@@ -12,6 +12,9 @@ import {
   fetchDataOff
 } from 'redux/global/actions';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
+import { useSelector } from 'react-redux';
+
+const { itemToPUT } = useSelector((store) => store.global);
 
 export const getSuperAdmins = (id) => {
   return async (dispatch) => {
@@ -47,7 +50,8 @@ export const deleteSuperAdmins = (id) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          token: sessionStorage.getItem('token')
+          token: sessionStorage.getItem('token'),
+          firebaseUid: itemToPUT.firebaseUid
         }
       });
       if (req.status >= 400) {
@@ -58,11 +62,9 @@ export const deleteSuperAdmins = (id) => {
         setModalContent(<h3 className={modalStyles.title}>Super Admin deleted successfully!</h3>)
       );
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
       dispatch(setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>));
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 };

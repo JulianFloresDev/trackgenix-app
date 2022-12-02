@@ -14,6 +14,9 @@ import {
   deleteAdminsError
 } from './actions';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
+import { useSelector } from 'react-redux';
+
+const { itemToPUT } = useSelector((store) => store.global);
 
 export const getAdmins = (id) => {
   return async (dispatch) => {
@@ -50,7 +53,8 @@ export const deleteAdminByID = (id) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          token: sessionStorage.getItem('token')
+          token: sessionStorage.getItem('token'),
+          firebaseUid: itemToPUT.firebaseUid
         }
       });
       if (request.status >= 400) {

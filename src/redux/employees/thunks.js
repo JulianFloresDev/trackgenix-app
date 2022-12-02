@@ -12,6 +12,9 @@ import {
   fetchDataOff
 } from 'redux/global/actions';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
+import { useSelector } from 'react-redux';
+
+const { itemToPUT } = useSelector((store) => store.global);
 
 export const getEmployees = (id) => {
   return async (dispatch) => {
@@ -47,7 +50,8 @@ export const deleteEmployees = (id) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          token: sessionStorage.getItem('token')
+          token: sessionStorage.getItem('token'),
+          firebaseUid: itemToPUT.firebaseUid
         }
       });
       if (req.status >= 400) {
