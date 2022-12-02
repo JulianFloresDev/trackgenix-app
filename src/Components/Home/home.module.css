@@ -3,6 +3,418 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  flex-wrap: wrap;
   color: var(--color-blue-primary);
+}
+
+main {
+  flex: 1 1 80%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 5%;
+  background-color: #FFFFFF;
+}
+
+main section {
+  padding: 40px 0px;
+  border-bottom: 3px solid #373867;
+}
+
+main section:first-child {
+  margin-top: 53px;
+  border-top: 3px solid #373867;
+}
+
+main section:last-child {
+  border-bottom: none;
+}
+
+/*! ___________________________________*/
+/*?               Sections             */
+/**               Hero Section         */
+main section.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 27px;
+  width: 100%;
+}
+
+main section.hero .leftConteiner,
+main section.hero .rightConteiner {
+  display: flex;
+  flex-direction: column;
+}
+
+main section.hero .leftConteiner {
+  flex: 0 1 fit-content;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 25px;
+  color: #41426F;
+}
+
+main section.hero .leftConteiner h2 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+  text-transform: uppercase;
+}
+
+main section.hero .leftConteiner h3 {
+  margin: 12px 0px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  text-transform: uppercase;
+}
+
+main section.hero .leftConteiner p {
+  text-align: justify;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+main section.hero .learnMoreBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38%;
+  padding: 14px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+}
+
+main section.hero .leftConteiner .learnMoreBtn {
+  display: none;
+  margin-left: 62%;
+}
+
+main section.hero .learnMoreBtn:hover {
+  color: #FFFFFF;
+  background: #AACE9B;
+}
+
+main section.hero .rightConteiner {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 12px;
+  width: 100%;
+  height: 215px;
+  border-radius: 5px;
+  background-image: url('../../../public/assets/images/img-logo-hero.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  color: #41426F;
+}
+
+/**       Service Section       */
+main section.services {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+main section.services .column {
+  display: flex;
+  flex: 1 1 45%;
+}
+
+main section.services .column .divRotate45 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 41px;
+  height: 41px;
+  padding: 6px;
+  margin-right: 13px;
+  border: 2px solid #AACE9B;
+  transform: rotate(-45deg);
+}
+
+main section.services .column .divRotate45 span {
+  color: #AACE9B;
+  width: 25px;
+  height: 25px;
+  transform: rotate(45deg);
+}
+
+main section.services .column:nth-child(4) .divRotate45 span {
+  transform: rotate(135deg);
+}
+
+main section.services .column .serviceInfo h2 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+  color: #000;
+}
+
+main section.services .column .serviceInfo p {
+  margin-top: 15px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+/**        Section Why?         */
+main section.why h2 {
+  margin-bottom: 50px;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+}
+
+main section.why .ulRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4rem;
+  padding: 0 5%;
+}
+
+main section.why .ulRow li {
+  flex-basis: 40%;
+  list-style-image: url('../../../public/assets/images/list-style-triangle.png');
+}
+
+main section.why .ulRow li h3 {
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+}
+
+main section.why .ulRow li p {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+/**  Form Section  */
+
+#landing-form,
+.landingForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
+  width: 100%;
+  margin: auto;
+  padding: 19px 22px;
+  background: #AACE9B;
+  border-radius: 20px;
+}
+
+main section.form form .formRow {
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+main section.form form .formRow label,
+main section.form form .formRow input {
+  height: 25px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #41426F;
+}
+
+main section.form form .formRow input,
+main section.form form .formRow select,
+main section.form form .formRow textarea {
+  width: 100%;
+  height: 2.3rem;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: transparent;
+  border: 1px solid #41426F;
+  border-radius: 4px;
+  color: #41426F;
+  resize: none;
+}
+
+/*! Styles to JS interactions */
+#form-landing-name.invalidInput,
+#form-landing-email.invalidInput,
+#form-landing-message.invalidInput,
+#form-landing-select.invalidInput {
+  border: 1px solid #FF3E1D;
+  color: #FF3E1D;
+}
+
+.invalidMessage {
+  display: none;
+  align-self: flex-start;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.3px;
+  color: #FF3E1D;
+  opacity: .8;
+}
+
+.invalidMessage.active {
+  display: flex;
+}
+
+select:target,
+select:focus-visible,
+select:focus {
+  color: rgb(65, 66, 111, .5);
+  border: none;
+  outline: none;
+}
+
+main section.form form .formRow select option,
+main section.form form .formRow select:focus-visible option,
+main section.form form .formRow select:target option,
+main section.form form .formRow select:focus option {
+  width: 100%;
+  height: 37px;
+  background-color: transparent;
+  border: 1px solid #41426F;
+  border-radius: 4px;
+  color: #41426F;
+  outline: none;
+}
+
+main section.form form .formRow textarea {
+  height: 5rem;
+  padding: 10px 16px;
+}
+
+textarea:target,
+textarea:focus-visible,
+textarea:focus {
+  color: rgb(65, 66, 111, .5);
+  border: none;
+  outline: none;
+}
+
+#form-send-btn {
+  width: 30%;
+  padding: 5px 20px;
+  margin-left: 70%;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border-width: 0;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  color: #41426F;
+}
+
+#form-send-btn:hover {
+  color: #FFFFFF;
+  background: #41426F;
+}
+
+/**       Section About Us      */
+main section.aboutUs {
+  display: flex;
+  gap: 15px;
+}
+
+main section.aboutUs h2 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+}
+
+main section.aboutUs .flexItem {
+  display: flex;
+  gap: 15px;
+}
+
+main section.aboutUs .flexItem .aboutImg {
+  flex: 1 0 40%;
+  align-self: flex-start;
+  height: 171px;
+  border-radius: 10px;
+
+  background-image: url('../../../public/assets/images/img-logo-hero.svg');
+  background-position: center center;
+  background-size: cover;
+}
+
+main section.aboutUs .flexItem p,
+main section.aboutUs p {
+  display: flex;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+/**        Final Section        */
+main section.final {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+main section.final .column {
+  flex: 1 0 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5%;
+}
+
+main section.final .column:nth-of-type(2) {
+  border-left: 3px solid #41426F;
+  border-right: 3px solid #41426F;
+}
+
+main section.final .column:nth-of-type(3) {
+  border-right: 3px solid #41426F;
+}
+
+main section.final .column h2 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+}
+
+main section.final .column ul {
+  padding-left: 22px;
+}
+
+main section.final .column li {
+  margin: 2rem 0;
+  list-style-image: url('../../../public/assets/images/list-style-triangle.png');
+}
+
+main section.final .column li a {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 26px;
+  color: #41426F;
 }
