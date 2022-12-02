@@ -30,9 +30,6 @@ main section:last-child {
   border-bottom: none;
 }
 
-/*! ___________________________________*/
-/*?               Sections             */
-/**               Hero Section         */
 main section.hero {
   position: relative;
   display: flex;
@@ -128,7 +125,6 @@ section {
   color: #41426F;
 }
 
-/**       Service Section       */
 main section.services {
   display: flex;
   justify-content: space-between;
@@ -179,7 +175,6 @@ main section.services .column .serviceInfo p {
   line-height: 16px;
 }
 
-/**        Section Why?         */
 main section.why h2 {
   margin-bottom: 50px;
   font-weight: 700;
@@ -213,7 +208,6 @@ main section.why .ulRow li p {
   line-height: 23px;
 }
 
-/**  Form Section  */
 
 #landing-form,
 .landingForm {
@@ -256,7 +250,6 @@ main section.form form .formRow textarea {
   resize: none;
 }
 
-/*! Styles to JS interactions */
 #form-landing-name.invalidInput,
 #form-landing-email.invalidInput,
 #form-landing-message.invalidInput,
@@ -337,7 +330,6 @@ textarea:focus {
   background: #41426F;
 }
 
-/**       Section About Us      */
 main section.aboutUs {
   display: flex;
   gap: 15px;
@@ -373,7 +365,6 @@ main section.aboutUs p {
   line-height: 18px;
 }
 
-/**        Final Section        */
 main section.final {
   display: flex;
   flex-direction: row;
