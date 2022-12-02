@@ -12,9 +12,6 @@ import {
   fetchDataOff
 } from 'redux/global/actions';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
-import { useSelector } from 'react-redux';
-
-const { itemToPUT } = useSelector((store) => store.global);
 
 export const getSuperAdmins = (id) => {
   return async (dispatch) => {
@@ -43,7 +40,7 @@ export const getSuperAdmins = (id) => {
   };
 };
 
-export const deleteSuperAdmins = (id) => {
+export const deleteSuperAdmins = (id, firebaseUid) => {
   return async (dispatch) => {
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
@@ -51,7 +48,7 @@ export const deleteSuperAdmins = (id) => {
         headers: {
           'Content-Type': 'application/json',
           token: sessionStorage.getItem('token'),
-          firebaseUid: itemToPUT.firebaseUid
+          uid: firebaseUid
         }
       });
       if (req.status >= 400) {
