@@ -42,7 +42,7 @@ export const getAdmins = (id) => {
   };
 };
 
-export const deleteAdminByID = (id) => {
+export const deleteAdminByID = (id, firebaseUid) => {
   return async (dispatch) => {
     dispatch(deleteAdminsPending());
     try {
@@ -50,7 +50,8 @@ export const deleteAdminByID = (id) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          token: sessionStorage.getItem('token')
+          token: sessionStorage.getItem('token'),
+          uid: firebaseUid
         }
       });
       if (request.status >= 400) {

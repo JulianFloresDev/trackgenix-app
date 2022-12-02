@@ -18,7 +18,7 @@ const Table = ({ headers, data }) => {
   const { user, showModal, modalContent } = useSelector((state) => state.global);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
-  const openModal = (id) => {
+  const openModal = (element) => {
     dispatch(setShowModal(true));
     dispatch(
       setModalContent(
@@ -31,7 +31,7 @@ const Table = ({ headers, data }) => {
             <button className={modalStyles.cancelBtn} onClick={() => dispatch(setShowModal(false))}>
               Cancel
             </button>
-            <button className={modalStyles.confirmBtn} onClick={() => deleteItem(id)}>
+            <button className={modalStyles.confirmBtn} onClick={() => deleteItem(element)}>
               Submit
             </button>
           </div>
@@ -40,25 +40,25 @@ const Table = ({ headers, data }) => {
     );
   };
 
-  const deleteItem = (id) => {
+  const deleteItem = (element) => {
     switch (entitie) {
       case 'employees':
-        dispatch(deleteEmployees(id));
+        dispatch(deleteEmployees(element._id, element.firebaseUid));
         break;
       case 'admins':
-        dispatch(deleteAdminByID(id));
+        dispatch(deleteAdminByID(element._id, element.firebaseUid));
         break;
       case 'super-admins':
-        dispatch(deleteSuperAdmins(id));
+        dispatch(deleteSuperAdmins(element._id, element.firebaseUid));
         break;
       case 'tasks':
-        dispatch(deleteTasks(id));
+        dispatch(deleteTasks(element._id));
         break;
       case 'projects':
-        dispatch(deleteProject(id));
+        dispatch(deleteProject(element._id));
         break;
       case 'time-sheets':
-        dispatch(deleteTimesheets(id));
+        dispatch(deleteTimesheets(element._id));
         break;
       default:
         dispatch(setModalContent(<p>Can not delete entitie</p>));
@@ -207,7 +207,7 @@ const Table = ({ headers, data }) => {
                               onClick={(e) => {
                                 e.preventDefault();
                                 dispatch(editItem(row));
-                                openModal(row._id);
+                                openModal(row);
                               }}
                             />
                           </div>
