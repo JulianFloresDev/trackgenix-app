@@ -316,7 +316,8 @@ textarea:focus {
   outline: none;
 }
 
-#form-send-btn {
+#form-send-btn,
+.formSendBtn {
   width: 30%;
   padding: 5px 20px;
   margin-left: 70%;
@@ -330,7 +331,8 @@ textarea:focus {
   color: #41426F;
 }
 
-#form-send-btn:hover {
+#form-send-btn:hover,
+.formSendBtn:hover {
   color: #FFFFFF;
   background: #41426F;
 }

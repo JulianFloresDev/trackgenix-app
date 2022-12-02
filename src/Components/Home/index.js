@@ -154,7 +154,7 @@ function Home() {
                 placeholder="Enter your message"
               ></textarea>
             </div>
-            <input id="form-send-btn" type="submit" value="Send"></input>
+            <input className={styles.formSendBtn} type="submit" value="Send"></input>
           </form>
         </section>
         <section className={styles.aboutUs}>
