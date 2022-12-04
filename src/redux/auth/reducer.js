@@ -12,7 +12,7 @@ import {
 } from './constans';
 
 const INITIAL_STATE = {
-  isLoading: true,
+  isLoading: false,
   authenticated: false,
   role: '',
   email: '',

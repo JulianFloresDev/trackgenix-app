@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
   padding: 25px;
 }
 
@@ -19,12 +18,39 @@
   text-align: center;
 }
 
-.rutes>li>a {
-  color: #ffffff;
-  font-size: 1.6vw;
-  font-weight: 600;
-  text-decoration: none;
-  text-transform: capitalize;
+.rutes li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 50px;
+  margin: 12.5px 0;
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  color: #41426F;
+}
+
+.rutes li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  color: #41426F;
+}
+
+.rutes li:hover,
+.rutes li:hover a {
+  background: #AACE9B;
+  color: #FFFFFF;
 }
 
 .buttonsContainer {
@@ -41,12 +67,12 @@
   gap: 15px;
 }
 
-.logginOptions > a {
+.logginOptions>a {
   max-width: 150px;
   color: var(--color-white-ligthgrey);
 }
 
-.buttonItem{
+.buttonItem {
   padding: 8px 25px;
   border-radius: 5px;
   border: 2px solid var(--color-blue-border);
@@ -57,7 +83,8 @@
   color: var(--color-blue-primary);
   cursor: pointer;
 }
-.buttonItem:hover{
+
+.buttonItem:hover {
   background-color: var(--color-green-primary);
 }
 
@@ -92,7 +119,7 @@
   gap: 15px;
 }
 
-.containerContactInfo > div {
+.containerContactInfo>div {
   display: flex;
   gap: 10px;
 }

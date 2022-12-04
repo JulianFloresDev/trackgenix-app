@@ -28,26 +28,35 @@ const Navbar = ({ navOptions }) => {
           <div className={styles.navBarLoggedOut}>
             <div className={styles.containerLoggedOut}>
               <h2>Menu</h2>
-              <ul>
+              <ul className={styles.rutes}>
                 <li>
-                  <a href={'/home'}>Home</a>
+                  <a href={'/home'} className={styles.navbarBtn}>
+                    Home
+                  </a>
                 </li>
                 <li>
-                  <a href={'/auth/sign-up'}>Sign Up</a>
+                  <a href={'/auth/sign-up'} className={styles.navbarBtn}>
+                    Sign Up
+                  </a>
                 </li>
                 <li>
-                  <a href={'/auth/login'}>Log In</a>
+                  <a href={'/auth/login'} className={styles.navbarBtn}>
+                    Log In
+                  </a>
                 </li>
                 <li>
-                  <a href="#">Contact Info</a>
+                  <a href="#" className={styles.navbarBtn}>
+                    Contact Info
+                  </a>
                 </li>
               </ul>
             </div>
             <div className={styles.containerLoggedOut}>
               <h2>Get in touch</h2>
               <p>
-                Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Lacinia quis vel
-                eros donec ac odio tempor orci. Nulla porttitor massa id neque aliquam.
+                Gigatech is always looking for talented software developers to join our team. If you
+                are interested in working with us, please get in touch. We would be happy to discuss
+                your experience and skills.
               </p>
             </div>
             <div className={styles.containerContactInfo}>
