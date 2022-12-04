@@ -31,11 +31,7 @@ function Header() {
             <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
           ),
           role === 'employee' && <Navbar navOptions={['time-sheets', 'projects', 'profile']} />)}
-        {!authenticated && (
-          <>
-            <Navbar />
-          </>
-        )}
+        {!authenticated && <Navbar />}
       </nav>
     </header>
   );
