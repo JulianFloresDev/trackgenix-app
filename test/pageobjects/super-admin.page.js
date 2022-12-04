@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 class SuperAdminPage {
     get selectAdmins () {
-        return $('#root > div > div.layout_navBar__cBGea > header > nav > div > ul > li:nth-child(1) > a');
+        return $('//*[@id="root"]/div/div[1]/header/nav/div/ul/li[2]/a');
     }
 
     get logOutButton () {
