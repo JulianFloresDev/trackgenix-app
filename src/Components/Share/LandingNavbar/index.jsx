@@ -2,7 +2,7 @@ import styles from './landingNavBar.module.css';
 
 const LandingNavBar = () => {
   return (
-    <div className={styles.navBarLoggedOut}>
+    <nav className={styles.navBarLoggedOut}>
       <div className={styles.containerLoggedOut}>
         <h2>Menu</h2>
         <ul className={styles.rutes}>
@@ -50,7 +50,7 @@ const LandingNavBar = () => {
           <a href="">Av. Montevideo 1234, 11200</a>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

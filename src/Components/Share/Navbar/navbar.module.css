@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 25px;
+  /* padding: 25px; */
   gap: 25px;
 }
 
@@ -28,8 +28,9 @@
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-content: center;
+  width: 100%;
 }
 
 .rutes li {
@@ -37,34 +38,30 @@
   justify-content: center;
   align-items: center;
 
-  height: 40px;
-  padding: 0px 8px;
-  background-color: #FFFFFF;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
-  text-align: center;
-  color: #41426F;
+  width: 100%;
 }
 
 .rutes li a {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
   width: 100%;
-  height: 100%;
+  height: 40px;
+
+  background-color: var(--color-blue-primary);
   border-radius: 5px;
-  color: #41426F;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--color-white-primary);
+  border-radius: 5px;
 }
 
 .rutes li:hover,
 .rutes li:hover a {
-  background: #AACE9B;
-  color: #FFFFFF;
+  background-color: var(--color-white-ligthblue);
+  color: var(--color-blue-primary);
 }
 
 .buttonsContainer {
