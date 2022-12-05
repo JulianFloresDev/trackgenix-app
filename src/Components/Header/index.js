@@ -7,31 +7,30 @@ function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
+        {!authenticated && <Navbar />}
         {authenticated && (
           <a className={styles.logoRR} href="/">
             <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
             <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
           </a>
         )}
-        {authenticated &&
-          (role === 'super-admin' && (
-            <Navbar
-              navOptions={[
-                'super-admins',
-                'admins',
-                'employees',
-                'projects',
-                'time-sheets',
-                'tasks',
-                'profile'
-              ]}
-            />
-          ),
-          role === 'admin' && (
-            <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
-          ),
-          role === 'employee' && <Navbar navOptions={['time-sheets', 'projects', 'profile']} />)}
-        {!authenticated && <Navbar />}
+        {role === 'super-admin' && (
+          <Navbar
+            navOptions={[
+              'super-admins',
+              'admins',
+              'employees',
+              'projects',
+              'time-sheets',
+              'tasks',
+              'profile'
+            ]}
+          />
+        )}
+        {role === 'admin' && (
+          <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
+        )}
+        {role === 'employee' && <Navbar navOptions={['time-sheets', 'projects', 'profile']} />}
       </nav>
     </header>
   );
