@@ -12,6 +12,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-content: center;
+  gap: 12px;
 }
 
 .rutes>li {
@@ -23,20 +24,19 @@
   justify-content: center;
   align-items: center;
 
-  height: 50px;
-  margin: 12.5px 0;
+  padding: 10px;
   background-color: #FFFFFF;
   border: 1px solid #000000;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 12px;
   line-height: 18px;
   text-align: center;
   color: #41426F;
 }
 
-.rutes li a {
+/* .navbarBtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,10 +45,10 @@
   height: 100%;
   border-radius: 5px;
   color: #41426F;
-}
+} */
 
 .rutes li:hover,
-.rutes li:hover a {
+.navbarBtn:hover {
   background: #AACE9B;
   color: #FFFFFF;
 }
@@ -58,7 +58,7 @@
   flex-wrap: wrap;
 }
 
-.logginOptions {
+/* .logginOptions {
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
@@ -70,7 +70,7 @@
 .logginOptions>a {
   max-width: 150px;
   color: var(--color-white-ligthgrey);
-}
+} */
 
 .buttonItem {
   padding: 8px 25px;
@@ -91,18 +91,19 @@
 .navBarLoggedOut {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   color: #ffffff;
 }
 
 .containerLoggedOut {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .containerLoggedOut h2 {
-  padding: 15px 0;
+  font-size: 18px;
+  padding: 12px 0;
   border-bottom: solid 2px #FFFFFF08;
   text-transform: uppercase;
 }
@@ -116,7 +117,7 @@
 .containerContactInfo {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .containerContactInfo>div {
