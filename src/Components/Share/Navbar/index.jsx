@@ -74,17 +74,6 @@ const Navbar = ({ navOptions }) => {
               </div>
             </div>
           </div>
-          // <div className={styles.logginOptions}>
-          //   <button
-          //     className={styles.buttonItem}
-          //     onClick={() => {
-          //       history.push('/auth/login');
-          //     }}
-          //   >
-          //     Log In
-          //   </button>
-          //   <a href={'/auth/sign-up'}>{`Don't have account? Create one here.`}</a>
-          // </div>
         )}
         {authenticated && (
           <div className={styles.buttonsContainer}>
