@@ -26,8 +26,8 @@ const SignUp = () => {
 
   return (
     <section className={styles.sectionContainer}>
-      <h2>Register Employee</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h2>Register New Account</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <InputForm
           element={'firstName'}
           label={'First Name'}
@@ -77,8 +77,10 @@ const SignUp = () => {
           register={register}
           error={errors.location?.message}
         />
-        <div>
-          <button type="submit">Submit</button>
+        <div className={styles.btnContainer}>
+          <button type="submit" className={styles.submitBtn}>
+            Submit
+          </button>
           <button
             onClick={(e) => {
               e.preventDefault();
