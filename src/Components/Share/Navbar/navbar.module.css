@@ -1,21 +1,35 @@
 .flexContainer {
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 25px;
+  gap: 25px;
 }
+
+.logoRR {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.logoRR>img:first-child {
+  margin: 20px 0 10px;
+  width: 40%;
+}
+
+.logoRR>img:nth-child(2) {
+  width: 61%;
+}
+
 
 .rutes {
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-content: center;
-}
-
-.rutes>li {
-  text-align: center;
 }
 
 .rutes li {
@@ -23,8 +37,8 @@
   justify-content: center;
   align-items: center;
 
-  height: 50px;
-  margin: 12.5px 0;
+  height: 40px;
+  padding: 0px 8px;
   background-color: #FFFFFF;
   border: 1px solid #000000;
   border-radius: 5px;
@@ -73,7 +87,7 @@
 }
 
 .buttonItem {
-  padding: 8px 25px;
+  padding: 8px;
   border-radius: 5px;
   border: 2px solid var(--color-blue-border);
   background-color: var(--color-white-ligthblue);
@@ -86,40 +100,4 @@
 
 .buttonItem:hover {
   background-color: var(--color-green-primary);
-}
-
-.navBarLoggedOut {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  color: #ffffff;
-}
-
-.containerLoggedOut {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.containerLoggedOut h2 {
-  padding: 15px 0;
-  border-bottom: solid 2px #FFFFFF08;
-  text-transform: uppercase;
-}
-
-.containerLoggedOut ul li {
-  padding: 10px 0;
-  border-bottom: solid 1px #FFFFFF08;
-  text-transform: uppercase;
-}
-
-.containerContactInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.containerContactInfo>div {
-  display: flex;
-  gap: 10px;
 }

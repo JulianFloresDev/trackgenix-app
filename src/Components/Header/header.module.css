@@ -1,29 +1,15 @@
 .header {
-  flex: 1 1 100%;
-}
-
-.navbar {
+  flex: 0 0 15%;
   position: sticky;
   top: 0;
   display: flex;
   flex-direction: column;
   height: 100vh;
+
   background-color: #373867;
-}
+  overflow: hidden;
 
-.logoRR {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.logoRR>img:first-child {
-  margin: 20px 0 10px;
-  width: 40%;
-}
-
-.logoRR>img:nth-child(2) {
-  width: 61%;
+  box-shadow: -2px 0px 20px 12px var(--color-blue-border);
 }
 
 .rutes {
