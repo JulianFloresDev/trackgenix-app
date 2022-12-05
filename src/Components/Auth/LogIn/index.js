@@ -5,8 +5,9 @@ import { loginSchema } from 'Validations/loginSchema';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/auth/thunks';
 import { useHistory } from 'react-router-dom';
-import { InputForm, Modal, Spinner } from 'Components/Share';
+import { Modal, Spinner } from 'Components/Share';
 import { setModalContent, setShowModal } from 'redux/global/actions';
+import styles from './login.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Login = () => {
     resolver: joiResolver(loginSchema),
     mode: 'onChange'
   });
-
+  console.log('Errors: ', errors);
   const onSubmit = async (inputData) => {
     const role = await dispatch(login(inputData));
     if (error) {
@@ -63,23 +64,59 @@ const Login = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div>
+        <div className={styles.loginContainer}>
           <Modal showModal={showModal}>{modalContent}</Modal>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <InputForm
-              register={register}
-              element={'email'}
-              label={'Email'}
-              inputType={'text'}
-              error={errors.email?.message}
-            />
-            <InputForm
-              register={register}
-              element={'password'}
-              label={'Password'}
-              inputType={'password'}
-              error={errors.password?.message}
-            />
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
+            <h2>Sign In</h2>
+            <div className={styles.formBox}>
+              <img src={`${process.env.PUBLIC_URL}/assets/images/black-envelope.svg`} />
+              <input className={styles.loginInput} {...register('email')} type={'text'}></input>
+            </div>
+            <div className={styles.formBox}>
+              <img src={`${process.env.PUBLIC_URL}/assets/images/lock.svg`} />
+              <input
+                className={styles.loginInput}
+                {...register('password')}
+                type={'password'}
+              ></input>
+            </div>
+            <div>
+              <div>
+                <input type={'checkbox'}></input>
+                <label>Remember me</label>
+              </div>
+              <p>Forgot password?</p>
+            </div>
+            {(errors.email || errors.password) && (
+              <div className={styles.errorsBox}>
+                {errors.email && (
+                  <div className={styles.errorBox}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                      className={styles.firstErrorImg}
+                    />
+                    <p>{errors.email.message}</p>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                      className={styles.lastErrorImg}
+                    />
+                  </div>
+                )}
+                {errors.password && (
+                  <div className={styles.errorBox}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                      className={styles.firstErrorImg}
+                    />
+                    <p>{errors.password.message}</p>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                      className={styles.lastErrorImg}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
             <button type="submit">Log In</button>
           </form>
         </div>

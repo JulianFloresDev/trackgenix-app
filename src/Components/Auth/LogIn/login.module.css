@@ -1,0 +1,50 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formBox {
+  display: flex;
+  border-bottom: solid 1px #373867;
+}
+
+.loginInput {
+  border: none;
+}
+
+.loginInput:focus,
+.loginInput:focus-visible,
+.loginInput:target {
+  outline: none;
+}
+
+.errorsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.errorBox {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background: #FF1717;
+  border-radius: 10px;
+}
+
+.firstErrorImg {
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.lastErrorImg {
+  filter: brightness(0) invert(1);
+}
