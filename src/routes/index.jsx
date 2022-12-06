@@ -22,9 +22,7 @@ function Layout() {
     <Suspense fallback={<Spinner />}>
       <Router>
         <div className={styles.container}>
-          <div className={styles.navBar}>
-            <Header />
-          </div>
+          <Header />
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/home'} component={Home} />
