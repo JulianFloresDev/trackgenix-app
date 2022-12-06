@@ -3,17 +3,22 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  height: 100vh;
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 35%;
+  padding: 5%;
+  box-shadow: 0px 13.7175px 20.5762px rgba(0, 0, 0, 0.2);
 }
 
 .formBox {
   display: flex;
   border-bottom: solid 1px #373867;
+  gap: 5%;
 }
 
 .loginInput {
@@ -26,6 +31,23 @@
   outline: none;
 }
 
+.loginFunctionalities {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.loginFunctionalities > div {
+  display: flex;
+  align-items: center;
+  gap: 5%;
+  width: 50%;
+}
+
+.loginFunctionalities > p {
+  cursor: pointer;
+}
+
 .errorsBox {
   display: flex;
   flex-direction: column;
@@ -35,7 +57,11 @@
 .errorBox {
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+  align-items: center;
+  gap: 5%;
+  padding: 3px;
+  font-size: 12px;
+  color: #ffffff;
   background: #FF1717;
   border-radius: 10px;
 }
@@ -43,8 +69,18 @@
 .firstErrorImg {
   background: #ffffff;
   border-radius: 50%;
+  cursor: pointer;
 }
 
-.lastErrorImg {
+/* .lastErrorImg {
   filter: brightness(0) invert(1);
+} */
+
+.continueBtn {
+  padding: 5%;
+  color: #ffffff;
+  background: #373867;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

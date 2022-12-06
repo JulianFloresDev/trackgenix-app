@@ -80,7 +80,7 @@ const Login = () => {
                 type={'password'}
               ></input>
             </div>
-            <div>
+            <div className={styles.loginFunctionalities}>
               <div>
                 <input type={'checkbox'}></input>
                 <label>Remember me</label>
@@ -117,7 +117,9 @@ const Login = () => {
                 )}
               </div>
             )}
-            <button type="submit">Log In</button>
+            <button type="submit" className={styles.continueBtn}>
+              Continue
+            </button>
           </form>
         </div>
       )}
