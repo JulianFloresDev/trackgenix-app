@@ -15,10 +15,26 @@
   box-shadow: 0px 13.7175px 20.5762px rgba(0, 0, 0, 0.2);
 }
 
+.loginHeader {
+  display: flex;
+}
+
+.loginHeader > figure {
+  display: flex;
+  align-items: center;
+  width: 15%;
+}
+
+.loginHeader > h2 {
+  width: 70%;
+  font-size: 24px;
+}
+
 .formBox {
   display: flex;
-  border-bottom: solid 1px #373867;
   gap: 5%;
+  padding-bottom: 2%;
+  border-bottom: solid 1px #373867;
 }
 
 .loginInput {
@@ -59,7 +75,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 5%;
-  padding: 3px;
+  padding: 3px 5px;
   font-size: 12px;
   color: #ffffff;
   background: #FF1717;

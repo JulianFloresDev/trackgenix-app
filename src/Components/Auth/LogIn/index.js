@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { Modal, Spinner } from 'Components/Share';
 import { setModalContent, setShowModal } from 'redux/global/actions';
 import styles from './login.module.css';
+import BackArrow from 'Components/Share/BackArrow/backArrow';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,12 @@ const Login = () => {
         <div className={styles.loginContainer}>
           <Modal showModal={showModal}>{modalContent}</Modal>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
-            <h2>Sign In</h2>
+            <div className={styles.loginHeader}>
+              <figure>
+                <BackArrow pushTo={'/home'} />
+              </figure>
+              <h2>Sign In</h2>
+            </div>
             <div className={styles.formBox}>
               <img src={`${process.env.PUBLIC_URL}/assets/images/black-envelope.svg`} />
               <input className={styles.loginInput} {...register('email')} type={'text'}></input>
