@@ -4,13 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from 'redux/auth/thunks';
 
 const Navbar = ({ navOptions }) => {
-  const { authenticated, role } = useSelector((state) => state.auth);
+  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
 
   return (
     <>
-      <div className={styles.flexContainer}>
+      <a className={styles.logoRR} href="/">
+        <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
+        <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
+      </a>
+      <nav className={styles.flexContainer}>
         <ul className={styles.rutes}>
           {navOptions?.map((endPoint, index) => {
             return (
@@ -23,32 +27,17 @@ const Navbar = ({ navOptions }) => {
           })}
         </ul>
         <div className={styles.buttonsContainer}>
-          {!authenticated && (
-            <div className={styles.logginOptions}>
-              <button
-                className={styles.buttonItem}
-                onClick={() => {
-                  history.push('/auth/login');
-                }}
-              >
-                Log In
-              </button>
-              <a href={'/auth/sign-up'}>{`Don't have account? Create one here.`}</a>
-            </div>
-          )}
-          {authenticated && (
-            <button
-              className={styles.buttonItem}
-              onClick={() => {
-                dispatch(logout());
-                history.push('/');
-              }}
-            >
-              Log Out
-            </button>
-          )}
+          <button
+            className={styles.buttonItem}
+            onClick={() => {
+              dispatch(logout());
+              history.push('/');
+            }}
+          >
+            Log Out
+          </button>
         </div>
-      </div>
+      </nav>
     </>
   );
 };

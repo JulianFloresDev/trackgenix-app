@@ -6,6 +6,18 @@ import Spinner from 'Components/Share/Spinner';
 import Profile from 'Components/Share/Profile';
 import InputForm from 'Components/Share/InputForm';
 import SelectForm from 'Components/Share/SelectForm';
+import LandingNavBar from './LandingNavbar';
 import TeamMembersTable from 'Components/Share/TeamMembersTable';
 
-export { Table, Form, Modal, Navbar, Spinner, Profile, InputForm, SelectForm, TeamMembersTable };
+export {
+  Table,
+  Form,
+  Modal,
+  Navbar,
+  Spinner,
+  Profile,
+  InputForm,
+  SelectForm,
+  LandingNavBar,
+  TeamMembersTable
+};
