@@ -143,14 +143,13 @@ export const createEmployee = (body) => {
               )
         );
         dispatch(setShowModal(true));
-        dispatch(fetchDataOff());
       } else {
         dispatch(login(body));
         dispatch(fetchDataOff());
       }
     } catch (error) {
       console.error(error);
-      dispatch(fetchDataOff());
+      // dispatch(fetchDataOff());
     }
   };
 };
