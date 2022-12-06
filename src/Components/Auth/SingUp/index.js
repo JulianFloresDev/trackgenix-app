@@ -25,7 +25,6 @@ const SignUp = () => {
 
   const onSubmit = (inputData) => {
     dispatch(createEmployee(inputData));
-    history.push('/home');
   };
 
   return (
