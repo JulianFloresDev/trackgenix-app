@@ -22,7 +22,8 @@ const globalReducer = (state = INITIAL_STATE, action) => {
     case SHOW_MODAL:
       return {
         ...state,
-        showModal: action.payload
+        showModal: action.payload,
+        isFetchingData: false
       };
     case MODAL_CONTENT:
       return {
