@@ -148,8 +148,23 @@ export const createEmployee = (body) => {
         dispatch(fetchDataOff());
       }
     } catch (error) {
+      dispatch(
+        setModalContent(
+          <>
+            <h3 className={modalStyles.title}>Error: Cant connect with server!</h3>
+            <p className={modalStyles.info}>Mmmm!! Something was wrong with you registration.</p>
+            <p className={modalStyles.info}>
+              Check your internet connection please! If error persist try in a few minutes or{' '}
+              <a href={'/home'} className={modalStyles.reference}>
+                contact us.
+              </a>
+            </p>
+          </>
+        )
+      );
+      dispatch(setShowModal(true));
+      dispatch(fetchDataOff());
       console.error(error);
-      // dispatch(fetchDataOff());
     }
   };
 };
