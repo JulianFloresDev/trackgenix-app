@@ -149,8 +149,8 @@ export const createEmployee = (body) => {
           setModalContent(<h3 className={modalStyles.title}>Employee created successfully!</h3>)
         );
         dispatch(setShowModal(true));
-        dispatch(fetchDataOff());
         dispatch(login(body));
+        dispatch(fetchDataOff());
       }
     } catch (error) {
       console.error(error);
