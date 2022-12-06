@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 0 10px;
-  color: #ffffff;
+  color: var(--color-white-primary);
 }
 
 .containerLoggedOut {
