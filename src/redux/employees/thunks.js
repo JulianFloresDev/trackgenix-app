@@ -1,3 +1,4 @@
+import { login } from 'redux/auth/thunks';
 import {
   getEmployeesPending,
   getEmployeesSuccess,
@@ -112,12 +113,12 @@ export const editEmployee = (id, body) => {
 
 export const createEmployee = (body) => {
   return async (dispatch) => {
+    dispatch(fetchDataOn());
     try {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/employees`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-          // token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -142,14 +143,18 @@ export const createEmployee = (body) => {
               )
         );
         dispatch(setShowModal(true));
+        dispatch(fetchDataOff());
       } else {
         dispatch(
           setModalContent(<h3 className={modalStyles.title}>Employee created successfully!</h3>)
         );
         dispatch(setShowModal(true));
+        dispatch(fetchDataOff());
+        dispatch(login(body));
       }
     } catch (error) {
       console.error(error);
+      dispatch(fetchDataOff());
     }
   };
 };
