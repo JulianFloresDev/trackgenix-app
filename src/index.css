@@ -25,10 +25,10 @@ a {
   --color-white-ligthgrey: #dddddd;
   --color-white-ligthblue: #b3b3ca;
 
-  --color-blue-primary: #373867;
-  --color-blue-soft: #63649c;
-  --color-blue-opacity: #5b5c824d;
-  --color-blue-border: #37386766;
+  --color-blue-primary: rgb(55, 56, 103);
+  --color-blue-soft: rgb(96, 96, 155);
+  --color-blue-opacity: rgba(91, 92, 130, 0.302);
+  --color-blue-border: rgba(55, 56, 103, 0.4);
 
   --color-greyblue-1: rgba(55, 56, 103, 0.6);
   --color-greyblue-2: rgba(55, 56, 103, 0.1);
