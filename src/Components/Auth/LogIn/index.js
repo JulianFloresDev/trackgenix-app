@@ -71,7 +71,7 @@ const Login = () => {
               <figure>
                 <BackArrow pushTo={'/home'} />
               </figure>
-              <h2>Sign In</h2>
+              <h2>Log In</h2>
             </div>
             <div className={styles.formBox}>
               <img src={`${process.env.PUBLIC_URL}/assets/images/black-envelope.svg`} />
