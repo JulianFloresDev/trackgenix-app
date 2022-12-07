@@ -8,7 +8,6 @@ const Navbar = ({ navOptions }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const rute = history.location.pathname.slice(1);
-  console.log('Ruta: ', rute);
 
   return (
     <nav className={styles.flexContainer}>
