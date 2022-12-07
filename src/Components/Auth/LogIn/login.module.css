@@ -9,9 +9,9 @@
 .loginForm {
   display: flex;
   flex-direction: column;
+  flex: 0 1 300px;
   gap: 20px;
-  width: 35%;
-  padding: 5%;
+  padding: 50px 40px;
   box-shadow: 0px 13.7175px 20.5762px rgba(0, 0, 0, 0.2);
 }
 
@@ -22,12 +22,13 @@
 .loginHeader > figure {
   display: flex;
   align-items: center;
-  width: 15%;
+  width: 30px;
 }
 
 .loginHeader > h2 {
-  width: 70%;
+  width: 160px;
   font-size: 24px;
+  line-height: 30px;
 }
 
 .formBox {
@@ -50,6 +51,7 @@
 .loginFunctionalities {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   font-size: 12px;
 }
 
@@ -87,10 +89,6 @@
   border-radius: 50%;
   cursor: pointer;
 }
-
-/* .lastErrorImg {
-  filter: brightness(0) invert(1);
-} */
 
 .continueBtn {
   padding: 5%;

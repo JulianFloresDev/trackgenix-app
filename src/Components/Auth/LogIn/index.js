@@ -23,7 +23,6 @@ const Login = () => {
     resolver: joiResolver(loginSchema),
     mode: 'onChange'
   });
-  console.log('Errors: ', errors);
   const onSubmit = async (inputData) => {
     const role = await dispatch(login(inputData));
     if (error) {
