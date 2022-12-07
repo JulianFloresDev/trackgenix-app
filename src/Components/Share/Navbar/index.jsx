@@ -7,38 +7,42 @@ const Navbar = ({ navOptions }) => {
   const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
+  const rute = history.location;
+  console.log('Ruta: ', rute);
 
   return (
-    <>
+    <nav className={styles.flexContainer}>
       <a className={styles.logoRR} href="/">
         <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
         <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
       </a>
-      <nav className={styles.flexContainer}>
-        <ul className={styles.rutes}>
-          {navOptions?.map((endPoint, index) => {
-            return (
-              <li key={index}>
-                <a href={endPoint === 'profile' ? `/${role}s/` : `/${endPoint}`}>
-                  {endPoint.toUpperCase()}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-        <div className={styles.buttonsContainer}>
-          <button
-            className={styles.buttonItem}
-            onClick={() => {
-              dispatch(logout());
-              history.push('/');
-            }}
-          >
-            Log Out
-          </button>
-        </div>
-      </nav>
-    </>
+      <ul className={styles.rutes}>
+        {navOptions?.map((endPoint, index) => {
+          return (
+            <li key={index}>
+              <a
+                name={endPoint}
+                className={rute === endPoint && styles.current}
+                href={endPoint === 'profile' ? `/${role}s/` : `/${endPoint}`}
+              >
+                {endPoint.toUpperCase()}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <div className={styles.buttonsContainer}>
+        <button
+          className={styles.buttonItem}
+          onClick={() => {
+            dispatch(logout());
+            history.push('/');
+          }}
+        >
+          Log Out
+        </button>
+      </div>
+    </nav>
   );
 };
 
