@@ -4,6 +4,7 @@ import Modal from 'Components/Share/Modal';
 import Navbar from 'Components/Share/Navbar';
 import Spinner from 'Components/Share/Spinner';
 import Profile from 'Components/Share/Profile';
+import BackArrow from './BackArrow/backArrow';
 import InputForm from 'Components/Share/InputForm';
 import SelectForm from 'Components/Share/SelectForm';
 import LandingNavBar from './LandingNavbar';
@@ -16,6 +17,7 @@ export {
   Navbar,
   Spinner,
   Profile,
+  BackArrow,
   InputForm,
   SelectForm,
   LandingNavBar,

@@ -1,4 +1,13 @@
 .backArrow {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     cursor: pointer;
+}
+
+.backArrow:hover {
+    background-color: var(--color-white-ligthgrey);
 }
