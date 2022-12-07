@@ -7,7 +7,7 @@ const Navbar = ({ navOptions }) => {
   const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
-  const rute = history.location;
+  const rute = history.location.pathname.slice(1);
   console.log('Ruta: ', rute);
 
   return (

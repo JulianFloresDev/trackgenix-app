@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 function Header() {
   const { authenticated, role, isLoading } = useSelector((state) => state.auth);
-  const [navbarState, setNavbarVisibility] = useState(false);
+  const [navbarState, setNavbarVisibility] = useState(true);
   const showNavBar = () => {
     setNavbarVisibility(!navbarState);
   };

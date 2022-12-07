@@ -48,21 +48,18 @@
   height: 40px;
 
   background-color: var(--color-blue-primary);
-  border-radius: 5px;
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
   text-align: center;
   color: var(--color-white-primary);
-  border-radius: 5px;
 }
 
 .rutes li:hover,
 .rutes li:hover a,
-.current {
+.rutes li .current {
   background-color: var(--color-white-ligthblue);
   color: var(--color-blue-primary);
-  color: #41426F;
 }
 
 .buttonsContainer {
