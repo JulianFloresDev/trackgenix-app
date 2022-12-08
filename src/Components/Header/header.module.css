@@ -1,13 +1,57 @@
+.hidden {
+  flex: 0 0 20px;
+}
+
+.hidden > nav {
+  display: none;
+}
+
 .header {
-  flex: 0 0 15%;
+  flex: 0 0 250px;
   position: sticky;
   top: 0;
+}
+
+.hidden,
+.header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   height: 100vh;
 
   background-color: var(--color-blue-primary);
-  overflow: hidden;
-
   box-shadow: -2px 0px 20px 12px var(--color-blue-border);
+}
+
+.arrowContainer {
+  flex: 1 0 40px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 50%;
+  padding: 2px;
+
+  background-color: var(--color-white-primary);
+  box-shadow: 0px 0px 20px 1px var(--color-blue-soft);
+  transform: translateX(-5px);
+
+  cursor: pointer;
+}
+
+.arrowContainer:hover {
+  background-color: var(--color-white-ligthblue);
+}
+.arrowContainer img {
+  width: 15px;
+  transition: all .5s linear;
+}
+
+.active {
+  transform: rotateZ(180deg);
+}
+
+@media screen and (max-width: 1024px) {
+  .arrowContainer {
+    display: flex;
+  }
 }

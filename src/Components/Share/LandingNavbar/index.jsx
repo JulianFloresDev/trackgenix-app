@@ -2,7 +2,7 @@ import styles from './landingNavBar.module.css';
 
 const LandingNavBar = () => {
   return (
-    <nav className={styles.navBarLoggedOut}>
+    <nav className={styles.flexContainer}>
       <div className={styles.containerLoggedOut}>
         <h2>Menu</h2>
         <ul className={styles.rutes}>
