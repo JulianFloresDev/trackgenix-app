@@ -143,9 +143,11 @@ export const createEmployee = (body) => {
               )
         );
         dispatch(setShowModal(true));
+        return false;
       } else {
         dispatch(login(body));
         dispatch(fetchDataOff());
+        return true;
       }
     } catch (error) {
       dispatch(
@@ -165,6 +167,7 @@ export const createEmployee = (body) => {
       dispatch(setShowModal(true));
       dispatch(fetchDataOff());
       console.error(error);
+      return false;
     }
   };
 };
