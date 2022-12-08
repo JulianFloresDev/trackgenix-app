@@ -1,5 +1,6 @@
 import { loginPending, loginError, logoutPending, logoutError, loginSuccess } from './actions';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { setUser } from 'redux/global/actions';
 import { auth } from 'helpers/firebase';
 
 export const login = (inputData) => {
@@ -19,6 +20,7 @@ export const login = (inputData) => {
 
       sessionStorage.setItem('token', token);
       dispatch(loginSuccess(role));
+      dispatch(setUser());
       return role;
     } catch (error) {
       return dispatch(loginError(error));

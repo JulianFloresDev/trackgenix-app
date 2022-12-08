@@ -15,6 +15,7 @@ const ProjectsRoutes = lazy(() => import('routes/projects'));
 const TasksRoutes = lazy(() => import('routes/tasks'));
 const TimeSheetsRoutes = lazy(() => import('routes/time-sheets'));
 const AuthRoutes = lazy(() => import('routes/auth'));
+const Profile = lazy(() => import('Components/Share/Profile'));
 
 function Layout() {
   useEffect(() => tokenListener(), []);
@@ -26,6 +27,11 @@ function Layout() {
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/home'} component={Home} />
+              <PrivateRoute
+                path={'/profile'}
+                role={['super-admin', 'admin', 'employee']}
+                component={Profile}
+              />
               <PrivateRoute
                 path={'/admins'}
                 role={['super-admin', 'admin']}

@@ -19,7 +19,7 @@ const Navbar = ({ navOptions }) => {
           {navOptions?.map((endPoint, index) => {
             return (
               <li key={index}>
-                <a href={endPoint === 'profile' ? `/${role}s/` : `/${endPoint}`}>
+                <a href={endPoint === 'profile' ? `/profile/${role}` : `/${endPoint}`}>
                   {endPoint.toUpperCase()}
                 </a>
               </li>
