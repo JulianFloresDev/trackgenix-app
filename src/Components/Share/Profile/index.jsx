@@ -1,23 +1,12 @@
 import styles from './profile.module.css';
 import { editItem } from 'redux/global/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUser } from 'redux/global/actions';
+import { useDispatch } from 'react-redux';
+import { setGlobalUser } from 'hooks/setUser';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const email = sessionStorage.getItem('email');
+  const user = setGlobalUser();
 
-  const { list: superAdmins } = useSelector((store) => store.superAdmins);
-  const { list: admins } = useSelector((store) => store.admins);
-  const { list: employees } = useSelector((store) => store.employees);
-
-  const user =
-    superAdmins.find((users) => users.email === email) ||
-    admins.find((users) => users.email === email) ||
-    employees.find((users) => users.email === email) ||
-    {};
-
-  dispatch(setUser(user));
   const userToShow = { ...user };
   delete userToShow['_id'];
   delete userToShow['__v'];
