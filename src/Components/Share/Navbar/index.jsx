@@ -21,7 +21,7 @@ const Navbar = ({ navOptions }) => {
             <li key={index}>
               <a
                 name={endPoint}
-                className={rute === endPoint && styles.current}
+                className={rute === endPoint ? styles.current : undefined}
                 href={endPoint === 'profile' ? `/profile/${role}` : `/${endPoint}`}
               >
                 {endPoint.toUpperCase()}
