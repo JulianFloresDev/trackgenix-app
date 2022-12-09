@@ -1,10 +1,13 @@
 import styles from './profile.module.css';
 import { editItem } from 'redux/global/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setGlobalUser } from 'hooks/setUser';
+import { useHistory } from 'react-router-dom';
 
 const Profile = () => {
+  const { role } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = setGlobalUser();
 
   const userToShow = { ...user };
@@ -31,6 +34,7 @@ const Profile = () => {
             onClick={(e) => {
               e.preventDefault();
               dispatch(editItem(user));
+              history.push(`/${role}s/form/${user._id}`);
             }}
           >
             Edit Profile
