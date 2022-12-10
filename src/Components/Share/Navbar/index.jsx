@@ -1,10 +1,9 @@
 import styles from './navbar.module.css';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from 'redux/auth/thunks';
 
 const Navbar = ({ navOptions }) => {
-  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
   const rute = history.location.pathname.slice(1);
@@ -22,7 +21,7 @@ const Navbar = ({ navOptions }) => {
               <a
                 name={endPoint}
                 className={rute === endPoint ? styles.current : undefined}
-                href={endPoint === 'profile' ? `/profile/${role}` : `/${endPoint}`}
+                href={endPoint === 'profile' ? `/profile` : `/${endPoint}`}
               >
                 {endPoint.toUpperCase()}
               </a>

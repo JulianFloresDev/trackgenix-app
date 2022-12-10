@@ -1,5 +1,4 @@
 import styles from './layout.module.css';
-import store from 'redux/store';
 import { tokenListener } from 'helpers/firebase';
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
@@ -7,9 +6,6 @@ import Header from 'Components/Header';
 import Footer from 'Components/Footer';
 import { Spinner } from 'Components/Share';
 import PrivateRoute from './PrivateRoute';
-import { getSuperAdmins } from 'redux/super-admins/thunks';
-import { getAdmins } from 'redux/admins/thunks';
-import { getEmployees } from 'redux/employees/thunks';
 
 const Home = lazy(() => import('Components/Home'));
 const SuperAdminsRoutes = lazy(() => import('routes/super-admins'));
@@ -24,9 +20,6 @@ const Profile = lazy(() => import('Components/Share/Profile'));
 function Layout() {
   useEffect(() => {
     tokenListener();
-    store.dispatch(getSuperAdmins(''));
-    store.dispatch(getAdmins(''));
-    store.dispatch(getEmployees(''));
   }, []);
   return (
     <Suspense fallback={<Spinner />}>
@@ -37,7 +30,7 @@ function Layout() {
             <Switch>
               <Route exact path={'/home'} component={Home} />
               <PrivateRoute
-                path={'/profile/:id'}
+                path={'/profile'}
                 role={['super-admin', 'admin', 'employee']}
                 component={Profile}
               />

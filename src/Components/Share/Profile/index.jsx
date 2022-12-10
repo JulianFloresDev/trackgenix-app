@@ -1,14 +1,22 @@
 import styles from './profile.module.css';
-import { editItem } from 'redux/global/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { setGlobalUser } from 'hooks/setUser';
 import { useHistory } from 'react-router-dom';
+import { editItem } from 'redux/global/actions';
 
 const Profile = () => {
+  const { list: superAdmins } = useSelector((store) => store.superAdmins);
+  const { list: admins } = useSelector((store) => store.admins);
+  const { list: employees } = useSelector((store) => store.employees);
   const { role } = useSelector((store) => store.auth);
+  const email = sessionStorage.getItem('email');
+
+  const user =
+    superAdmins.find((users) => users.email === email) ||
+    admins.find((users) => users.email === email) ||
+    employees.find((users) => users.email === email) ||
+    {};
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = setGlobalUser();
 
   const userToShow = { ...user };
   delete userToShow['_id'];

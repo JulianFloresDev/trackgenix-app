@@ -36,39 +36,6 @@ const Login = () => {
         ),
         dispatch(setShowModal(true)))
       : history.push('/home');
-    // if (error) {
-    //   dispatch(
-    //     setModalContent(
-    //       <div>
-    //         <h2>There was an error whit Login data!!</h2>
-    //         <p>Email or password are invalid!!</p>
-    //         <p>{error?.toString()}</p>
-    //       </div>
-    //     )
-    //   );
-    //   dispatch(setShowModal(true));
-    // }
-    // if (role) {
-    //   switch (role) {
-    //     case 'super-admin':
-    //       dispatch(setModalContent(<></>));
-    //       dispatch(setShowModal(false));
-    //       history.push('/super-admins');
-    //       break;
-    //     case 'admin':
-    //       dispatch(setModalContent(<></>));
-    //       dispatch(setShowModal(false));
-    //       history.push('/admins');
-    //       break;
-    //     case 'employee':
-    //       dispatch(setModalContent(<></>));
-    //       dispatch(setShowModal(false));
-    //       history.push('/employees');
-    //       break;
-    //     default:
-    //       return null;
-    //   }
-    // }
   };
   return (
     <>
