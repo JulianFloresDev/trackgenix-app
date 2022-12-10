@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from 'Components/Auth/LogIn';
-import SignUp from 'Components/Auth/SingUp';
+import SignUp from 'Components/Auth/SignUp';
 
 const AuthRoutes = () => {
   return (

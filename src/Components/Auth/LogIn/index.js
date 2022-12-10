@@ -5,10 +5,9 @@ import { loginSchema } from 'Validations/loginSchema';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/auth/thunks';
 import { useHistory } from 'react-router-dom';
-import { Modal, Spinner } from 'Components/Share';
+import { Modal, Spinner, BackArrow } from 'Components/Share';
 import { setModalContent, setShowModal } from 'redux/global/actions';
 import styles from './login.module.css';
-import BackArrow from 'Components/Share/BackArrow/backArrow';
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { signupSchema } from 'Validations/signupSchema';
-import { InputForm, Modal, Spinner } from 'Components/Share';
+import { InputForm, Modal, Spinner, BackArrow } from 'Components/Share';
 import { createEmployee } from 'redux/employees/thunks';
 import { setShowModal } from 'redux/global/actions';
 
@@ -48,7 +48,10 @@ const SignUp = () => {
               </button>
             </div>
           </Modal>
-          <h2>Register New Account</h2>
+          <div className={styles.titleContainer}>
+            <BackArrow />
+            <h2>Register New Account</h2>
+          </div>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <InputForm
               element={'firstName'}
@@ -102,14 +105,6 @@ const SignUp = () => {
             <div className={styles.btnContainer}>
               <button type="submit" className={styles.submitBtn}>
                 Submit
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  history.goBack();
-                }}
-              >
-                Back
               </button>
             </div>
           </form>
