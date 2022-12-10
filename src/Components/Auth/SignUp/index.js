@@ -23,8 +23,9 @@ const SignUp = () => {
     resolver: joiResolver(signupSchema)
   });
 
-  const onSubmit = (inputData) => {
-    dispatch(createEmployee(inputData));
+  const onSubmit = async (inputData) => {
+    const authenticated = await dispatch(createEmployee(inputData));
+    authenticated && history.push('/home');
   };
 
   return (
