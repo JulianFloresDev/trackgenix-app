@@ -2,6 +2,9 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onIdTokenChanged } from 'firebase/auth';
 import store from 'redux/store';
 import { setAuthentication, logoutSuccess, logoutError } from 'redux/auth/actions';
+import { getSuperAdmins } from 'redux/super-admins/thunks';
+import { getAdmins } from 'redux/admins/thunks';
+import { getEmployees } from 'redux/employees/thunks';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -26,6 +29,21 @@ export const tokenListener = () => {
         } = await user.getIdTokenResult();
         if (token) {
           sessionStorage.setItem('token', token);
+          sessionStorage.setItem('email', email);
+          switch (role) {
+            case 'super-admin':
+              store.dispatch(getSuperAdmins(''));
+              break;
+            case 'admin':
+              store.dispatch(getAdmins(''));
+              break;
+            case 'employee':
+            case 'employee-pm':
+              store.dispatch(getEmployees(''));
+              break;
+            default:
+              break;
+          }
           return store.dispatch(setAuthentication(role, email));
         }
       } catch (error) {

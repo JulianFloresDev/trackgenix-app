@@ -219,7 +219,7 @@ const Table = ({ headers, data }) => {
               </tbody>
             </table>
           </div>
-          {(user.token !== 'employee' || entitie === 'time-sheets') && (
+          {(user?.token !== 'employee' || entitie === 'time-sheets') && (
             <div className={styles.imgContainer}>
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}

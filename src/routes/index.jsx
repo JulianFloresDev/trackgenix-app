@@ -1,7 +1,7 @@
+import styles from './layout.module.css';
 import { tokenListener } from 'helpers/firebase';
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import styles from './layout.module.css';
 import Header from 'Components/Header';
 import Footer from 'Components/Footer';
 import { Spinner } from 'Components/Share';
@@ -15,9 +15,12 @@ const ProjectsRoutes = lazy(() => import('routes/projects'));
 const TasksRoutes = lazy(() => import('routes/tasks'));
 const TimeSheetsRoutes = lazy(() => import('routes/time-sheets'));
 const AuthRoutes = lazy(() => import('routes/auth'));
+const Profile = lazy(() => import('Components/Share/Profile'));
 
 function Layout() {
-  useEffect(() => tokenListener(), []);
+  useEffect(() => {
+    tokenListener();
+  }, []);
   return (
     <Suspense fallback={<Spinner />}>
       <Router>
@@ -26,6 +29,11 @@ function Layout() {
           <div className={styles.bodyContainer}>
             <Switch>
               <Route exact path={'/home'} component={Home} />
+              <PrivateRoute
+                path={'/profile'}
+                role={['super-admin', 'admin', 'employee']}
+                component={Profile}
+              />
               <PrivateRoute
                 path={'/admins'}
                 role={['super-admin', 'admin']}

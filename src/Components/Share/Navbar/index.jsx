@@ -1,10 +1,9 @@
 import styles from './navbar.module.css';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from 'redux/auth/thunks';
 
 const Navbar = ({ navOptions }) => {
-  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
   const rute = history.location.pathname.slice(1);
@@ -21,8 +20,8 @@ const Navbar = ({ navOptions }) => {
             <li key={index}>
               <a
                 name={endPoint}
-                className={rute === endPoint && styles.current}
-                href={endPoint === 'profile' ? `/${role}s/` : `/${endPoint}`}
+                className={rute === endPoint ? styles.current : undefined}
+                href={endPoint === 'profile' ? `/profile` : `/${endPoint}`}
               >
                 {endPoint.toUpperCase()}
               </a>
@@ -35,7 +34,7 @@ const Navbar = ({ navOptions }) => {
           className={styles.buttonItem}
           onClick={() => {
             dispatch(logout());
-            history.push('/');
+            history.push('/home');
           }}
         >
           Log Out

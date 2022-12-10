@@ -1,18 +1,30 @@
 import styles from './profile.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { editItem } from 'redux/global/actions';
 
 const Profile = () => {
-  // const history = useHistory();
+  const { list: superAdmins } = useSelector((store) => store.superAdmins);
+  const { list: admins } = useSelector((store) => store.admins);
+  const { list: employees } = useSelector((store) => store.employees);
+  const { role } = useSelector((store) => store.auth);
+  const email = sessionStorage.getItem('email');
+
+  const user =
+    superAdmins.find((users) => users.email === email) ||
+    admins.find((users) => users.email === email) ||
+    employees.find((users) => users.email === email) ||
+    {};
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.global);
+  const history = useHistory();
+
   const userToShow = { ...user };
   delete userToShow['_id'];
   delete userToShow['__v'];
   delete userToShow['createdAt'];
   delete userToShow['updatedAt'];
   delete userToShow['token'];
+  delete userToShow['firebaseUid'];
 
   return (
     <section className={styles.section}>
@@ -30,7 +42,7 @@ const Profile = () => {
             onClick={(e) => {
               e.preventDefault();
               dispatch(editItem(user));
-              // history.push(`/${user.token}/form/${user._id}`);
+              history.push(`/${role}s/form/${user._id}`);
             }}
           >
             Edit Profile
