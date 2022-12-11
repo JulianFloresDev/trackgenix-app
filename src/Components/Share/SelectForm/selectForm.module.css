@@ -27,7 +27,13 @@
 
 .flexSelect {
   line-height: 1.2rem;
-  padding: 5px;
+  padding: 10px;
+  border: 1px solid var(--color-blue-primary);
+  border-radius: 4px;
+  cursor: text;
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: .8;
 }
 
 .errorMessage {

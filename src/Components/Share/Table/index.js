@@ -11,7 +11,7 @@ import { deleteTimesheets } from 'redux/time-sheets/thunks';
 import { deleteProject } from 'redux/projects/thunks';
 import { deleteSuperAdmins } from 'redux/super-admins/thunks';
 
-const Table = ({ headers, data, editable = false }) => {
+const Table = ({ headers, data, editable = { edit: false, remove: false, add: false } }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
@@ -192,8 +192,8 @@ const Table = ({ headers, data, editable = false }) => {
                         );
                       })}
                       <td className={styles.buttonsContainer}>
-                        {editable && (
-                          <div>
+                        <div>
+                          {editable.edit && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                               className={styles.editBtn}
@@ -202,6 +202,8 @@ const Table = ({ headers, data, editable = false }) => {
                                 history.push(`/${entitie}/form/${row._id}`);
                               }}
                             />
+                          )}
+                          {editable.remove && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                               className={styles.closeBtn}
@@ -211,8 +213,8 @@ const Table = ({ headers, data, editable = false }) => {
                                 openModal(row);
                               }}
                             />
-                          </div>
-                        )}
+                          )}
+                        </div>
                         {entitie === 'projects' &&
                           (role === 'employee' || role === 'employeePM') && <AddHour />}
                       </td>
@@ -222,7 +224,7 @@ const Table = ({ headers, data, editable = false }) => {
               </tbody>
             </table>
           </div>
-          {editable && (
+          {editable.add && (
             <div className={styles.imgContainer}>
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}

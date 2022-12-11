@@ -23,13 +23,12 @@ function TimeSheets() {
         <Table
           headers={['project', 'description', 'task', 'date', 'hours']}
           data={list.filter((item) => item.employee?.email === email)}
-          editable={true}
+          editable={{ edit: true, remove: true, add: true }}
         />
       ) : (
         <Table
           headers={['employee', 'project', 'description', 'task', 'date', 'hours']}
           data={list}
-          editable={true}
         />
       )}
     </section>
