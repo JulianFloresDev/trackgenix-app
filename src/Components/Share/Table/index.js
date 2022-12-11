@@ -11,7 +11,12 @@ import { deleteTimesheets } from 'redux/time-sheets/thunks';
 import { deleteProject } from 'redux/projects/thunks';
 import { deleteSuperAdmins } from 'redux/super-admins/thunks';
 
-const Table = ({ headers, data, editable = { edit: false, remove: false, add: false } }) => {
+const Table = ({
+  headers,
+  data,
+  editable = { edit: false, remove: false, add: false },
+  filteredTimesheets
+}) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
@@ -44,7 +49,13 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
     dispatch(setShowModal(true));
     dispatch(setModalContent(<AddHour project={projectId} />));
   };
-
+  const workedHours = () => {
+    let totalHours = 0;
+    filteredTimesheets.forEach((ts) => {
+      totalHours = totalHours + ts.hours;
+    });
+    return totalHours;
+  };
   const deleteItem = (element) => {
     switch (entitie) {
       case 'employees':
@@ -137,6 +148,9 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
                   {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
+                  {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
+                    <th>Worked hours</th>
+                  )}
                   <th></th>
                 </tr>
               </thead>
@@ -195,6 +209,9 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
                           </td>
                         );
                       })}
+                      {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
+                        <td>{workedHours()}</td>
+                      )}
                       <td className={styles.buttonsContainer}>
                         <div>
                           {editable.edit && (
