@@ -19,7 +19,7 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
   const { role } = useSelector((state) => state.auth);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
-  const openModal = (element) => {
+  const openDeleteModal = (element) => {
     dispatch(setShowModal(true));
     dispatch(
       setModalContent(
@@ -39,6 +39,10 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
         </>
       )
     );
+  };
+  const openAddHoursModal = (projectId) => {
+    dispatch(setShowModal(true));
+    dispatch(setModalContent(<AddHour project={projectId} />));
   };
 
   const deleteItem = (element) => {
@@ -210,15 +214,21 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
                               onClick={(e) => {
                                 e.preventDefault();
                                 dispatch(editItem(row));
-                                openModal(row);
+                                openDeleteModal(row);
                               }}
                             />
                           )}
                         </div>
-                        {entitie === 'projects' &&
-                          (role === 'employee' || role === 'employeePM') && (
-                            <AddHour project={row} />
-                          )}
+                        {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
+                          <div>
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                              onClick={() => {
+                                openAddHoursModal(row._id);
+                              }}
+                            />
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );

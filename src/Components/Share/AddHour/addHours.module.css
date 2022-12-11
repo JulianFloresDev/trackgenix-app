@@ -5,13 +5,14 @@
   align-items: center;
   padding: 30px;
   max-width: 70vw;
+  gap: 20px;
 }
 
 .dataContainer {
   flex: 1 1 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 75px;
 }
 
