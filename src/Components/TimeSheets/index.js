@@ -5,7 +5,7 @@ import styles from './time-sheets.module.css';
 import { Table, Spinner } from 'Components/Share';
 
 function TimeSheets() {
-  const { user } = useSelector((state) => state.global);
+  const { role, email } = useSelector((state) => state.auth);
   const { list, isFetching, error } = useSelector((state) => state.timeSheets);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -19,10 +19,10 @@ function TimeSheets() {
         <div>
           <h2>404: server not found</h2>
         </div>
-      ) : user._id ? (
+      ) : role === 'employee' ? (
         <Table
           headers={['project', 'description', 'task', 'date', 'hours']}
-          data={list.filter((item) => item.employee?._id === user._id)}
+          data={list.filter((item) => item.employee?.email === email)}
         />
       ) : (
         <Table

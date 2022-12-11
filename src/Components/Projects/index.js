@@ -6,7 +6,7 @@ import { Table, Spinner } from 'Components/Share';
 
 function Projects() {
   const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.global);
+  const { role, email } = useSelector((store) => store.auth);
   const { list, isFetching, error } = useSelector((store) => store.projects);
   useEffect(async () => {
     dispatch(getProjects(''));
@@ -21,7 +21,7 @@ function Projects() {
             <div className={styles.container}>
               <h2>404: Unable to access server</h2>
             </div>
-          ) : user._id ? (
+          ) : role === 'employee' ? (
             <Table
               headers={[
                 'name',
@@ -33,7 +33,7 @@ function Projects() {
                 'active'
               ]}
               data={list.filter((project) =>
-                project.teamMembers.find((member) => member.employee?._id === user._id)
+                project.teamMembers.find((member) => member.employee?.email === email)
               )}
             />
           ) : (
