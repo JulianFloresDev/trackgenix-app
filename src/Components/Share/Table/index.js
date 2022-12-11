@@ -216,7 +216,9 @@ const Table = ({ headers, data, editable = { edit: false, remove: false, add: fa
                           )}
                         </div>
                         {entitie === 'projects' &&
-                          (role === 'employee' || role === 'employeePM') && <AddHour />}
+                          (role === 'employee' || role === 'employeePM') && (
+                            <AddHour project={row} />
+                          )}
                       </td>
                     </tr>
                   );

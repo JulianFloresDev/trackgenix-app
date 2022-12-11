@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onIdTokenChanged } from 'firebase/auth';
 import store from 'redux/store';
 import { setAuthentication, logoutSuccess, logoutError } from 'redux/auth/actions';
+import { getUser } from 'redux/global/thunks';
 import { getSuperAdmins } from 'redux/super-admins/thunks';
 import { getAdmins } from 'redux/admins/thunks';
 import { getEmployees } from 'redux/employees/thunks';
@@ -30,6 +31,7 @@ export const tokenListener = () => {
         if (token) {
           sessionStorage.setItem('token', token);
           sessionStorage.setItem('email', email);
+          store.dispatch(getUser(email));
           switch (role) {
             case 'super-admin':
               store.dispatch(getSuperAdmins(''));

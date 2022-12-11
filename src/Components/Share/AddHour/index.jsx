@@ -6,7 +6,7 @@ import { formSchema } from 'Validations/formSchema';
 import { setShowModal, setModalContent } from 'redux/global/actions';
 import { InputForm, SelectForm } from 'Components/Share';
 
-const AddHours = () => {
+const AddHours = ({ project }) => {
   const {
     handleSubmit,
     register,
@@ -17,7 +17,7 @@ const AddHours = () => {
   });
 
   const createNewTimesheet = (data) => {
-    console.log(data);
+    console.log(project, data);
   };
 
   const openModal = () => {
