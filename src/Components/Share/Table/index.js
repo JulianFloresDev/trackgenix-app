@@ -190,8 +190,8 @@ const Table = ({ headers, data, editable = false }) => {
                           </td>
                         );
                       })}
-                      {editable && (
-                        <td className={styles.buttonsContainer}>
+                      <td className={styles.buttonsContainer}>
+                        {editable && (
                           <div>
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
@@ -211,8 +211,21 @@ const Table = ({ headers, data, editable = false }) => {
                               }}
                             />
                           </div>
-                        </td>
-                      )}
+                        )}
+                        {entitie === 'projects' && (
+                          <div>
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                              className={styles.addHoursBtn}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(setModalContent(/* Add hours component */));
+                                dispatch(setShowModal(true));
+                              }}
+                            />
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
