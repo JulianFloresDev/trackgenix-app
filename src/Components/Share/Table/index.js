@@ -49,9 +49,10 @@ const Table = ({
     dispatch(setShowModal(true));
     dispatch(setModalContent(<AddHour project={projectId} />));
   };
-  const workedHours = () => {
+  const workedHours = (project) => {
     let totalHours = 0;
-    filteredTimesheets.forEach((ts) => {
+    const projectTimeSheets = filteredTimesheets.filter((ts) => ts.project?._id === project._id);
+    projectTimeSheets.forEach((ts) => {
       totalHours = totalHours + ts.hours;
     });
     return totalHours;
@@ -210,7 +211,7 @@ const Table = ({
                         );
                       })}
                       {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                        <td>{workedHours()}</td>
+                        <td>{workedHours(row)}</td>
                       )}
                       <td className={styles.buttonsContainer}>
                         <div>
