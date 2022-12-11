@@ -11,11 +11,11 @@ import { deleteTimesheets } from 'redux/time-sheets/thunks';
 import { deleteProject } from 'redux/projects/thunks';
 import { deleteSuperAdmins } from 'redux/super-admins/thunks';
 
-const Table = ({ headers, data }) => {
+const Table = ({ headers, data, editable = false }) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const { user, showModal, modalContent } = useSelector((state) => state.global);
+  const { showModal, modalContent } = useSelector((state) => state.global);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openModal = (element) => {
@@ -190,7 +190,7 @@ const Table = ({ headers, data }) => {
                           </td>
                         );
                       })}
-                      {(user?.token !== 'employee' || user === {}) && (
+                      {editable && (
                         <td className={styles.buttonsContainer}>
                           <div>
                             <img
@@ -219,7 +219,7 @@ const Table = ({ headers, data }) => {
               </tbody>
             </table>
           </div>
-          {(user?.token !== 'employee' || entitie === 'time-sheets') && (
+          {editable && (
             <div className={styles.imgContainer}>
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
