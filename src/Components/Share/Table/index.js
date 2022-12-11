@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './table.module.css';
-import { Modal } from 'Components/Share';
+import { Modal, AddHour } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { editItem, setModalContent, setShowModal } from 'redux/global/actions';
 import { deleteTasks } from 'redux/tasks/thunks';
@@ -16,6 +16,7 @@ const Table = ({ headers, data, editable = false }) => {
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
   const { showModal, modalContent } = useSelector((state) => state.global);
+  const { role } = useSelector((state) => state.auth);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openModal = (element) => {
@@ -212,19 +213,8 @@ const Table = ({ headers, data, editable = false }) => {
                             />
                           </div>
                         )}
-                        {entitie === 'projects' && (
-                          <div>
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
-                              className={styles.addHoursBtn}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                dispatch(setModalContent(/* Add hours component */));
-                                dispatch(setShowModal(true));
-                              }}
-                            />
-                          </div>
-                        )}
+                        {entitie === 'projects' &&
+                          (role === 'employee' || role === 'employeePM') && <AddHour />}
                       </td>
                     </tr>
                   );
