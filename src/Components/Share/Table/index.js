@@ -190,7 +190,7 @@ const Table = ({ headers, data }) => {
                           </td>
                         );
                       })}
-                      {(user?.token !== 'employee' || user === {}) && (
+                      {(user?.token !== 'employee' || user === {}) && entitie !== 'super-admins' && (
                         <td className={styles.buttonsContainer}>
                           <div>
                             <img
