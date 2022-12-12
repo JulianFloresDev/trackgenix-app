@@ -1,6 +1,7 @@
 import { loginPending, loginError, logoutPending, logoutError, loginSuccess } from './actions';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from 'helpers/firebase';
+import { setUser } from 'redux/global/actions';
 
 export const login = (inputData) => {
   return async (dispatch) => {
@@ -33,6 +34,7 @@ export const logout = () => {
     try {
       const signOutReturn = await signOut(auth);
       sessionStorage.clear();
+      dispatch(setUser({}));
       return signOutReturn;
     } catch (error) {
       return dispatch(logoutError(error.toString()));
