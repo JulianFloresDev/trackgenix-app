@@ -65,14 +65,14 @@ const Table = ({ headers, data }) => {
     }
   };
 
-  const showEmployeeList = (members) => {
+  const showEmployeeList = (project) => {
     let counter = 0;
 
-    members.forEach((team) => {
+    project.teamMembers?.forEach((team) => {
       team.employee !== null && counter++;
     });
 
-    if (counter !== members.length) {
+    if (counter !== project.teamMembers?.length) {
       dispatch(setModalContent(<p>This project does not have any active employee!</p>));
       dispatch(setShowModal(true));
       setTimeout(() => {
@@ -91,16 +91,21 @@ const Table = ({ headers, data }) => {
                 </tr>
               </thead>
               <tbody>
-                {members.map((team, index) => {
-                  if (team.employee) {
-                    return (
-                      <tr key={index}>
-                        <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
-                        <td>{team.role}</td>
-                        <td>{team.rate}</td>
-                      </tr>
-                    );
-                  }
+                {project.employeePM && (
+                  <tr>
+                    <td>{`${project.employeePM?.employee?.firstName} ${project.employeePM?.employee?.lastName}`}</td>
+                    <td>{project.employeePM?.role}</td>
+                    <td>{project.employeePM?.rate}</td>
+                  </tr>
+                )}
+                {project.teamMembers?.map((team, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{`${team?.employee?.firstName} ${team.employee?.lastName}`}</td>
+                      <td>{team?.role}</td>
+                      <td>{team?.rate}</td>
+                    </tr>
+                  );
                 })}
               </tbody>
             </table>
@@ -168,7 +173,7 @@ const Table = ({ headers, data }) => {
                                   className={styles.showListBtn}
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    showEmployeeList(row[property]);
+                                    showEmployeeList(row);
                                   }}
                                 >
                                   Show List
@@ -187,6 +192,10 @@ const Table = ({ headers, data }) => {
                               : row[property].description || row[property].type}
                             {row[property].firstName && row[property].firstName}{' '}
                             {row[property].lastName}
+                            {row[property].employeePM &&
+                              row[property]?.employee?.firstName +
+                                ' ' +
+                                row[property].employee?.lastName}
                           </td>
                         );
                       })}
