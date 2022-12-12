@@ -114,6 +114,7 @@ const Form = () => {
       employee: itemToPUT.employee?._id || itemToPUT.employee,
       task: itemToPUT.task?._id || itemToPUT.task,
       project: itemToPUT.project?._id || itemToPUT.project,
+      employeePM: itemToPUT.employeePM?.employee?._id || itemToPUT.employeePM?.employee,
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       })
@@ -121,6 +122,7 @@ const Form = () => {
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
+    console.log(itemToPUT);
   }, []);
 
   const modifyRow = (data) => {
@@ -131,6 +133,7 @@ const Form = () => {
       employee: data.employee?._id || data.employee,
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
+      employeePM: data.employeePM?.employee?._id || data.employeePM?.employee,
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       }),
@@ -380,6 +383,17 @@ const Form = () => {
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
+                      />
+                    );
+                  case 'employeePM':
+                    return (
+                      <SelectForm
+                        key={index}
+                        element={prop}
+                        label={'Employee PM'}
+                        selectOptions={employeeList}
+                        register={register}
+                        error={errors.employeePM?.message}
                       />
                     );
                   case 'project':
