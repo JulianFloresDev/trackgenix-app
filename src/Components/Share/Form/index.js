@@ -114,7 +114,11 @@ const Form = () => {
       employee: itemToPUT.employee?._id || itemToPUT.employee,
       task: itemToPUT.task?._id || itemToPUT.task,
       project: itemToPUT.project?._id || itemToPUT.project,
-      employeePM: itemToPUT.employeePM?.employee?._id || itemToPUT.employeePM?.employee,
+      employeePM: {
+        employee: itemToPUT.employeePM?.employee?._id || itemToPUT.employeePM?.employee,
+        role: itemToPUT.employeePM?.role,
+        rate: itemToPUT.employeePM?.rate
+      },
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       })
@@ -133,7 +137,11 @@ const Form = () => {
       employee: data.employee?._id || data.employee,
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
-      employeePM: data.employeePM?.employee?._id || data.employeePM?.employee,
+      employeePM: {
+        employee: data.employeePM?.employee?._id || data.employeePM?.employee,
+        role: 'PM',
+        rate: data.employeePM?.rate
+      },
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       }),
@@ -383,17 +391,6 @@ const Form = () => {
                         label={'Team Members'}
                         itemToPUT={itemToPUT}
                         employeeList={employeeList}
-                      />
-                    );
-                  case 'employeePM':
-                    return (
-                      <SelectForm
-                        key={index}
-                        element={prop}
-                        label={'Employee PM'}
-                        selectOptions={employeeList}
-                        register={register}
-                        error={errors.employeePM?.message}
                       />
                     );
                   case 'project':

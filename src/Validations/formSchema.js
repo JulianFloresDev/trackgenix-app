@@ -117,5 +117,28 @@ export const formSchema = Joi.object({
     'string.max': 'clientName should have a maximum length of 30 characters'
   }),
   teamMembers: Joi.array().items(teamMembersValidation),
+  employeePM: Joi.object({
+    employee: Joi.string().required().messages({
+      'string.empty': 'Employee Product Manager must be a valid employee',
+      'any.required': 'Employee Product Manager must be a valid employee'
+    }),
+    role: Joi.string().valid('PM').required().messages({
+      'string.empty': 'role required',
+      'any.only': 'role can only be PM',
+      'any.required': 'role required'
+    }),
+    rate: Joi.number().min(1).max(1000).required().messages({
+      'string.empty': 'Rate required',
+      'number.pattern.base': 'Rate should be numbers only',
+      'number.min': 'Rate should have a minimum of 1',
+      'number.max': 'Rate should have a maximum of 1000',
+      'any.required': 'Rate required'
+    })
+  })
+    .required()
+    .messages({
+      'any.required': 'Project must have an employee PM',
+      'any.type': 'Employee Product Manager must have role and rate'
+    }),
   firebaseUid: Joi.string()
 });
