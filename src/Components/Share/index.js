@@ -2,6 +2,7 @@ import Table from 'Components/Share/Table';
 import Form from 'Components/Share/Form';
 import Modal from 'Components/Share/Modal';
 import Navbar from 'Components/Share/Navbar';
+import AddHour from 'Components/Share/AddHour';
 import Spinner from 'Components/Share/Spinner';
 import Profile from 'Components/Share/Profile';
 import BackArrow from './BackArrow/backArrow';
@@ -15,6 +16,7 @@ export {
   Form,
   Modal,
   Navbar,
+  AddHour,
   Spinner,
   Profile,
   BackArrow,

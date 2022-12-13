@@ -78,10 +78,9 @@
 }
 
 .tableContainer td:last-child img {
-  width: 1.5vw;
+  width: 1.3rem;
   cursor: pointer;
 }
-
 
 .tableContainer tbody tr {
   border-bottom: 1px solid var(--color-blue-primary);
@@ -100,120 +99,3 @@
   background-color: var(--color-blue-primary);
   cursor: pointer;
 }
-
-/* .container > table>thead>tr {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  text-transform: capitalize;
-  letter-spacing: 3px;
-  font-size: 18px;
-  font-weight: 600;
-  background-color: #3738671a;
-  box-shadow: inset 0px -1px 0px var(--color-white-ligthgrey);
-  border-radius: 15px;
-}
-
-.container > table>thead>tr>td {
-  flex: 1 1 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container > table>tbody {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.container > table>tbody>tr {
-  flex: 1 1 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 15px;
-  box-shadow: inset 0px -2px 0px var(--color-white-ligthgrey);
-  border-radius: 15px;
-}
-
-.container > table>tbody>tr>td {
-  flex: 1 1 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.showListBtn{
-  cursor: pointer;
-  padding: 5px 15px;
-}
-.container > table>tbody>tr>td>ul:hover ~ .modal{
-  display: flex;
-}
-.container > table>tbody>tr td:nth-last-of-type() {
-  flex: 1 1 10%;
-}
-
-.container > table>tbody>tr>td>select {
-  flex: 1 1 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  contain: strict;
-}
-
-.container > table>tbody>tr>td.buttonsContainer {
-  display: flex;
-  gap: 15px;
-  justify-content: flex-end;
-}
-
-.container > table>tbody>tr>td.buttonsContainer>button,
-.addBtn,
-.showListBtn {
-  padding: 8px 25px;
-  border: none;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: center;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  cursor: pointer;
-  color: var(--color-blue-primary);
-}
-.container > table>thead>tr>td:last-child{
-  flex: 1 1 100%;
-  justify-content: flex-end;
-}
-.addBtn,
-.showListBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #DADADA;
-}
-.addBtn:hover,
-.showListBtn:hover {
-  background-color: #D2E9C9
-}
-
-.editBtn {
-  background: #D2E9C9;
-  color: var(--color-blue-primary);
-}
-.editBtn:hover{
-  background: #49A37B;
-}
-
-.closeBtn {
-  color: #751100cc;
-  background: #f59989cc;
-}
-
-.closeBtn:hover {
-  background: #f13312e3;
-} */

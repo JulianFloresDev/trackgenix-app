@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './table.module.css';
-import { Modal } from 'Components/Share';
+import { Modal, AddHour } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
 import { editItem, setModalContent, setShowModal } from 'redux/global/actions';
 import { deleteTasks } from 'redux/tasks/thunks';
@@ -11,14 +11,20 @@ import { deleteTimesheets } from 'redux/time-sheets/thunks';
 import { deleteProject } from 'redux/projects/thunks';
 import { deleteSuperAdmins } from 'redux/super-admins/thunks';
 
-const Table = ({ headers, data }) => {
+const Table = ({
+  headers,
+  data,
+  editable = { edit: false, remove: false, add: false },
+  filteredTimesheets
+}) => {
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const { user, showModal, modalContent } = useSelector((state) => state.global);
+  const { showModal, modalContent } = useSelector((state) => state.global);
+  const { role } = useSelector((state) => state.auth);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
-  const openModal = (element) => {
+  const openDeleteModal = (element) => {
     dispatch(setShowModal(true));
     dispatch(
       setModalContent(
@@ -39,7 +45,18 @@ const Table = ({ headers, data }) => {
       )
     );
   };
-
+  const openAddHoursModal = (projectId) => {
+    dispatch(setShowModal(true));
+    dispatch(setModalContent(<AddHour project={projectId} />));
+  };
+  const workedHours = (project) => {
+    let totalHours = 0;
+    const projectTimeSheets = filteredTimesheets.filter((ts) => ts.project?._id === project._id);
+    projectTimeSheets.forEach((ts) => {
+      totalHours = totalHours + ts.hours;
+    });
+    return totalHours;
+  };
   const deleteItem = (element) => {
     switch (entitie) {
       case 'employees':
@@ -132,6 +149,9 @@ const Table = ({ headers, data }) => {
                   {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
+                  {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
+                    <th>Worked hours</th>
+                  )}
                   <th></th>
                 </tr>
               </thead>
@@ -190,9 +210,12 @@ const Table = ({ headers, data }) => {
                           </td>
                         );
                       })}
-                      {(user?.token !== 'employee' || user === {}) && (
-                        <td className={styles.buttonsContainer}>
-                          <div>
+                      {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
+                        <td>{workedHours(row)}</td>
+                      )}
+                      <td className={styles.buttonsContainer}>
+                        <div>
+                          {editable.edit && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                               className={styles.editBtn}
@@ -201,25 +224,37 @@ const Table = ({ headers, data }) => {
                                 history.push(`/${entitie}/form/${row._id}`);
                               }}
                             />
+                          )}
+                          {editable.remove && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                               className={styles.closeBtn}
                               onClick={(e) => {
                                 e.preventDefault();
                                 dispatch(editItem(row));
-                                openModal(row);
+                                openDeleteModal(row);
+                              }}
+                            />
+                          )}
+                        </div>
+                        {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
+                          <div>
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                              onClick={() => {
+                                openAddHoursModal(row._id);
                               }}
                             />
                           </div>
-                        </td>
-                      )}
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
           </div>
-          {(user?.token !== 'employee' || entitie === 'time-sheets') && (
+          {editable.add && (
             <div className={styles.imgContainer}>
               <img
                 src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
