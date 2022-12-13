@@ -52,13 +52,6 @@
   text-transform: capitalize;
 }
 
-.formSection form > div > input, .formSection form > div > select { 
-  height: 3vw;
-  padding: 0 5px;
-  color: #373867;
-  cursor: pointer;
-}
-
 .formSection form > div > button {
   width: 30vw;
   height: 3vw;
@@ -77,6 +70,3 @@
   border: 1px solid #373867;
   border-radius: 5px;
 }
-
-/*Team Members*/
-
