@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   itemToPUT: {},
   disable: true,
   isFetchingData: false,
-  user: JSON.parse(sessionStorage.getItem('userLogged')) || {}
+  user: {}
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

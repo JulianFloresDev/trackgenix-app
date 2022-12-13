@@ -126,10 +126,10 @@ const Form = () => {
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
-    console.log(itemToPUT);
   }, []);
 
   const modifyRow = (data) => {
+    const employeeProductManager = itemToPUT.teamMembers.find((employee) => employee.role === 'PM');
     const body = {
       ...data,
       dni: data.dni?.toString(),
@@ -138,9 +138,9 @@ const Form = () => {
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
       employeePM: {
-        employee: data.employeePM?.employee?._id || data.employeePM?.employee,
-        role: 'PM',
-        rate: data.employeePM?.rate
+        employee: employeeProductManager?.employee?._id || employeeProductManager?.employee,
+        role: employeeProductManager?.role,
+        rate: employeeProductManager?.rate
       },
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
@@ -385,13 +385,16 @@ const Form = () => {
                     );
                   case 'teamMembers':
                     return (
-                      <TeamMembersTable
-                        key={index}
-                        element={prop}
-                        label={'Team Members'}
-                        itemToPUT={itemToPUT}
-                        employeeList={employeeList}
-                      />
+                      <>
+                        <TeamMembersTable
+                          key={index}
+                          element={prop}
+                          label={'Team Members'}
+                          itemToPUT={itemToPUT}
+                          employeeList={employeeList}
+                        />
+                        {errors.employeePM && <p>{errors.employeePM?.message}</p>}
+                      </>
                     );
                   case 'project':
                     return (
