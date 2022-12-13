@@ -215,6 +215,22 @@ const Table = ({
                       )}
                       <td className={styles.buttonsContainer}>
                         <div>
+                          {/* {editable.admin && (
+                            <div className={styles.imgContainer}>
+                              <img
+                                src={`${process.env.PUBLIC_URL}/assets/images/add.svg`}
+                                onClick={() => {
+                                  const employeeEmail = row.email.split('@');
+                                  const newAdmin = {
+                                    ...row,
+                                    email: `${employeeEmail[0]}@admin.com`
+                                  };
+                                  dispatch(editItem(newAdmin));
+                                  history.push(`/admins/form/0`); //No funciona el harcodeado
+                                }}
+                              />
+                            </div>
+                          )} */}
                           {editable.edit && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
