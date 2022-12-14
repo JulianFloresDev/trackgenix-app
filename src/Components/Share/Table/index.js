@@ -237,7 +237,7 @@ const Table = ({
                       )}
                       <td className={styles.buttonsContainer}>
                         <div>
-                          {editable.edit && (
+                          {(editable.edit || row.employeePM?.employee._id === user._id) && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                               className={styles.editBtn}
@@ -247,7 +247,7 @@ const Table = ({
                               }}
                             />
                           )}
-                          {editable.remove && (
+                          {(editable.remove || row.employeePM?.employee._id === user._id) && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                               className={styles.closeBtn}
@@ -258,17 +258,17 @@ const Table = ({
                               }}
                             />
                           )}
+
+                          {entitie === 'projects' &&
+                            (role === 'employee' || role === 'employeePM') && (
+                              <img
+                                src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                                onClick={() => {
+                                  openAddHoursModal(row._id);
+                                }}
+                              />
+                            )}
                         </div>
-                        {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                          <div>
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
-                              onClick={() => {
-                                openAddHoursModal(row._id);
-                              }}
-                            />
-                          </div>
-                        )}
                       </td>
                     </tr>
                   );
