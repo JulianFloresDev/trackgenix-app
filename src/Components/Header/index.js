@@ -4,7 +4,9 @@ import { Navbar, LandingNavBar } from 'Components/Share';
 import { useSelector } from 'react-redux';
 
 function Header() {
+  const userEmail = sessionStorage.getItem('email');
   const { authenticated, role, isLoading } = useSelector((state) => state.auth);
+  const { list: projectList } = useSelector((state) => state.projects);
   const [navbarState, setNavbarVisibility] = useState(true);
   const showNavBar = () => {
     setNavbarVisibility(!navbarState);
@@ -31,8 +33,14 @@ function Header() {
           {role === 'admin' && (
             <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
           )}
-          {(role === 'employee' || role === 'employeePM') && (
-            <Navbar navOptions={['time-sheets', 'projects', 'profile']} />
+          {role === 'employee' && (
+            <Navbar
+              navOptions={
+                projectList.some((project) => project.employeePM?.employee?.email === userEmail)
+                  ? ['projects', 'time-sheets', 'tasks', 'profile']
+                  : ['projects', 'time-sheets', 'profile']
+              }
+            />
           )}
           <div className={styles.arrowContainer} onClick={() => showNavBar()}>
             <img
