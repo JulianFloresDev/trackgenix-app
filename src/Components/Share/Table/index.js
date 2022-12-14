@@ -168,13 +168,14 @@ const Table = ({
                 {newData?.reverse()?.map((row, index) => {
                   return (
                     <tr key={index}>
-                      {entitie === 'projects' && row.employeePM?.employee._id === user._id && (
+                      {entitie === 'projects' && (
                         <td>
-                          <span className={styles.PM}>PM</span>
+                          {row.employeePM?.employee._id === user._id ? (
+                            <span className={styles.PM}>PM</span>
+                          ) : (
+                            <td></td>
+                          )}
                         </td>
-                      )}
-                      {entitie === 'projects' && row.employeePM?.employee._id !== user._id && (
-                        <td></td>
                       )}
                       {headers?.map((property, index) => {
                         if (typeof row[property] === 'boolean') {
@@ -231,9 +232,7 @@ const Table = ({
                           </td>
                         );
                       })}
-                      {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                        <td>{workedHours(row)}</td>
-                      )}
+                      {entitie === 'projects' && role === 'employee' && <td>{workedHours(row)}</td>}
                       <td className={styles.buttonsContainer}>
                         <div>
                           {(editable.edit || row.employeePM?.employee._id === user._id) && (

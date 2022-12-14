@@ -6,6 +6,7 @@ import { Table, Spinner } from 'Components/Share';
 
 function Tasks() {
   const { list, isFetching, error } = useSelector((state) => state.tasks);
+  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTasks(''));
@@ -20,7 +21,15 @@ function Tasks() {
           <h2>404: server not found</h2>
         </div>
       ) : (
-        <Table headers={['type', 'createdAt', 'updatedAt']} data={list} />
+        <Table
+          headers={['type', 'createdAt', 'updatedAt']}
+          data={list}
+          editable={
+            role === 'super-admin' || role === 'admin'
+              ? { edit: true, remove: true, add: true }
+              : { edit: true, remove: false, add: true }
+          }
+        />
       )}
     </section>
   );
