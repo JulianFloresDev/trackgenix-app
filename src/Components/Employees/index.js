@@ -5,7 +5,6 @@ import styles from './employees.module.css';
 import { Table, Spinner } from 'Components/Share';
 
 function Employees() {
-  //  const { role } = useSelector((state) => state.auth);
   const { list, isFetching, error } = useSelector((state) => state.employees);
   const dispatch = useDispatch();
   useEffect(() => {
