@@ -134,11 +134,9 @@ export const formSchema = Joi.object({
       'number.max': 'Rate should have a maximum of 1000',
       'any.required': 'Rate required'
     })
-  })
-    .required()
-    .messages({
-      'any.required': 'Project must have an employee PM',
-      'any.type': 'Employee Product Manager must have role and rate'
-    }),
+  }).messages({
+    'any.required': 'Project must have an employee PM',
+    'any.type': 'Employee Product Manager must have role and rate'
+  }),
   firebaseUid: Joi.string()
 });
