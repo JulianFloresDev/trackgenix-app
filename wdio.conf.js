@@ -23,7 +23,8 @@ exports.config = {
     specs: [
         './test/specs/super-admin-add-new.e2e.js',
         './test/specs/super-admin-edit.e2e.js',
-        './test/specs/super-admin-delete.e2e.js'
+        './test/specs/super-admin-delete.e2e.js',
+        './test/specs/employees-projects.e2e.js'
     ],
     // Patterns to exclude.
     exclude: [

@@ -1,7 +1,11 @@
 /* eslint-disable prettier/prettier */
-class SuperAdminPage {
+class HomePageLogged {
     get selectAdmins () {
         return $('//*[@id="root"]/div/div[1]/header/nav/div/ul/li[2]/a');
+    }
+
+    get selectProjects () {
+        return $('//*[@id="root"]/div/header/nav/ul/li[2]/a');
     }
 
     get logOutButton () {
@@ -9,4 +13,4 @@ class SuperAdminPage {
     }
 }
 
-module.exports = new SuperAdminPage();
+module.exports = new HomePageLogged();
