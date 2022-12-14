@@ -22,6 +22,7 @@ const Table = ({
   const entitie = URLPath[1];
   const { showModal, modalContent } = useSelector((state) => state.global);
   const { role } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.global);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openDeleteModal = (element) => {
@@ -153,6 +154,7 @@ const Table = ({
             <table className={styles.table}>
               <thead>
                 <tr>
+                  {entitie === 'projects' && <th></th>}
                   {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
@@ -166,6 +168,15 @@ const Table = ({
                 {newData?.reverse()?.map((row, index) => {
                   return (
                     <tr key={index}>
+                      {/* {console.log('ROW PM: ', row.employeePM)} */}
+                      {entitie === 'projects' && row.employeePM?.employee._id === user._id && (
+                        <td>
+                          <span className={styles.PM}>PM</span>
+                        </td>
+                      )}
+                      {entitie === 'projects' && row.employeePM?.employee._id !== user._id && (
+                        <td></td>
+                      )}
                       {headers?.map((property, index) => {
                         if (typeof row[property] === 'boolean') {
                           if (row[property]) {
