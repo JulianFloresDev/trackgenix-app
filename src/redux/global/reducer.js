@@ -53,7 +53,8 @@ const globalReducer = (state = INITIAL_STATE, action) => {
     case SET_USER:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        isFetchingData: false
       };
     case GET_USER_ERROR:
       return {

@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProjects } from 'redux/projects/thunks';
+import { getTimesheets } from 'redux/time-sheets/thunks';
 import styles from './projects.module.css';
 import { Table, Spinner } from 'Components/Share';
 
 function Projects() {
   const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.global);
-  const { list, isFetching, error } = useSelector((store) => store.projects);
+  const { role } = useSelector((store) => store.auth);
+  const { list: projectsList, isFetching, error } = useSelector((store) => store.projects);
+  const { list: timesheetList } = useSelector((store) => store.timeSheets);
+  const { user } = useSelector((state) => state.global);
   useEffect(async () => {
     dispatch(getProjects(''));
+    dispatch(getTimesheets(''));
   }, []);
   return (
     <section className={styles.container}>
@@ -21,7 +25,7 @@ function Projects() {
             <div className={styles.container}>
               <h2>404: Unable to access server</h2>
             </div>
-          ) : user._id ? (
+          ) : role === 'employee' ? (
             <Table
               headers={[
                 'name',
@@ -32,9 +36,10 @@ function Projects() {
                 'teamMembers',
                 'active'
               ]}
-              data={list.filter((project) =>
+              data={projectsList.filter((project) =>
                 project.teamMembers.find((member) => member.employee?._id === user._id)
               )}
+              filteredTimesheets={timesheetList.filter((ts) => ts.employee?._id === user._id)}
             />
           ) : (
             <Table
@@ -47,7 +52,7 @@ function Projects() {
                 'teamMembers',
                 'active'
               ]}
-              data={list}
+              data={projectsList}
             />
           )}
         </>

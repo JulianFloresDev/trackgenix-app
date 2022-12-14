@@ -20,6 +20,7 @@ const Form = () => {
   const { isFetchingData, showModal, modalContent, itemToPUT, user } = useSelector(
     (state) => state.global
   );
+  const { role } = useSelector((state) => state.auth);
   delete itemToPUT['_id'];
   delete itemToPUT['__v'];
   delete itemToPUT['createdAt'];
@@ -403,7 +404,15 @@ const Form = () => {
                         key={index}
                         element={prop}
                         label={'Projects'}
-                        selectOptions={projectList}
+                        selectOptions={
+                          role === 'employee'
+                            ? projectList.filter((project) =>
+                                project.teamMembers.find(
+                                  (member) => member.employee?._id === user._id
+                                )
+                              )
+                            : projectList
+                        }
                         register={register}
                         error={errors.project?.message}
                       />
