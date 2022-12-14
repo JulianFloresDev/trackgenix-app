@@ -168,7 +168,6 @@ const Table = ({
                 {newData?.reverse()?.map((row, index) => {
                   return (
                     <tr key={index}>
-                      {/* {console.log('ROW PM: ', row.employeePM)} */}
                       {entitie === 'projects' && row.employeePM?.employee._id === user._id && (
                         <td>
                           <span className={styles.PM}>PM</span>

@@ -31,7 +31,9 @@ function Header() {
           {role === 'admin' && (
             <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
           )}
-          {role === 'employee' && <Navbar navOptions={['time-sheets', 'projects', 'profile']} />}
+          {(role === 'employee' || role === 'employeePM') && (
+            <Navbar navOptions={['time-sheets', 'projects', 'profile']} />
+          )}
           <div className={styles.arrowContainer} onClick={() => showNavBar()}>
             <img
               className={navbarState ? styles.active : styles.inactive}

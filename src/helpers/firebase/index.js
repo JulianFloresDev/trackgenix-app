@@ -40,7 +40,6 @@ export const tokenListener = () => {
               store.dispatch(getAdmins(''));
               break;
             case 'employee':
-            case 'employee-pm':
               store.dispatch(getEmployees(''));
               break;
             default:
