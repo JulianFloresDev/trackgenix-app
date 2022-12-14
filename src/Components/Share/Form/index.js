@@ -72,7 +72,8 @@ const Form = () => {
                 endDate: '',
                 active: '',
                 clientName: '',
-                teamMembers: [{ employee: '', role: '', rate: '' }]
+                teamMembers: [{ employee: '', role: '', rate: '' }],
+                employeePM: { employee: '', role: 'PM', rate: '' }
               })
         );
         break;

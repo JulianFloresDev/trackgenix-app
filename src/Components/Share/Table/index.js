@@ -99,13 +99,15 @@ const Table = ({ headers, data }) => {
                   </tr>
                 )}
                 {project.teamMembers?.map((team, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{`${team?.employee?.firstName} ${team.employee?.lastName}`}</td>
-                      <td>{team?.role}</td>
-                      <td>{team?.rate}</td>
-                    </tr>
-                  );
+                  if (team.role !== 'PM') {
+                    return (
+                      <tr key={index}>
+                        <td>{`${team?.employee?.firstName} ${team.employee?.lastName}`}</td>
+                        <td>{team?.role}</td>
+                        <td>{team?.rate}</td>
+                      </tr>
+                    );
+                  }
                 })}
               </tbody>
             </table>
