@@ -41,20 +41,6 @@ function Projects() {
               )}
               filteredTimesheets={timesheetList.filter((ts) => ts.employee?._id === user._id)}
             />
-          ) : role === 'super-admin' ? (
-            <Table
-              headers={[
-                'name',
-                'description',
-                'startDate',
-                'clientName',
-                'endDate',
-                'teamMembers',
-                'active'
-              ]}
-              data={projectsList}
-              editable={{ add: true }}
-            />
           ) : (
             <Table
               headers={[
