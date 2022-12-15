@@ -131,7 +131,7 @@ const Form = () => {
   }, []);
 
   const modifyRow = (data) => {
-    const employeeProductManager = itemToPUT.teamMembers.find((employee) => employee.role === 'PM');
+    // const employeeProductManager = itemToPUT.teamMembers.find((employee) => employee.role === 'PM');
     const body = {
       ...data,
       dni: data.dni?.toString(),
@@ -139,11 +139,11 @@ const Form = () => {
       employee: data.employee?._id || data.employee,
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
-      employeePM: {
-        employee: employeeProductManager?.employee?._id || employeeProductManager?.employee,
-        role: employeeProductManager?.role,
-        rate: employeeProductManager?.rate
-      },
+      // employeePM: {
+      //   employee: employeeProductManager?.employee?._id || employeeProductManager?.employee,
+      //   role: employeeProductManager?.role,
+      //   rate: employeeProductManager?.rate
+      // },
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       }),
@@ -394,8 +394,9 @@ const Form = () => {
                           label={'Team Members'}
                           itemToPUT={itemToPUT}
                           employeeList={employeeList}
+                          error={errors}
+                          register={register}
                         />
-                        {errors.employeePM && <p>{errors.employeePM?.message}</p>}
                       </>
                     );
                   case 'project':

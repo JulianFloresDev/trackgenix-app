@@ -173,7 +173,7 @@ const Table = ({
                           {row.employeePM?.employee._id === user._id ? (
                             <span className={styles.PM}>PM</span>
                           ) : (
-                            <td></td>
+                            <p></p>
                           )}
                         </td>
                       )}

@@ -25,22 +25,6 @@ function Projects() {
             <div className={styles.container}>
               <h2>404: Unable to access server</h2>
             </div>
-          ) : role === 'employee' ? (
-            <Table
-              headers={[
-                'name',
-                'description',
-                'startDate',
-                'clientName',
-                'endDate',
-                'teamMembers',
-                'active'
-              ]}
-              data={projectsList.filter((project) =>
-                project.teamMembers.find((member) => member.employee?._id === user._id)
-              )}
-              filteredTimesheets={timesheetList.filter((ts) => ts.employee?._id === user._id)}
-            />
           ) : (
             <Table
               headers={[
@@ -52,7 +36,19 @@ function Projects() {
                 'teamMembers',
                 'active'
               ]}
-              data={projectsList}
+              data={
+                role === 'employee'
+                  ? projectsList.filter(
+                      (project) =>
+                        project.employeePM?.employee?._id === user._id ||
+                        project.teamMembers?.find((member) => member.employee?._id === user._id)
+                    )
+                  : projectsList
+              }
+              filteredTimesheets={
+                role === 'employee' && timesheetList.filter((ts) => ts.employee?._id === user._id)
+              }
+              editable={role === 'super-admin' && { edit: false, remove: true, add: true }}
             />
           )}
         </>

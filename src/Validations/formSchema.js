@@ -6,7 +6,7 @@ const teamMembersValidation = Joi.object({
   }),
   role: Joi.string().valid('DEV', 'QA', 'TL', 'PM').messages({
     'string.empty': 'role required',
-    'any.only': 'role can only be DEV, QA, TL or PM'
+    'any.only': 'Select role'
   }),
   rate: Joi.number().min(1).max(1000).messages({
     'string.empty': 'Rate required',
@@ -81,7 +81,8 @@ export const formSchema = Joi.object({
   task: Joi.string().messages({
     'string.empty': 'Task is required'
   }),
-  employee: Joi.string().messages({
+  employee: Joi.string().length(24).messages({
+    'string.length': 'Employee is required',
     'string.empty': 'Employee is required'
   }),
   project: Joi.string().messages({
@@ -118,7 +119,8 @@ export const formSchema = Joi.object({
   }),
   teamMembers: Joi.array().items(teamMembersValidation),
   employeePM: Joi.object({
-    employee: Joi.string().required().messages({
+    employee: Joi.string().length(24).required().messages({
+      'string.length': 'Employee Product Manager must be a valid employee',
       'string.empty': 'Employee Product Manager must be a valid employee',
       'any.required': 'Employee Product Manager must be a valid employee'
     }),
@@ -129,7 +131,7 @@ export const formSchema = Joi.object({
     }),
     rate: Joi.number().min(1).max(1000).required().messages({
       'string.empty': 'Rate required',
-      'number.pattern.base': 'Rate should be numbers only',
+      'number.base': 'Rate required',
       'number.min': 'Rate should have a minimum of 1',
       'number.max': 'Rate should have a maximum of 1000',
       'any.required': 'Rate required'

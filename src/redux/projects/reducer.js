@@ -30,6 +30,7 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
     case GET_PROJECTS_ERROR:
       return {
         ...state,
+        isFetching: false,
         error: true
       };
     case DELETE_PROJECTS_PENDING:
@@ -46,6 +47,7 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
     case DELETE_PROJECTS_ERROR:
       return {
         ...state,
+        isFetching: false,
         error: true
       };
     default:
