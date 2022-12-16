@@ -16,15 +16,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 150px;
   width: 80%;
 }
 
 .title img {
+  flex: 0 1 30px;
   justify-self: flex-start;
 }
 
 .formSection h2 {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-transform: capitalize;
   font-weight: 700;
 }
