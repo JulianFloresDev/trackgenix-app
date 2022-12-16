@@ -42,7 +42,7 @@ const Profile = () => {
             onClick={(e) => {
               e.preventDefault();
               dispatch(editItem(user));
-              history.push(`/${role}s/form/${user._id}`);
+              history.push(`/${role}s/form/${user._id}?editProfile=true`);
             }}
           >
             Edit Profile

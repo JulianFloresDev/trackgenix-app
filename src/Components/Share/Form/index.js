@@ -1,12 +1,19 @@
 import { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { formSchema } from 'Validations/formSchema';
 import styles from './form.module.css';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
-import { Spinner, Modal, InputForm, SelectForm, TeamMembersTable } from 'Components/Share';
+import {
+  Spinner,
+  Modal,
+  InputForm,
+  SelectForm,
+  TeamMembersTable,
+  BackArrow
+} from 'Components/Share';
 import { getSuperAdmins, editSuperAdmin, createSuperAdmin } from 'redux/super-admins/thunks';
 import { getAdmins, editAdmin, createAdmin } from 'redux/admins/thunks';
 import { getEmployees, editEmployee, createEmployee } from 'redux/employees/thunks';
@@ -32,6 +39,8 @@ const Form = () => {
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
   const id = useParams().id;
+  const { search } = useLocation();
+  const isEditingProfile = search.slice(-4);
   const usersStructure = {
     firstName: '',
     lastName: '',
@@ -192,12 +201,17 @@ const Form = () => {
                 Close
               </button>
               <button className={modalStyles.confirmBtn} onClick={() => goBack()}>
-                Back to {entitie.slice(0, -1).toUpperCase()}
+                {isEditingProfile
+                  ? 'Back Profile'
+                  : `Back to ${entitie.slice(0, -1).toUpperCase()}`}
               </button>
             </div>
           </Modal>
           <section className={styles.formSection}>
-            <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
+            <div className={styles.title}>
+              <BackArrow />
+              <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
+            </div>
             <form onSubmit={handleSubmit(modifyRow)}>
               {Object.keys(itemToPUT || user).map((prop, index) => {
                 switch (prop) {
@@ -442,19 +456,10 @@ const Form = () => {
                     return null;
                 }
               })}
-              <div>
+              <div className={styles.buttonContainer}>
                 <button type="submit">Submit</button>
                 <button type="button" onClick={() => reset()}>
                   Reset Form
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(editItem(id));
-                    history.goBack();
-                  }}
-                >
-                  Back
                 </button>
               </div>
             </form>
