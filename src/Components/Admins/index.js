@@ -4,6 +4,7 @@ import { getAdmins } from 'redux/admins/thunks';
 import { Table, Spinner } from 'Components/Share';
 
 function Admins() {
+  const { role } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { list, isFetching, error } = useSelector((store) => store.admins);
 
@@ -20,6 +21,12 @@ function Admins() {
             <div>
               <h2>404: Unable to access server</h2>
             </div>
+          ) : role === 'super-admin' ? (
+            <Table
+              headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
+              data={list}
+              editable={{ edit: true, remove: true, add: true }}
+            />
           ) : (
             <Table
               headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}

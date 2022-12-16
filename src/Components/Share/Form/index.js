@@ -173,6 +173,7 @@ const Form = () => {
 
   const goBack = () => {
     dispatch(setShowModal(false));
+    history.goBack();
     history.push(`/${entitie}`);
   };
 
