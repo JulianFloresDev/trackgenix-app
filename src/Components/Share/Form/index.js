@@ -140,7 +140,6 @@ const Form = () => {
       }),
       firebaseUid: itemToPUT.firebaseUid
     };
-    console.log('body-data: ', body);
     switch (entitie) {
       case 'employees':
         dispatch(id === '0' ? createEmployee(body) : editEmployee(id, body));

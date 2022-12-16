@@ -48,7 +48,11 @@ function Projects() {
               filteredTimesheets={
                 role === 'employee' && timesheetList.filter((ts) => ts.employee?._id === user._id)
               }
-              editable={role === 'super-admin' && { edit: false, remove: true, add: true }}
+              editable={
+                role === 'admin'
+                  ? { edit: true, remove: false, add: true }
+                  : role === 'super-admin' && { edit: false, remove: true, add: true }
+              }
             />
           )}
         </>

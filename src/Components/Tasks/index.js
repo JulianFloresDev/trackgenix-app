@@ -27,7 +27,7 @@ function Tasks() {
           headers={['type', 'createdAt', 'updatedAt']}
           data={list}
           editable={
-            role === 'super-admin' || role === 'admin'
+            role === 'admin'
               ? { edit: true, remove: true, add: true }
               : projectList.some((project) => project.employeePM?.employee?._id === user._id)
               ? { edit: false, remove: false, add: true }

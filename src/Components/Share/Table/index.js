@@ -237,7 +237,9 @@ const Table = ({
                               }}
                             />
                           )}
-                          {(editable.edit || row.employeePM?.employee._id === user._id) && (
+                          {(editable.edit ||
+                            (entitie === 'projects' &&
+                              row.employeePM?.employee._id === user._id)) && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                               className={styles.editBtn}
