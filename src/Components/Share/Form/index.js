@@ -404,10 +404,12 @@ const Form = () => {
                         label={'Projects'}
                         selectOptions={
                           role === 'employee'
-                            ? projectList.filter((project) =>
-                                project.teamMembers.find(
-                                  (member) => member.employee?._id === user._id
-                                )
+                            ? projectList.filter(
+                                (project) =>
+                                  project.teamMembers.filter(
+                                    (member) => member.employee?._id === user._id
+                                  ) ||
+                                  project.employeePM.find((employee) => employee.id === user.id)
                               )
                             : projectList
                         }
