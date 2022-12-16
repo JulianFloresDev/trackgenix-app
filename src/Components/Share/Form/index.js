@@ -135,11 +135,6 @@ const Form = () => {
       employee: data.employee?._id || data.employee,
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
-      employeePM: {
-        employee: data.employeePM?.employee?._id || data.employeePM?.employee,
-        role: data.employeePM?.role || 'PM',
-        rate: data.employeePM?.rate
-      },
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       }),
