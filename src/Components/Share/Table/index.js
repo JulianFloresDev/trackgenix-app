@@ -158,9 +158,7 @@ const Table = ({
                   {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
-                  {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                    <th>Worked hours</th>
-                  )}
+                  {entitie === 'projects' && role === 'employee' && <th>Worked hours</th>}
                   <th></th>
                 </tr>
               </thead>
@@ -225,16 +223,20 @@ const Table = ({
                               : row[property].description || row[property].type}
                             {row[property].firstName && row[property].firstName}{' '}
                             {row[property].lastName}
-                            {row[property].employeePM &&
-                              row[property]?.employee?.firstName +
-                                ' ' +
-                                row[property].employee?.lastName}
                           </td>
                         );
                       })}
                       {entitie === 'projects' && role === 'employee' && <td>{workedHours(row)}</td>}
                       <td className={styles.buttonsContainer}>
                         <div>
+                          {entitie === 'projects' && role === 'employee' && (
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                              onClick={() => {
+                                openAddHoursModal(row._id);
+                              }}
+                            />
+                          )}
                           {(editable.edit || row.employeePM?.employee._id === user._id) && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
@@ -245,7 +247,7 @@ const Table = ({
                               }}
                             />
                           )}
-                          {(editable.remove || row.employeePM?.employee._id === user._id) && (
+                          {editable.remove && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
                               className={styles.closeBtn}
@@ -256,16 +258,6 @@ const Table = ({
                               }}
                             />
                           )}
-
-                          {entitie === 'projects' &&
-                            (role === 'employee' || role === 'employeePM') && (
-                              <img
-                                src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
-                                onClick={() => {
-                                  openAddHoursModal(row._id);
-                                }}
-                              />
-                            )}
                         </div>
                       </td>
                     </tr>

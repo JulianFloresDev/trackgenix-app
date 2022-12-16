@@ -109,29 +109,25 @@ const Form = () => {
       case 'tasks':
         dispatch(id !== '0' ? getTasks(id) : editItem({ type: '' }));
     }
-    reset({
-      ...itemToPUT,
-      dni: itemToPUT.dni?.toString(),
-      phone: itemToPUT.phone?.toString(),
-      employee: itemToPUT.employee?._id || itemToPUT.employee,
-      task: itemToPUT.task?._id || itemToPUT.task,
-      project: itemToPUT.project?._id || itemToPUT.project,
-      employeePM: {
-        employee: itemToPUT.employeePM?.employee?._id || itemToPUT.employeePM?.employee,
-        role: itemToPUT.employeePM?.role,
-        rate: itemToPUT.employeePM?.rate
-      },
-      teamMembers: itemToPUT.teamMembers?.map((member) => {
-        return { ...member, employee: member.employee?._id || member.employee };
-      })
-    });
+    id !== 0 &&
+      reset({
+        ...itemToPUT,
+        dni: itemToPUT.dni?.toString(),
+        phone: itemToPUT.phone?.toString(),
+        employee: itemToPUT.employee?._id || itemToPUT.employee,
+        task: itemToPUT.task?._id || itemToPUT.task,
+        project: itemToPUT.project?._id || itemToPUT.project,
+        employeePM: itemToPUT.employeePM,
+        teamMembers: itemToPUT.teamMembers?.map((member) => {
+          return { ...member, employee: member.employee?._id || member.employee };
+        })
+      });
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));
   }, []);
 
   const modifyRow = (data) => {
-    // const employeeProductManager = itemToPUT.teamMembers.find((employee) => employee.role === 'PM');
     const body = {
       ...data,
       dni: data.dni?.toString(),
@@ -139,16 +135,17 @@ const Form = () => {
       employee: data.employee?._id || data.employee,
       task: data.task?._id || data.task,
       project: data.project?._id || data.project,
-      // employeePM: {
-      //   employee: employeeProductManager?.employee?._id || employeeProductManager?.employee,
-      //   role: employeeProductManager?.role,
-      //   rate: employeeProductManager?.rate
-      // },
+      employeePM: {
+        employee: data.employeePM?.employee?._id || data.employeePM?.employee,
+        role: data.employeePM?.role || 'PM',
+        rate: data.employeePM?.rate
+      },
       teamMembers: itemToPUT.teamMembers?.map((member) => {
         return { ...member, employee: member.employee?._id || member.employee };
       }),
       firebaseUid: itemToPUT.firebaseUid
     };
+    console.log('body-data: ', body);
     switch (entitie) {
       case 'employees':
         dispatch(id === '0' ? createEmployee(body) : editEmployee(id, body));

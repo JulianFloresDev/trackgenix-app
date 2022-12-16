@@ -64,10 +64,13 @@ export const formSchema = Joi.object({
     'string.min': 'Address should have betwen 3 and 50 characters',
     'string.max': 'Address should have betwen 3 and 50 characters'
   }),
-  type: Joi.string().valid('Frontend', 'Backend', 'Testing').messages({
-    'string.empty': 'Type is required',
-    'any.only': 'Task type should be Frontend, Backend or Testing'
-  }),
+  type: Joi.string()
+    // .pattern(/([A-Za-z]+\s*)+/)
+    .messages({
+      'string.empty': 'Task is required',
+      'any.only': 'Task type should be a valid Task format',
+      'string.pattern.base': 'Task type should be words and spaces only'
+    }),
   date: Joi.date().iso().messages({
     'any.empty': 'Date is required',
     'date.base': 'Date have an invalid format',
@@ -119,17 +122,17 @@ export const formSchema = Joi.object({
   }),
   teamMembers: Joi.array().items(teamMembersValidation),
   employeePM: Joi.object({
-    employee: Joi.string().length(24).required().messages({
+    employee: Joi.string().length(24).messages({
       'string.length': 'Employee Product Manager must be a valid employee',
       'string.empty': 'Employee Product Manager must be a valid employee',
       'any.required': 'Employee Product Manager must be a valid employee'
     }),
-    role: Joi.string().valid('PM').required().messages({
+    role: Joi.string().valid('PM').messages({
       'string.empty': 'role required',
       'any.only': 'role can only be PM',
       'any.required': 'role required'
     }),
-    rate: Joi.number().min(1).max(1000).required().messages({
+    rate: Joi.number().min(1).max(1000).messages({
       'string.empty': 'Rate required',
       'number.base': 'Rate required',
       'number.min': 'Rate should have a minimum of 1',

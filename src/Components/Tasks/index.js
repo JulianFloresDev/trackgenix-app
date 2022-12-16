@@ -7,6 +7,8 @@ import { Table, Spinner } from 'Components/Share';
 function Tasks() {
   const { list, isFetching, error } = useSelector((state) => state.tasks);
   const { role } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.global);
+  const { list: projectList } = useSelector((state) => state.projects);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTasks(''));
@@ -27,7 +29,9 @@ function Tasks() {
           editable={
             role === 'super-admin' || role === 'admin'
               ? { edit: true, remove: true, add: true }
-              : { edit: true, remove: false, add: true }
+              : projectList.some((project) => project.employeePM?.employee?._id === user._id)
+              ? { edit: false, remove: false, add: true }
+              : { edit: false, remove: false, add: false }
           }
         />
       )}
