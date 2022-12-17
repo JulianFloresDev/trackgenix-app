@@ -1,15 +1,19 @@
 /* eslint-disable prettier/prettier */
 class HomePageLogged {
     get selectAdmins () {
-        return $('//*[@id="root"]/div/div[1]/header/nav/div/ul/li[2]/a');
+        return $('//*[@id="root"]/div/header/nav/ul/li[2]/a');
     }
 
     get selectProjects () {
         return $('//*[@id="root"]/div/header/nav/ul/li[2]/a');
     }
 
+    get projectTable () {
+        return $('//*[@id="root"]/div/div/section/div/div');
+    }
+
     get logOutButton () {
-        return $('#root > div > div.layout_navBar__cBGea > header > nav > div > div > button');
+        return $('//*[@id="root"]/div/header/nav/div/button');
     }
 }
 
