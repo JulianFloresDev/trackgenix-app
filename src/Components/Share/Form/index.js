@@ -208,261 +208,263 @@ const Form = () => {
             </div>
           </Modal>
           <section className={styles.formSection}>
-            <div className={styles.title}>
-              <BackArrow />
-              <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
-            </div>
-            <form onSubmit={handleSubmit(modifyRow)}>
-              {Object.keys(itemToPUT || user).map((prop, index) => {
-                switch (prop) {
-                  case 'name':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Project Name'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.name?.message}
-                      />
-                    );
-                  case 'clientName':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Client Name'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.clientName?.message}
-                      />
-                    );
-                  case 'firstName':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'First Name'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.firstName?.message}
-                      />
-                    );
-                  case 'lastName':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Last Name'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.lastName?.message}
-                      />
-                    );
-                  case 'email':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Email'}
-                        inputType={'email'}
-                        register={register}
-                        error={errors.email?.message}
-                      />
-                    );
-                  case 'location':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Address'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.location?.message}
-                      />
-                    );
-                  case 'description':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Description'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.description?.message}
-                      />
-                    );
-                  case 'type':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Task Type'}
-                        inputType={'text'}
-                        register={register}
-                        error={errors.type?.message}
-                      />
-                    );
-                  case 'password':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Password'}
-                        inputType={'password'}
-                        register={register}
-                        error={errors.password?.message}
-                      />
-                    );
-                  case 'dni':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'D.N.I.'}
-                        inputType={'number'}
-                        register={register}
-                        error={errors.dni?.message}
-                      />
-                    );
-                  case 'hours':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Hours'}
-                        inputType={'number'}
-                        register={register}
-                        error={errors.hours?.message}
-                      />
-                    );
-                  case 'phone':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Phone'}
-                        inputType={'phone'}
-                        register={register}
-                        error={errors.phone?.message}
-                      />
-                    );
-                  case 'date':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Date'}
-                        inputType={'date'}
-                        register={register}
-                        error={errors.date?.message}
-                      />
-                    );
-                  case 'startDate':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Start Date'}
-                        inputType={'date'}
-                        register={register}
-                        error={errors.startDate?.message}
-                      />
-                    );
-                  case 'endDate':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'End Date'}
-                        inputType={'date'}
-                        register={register}
-                        error={errors.endDate?.message}
-                      />
-                    );
-                  case 'active':
-                    return (
-                      <InputForm
-                        key={index}
-                        element={prop}
-                        label={'Project State'}
-                        inputType={'checkbox'}
-                        register={register}
-                        error={errors.active?.message}
-                      />
-                    );
-                  case 'teamMembers':
-                    return (
-                      <>
-                        <TeamMembersTable
+            <div className={styles.container}>
+              <div className={styles.title}>
+                <BackArrow />
+                <h2>{`${id !== '0' ? 'Edit' : 'Create'} ${entitie.slice(0, -1)}`}</h2>
+              </div>
+              <form onSubmit={handleSubmit(modifyRow)}>
+                {Object.keys(itemToPUT || user).map((prop, index) => {
+                  switch (prop) {
+                    case 'name':
+                      return (
+                        <InputForm
                           key={index}
                           element={prop}
-                          label={'Team Members'}
-                          itemToPUT={itemToPUT}
-                          employeeList={employeeList}
-                          error={errors}
+                          label={'Project Name'}
+                          inputType={'text'}
                           register={register}
+                          error={errors.name?.message}
                         />
-                      </>
-                    );
-                  case 'project':
-                    return (
-                      <SelectForm
-                        key={index}
-                        element={prop}
-                        label={'Projects'}
-                        selectOptions={
-                          role === 'employee'
-                            ? projectList.filter(
-                                (project) =>
-                                  project.teamMembers.filter(
-                                    (member) => member.employee?._id === user._id
-                                  ) ||
-                                  project.employeePM.find((employee) => employee.id === user.id)
-                              )
-                            : projectList
-                        }
-                        register={register}
-                        error={errors.project?.message}
-                      />
-                    );
-                  case 'task':
-                    return (
-                      <SelectForm
-                        key={index}
-                        element={prop}
-                        label={'Tasks'}
-                        selectOptions={tasksList}
-                        register={register}
-                        error={errors.task?.message}
-                      />
-                    );
-                  case 'employee':
-                    if (user._id) {
-                      return null;
-                    } else {
+                      );
+                    case 'clientName':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Client Name'}
+                          inputType={'text'}
+                          register={register}
+                          error={errors.clientName?.message}
+                        />
+                      );
+                    case 'firstName':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'First Name'}
+                          inputType={'text'}
+                          register={register}
+                          error={errors.firstName?.message}
+                        />
+                      );
+                    case 'lastName':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Last Name'}
+                          inputType={'text'}
+                          register={register}
+                          error={errors.lastName?.message}
+                        />
+                      );
+                    case 'email':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Email'}
+                          inputType={'email'}
+                          register={register}
+                          error={errors.email?.message}
+                        />
+                      );
+                    case 'location':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Address'}
+                          inputType={'text'}
+                          register={register}
+                          error={errors.location?.message}
+                        />
+                      );
+                    case 'description':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Description'}
+                          inputType={'text'}
+                          register={register}
+                          error={errors.description?.message}
+                        />
+                      );
+                    case 'type':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Task Type'}
+                          inputType={'text'}
+                          register={register}
+                          error={errors.type?.message}
+                        />
+                      );
+                    case 'password':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Password'}
+                          inputType={'password'}
+                          register={register}
+                          error={errors.password?.message}
+                        />
+                      );
+                    case 'dni':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'D.N.I.'}
+                          inputType={'number'}
+                          register={register}
+                          error={errors.dni?.message}
+                        />
+                      );
+                    case 'hours':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Hours'}
+                          inputType={'number'}
+                          register={register}
+                          error={errors.hours?.message}
+                        />
+                      );
+                    case 'phone':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Phone'}
+                          inputType={'phone'}
+                          register={register}
+                          error={errors.phone?.message}
+                        />
+                      );
+                    case 'date':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Date'}
+                          inputType={'date'}
+                          register={register}
+                          error={errors.date?.message}
+                        />
+                      );
+                    case 'startDate':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Start Date'}
+                          inputType={'date'}
+                          register={register}
+                          error={errors.startDate?.message}
+                        />
+                      );
+                    case 'endDate':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'End Date'}
+                          inputType={'date'}
+                          register={register}
+                          error={errors.endDate?.message}
+                        />
+                      );
+                    case 'active':
+                      return (
+                        <InputForm
+                          key={index}
+                          element={prop}
+                          label={'Project State'}
+                          inputType={'checkbox'}
+                          register={register}
+                          error={errors.active?.message}
+                        />
+                      );
+                    case 'teamMembers':
+                      return (
+                        <>
+                          <TeamMembersTable
+                            key={index}
+                            element={prop}
+                            label={'Team Members'}
+                            itemToPUT={itemToPUT}
+                            employeeList={employeeList}
+                            error={errors}
+                            register={register}
+                          />
+                        </>
+                      );
+                    case 'project':
                       return (
                         <SelectForm
                           key={index}
                           element={prop}
-                          label={'Employees'}
-                          selectOptions={employeeList}
+                          label={'Projects'}
+                          selectOptions={
+                            role === 'employee'
+                              ? projectList.filter(
+                                  (project) =>
+                                    project.teamMembers.filter(
+                                      (member) => member.employee?._id === user._id
+                                    ) ||
+                                    project.employeePM.find((employee) => employee.id === user.id)
+                                )
+                              : projectList
+                          }
                           register={register}
-                          error={errors.employee?.message}
+                          error={errors.project?.message}
                         />
                       );
-                    }
-                  default:
-                    return null;
-                }
-              })}
-              <div className={styles.buttonContainer}>
-                <button type="submit">Submit</button>
-                <button type="button" onClick={() => reset()}>
-                  Reset Form
-                </button>
-              </div>
-            </form>
+                    case 'task':
+                      return (
+                        <SelectForm
+                          key={index}
+                          element={prop}
+                          label={'Tasks'}
+                          selectOptions={tasksList}
+                          register={register}
+                          error={errors.task?.message}
+                        />
+                      );
+                    case 'employee':
+                      if (user._id) {
+                        return null;
+                      } else {
+                        return (
+                          <SelectForm
+                            key={index}
+                            element={prop}
+                            label={'Employees'}
+                            selectOptions={employeeList}
+                            register={register}
+                            error={errors.employee?.message}
+                          />
+                        );
+                      }
+                    default:
+                      return null;
+                  }
+                })}
+                <div className={styles.buttonContainer}>
+                  <button type="submit">Submit</button>
+                  <button type="button" onClick={() => reset()}>
+                    Reset Form
+                  </button>
+                </div>
+              </form>
+            </div>
           </section>
         </>
       )}
