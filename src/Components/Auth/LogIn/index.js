@@ -20,7 +20,7 @@ const Login = () => {
     formState: { errors }
   } = useForm({
     resolver: joiResolver(loginSchema),
-    mode: 'onChange'
+    mode: 'onBlur'
   });
   const onSubmit = async (inputData) => {
     const role = await dispatch(login(inputData));
@@ -77,6 +77,10 @@ const Login = () => {
                     <img
                       src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
                       className={styles.firstErrorImg}
+                      onClick={() => {
+                        delete errors.email;
+                        history.push(history.location);
+                      }}
                     />
                     <p>{errors.email.message}</p>
                     <img
@@ -90,6 +94,10 @@ const Login = () => {
                     <img
                       src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
                       className={styles.firstErrorImg}
+                      onClick={() => {
+                        delete errors.password;
+                        history.push(history.location);
+                      }}
                     />
                     <p>{errors.password.message}</p>
                     <img
