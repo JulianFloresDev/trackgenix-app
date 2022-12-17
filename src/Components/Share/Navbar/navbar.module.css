@@ -1,10 +1,12 @@
 .flexContainer {
   flex: 1 1 100%;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  height: 90%;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--color-blue-primary);
+  box-shadow: -2px 0px 20px 12px var(--color-blue-border);
 }
 
 /* .logoRR {
