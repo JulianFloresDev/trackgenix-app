@@ -19,7 +19,7 @@ const SignUp = () => {
     register,
     formState: { errors }
   } = useForm({
-    node: 'onChange',
+    node: 'onBlur',
     resolver: joiResolver(signupSchema)
   });
 
