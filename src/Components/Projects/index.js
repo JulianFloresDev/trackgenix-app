@@ -50,7 +50,7 @@ function Projects() {
               }
               editable={
                 role === 'admin'
-                  ? { edit: true, remove: false, add: true }
+                  ? { edit: true, remove: true, add: true }
                   : role === 'super-admin' && { edit: false, remove: true, add: true }
               }
             />
