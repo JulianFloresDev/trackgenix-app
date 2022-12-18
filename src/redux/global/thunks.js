@@ -13,7 +13,7 @@ export const getUser = (userEmail, role) => {
       let adminRes;
       let employeeReq;
       let employeeRes;
-      role === 'super-admins' &&
+      role === 'super-admin' &&
         ((superAdminReq = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
           method: 'GET',
           headers: {
