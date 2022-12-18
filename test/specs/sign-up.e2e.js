@@ -1,5 +1,6 @@
 const LandingPage = require('../pageobjects/landing.page');
 const SignUpPage = require('../pageobjects/sign-up.page');
+const HomePageLogged = require('../pageobjects/homepage-logged.page');
 
 describe('Create new employee', () => {
   beforeAll('Navigate URL', () => {
@@ -19,5 +20,6 @@ describe('Create new employee', () => {
       'test 1234'
     );
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
+    await HomePageLogged.logOutButton.click();
   });
 });
