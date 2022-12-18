@@ -1,0 +1,64 @@
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
+  padding: 0 10px;
+  color: var(--color-white-primary);
+}
+
+.containerLoggedOut {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.containerLoggedOut h2 {
+  padding: 10px 0;
+  border-bottom: solid 4px var(--color-green-primary);
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.rutes{
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+}
+
+.rutes li {
+  flex: 1 1 100%;
+}
+
+.navbarBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0px 8px;
+  background-color: var(--color-white-primary);
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: var(--color-blue-primary);
+}
+
+.navbarBtn:hover {
+  background-color: var(--color-green-primary);
+  color: var(--color-white-primary);
+}
+
+.containerContactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.containerContactInfo>div {
+  display: flex;
+  gap: 10px;
+}
