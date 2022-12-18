@@ -65,7 +65,7 @@ export const formSchema = Joi.object({
     'string.max': 'Address should have betwen 3 and 50 characters'
   }),
   type: Joi.string()
-    // .pattern(/([A-Za-z]+\s*)+/)
+    .pattern(/([A-Za-z]+\s*)+/)
     .messages({
       'string.empty': 'Task is required',
       'any.only': 'Task type should be a valid Task format',
