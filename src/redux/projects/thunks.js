@@ -4,7 +4,7 @@ import {
   setShowModal,
   fetchDataOn,
   fetchDataOff
-} from '../global/actions';
+} from 'redux/global/actions';
 import {
   getProjectsError,
   getProjectsPending,
@@ -13,14 +13,20 @@ import {
   deleteProjectSuccess,
   deleteProjectError
 } from './actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getProjects = (id) => {
   return async (dispatch) => {
     dispatch(getProjectsPending());
     dispatch(fetchDataOn());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
@@ -43,7 +49,8 @@ export const deleteProject = (id) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (request.status >= 400) {
@@ -67,7 +74,8 @@ export const editProject = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -77,7 +85,7 @@ export const editProject = (id, body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -110,7 +118,8 @@ export const createProject = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/projects`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -120,7 +129,7 @@ export const createProject = (body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;

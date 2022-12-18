@@ -12,15 +12,21 @@ import {
   setModalContent,
   fetchDataOn,
   fetchDataOff
-} from '../global/actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+} from 'redux/global/actions';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getTasks = (id) => {
   return async (dispatch) => {
     try {
       dispatch(getTasksPending());
       dispatch(fetchDataOn());
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error();
@@ -43,7 +49,8 @@ export const createTask = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -53,7 +60,7 @@ export const createTask = (body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -87,7 +94,8 @@ export const editTask = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -97,7 +105,7 @@ export const editTask = (id, body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -128,7 +136,8 @@ export const deleteTasks = (id) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         }
       });
       if (request.status >= 400) {

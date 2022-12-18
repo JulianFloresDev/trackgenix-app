@@ -4,7 +4,9 @@ import {
   EDIT_ITEM,
   DISABLE_BTN,
   FETCH_DATA_OFF,
-  FETCH_DATA_ON
+  FETCH_DATA_ON,
+  SET_USER,
+  GET_USER_ERROR
 } from './constants';
 
 const INITIAL_STATE = {
@@ -12,14 +14,16 @@ const INITIAL_STATE = {
   modalContent: <div></div>,
   itemToPUT: {},
   disable: true,
-  isFetchingData: false
+  isFetchingData: false,
+  user: {}
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SHOW_MODAL:
       return {
         ...state,
-        showModal: action.payload
+        showModal: action.payload,
+        isFetchingData: false
       };
     case MODAL_CONTENT:
       return {
@@ -45,6 +49,17 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetchingData: false
+      };
+    case SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+        isFetchingData: false
+      };
+    case GET_USER_ERROR:
+      return {
+        ...state,
+        user: {}
       };
     default:
       return state;

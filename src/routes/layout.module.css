@@ -4,11 +4,6 @@
   min-height: 100vh;
 }
 
-.navBar {
-  display: flex;
-  flex: 1 1 20%;
-}
-
 .bodyContainer {
-  flex: 1 1 80%;
+  flex: 1 1 100%;
 }

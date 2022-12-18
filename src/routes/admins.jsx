@@ -1,13 +1,15 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Admins from 'Components/Admins';
-import Form from 'Components/Share/Form';
+import { Form, Profile } from 'Components/Share';
 
 const AdminsRoutes = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/admins" component={Admins} />
-        <Route path="/admins/form/:id" render={() => <Form />} />
+        <Route exact path="/admins/:id" component={Profile} />
+        <Route exact path="/admins/form/:id" render={() => <Form />} />
+        <Redirect to={'/admins'} />
       </Switch>
     </Router>
   );

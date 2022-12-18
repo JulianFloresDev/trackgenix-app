@@ -13,14 +13,20 @@ import {
   deleteAdminsSuccess,
   deleteAdminsError
 } from './actions';
-import modalStyles from '../../Components/Share/Modal/modal.module.css';
+import modalStyles from 'Components/Share/Modal/modal.module.css';
 
 export const getAdmins = (id) => {
   return async (dispatch) => {
     dispatch(getAdminsPending());
     dispatch(fetchDataOn());
     try {
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error(response);
@@ -36,14 +42,16 @@ export const getAdmins = (id) => {
   };
 };
 
-export const deleteAdminByID = (id) => {
+export const deleteAdminByID = (id, firebaseUid) => {
   return async (dispatch) => {
     dispatch(deleteAdminsPending());
     try {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token'),
+          uid: firebaseUid
         }
       });
       if (request.status >= 400) {
@@ -68,7 +76,8 @@ export const editAdmin = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -78,7 +87,7 @@ export const editAdmin = (id, body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -111,7 +120,8 @@ export const createAdmin = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/admins`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -121,7 +131,7 @@ export const createAdmin = (body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;

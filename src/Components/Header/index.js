@@ -1,36 +1,56 @@
 import styles from './header.module.css';
+import { useState } from 'react';
+import { Navbar, LandingNavBar } from 'Components/Share';
+import { useSelector } from 'react-redux';
 
 function Header() {
+  const userEmail = sessionStorage.getItem('email');
+  const { authenticated, role, isLoading } = useSelector((state) => state.auth);
+  const { list: projectList } = useSelector((state) => state.projects);
+  const [navbarState, setNavbarVisibility] = useState(true);
+  const showNavBar = () => {
+    setNavbarVisibility(!navbarState);
+  };
+
   return (
-    <header className={styles.header}>
-      <nav className={styles.navbar}>
-        <div className={styles.logoRR}>
-          <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
-          <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
-        </div>
-        <ul className={styles.rutes}>
-          <li>
-            <a href="/admins">admins</a>
-          </li>
-          <li>
-            <a href="/super-admins">super admins</a>
-          </li>
-          <li>
-            <a href="/employees">employees</a>
-          </li>
-          <li>
-            <a href="/projects">projects</a>
-          </li>
-          <li>
-            <a href="/time-sheets">timesheets</a>
-          </li>
-          <li>
-            <a href="/tasks">tasks</a>
-          </li>
-        </ul>
-        <button>Log Out</button>
-      </nav>
-    </header>
+    <>
+      {isLoading ? null : (
+        <header className={navbarState ? styles.header : styles.hidden}>
+          {!authenticated && <LandingNavBar />}
+          {role === 'super-admin' && (
+            <Navbar
+              navOptions={[
+                'super-admins',
+                'admins',
+                'employees',
+                'projects',
+                'time-sheets',
+                'tasks',
+                'profile'
+              ]}
+            />
+          )}
+          {role === 'admin' && (
+            <Navbar navOptions={['admins', 'employees', 'projects', 'time-sheets', 'profile']} />
+          )}
+          {role === 'employee' && (
+            <Navbar
+              navOptions={
+                projectList.some((project) => project.employeePM?.employee?.email === userEmail)
+                  ? ['projects', 'time-sheets', 'tasks', 'profile']
+                  : ['projects', 'time-sheets', 'profile']
+              }
+            />
+          )}
+          <div className={styles.arrowContainer} onClick={() => showNavBar()}>
+            <img
+              className={navbarState ? styles.active : styles.inactive}
+              src={`${process.env.PUBLIC_URL}/assets/images/right-vector-img.svg`}
+            />
+          </div>
+        </header>
+      )}
+    </>
   );
 }
 

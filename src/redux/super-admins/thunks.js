@@ -18,7 +18,13 @@ export const getSuperAdmins = (id) => {
     try {
       dispatch(getSuperAdminsPending());
       dispatch(fetchDataOn());
-      const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`);
+      const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
+        }
+      });
       const response = await request.json();
       if (response.error) {
         throw new Error();
@@ -34,13 +40,15 @@ export const getSuperAdmins = (id) => {
   };
 };
 
-export const deleteSuperAdmins = (id) => {
+export const deleteSuperAdmins = (id, firebaseUid) => {
   return async (dispatch) => {
     try {
       const req = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token'),
+          uid: firebaseUid
         }
       });
       if (req.status >= 400) {
@@ -51,11 +59,9 @@ export const deleteSuperAdmins = (id) => {
         setModalContent(<h3 className={modalStyles.title}>Super Admin deleted successfully!</h3>)
       );
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     } catch (error) {
       dispatch(setModalContent(<h3 className={modalStyles.title}>{error.toString()}</h3>));
       dispatch(setShowModal(true));
-      setTimeout(() => dispatch(setShowModal(false)), 2000);
     }
   };
 };
@@ -66,7 +72,8 @@ export const editSuperAdmin = (id, body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -76,7 +83,7 @@ export const editSuperAdmin = (id, body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -109,7 +116,8 @@ export const createSuperAdmin = (body) => {
       const request = await fetch(`${process.env.REACT_APP_API_URL}/super-admins`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token: sessionStorage.getItem('token')
         },
         body: JSON.stringify(body)
       });
@@ -119,7 +127,7 @@ export const createSuperAdmin = (body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;

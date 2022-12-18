@@ -1,11 +1,6 @@
 import styles from './selectForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { editItem } from '../../../redux/global/actions';
 
-export const SelectForm = ({ element, label, selectOptions, error }) => {
-  const dispatch = useDispatch();
-  const { itemToPUT } = useSelector((state) => state.global);
-
+const SelectForm = ({ register, element, label, selectOptions, error }) => {
   return (
     <div className={styles.flexContainer}>
       {label && (
@@ -13,24 +8,14 @@ export const SelectForm = ({ element, label, selectOptions, error }) => {
           {label}
         </label>
       )}
-      <select
-        className={styles.flexSelect}
-        name={element}
-        value={itemToPUT[element] ? itemToPUT[element]._id : 0}
-        onChange={(e) => {
-          itemToPUT[element] = e.target.value;
-          dispatch(editItem({ ...itemToPUT }));
-        }}
-      >
+      <select {...register(element)} className={styles.flexSelect} id={element} name={element}>
+        <option hidden>{`Select ${element}`}</option>
         {selectOptions.map((option, index) => {
           return (
-            <>
-              <option hidden>{`Select ${element}`}</option>
-              <option key={index} value={option?._id}>
-                {option?.firstName && option.firstName + ' ' + option.lastName}
-                {(option?.name && option.name) || option?.description}
-              </option>
-            </>
+            <option key={index} value={option?._id}>
+              {option?.firstName && option.firstName + ' ' + option.lastName}
+              {(option?.name && option.name) || option?.description || option?.type}
+            </option>
           );
         })}
       </select>
@@ -46,3 +31,5 @@ export const SelectForm = ({ element, label, selectOptions, error }) => {
     </div>
   );
 };
+
+export default SelectForm;
