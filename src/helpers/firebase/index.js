@@ -1,11 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, onIdTokenChanged } from 'firebase/auth';
+import { getAuth, onIdTokenChanged, updatePassword } from 'firebase/auth';
 import store from 'redux/store';
 import { setAuthentication, logoutSuccess, logoutError } from 'redux/auth/actions';
 import { getUser } from 'redux/global/thunks';
 import { getSuperAdmins } from 'redux/super-admins/thunks';
 import { getAdmins } from 'redux/admins/thunks';
 import { getEmployees } from 'redux/employees/thunks';
+import { setModalContent, setShowModal } from 'redux/global/actions';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -55,4 +56,23 @@ export const tokenListener = () => {
       return store.dispatch(logoutSuccess());
     }
   });
+};
+
+export const chageUserPassword = (newPassword) => {
+  const user = auth.currentUser;
+  updatePassword(user, newPassword)
+    .then(() => {
+      store.dispatch(
+        setModalContent(
+          <>
+            <h2>Password Changed Sussfully!!</h2>
+          </>
+        )
+      );
+      store.dispatch(setShowModal(true));
+    })
+    .catch((error) => {
+      store.dispatch(setModalContent(error.toString()));
+      store.dispatch(setShowModal(true));
+    });
 };
