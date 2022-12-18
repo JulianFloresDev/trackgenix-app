@@ -22,6 +22,7 @@ const Table = ({
   const entitie = URLPath[1];
   const { showModal, modalContent } = useSelector((state) => state.global);
   const { role } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.global);
   const newData = data ? [...data] : [];
   const dispatch = useDispatch();
   const openDeleteModal = (element) => {
@@ -82,14 +83,14 @@ const Table = ({
     }
   };
 
-  const showEmployeeList = (members) => {
+  const showEmployeeList = (project) => {
     let counter = 0;
 
-    members.forEach((team) => {
+    project.teamMembers?.forEach((team) => {
       team.employee !== null && counter++;
     });
 
-    if (counter !== members.length) {
+    if (counter !== project.teamMembers?.length) {
       dispatch(setModalContent(<p>This project does not have any active employee!</p>));
       dispatch(setShowModal(true));
       setTimeout(() => {
@@ -108,13 +109,20 @@ const Table = ({
                 </tr>
               </thead>
               <tbody>
-                {members.map((team, index) => {
-                  if (team.employee) {
+                {project.employeePM && (
+                  <tr>
+                    <td>{`${project.employeePM?.employee?.firstName} ${project.employeePM?.employee?.lastName}`}</td>
+                    <td>{project.employeePM?.role}</td>
+                    <td>{project.employeePM?.rate}</td>
+                  </tr>
+                )}
+                {project.teamMembers?.map((team, index) => {
+                  if (team.role !== 'PM') {
                     return (
                       <tr key={index}>
-                        <td>{`${team.employee.firstName} ${team.employee.lastName}`}</td>
-                        <td>{team.role}</td>
-                        <td>{team.rate}</td>
+                        <td>{`${team?.employee?.firstName} ${team.employee?.lastName}`}</td>
+                        <td>{team?.role}</td>
+                        <td>{team?.rate}</td>
                       </tr>
                     );
                   }
@@ -146,12 +154,11 @@ const Table = ({
             <table className={styles.table}>
               <thead>
                 <tr>
+                  {entitie === 'projects' && <th></th>}
                   {headers?.map((header, index) => {
                     return <th key={index}>{header}</th>;
                   })}
-                  {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                    <th>Worked hours</th>
-                  )}
+                  {entitie === 'projects' && role === 'employee' && <th>Worked hours</th>}
                   <th></th>
                 </tr>
               </thead>
@@ -159,6 +166,15 @@ const Table = ({
                 {newData?.reverse()?.map((row, index) => {
                   return (
                     <tr key={index}>
+                      {entitie === 'projects' && (
+                        <td>
+                          {row.employeePM?.employee._id === user._id ? (
+                            <span className={styles.PM}>PM</span>
+                          ) : (
+                            <p></p>
+                          )}
+                        </td>
+                      )}
                       {headers?.map((property, index) => {
                         if (typeof row[property] === 'boolean') {
                           if (row[property]) {
@@ -188,7 +204,7 @@ const Table = ({
                                   className={styles.showListBtn}
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    showEmployeeList(row[property]);
+                                    showEmployeeList(row);
                                   }}
                                 >
                                   Show List
@@ -210,12 +226,20 @@ const Table = ({
                           </td>
                         );
                       })}
-                      {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                        <td>{workedHours(row)}</td>
-                      )}
+                      {entitie === 'projects' && role === 'employee' && <td>{workedHours(row)}</td>}
                       <td className={styles.buttonsContainer}>
                         <div>
-                          {editable.edit && (
+                          {entitie === 'projects' && role === 'employee' && (
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                              onClick={() => {
+                                openAddHoursModal(row._id);
+                              }}
+                            />
+                          )}
+                          {(editable.edit ||
+                            (entitie === 'projects' &&
+                              row.employeePM?.employee._id === user._id)) && (
                             <img
                               src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                               className={styles.editBtn}
@@ -237,16 +261,6 @@ const Table = ({
                             />
                           )}
                         </div>
-                        {entitie === 'projects' && (role === 'employee' || role === 'employeePM') && (
-                          <div>
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
-                              onClick={() => {
-                                openAddHoursModal(row._id);
-                              }}
-                            />
-                          </div>
-                        )}
                       </td>
                     </tr>
                   );

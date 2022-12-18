@@ -85,7 +85,7 @@ export const editProject = (id, body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -129,7 +129,7 @@ export const createProject = (body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;

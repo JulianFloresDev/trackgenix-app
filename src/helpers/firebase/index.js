@@ -31,7 +31,7 @@ export const tokenListener = () => {
         if (token) {
           sessionStorage.setItem('token', token);
           sessionStorage.setItem('email', email);
-          store.dispatch(getUser(email));
+          store.dispatch(getUser(email, role));
           switch (role) {
             case 'super-admin':
               store.dispatch(getSuperAdmins(''));
@@ -40,7 +40,6 @@ export const tokenListener = () => {
               store.dispatch(getAdmins(''));
               break;
             case 'employee':
-            case 'employee-pm':
               store.dispatch(getEmployees(''));
               break;
             default:

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { loginSchema } from 'Validations/loginSchema';
@@ -14,14 +14,22 @@ const Login = () => {
   const history = useHistory();
   const { error, isLoading } = useSelector((state) => state.auth);
   const { showModal, modalContent } = useSelector((state) => state.global);
+  const [isPasswordVisible, setPasswordHidden] = useState(false);
+  const [passwordType, setPasswordType] = useState('password');
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm({
     resolver: joiResolver(loginSchema),
-    mode: 'onChange'
+    mode: 'onBlur'
   });
+
+  const changeVisibility = () => {
+    isPasswordVisible ? setPasswordType('password') : setPasswordType('text');
+    setPasswordHidden(!isPasswordVisible);
+  };
+
   const onSubmit = async (inputData) => {
     const role = await dispatch(login(inputData));
     !role
@@ -52,17 +60,71 @@ const Login = () => {
               <h2>Log In</h2>
             </div>
             <div className={styles.formBox}>
-              <img src={`${process.env.PUBLIC_URL}/assets/images/black-envelope.svg`} />
-              <input className={styles.loginInput} {...register('email')} type={'text'}></input>
-            </div>
-            <div className={styles.formBox}>
-              <img src={`${process.env.PUBLIC_URL}/assets/images/lock.svg`} />
+              <label htmlFor="loginEmail">
+                <img src={`${process.env.PUBLIC_URL}/assets/images/black-envelope.svg`} />
+              </label>
               <input
+                id="loginEmail"
                 className={styles.loginInput}
-                {...register('password')}
-                type={'password'}
+                {...register('email')}
+                type={'text'}
               ></input>
             </div>
+            {errors.email && (
+              <div className={styles.errorBox}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                  className={styles.firstErrorImg}
+                  onClick={() => {
+                    delete errors.email;
+                    history.push(history.location);
+                  }}
+                />
+                <p>{errors.email.message}</p>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                  className={styles.lastErrorImg}
+                />
+              </div>
+            )}
+            <div className={styles.formBox}>
+              <label htmlFor="loginPassword">
+                <img src={`${process.env.PUBLIC_URL}/assets/images/lock.svg`} />
+              </label>
+              <input
+                id="loginPassword"
+                className={styles.loginInput}
+                {...register('password')}
+                type={passwordType}
+              ></input>
+              <img
+                id="loginPasswordShowBtn"
+                className={styles.hidePasswordBtn}
+                src={
+                  isPasswordVisible
+                    ? `${process.env.PUBLIC_URL}/assets/images/show-eye.svg`
+                    : `${process.env.PUBLIC_URL}/assets/images/hide-eye.svg`
+                }
+                onClick={() => changeVisibility()}
+              />
+            </div>
+            {errors.password && (
+              <div className={styles.errorBox}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                  className={styles.firstErrorImg}
+                  onClick={() => {
+                    delete errors.password;
+                    history.push(history.location);
+                  }}
+                />
+                <p>{errors.password.message}</p>
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
+                  className={styles.lastErrorImg}
+                />
+              </div>
+            )}
             <div className={styles.loginFunctionalities}>
               <div>
                 <input type={'checkbox'}></input>
@@ -70,36 +132,6 @@ const Login = () => {
               </div>
               <p>Forgot password?</p>
             </div>
-            {(errors.email || errors.password) && (
-              <div className={styles.errorsBox}>
-                {errors.email && (
-                  <div className={styles.errorBox}>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
-                      className={styles.firstErrorImg}
-                    />
-                    <p>{errors.email.message}</p>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
-                      className={styles.lastErrorImg}
-                    />
-                  </div>
-                )}
-                {errors.password && (
-                  <div className={styles.errorBox}>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
-                      className={styles.firstErrorImg}
-                    />
-                    <p>{errors.password.message}</p>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/x.svg`}
-                      className={styles.lastErrorImg}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
             <button type="submit" className={styles.continueBtn}>
               Continue
             </button>

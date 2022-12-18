@@ -15,9 +15,8 @@
   width: 80%;
   padding: 50px;
   color: var(--color-blue-primary);
-  background-color: var(--color-greyblue-2);
-  border-radius: 50px;
-  border: 1px solid var(--color-blue-border);
+  background-color: var(--color-white-primary);
+  box-shadow: 2px 2px 10px 1px var(--color-blue-border);
 }
 
 .item,

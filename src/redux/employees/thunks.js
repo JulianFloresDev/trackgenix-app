@@ -84,7 +84,7 @@ export const editEmployee = (id, body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -128,7 +128,7 @@ export const createEmployee = (body) => {
           Array.isArray(response.message)
             ? setModalContent(
                 <>
-                  <h3 className={modalStyles.title}>Mmmm some inputs are invalid!! Check them:</h3>
+                  <h3 className={modalStyles.title}>Some inputs are invalid!! Check them:</h3>
                   <ul>
                     {response.message.map((info, index) => {
                       return <li key={index}>{info.message}</li>;
@@ -154,7 +154,7 @@ export const createEmployee = (body) => {
         setModalContent(
           <>
             <h3 className={modalStyles.title}>Error: Cant connect with server!</h3>
-            <p className={modalStyles.info}>Mmmm!! Something was wrong with you registration.</p>
+            <p className={modalStyles.info}>Something was wrong with you registration.</p>
             <p className={modalStyles.info}>
               Check your internet connection please! If error persist try in a few minutes or{' '}
               <a href={'/home'} className={modalStyles.reference}>

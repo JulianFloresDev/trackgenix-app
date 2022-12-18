@@ -12,9 +12,36 @@
   color: #373867;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  box-shadow: 2px 2px 10px 1px var(--color-blue-border);
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
+}
+
+.title img {
+  flex: 0 1 30px;
+  justify-self: flex-start;
+}
+
 .formSection h2 {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .formSection form {
@@ -52,16 +79,20 @@
   text-transform: capitalize;
 }
 
-.formSection form > div > input, .formSection form > div > select { 
-  height: 3vw;
-  padding: 0 5px;
-  color: #373867;
-  cursor: pointer;
+.formSection form .buttonContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.formSection form > div > button {
-  width: 30vw;
-  height: 3vw;
+.buttonContainer button {
+  flex: 1 1 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
   cursor: pointer;
 }
 
@@ -77,6 +108,3 @@
   border: 1px solid #373867;
   border-radius: 5px;
 }
-
-/*Team Members*/
-
