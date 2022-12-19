@@ -2,6 +2,7 @@ import Table from 'Components/Share/Table';
 import Form from 'Components/Share/Form';
 import Modal from 'Components/Share/Modal';
 import Navbar from 'Components/Share/Navbar';
+import Search from 'Components/Share/Search';
 import AddHour from 'Components/Share/AddHour';
 import Spinner from 'Components/Share/Spinner';
 import Profile from 'Components/Share/Profile';
@@ -16,6 +17,7 @@ export {
   Form,
   Modal,
   Navbar,
+  Search,
   AddHour,
   Spinner,
   Profile,
