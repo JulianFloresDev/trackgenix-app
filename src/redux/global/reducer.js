@@ -6,7 +6,8 @@ import {
   FETCH_DATA_OFF,
   FETCH_DATA_ON,
   SET_USER,
-  GET_USER_ERROR
+  GET_USER_ERROR,
+  SET_FILTER_DATA
 } from './constants';
 
 const INITIAL_STATE = {
@@ -15,7 +16,8 @@ const INITIAL_STATE = {
   itemToPUT: {},
   disable: true,
   isFetchingData: false,
-  user: {}
+  user: {},
+  filteredData: []
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -60,6 +62,11 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         user: {}
+      };
+    case SET_FILTER_DATA:
+      return {
+        ...state,
+        filteredData: action.payload
       };
     default:
       return state;

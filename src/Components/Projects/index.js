@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProjects } from 'redux/projects/thunks';
 import { getTimesheets } from 'redux/time-sheets/thunks';
 import styles from './projects.module.css';
-import { Table, Spinner, Search } from 'Components/Share';
+import { Table, Spinner } from 'Components/Share';
 
 function Projects() {
   const dispatch = useDispatch();
@@ -26,37 +26,34 @@ function Projects() {
               <h2>404: Unable to access server</h2>
             </div>
           ) : (
-            <>
-              <Search />
-              <Table
-                headers={[
-                  'name',
-                  'description',
-                  'startDate',
-                  'clientName',
-                  'endDate',
-                  'teamMembers',
-                  'active'
-                ]}
-                data={
-                  role === 'employee'
-                    ? projectsList.filter(
-                        (project) =>
-                          project.employeePM?.employee?._id === user._id ||
-                          project.teamMembers?.find((member) => member.employee?._id === user._id)
-                      )
-                    : projectsList
-                }
-                filteredTimesheets={
-                  role === 'employee' && timesheetList.filter((ts) => ts.employee?._id === user._id)
-                }
-                editable={
-                  role === 'admin'
-                    ? { edit: true, remove: true, add: true }
-                    : role === 'super-admin' && { edit: false, remove: true, add: true }
-                }
-              />
-            </>
+            <Table
+              headers={[
+                'name',
+                'description',
+                'startDate',
+                'clientName',
+                'endDate',
+                'teamMembers',
+                'active'
+              ]}
+              data={
+                role === 'employee'
+                  ? projectsList.filter(
+                      (project) =>
+                        project.employeePM?.employee?._id === user._id ||
+                        project.teamMembers?.find((member) => member.employee?._id === user._id)
+                    )
+                  : projectsList
+              }
+              filteredTimesheets={
+                role === 'employee' && timesheetList.filter((ts) => ts.employee?._id === user._id)
+              }
+              editable={
+                role === 'admin'
+                  ? { edit: true, remove: true, add: true }
+                  : role === 'super-admin' && { edit: false, remove: true, add: true }
+              }
+            />
           )}
         </>
       )}

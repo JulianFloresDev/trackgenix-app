@@ -9,3 +9,5 @@ export const FETCH_DATA_ON = 'FETCH_DATA_ON';
 
 export const SET_USER = 'SET_USER';
 export const GET_USER_ERROR = 'GET_USER_ERROR';
+
+export const SET_FILTER_DATA = 'SET_FILTER_DATA';
