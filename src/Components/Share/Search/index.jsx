@@ -12,9 +12,14 @@ const Search = ({ list }) => {
           return (
             element.firstName?.toLowerCase().includes(inputValue.toLowerCase()) ||
             element.lastName?.toLowerCase().includes(inputValue.toLowerCase()) ||
-            element.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
             element.email?.toLowerCase().includes(inputValue.toLowerCase()) ||
-            element.date?.toLowerCase().includes(inputValue.toLowerCase())
+            element.date?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.project?.name?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.clientName?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.employee?.firstName?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.employee?.lastName?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.type?.toLowerCase().includes(inputValue.toLowerCase())
           );
         })
       )
