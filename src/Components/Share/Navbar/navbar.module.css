@@ -9,21 +9,6 @@
   box-shadow: -2px 0px 20px 12px var(--color-blue-border);
 }
 
-/* .logoRR {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.logoRR>img:first-child {
-  margin: 20px 0 10px;
-  width: 40%;
-}
-
-.logoRR>img:nth-child(2) {
-  width: 61%;
-} */
-
 .userContainer {
   display: flex;
   flex-direction: column;
