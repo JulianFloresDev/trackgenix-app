@@ -36,7 +36,16 @@ class ProjectsFormPage {
   get submitButton() {
     return $('//*[@id="root"]/div/div/section/div/form/div[8]/button[1]');
   }
-  async newProject(name, description, startdate, enddate, client, rate, rateEmployee) {
+  get modalConfirmation() {
+    return $('.modal_modalWrapper__FfeBk');
+  }
+  get backProjects() {
+    return $('//*[@id="root"]/div/div/div/div/div[2]/div/button[2]');
+  }
+  get formData() {
+    return $('//*[@id="root"]/div/div/section/div');
+  }
+  async dataProject(name, description, startdate, enddate, client, rate, rateEmployee) {
     await this.nameProject.setValue(name),
       await this.descriptionProject.setValue(description),
       await this.startDate.setValue(startdate),

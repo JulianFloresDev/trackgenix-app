@@ -21,15 +21,12 @@ exports.config = {
   // will be called from there.
   //
   specs: [
-    // './test/specs/super-admin-add-new.e2e.js',
-    // './test/specs/super-admin-edit.e2e.js',
-    // './test/specs/super-admin-delete.e2e.js',
-    // './test/specs/employees-login.e2e.js',
-    // './test/specs/sign-up.e2e.js',
-    // './test/specs/admin.e2e.js',
-    // './test/specs/super-admin-login.e2e.js',
-    // './test/specs/admins-login.e2e.js'
-    './test/specs/employee-pm-login.e2e.js'
+    './test/specs/super-admin-create.e2e.js',
+    './test/specs/super-admin-edit.e2e.js',
+    './test/specs/super-admin-delete.e2e.js',
+    './test/specs/admin-create-project.e2e.js',
+    './test/specs/admin-edit-project.e2e.js',
+    './test/specs/admin-delete-project.e2e.js'
   ],
   // Patterns to exclude.
   exclude: [
@@ -62,7 +59,7 @@ exports.config = {
       // maxInstances can get overwritten per capability. So if you have an in-house Selenium
       // grid with only 5 firefox instances available you can make sure that not more than
       // 5 instances get started at a time.
-      maxInstances: 5,
+      maxInstances: 1,
       //
       browserName: 'chrome',
       acceptInsecureCerts: true
