@@ -4,7 +4,7 @@ class HomePageLogged {
   }
 
   get selectProjects() {
-    return $('//*[@id="root"]/div/header/nav/ul/li[2]/a');
+    return $('//*[@id="root"]/div/header/nav/ul/li[3]/a');
   }
 
   get projectTable() {
