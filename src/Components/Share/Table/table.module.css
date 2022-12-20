@@ -82,6 +82,11 @@
   border-right: 6px solid transparent;
 
   transform: translateY(1px);
+  transition: .1s linear;
+}
+
+.changeDirection[value=true] .tableContainer th.sortSelected::after {
+  transform: rotateZ('180deg')
 }
 
 .tableContainer th:first-child {
