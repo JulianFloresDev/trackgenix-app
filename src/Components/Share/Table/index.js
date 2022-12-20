@@ -175,7 +175,7 @@ const Table = ({
                     return (
                       <th
                         key={index}
-                        className={header === selectedProperty && styles.sortSelected}
+                        className={header === selectedProperty ? styles.sortSelected : undefined}
                         onClick={() => dispatch(setSortBy(header))}
                       >
                         {header}
