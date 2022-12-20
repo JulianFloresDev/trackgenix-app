@@ -11,9 +11,9 @@ describe('Create new employee', () => {
     await LandingPage.signupButton.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/auth/sign-up');
     await SignUpPage.signUp(
-      'Test',
-      'Testtest',
-      'test@algo.com',
+      'Ramon',
+      'Rodriguez',
+      'test@radium.com',
       '12345employee',
       '1234567',
       '123456789',
