@@ -17,6 +17,7 @@
   justify-content: space-evenly;
 }
 
+
 .tableHeaderContainer h2 {
   flex: 1 1 100%;
   display: flex;
@@ -78,6 +79,10 @@
   border-radius: 16px;
 }
 
+.table tbody tr:hover {
+  background-color: var(--color-white-ligthgrey);
+}
+
 .tableContainer td:last-child > div {
   width: 100%;
   display: flex;
@@ -91,12 +96,34 @@
   cursor: pointer;
 }
 
+.tableContainer td img:hover {
+  transform: scale(1.15);
+}
+
 .tableContainer tbody tr {
   border-bottom: 1px solid var(--color-blue-primary);
 }
 .tableContainer tbody tr:last-of-type {
   border: none;
 }
+
+.showListBtn {
+  padding: 5px 8px;
+
+  background-color: var(--color-green-primary);
+
+  border: 1.5px solid var(--color-blue-primary);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-blue-primary);
+  cursor: pointer;
+}
+
+.showListBtn:hover {
+  background-color: var(--color-green-soft);
+}
+
 .imgContainer {
   margin: 15px;
 }

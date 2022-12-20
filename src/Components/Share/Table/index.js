@@ -156,8 +156,8 @@ const Table = ({
       <Modal showModal={showModal}>{modalContent}</Modal>
       <div className={styles.container}>
         <div className={styles.tableHeaderContainer}>
-          <Search list={data} />
           <h2>{entitie}</h2>
+          <Search list={data} />
         </div>
         <div className={styles.tableContainer}>
           <div className={styles.tableContainer2}>
