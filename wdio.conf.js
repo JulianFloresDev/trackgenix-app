@@ -24,9 +24,12 @@ exports.config = {
     // './test/specs/super-admin-add-new.e2e.js',
     // './test/specs/super-admin-edit.e2e.js',
     // './test/specs/super-admin-delete.e2e.js',
-    './test/specs/employees-login.e2e.js'
+    // './test/specs/employees-login.e2e.js',
     // './test/specs/sign-up.e2e.js',
-    // './test/specs/admin.e2e.js'
+    // './test/specs/admin.e2e.js',
+    // './test/specs/super-admin-login.e2e.js',
+    // './test/specs/admins-login.e2e.js'
+    './test/specs/employee-pm-login.e2e.js'
   ],
   // Patterns to exclude.
   exclude: [

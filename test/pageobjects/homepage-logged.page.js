@@ -13,6 +13,9 @@ class HomePageLogged {
   get entityLogged() {
     return $('//*[@id="root"]/div/header/nav/div[1]/h4');
   }
+  get namePersonLogged() {
+    return $('//*[@id="root"]/div/header/nav/div[1]/h3');
+  }
   get logOutButton() {
     return $('//*[@id="root"]/div/header/nav/div/button');
   }
