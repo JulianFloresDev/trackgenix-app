@@ -12,10 +12,6 @@ const Navbar = ({ navOptions }) => {
 
   return (
     <nav className={styles.flexContainer}>
-      {/* <a className={styles.logoRR} href="/">
-        <img src={`${process.env.PUBLIC_URL}/assets/images/logo-RR.svg`} />
-        <img src={`${process.env.PUBLIC_URL}/assets/images/sub-logo-RR.svg`} />
-      </a> */}
       <div className={styles.userContainer}>
         <img
           className={styles.userPicture}

@@ -1,5 +1,4 @@
 .container{
-    /* flex: 1 1 80%; */
     display: flex;
     justify-content: center;
     align-content: center;
