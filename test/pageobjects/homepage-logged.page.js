@@ -6,7 +6,9 @@ class HomePageLogged {
   get selectProjects() {
     return $('//*[@id="root"]/div/header/nav/ul/li[3]/a');
   }
-
+  get selectTimeSheets() {
+    return $('//*[@id="root"]/div/header/nav/ul/li[2]/a');
+  }
   get projectTable() {
     return $('//*[@id="root"]/div/div/section/div/div');
   }
