@@ -34,9 +34,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-flow: row wrap;
 }
 
 .buttonEdit button {
+  flex: 1 1 40%;
   padding: 12px 18px;
   border: 2px solid var(--color-blue-border);
   border-radius: 5px;
@@ -50,6 +52,17 @@
 
 .buttonEdit button:hover {
   background-color: var(--color-green-primary);
+}
+
+.buttonEdit .deleteAccountBtn {
+  border: 2px solid var(--color-red-primary);
+  background-color: var(--color-red-soft);
+    color: var(--color-red-primary);
+}
+
+.buttonEdit .deleteAccountBtn:hover {
+  background-color: var(--color-red-primary);
+  color: var(--color-blue-primary);
 }
 
 .itemTitle,

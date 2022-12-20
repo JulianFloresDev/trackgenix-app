@@ -99,6 +99,36 @@ const Profile = () => {
     dispatch(setShowModal(true));
   };
 
+  const openModalToDeleteAccount = () => {
+    dispatch(
+      setModalContent(
+        <>
+          <h3 className={modalStyles.title}>Sure you want to delete your Account on TRACKgenix?</h3>
+          <p className={modalStyles.info}>
+            This action is irreversible, make sure you will remember new password!
+          </p>
+          <button
+            onClick={() => {
+              dispatch(setShowModal(false));
+              dispatch(setModalContent(<></>));
+            }}
+          >
+            Confirm Changes
+          </button>
+          <button
+            onClick={() => {
+              dispatch(setShowModal(false));
+              dispatch(setModalContent(<></>));
+            }}
+          >
+            Cancel
+          </button>
+        </>
+      )
+    );
+    dispatch(setShowModal(true));
+  };
+
   return (
     <section className={styles.section}>
       <Modal showModal={showModal}>{modalContent}</Modal>
@@ -126,6 +156,9 @@ const Profile = () => {
             onClick={() => openModalToChangePssword()}
           >
             Change Password
+          </button>
+          <button className={styles.deleteAccountBtn} onClick={() => openModalToDeleteAccount()}>
+            Delete Account
           </button>
         </div>
       </div>
