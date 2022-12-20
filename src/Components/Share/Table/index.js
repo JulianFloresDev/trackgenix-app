@@ -4,7 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './table.module.css';
 import { Modal, AddHour, Search } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
-import { editItem, setModalContent, setShowModal, setFilterData } from 'redux/global/actions';
+import {
+  editItem,
+  setModalContent,
+  setShowModal,
+  setFilterData,
+  setSortBy
+} from 'redux/global/actions';
 import { deleteTasks } from 'redux/tasks/thunks';
 import { deleteEmployees } from 'redux/employees/thunks';
 import { deleteAdminByID } from 'redux/admins/thunks';
@@ -24,7 +30,7 @@ const Table = ({
   const entitie = URLPath[1];
   const { showModal, modalContent, filteredData } = useSelector((state) => state.global);
   const { role } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.global);
+  const { user, selectedProperty } = useSelector((state) => state.global);
 
   useEffect(() => {
     dispatch(setFilterData(data));
@@ -166,115 +172,134 @@ const Table = ({
                 <tr>
                   {entitie === 'projects' && <th></th>}
                   {headers?.map((header, index) => {
-                    return <th key={index}>{header}</th>;
+                    return (
+                      <th
+                        key={index}
+                        className={header === selectedProperty && styles.sortSelected}
+                        onClick={() => dispatch(setSortBy(header))}
+                      >
+                        {header}
+                      </th>
+                    );
                   })}
                   {entitie === 'projects' && role === 'employee' && <th>Worked hours</th>}
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {newData?.reverse()?.map((row, index) => {
-                  return (
-                    <tr key={index}>
-                      {entitie === 'projects' && (
-                        <td>
-                          {row.employeePM?.employee._id === user._id ? (
-                            <span className={styles.PM}>PM</span>
-                          ) : (
-                            <p></p>
-                          )}
-                        </td>
-                      )}
-                      {headers?.map((property, index) => {
-                        if (typeof row[property] === 'boolean') {
-                          if (row[property]) {
-                            return <td key={index + 500}>Active</td>;
-                          } else {
-                            return <td key={index + 500}>Finish</td>;
-                          }
-                        }
-                        if (
-                          typeof row[property] === 'string' ||
-                          typeof row[property] === 'number'
-                        ) {
-                          if (
-                            property.includes('Date') ||
-                            property.includes('atedAt') ||
-                            property.includes('date')
-                          ) {
-                            row[property] = row[property].substring(0, 10);
-                          }
-                          return <td key={index + 500}>{row[property]}</td>;
-                        }
-                        if (Array.isArray(row[property])) {
-                          return (
-                            <>
-                              <td key={index + 500}>
-                                <button
-                                  className={styles.showListBtn}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    showEmployeeList(row);
-                                  }}
-                                >
-                                  Show List
-                                </button>
-                              </td>
-                            </>
-                          );
-                        }
-                        if (!row[property]) {
-                          return <td key={index + 500}>Element Not Found</td>;
-                        }
-                        return (
-                          <td key={index + 500} className={styles.optionInvalid}>
-                            {row[property].name
-                              ? row[property].name
-                              : row[property].description || row[property].type}
-                            {row[property].firstName && row[property].firstName}{' '}
-                            {row[property].lastName}
+                {newData
+                  ?.reverse()
+                  ?.sort((a, b) => {
+                    return a[selectedProperty] > b[selectedProperty]
+                      ? 1
+                      : a[selectedProperty] < b[selectedProperty]
+                      ? -1
+                      : 0;
+                  })
+                  .map((row, index) => {
+                    return (
+                      <tr key={index}>
+                        {entitie === 'projects' && (
+                          <td>
+                            {row.employeePM?.employee._id === user._id ? (
+                              <span className={styles.PM}>PM</span>
+                            ) : (
+                              <p></p>
+                            )}
                           </td>
-                        );
-                      })}
-                      {entitie === 'projects' && role === 'employee' && <td>{workedHours(row)}</td>}
-                      <td className={styles.buttonsContainer}>
-                        <div>
-                          {entitie === 'projects' && role === 'employee' && (
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
-                              onClick={() => {
-                                openAddHoursModal(row._id);
-                              }}
-                            />
-                          )}
-                          {(editable.edit ||
-                            (entitie === 'projects' &&
-                              row.employeePM?.employee._id === user._id)) && (
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
-                              className={styles.editBtn}
-                              onClick={() => {
-                                dispatch(editItem(row));
-                                history.push(`/${entitie}/form/${row._id}`);
-                              }}
-                            />
-                          )}
-                          {editable.remove && (
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                              className={styles.closeBtn}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                dispatch(editItem(row));
-                                openDeleteModal(row);
-                              }}
-                            />
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        )}
+                        {headers?.map((property, index) => {
+                          if (typeof row[property] === 'boolean') {
+                            if (row[property]) {
+                              return <td key={index + 500}>Active</td>;
+                            } else {
+                              return <td key={index + 500}>Finish</td>;
+                            }
+                          }
+                          if (
+                            typeof row[property] === 'string' ||
+                            typeof row[property] === 'number'
+                          ) {
+                            if (
+                              property.includes('Date') ||
+                              property.includes('atedAt') ||
+                              property.includes('date')
+                            ) {
+                              row[property] = row[property].substring(0, 10);
+                            }
+                            return <td key={index + 500}>{row[property]}</td>;
+                          }
+                          if (Array.isArray(row[property])) {
+                            return (
+                              <>
+                                <td key={index + 500}>
+                                  <button
+                                    className={styles.showListBtn}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      showEmployeeList(row);
+                                    }}
+                                  >
+                                    Show List
+                                  </button>
+                                </td>
+                              </>
+                            );
+                          }
+                          if (!row[property]) {
+                            return <td key={index + 500}>Element Not Found</td>;
+                          }
+                          return (
+                            <td key={index + 500} className={styles.optionInvalid}>
+                              {row[property].name
+                                ? row[property].name
+                                : row[property].description || row[property].type}
+                              {row[property].firstName && row[property].firstName}{' '}
+                              {row[property].lastName}
+                            </td>
+                          );
+                        })}
+                        {entitie === 'projects' && role === 'employee' && (
+                          <td>{workedHours(row)}</td>
+                        )}
+                        <td className={styles.buttonsContainer}>
+                          <div>
+                            {entitie === 'projects' && role === 'employee' && (
+                              <img
+                                src={`${process.env.PUBLIC_URL}/assets/images/watch.svg`}
+                                onClick={() => {
+                                  openAddHoursModal(row._id);
+                                }}
+                              />
+                            )}
+                            {(editable.edit ||
+                              (entitie === 'projects' &&
+                                row.employeePM?.employee._id === user._id)) && (
+                              <img
+                                src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
+                                className={styles.editBtn}
+                                onClick={() => {
+                                  dispatch(editItem(row));
+                                  history.push(`/${entitie}/form/${row._id}`);
+                                }}
+                              />
+                            )}
+                            {editable.remove && (
+                              <img
+                                src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
+                                className={styles.closeBtn}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  dispatch(editItem(row));
+                                  openDeleteModal(row);
+                                }}
+                              />
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

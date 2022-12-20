@@ -2,12 +2,12 @@ import {
   SHOW_MODAL,
   MODAL_CONTENT,
   EDIT_ITEM,
-  DISABLE_BTN,
   FETCH_DATA_OFF,
   FETCH_DATA_ON,
-  SET_USER,
   GET_USER_ERROR,
-  SET_FILTER_DATA
+  SET_USER,
+  SET_FILTER_DATA,
+  SET_SORT_BY
 } from './constants';
 
 export const setShowModal = (payload) => {
@@ -27,13 +27,6 @@ export const setModalContent = (payload) => {
 export const editItem = (payload) => {
   return {
     type: EDIT_ITEM,
-    payload
-  };
-};
-
-export const disableBtn = (payload) => {
-  return {
-    type: DISABLE_BTN,
     payload
   };
 };
@@ -66,6 +59,13 @@ export const getUserError = () => {
 export const setFilterData = (payload) => {
   return {
     type: SET_FILTER_DATA,
+    payload
+  };
+};
+
+export const setSortBy = (payload) => {
+  return {
+    type: SET_SORT_BY,
     payload
   };
 };

@@ -2,21 +2,21 @@ import {
   SHOW_MODAL,
   MODAL_CONTENT,
   EDIT_ITEM,
-  DISABLE_BTN,
   FETCH_DATA_OFF,
   FETCH_DATA_ON,
   SET_USER,
   GET_USER_ERROR,
-  SET_FILTER_DATA
+  SET_FILTER_DATA,
+  SET_SORT_BY
 } from './constants';
 
 const INITIAL_STATE = {
   showModal: false,
   modalContent: <div></div>,
   itemToPUT: {},
-  disable: true,
   isFetchingData: false,
   user: {},
+  selectedProperty: 'firstName',
   filteredData: []
 };
 const globalReducer = (state = INITIAL_STATE, action) => {
@@ -36,11 +36,6 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         itemToPUT: action.payload
-      };
-    case DISABLE_BTN:
-      return {
-        ...state,
-        disable: false
       };
     case FETCH_DATA_ON:
       return {
@@ -67,6 +62,11 @@ const globalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filteredData: action.payload
+      };
+    case SET_SORT_BY:
+      return {
+        ...state,
+        selectedProperty: action.payload
       };
     default:
       return state;
