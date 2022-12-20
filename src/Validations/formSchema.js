@@ -125,6 +125,7 @@ export const formSchema = Joi.object({
     employee: Joi.string().length(24).messages({
       'string.length': 'Employee Product Manager must be a valid employee',
       'string.empty': 'Employee Product Manager must be a valid employee',
+      'string.base': 'Employee Product Manager must be a valid employee',
       'any.required': 'Employee Product Manager must be a valid employee'
     }),
     role: Joi.string().valid('PM').messages({

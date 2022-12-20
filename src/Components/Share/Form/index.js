@@ -57,7 +57,7 @@ const Form = () => {
     formState: { errors },
     reset
   } = useForm({
-    node: 'onChange',
+    node: 'onBlur',
     resolver: joiResolver(formSchema)
   });
   useEffect(() => {
@@ -126,7 +126,7 @@ const Form = () => {
         employee: itemToPUT.employee?._id || itemToPUT.employee,
         task: itemToPUT.task?._id || itemToPUT.task,
         project: itemToPUT.project?._id || itemToPUT.project,
-        employeePM: itemToPUT.employeePM,
+        employeePM: itemToPUT.employeePM?.toString() || '0',
         teamMembers: itemToPUT.teamMembers?.map((member) => {
           return { ...member, employee: member.employee?._id || member.employee };
         })
