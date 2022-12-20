@@ -10,7 +10,9 @@ class HomePageLogged {
   get projectTable() {
     return $('//*[@id="root"]/div/div/section/div/div');
   }
-
+  get entityLogged() {
+    return $('//*[@id="root"]/div/header/nav/div[1]/h4');
+  }
   get logOutButton() {
     return $('//*[@id="root"]/div/header/nav/div/button');
   }
