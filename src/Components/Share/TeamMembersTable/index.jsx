@@ -32,7 +32,9 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList, error, regi
             <td>
               <select
                 {...register('employeePM.employee')}
-                value={itemToPUT.employeePM ? itemToPUT.employeePM?.employee?._id : 0}
+                value={
+                  itemToPUT.employeePM?.employee !== '' ? itemToPUT.employeePM?.employee?._id : '0'
+                }
                 onChange={(e) => {
                   itemToPUT.employeePM.employee = e.target.value;
                   itemToPUT.employeePM.role = 'PM';
@@ -46,7 +48,7 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList, error, regi
                     </option>
                   );
                 })}
-                <option value={0} hidden>
+                <option value={'0'} hidden>
                   Select PM
                 </option>
               </select>

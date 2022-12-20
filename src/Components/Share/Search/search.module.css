@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+
+  padding: 0 8px;
+  width: fit-content;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-blue-primary);
+  background-color: var(--color-white-primary);
+  font-family: 'Ubuntu';
+}
+
+
+.container:has(.input:target),
+.container:has(.input:focus) {
+  box-shadow: 0 0 8px 1px var(--color-blue-border);
+}
+
+.label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.input {
+  padding: 5px 10px;
+  width: 250px;
+
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+
+  transition: width .2s linear;
+}
+
+.input:target,
+.input:focus {
+  width: 300px;
+}

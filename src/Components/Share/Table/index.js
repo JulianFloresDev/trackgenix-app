@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './table.module.css';
-import { Modal, AddHour } from 'Components/Share';
+import { Modal, AddHour, Search } from 'Components/Share';
 import modalStyles from 'Components/Share/Modal/modal.module.css';
-import { editItem, setModalContent, setShowModal } from 'redux/global/actions';
+import { editItem, setModalContent, setShowModal, setFilterData } from 'redux/global/actions';
 import { deleteTasks } from 'redux/tasks/thunks';
 import { deleteEmployees } from 'redux/employees/thunks';
 import { deleteAdminByID } from 'redux/admins/thunks';
@@ -17,14 +18,20 @@ const Table = ({
   editable = { edit: false, remove: false, add: false },
   filteredTimesheets
 }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const URLPath = history.location.pathname.split('/');
   const entitie = URLPath[1];
-  const { showModal, modalContent } = useSelector((state) => state.global);
+  const { showModal, modalContent, filteredData } = useSelector((state) => state.global);
   const { role } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.global);
-  const newData = data ? [...data] : [];
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setFilterData(data));
+  }, []);
+
+  const newData = filteredData ? [...filteredData] : data ? [...data] : [];
+
   const openDeleteModal = (element) => {
     dispatch(setShowModal(true));
     dispatch(
@@ -148,7 +155,10 @@ const Table = ({
     <>
       <Modal showModal={showModal}>{modalContent}</Modal>
       <div className={styles.container}>
-        <h2>{entitie}</h2>
+        <div className={styles.tableHeaderContainer}>
+          <h2>{entitie}</h2>
+          <Search list={data} />
+        </div>
         <div className={styles.tableContainer}>
           <div className={styles.tableContainer2}>
             <table className={styles.table}>

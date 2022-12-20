@@ -30,8 +30,8 @@ function Projects() {
               headers={[
                 'name',
                 'description',
-                'startDate',
                 'clientName',
+                'startDate',
                 'endDate',
                 'teamMembers',
                 'active'

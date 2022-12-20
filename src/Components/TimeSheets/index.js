@@ -19,16 +19,19 @@ function TimeSheets() {
         <div>
           <h2>404: server not found</h2>
         </div>
-      ) : role === 'employee' ? (
-        <Table
-          headers={['project', 'description', 'task', 'date', 'hours']}
-          data={list.filter((item) => item.employee?.email === email)}
-          editable={{ edit: true, remove: true, add: true }}
-        />
       ) : (
         <Table
-          headers={['employee', 'project', 'description', 'task', 'date', 'hours']}
-          data={list}
+          headers={
+            role === 'employee'
+              ? ['project', 'description', 'task', 'date', 'hours']
+              : ['employee', 'project', 'description', 'task', 'date', 'hours']
+          }
+          data={
+            role === 'employee'
+              ? list.filter((item) => item.employee?.email === email)
+              : list.filter((item) => item.employee && item.project)
+          }
+          editable={role === 'employee' && { edit: true, remove: true, add: true }}
         />
       )}
     </section>
