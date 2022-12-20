@@ -28,8 +28,8 @@ function TimeSheets() {
           }
           data={
             role === 'employee'
-              ? list.filter((item) => item.employee?.email === email)
-              : list.filter((item) => item.employee && item.project)
+              ? list?.filter((item) => item.employee?.email === email)
+              : list?.filter((item) => item.employee && item.project)
           }
           editable={role === 'employee' && { edit: true, remove: true, add: true }}
         />

@@ -34,7 +34,7 @@ const Table = ({
 
   useEffect(() => {
     dispatch(setFilterData(data));
-  }, []);
+  }, [data]);
 
   const newData = filteredData ? [...filteredData] : data ? [...data] : [];
 
