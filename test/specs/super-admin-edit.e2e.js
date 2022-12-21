@@ -4,7 +4,7 @@ const HomePageLogged = require('../pageobjects/homepage-logged.page');
 const AdminsListPage = require('../pageobjects/admins-list.page');
 const FormPage = require('../pageobjects/form-admins.page');
 
-describe('Add new Admin', () => {
+describe('Edited new Admin', () => {
   beforeAll('Navigate URL', () => {
     browser.url('https://alfon-a-trackgenix-app.vercel.app/home');
   });
@@ -23,6 +23,7 @@ describe('Add new Admin', () => {
       '77547774',
       'Lugar 1234'
     );
+    await FormPage.successfullyMessage.waitForDisplayed({ timeout: 2000 });
     await expect(FormPage.successfullyMessage).toHaveTextContaining('Admin edited successfully!');
     await FormPage.confirmButton.click();
     await HomePageLogged.logOutButton.click();

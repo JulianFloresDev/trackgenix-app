@@ -3,10 +3,14 @@ class ProjectsListPage {
     return $('//*[@id="root"]/div/div/section/div/div/div[2]/img');
   }
   get deleteButton() {
-    return $('//*[@id="root"]/div/div/section/div/div/div[1]/table/tbody/tr[1]/td[9]/div/img[2]');
+    return $(
+      '//*[@id="root"]/div/div/section/div/div[2]/div[1]/table/tbody/tr[1]/td[9]/div/img[2]'
+    );
   }
   get editButton() {
-    return $('//*[@id="root"]/div/div/section/div/div/div[1]/table/tbody/tr[1]/td[9]/div/img[1]');
+    return $(
+      '//*[@id="root"]/div/div/section/div/div[2]/div[1]/table/tbody/tr[1]/td[9]/div/img[1]'
+    );
   }
   get modalDeleteConfirmation() {
     return $('//*[@id="root"]/div/div/section/div[1]/div');

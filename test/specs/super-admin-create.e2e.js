@@ -27,6 +27,7 @@ describe('Add new Admin', () => {
       '77547774',
       'Lugar 1234'
     );
+    await FormPage.successfullyMessage.waitForDisplayed({ timeout: 10000 });
     await expect(FormPage.successfullyMessage).toHaveTextContaining('Admin created successfully!');
     await FormPage.confirmButton.click();
     await HomePageLogged.logOutButton.click();
