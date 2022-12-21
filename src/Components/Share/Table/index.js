@@ -130,7 +130,9 @@ const Table = ({
                   </tr>
                 ) : (
                   <tr>
-                    <td>This Employee Was Deleted!</td>
+                    <td>This Project have not PM!</td>
+                    <td>{project.employeePM?.role}</td>
+                    <td>--</td>
                   </tr>
                 )}
                 {project.teamMembers?.map((team, index) => {
