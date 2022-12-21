@@ -18,12 +18,12 @@ main {
 
 main section {
   padding: 40px 0px;
-  border-bottom: 3px solid #373867;
+  border-bottom: 3px solid var(--color-blue-primary);
 }
 
 main section:first-child {
   margin-top: 53px;
-  border-top: 3px solid #373867;
+  border-top: 3px solid var(--color-blue-primary);
 }
 
 main section:last-child {
@@ -53,7 +53,7 @@ main section.hero .leftConteiner {
   font-weight: 400;
   font-size: 21px;
   line-height: 25px;
-  color: #41426F;
+  color: var(--color-blue-primary);
 }
 
 main section.hero .leftConteiner h2 {
@@ -102,7 +102,7 @@ main section.hero .leftConteiner .learnMoreBtn {
 
 main section.hero .learnMoreBtn:hover {
   color: #FFFFFF;
-  background: #AACE9B;
+  background: var(--color-blue-primary);
 }
 
 main section.hero .rightConteiner {
@@ -122,7 +122,7 @@ main section.hero .rightConteiner {
 section {
   display: flex;
   flex-direction: column;
-  color: #41426F;
+  color: var(--color-blue-primary);
 }
 
 main section.services {
@@ -146,12 +146,12 @@ main section.services .column .divRotate45 {
   height: 41px;
   padding: 6px;
   margin-right: 13px;
-  border: 2px solid #AACE9B;
+  border: 2px solid var(--color-blue-primary);
   transform: rotate(-45deg);
 }
 
 main section.services .column .divRotate45 span {
-  color: #AACE9B;
+  color: var(--color-blue-primary);
   width: 25px;
   height: 25px;
   transform: rotate(45deg);
@@ -165,7 +165,7 @@ main section.services .column .serviceInfo h2 {
   font-weight: 700;
   font-size: 30px;
   line-height: 35px;
-  color: #000;
+  color: var(--color-blue-primary);
 }
 
 main section.services .column .serviceInfo p {
@@ -218,7 +218,7 @@ main section.why .ulRow li p {
   width: 100%;
   margin: auto;
   padding: 19px 22px;
-  background: #AACE9B;
+  background: #AACE9B; /* Formulario: Tocar después*/
   border-radius: 20px;
 }
 
@@ -233,7 +233,7 @@ main section.form form .formRow input {
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  color: #41426F;
+  color: var(--color-blue-primary);
 }
 
 main section.form form .formRow input,
@@ -244,9 +244,9 @@ main section.form form .formRow textarea {
   padding-left: 15px;
   padding-right: 15px;
   background-color: transparent;
-  border: 1px solid #41426F;
+  border: 1px solid var(--color-blue-primary);
   border-radius: 4px;
-  color: #41426F;
+  color: var(--color-blue-primary);
   resize: none;
 }
 
@@ -290,9 +290,9 @@ main section.form form .formRow select:focus option {
   width: 100%;
   height: 37px;
   background-color: transparent;
-  border: 1px solid #41426F;
+  border: 1px solid var(--color-blue-primary);
   border-radius: 4px;
-  color: #41426F;
+  color: var(--color-blue-primary);
   outline: none;
 }
 
@@ -321,13 +321,13 @@ textarea:focus {
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
-  color: #41426F;
+  color: var(--color-blue-primary);
 }
 
 #form-send-btn:hover,
 .formSendBtn:hover {
   color: #FFFFFF;
-  background: #41426F;
+  background: var(--color-blue-primary);
 }
 
 main section.aboutUs {
@@ -382,12 +382,12 @@ main section.final .column {
 }
 
 main section.final .column:nth-of-type(2) {
-  border-left: 3px solid #41426F;
-  border-right: 3px solid #41426F;
+  border-left: 3px solid var(--color-blue-primary);
+  border-right: 3px solid var(--color-blue-primary);
 }
 
 main section.final .column:nth-of-type(3) {
-  border-right: 3px solid #41426F;
+  border-right: 3px solid var(--color-blue-primary);
 }
 
 main section.final .column h2 {
@@ -409,5 +409,5 @@ main section.final .column li a {
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
-  color: #41426F;
+  color: var(--color-blue-primary);
 }

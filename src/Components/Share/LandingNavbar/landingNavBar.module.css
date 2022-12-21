@@ -15,7 +15,7 @@
 
 .containerLoggedOut h2 {
   padding: 10px 0;
-  border-bottom: solid 4px var(--color-green-primary);
+  border-bottom: solid 4px var(--color-white-primary);
   font-size: 18px;
   text-transform: uppercase;
 }
@@ -49,7 +49,7 @@
 
 .navbarBtn:hover {
   background-color: var(--color-green-primary);
-  color: var(--color-white-primary);
+  color: var(--color-blue-primary);
 }
 
 .containerContactInfo {
