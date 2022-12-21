@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEmployees } from 'redux/employees/thunks';
 import styles from './employees.module.css';
-import { Table, Spinner } from 'Components/Share';
+import { Table, Spinner, NotFound } from 'Components/Share';
 
 function Employees() {
   const { list, isFetching, error } = useSelector((state) => state.employees);
@@ -15,9 +15,7 @@ function Employees() {
       {isFetching ? (
         <Spinner entitie="Employees" />
       ) : error ? (
-        <div>
-          <h2>404: server not found</h2>
-        </div>
+        <NotFound />
       ) : (
         <Table
           headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}

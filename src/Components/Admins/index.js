@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdmins } from 'redux/admins/thunks';
-import { Table, Spinner } from 'Components/Share';
+import { Table, Spinner, NotFound } from 'Components/Share';
 
 function Admins() {
   const { role } = useSelector((state) => state.auth);
@@ -18,9 +18,7 @@ function Admins() {
       ) : (
         <>
           {error ? (
-            <div>
-              <h2>404: Unable to access server</h2>
-            </div>
+            <NotFound />
           ) : role === 'super-admin' ? (
             <Table
               headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
