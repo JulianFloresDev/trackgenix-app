@@ -201,7 +201,7 @@ const Table = ({
                       <tr key={index}>
                         {entitie === 'projects' && (
                           <td>
-                            {row.employeePM?.employee._id === user._id ? (
+                            {row.employeePM?.employee?._id === user._id ? (
                               <span className={styles.PM}>PM</span>
                             ) : (
                               <p></p>
