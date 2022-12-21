@@ -415,13 +415,13 @@ const Form = () => {
                           label={'Projects'}
                           selectOptions={
                             role === 'employee'
-                              ? projectList.filter(
-                                  (project) =>
-                                    project.teamMembers.filter(
+                              ? projectList.filter((project) => {
+                                  return (
+                                    project.teamMembers.some(
                                       (member) => member.employee?._id === user._id
-                                    ) ||
-                                    project.employeePM.find((employee) => employee.id === user.id)
-                                )
+                                    ) || project.employeePM?.employee?._id === user._id
+                                  );
+                                })
                               : projectList
                           }
                           register={register}
