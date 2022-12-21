@@ -15,7 +15,7 @@
 
 .containerLoggedOut h2 {
   padding: 10px 0;
-  border-bottom: solid 4px var(--color-white-primary);
+  border-bottom: solid 4px var(--color-green-primary);
   font-size: 18px;
   text-transform: uppercase;
 }

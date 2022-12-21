@@ -61,7 +61,7 @@
 }
 
 .buttonEdit .deleteAccountBtn:hover {
-  background-color: var(--color-red-primary);
+  background-color: var(--color-red-salmon);
   color: var(--color-blue-primary);
 }
 
