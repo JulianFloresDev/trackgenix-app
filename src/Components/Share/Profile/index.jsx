@@ -5,9 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
 import { InputForm, Modal } from 'Components/Share';
 import changePasswordValidation from './changePasswordValidation';
+import { deleteEmployees } from 'redux/employees/thunks';
+import { deleteAdminByID } from 'redux/admins/thunks';
+import { deleteSuperAdmins } from 'redux/super-admins/thunks';
+import { editItem, setShowModal, setModalContent } from 'redux/global/actions';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -99,6 +102,22 @@ const Profile = () => {
     dispatch(setShowModal(true));
   };
 
+  const deleteCurrentUser = () => {
+    switch (role) {
+      case 'employee':
+        dispatch(deleteEmployees(user._id, user.firebaseUid));
+        break;
+      case 'admin':
+        dispatch(deleteAdminByID(user._id, user.firebaseUid));
+        break;
+      case 'super-admin':
+        dispatch(deleteSuperAdmins(user._id, user.firebaseUid));
+        break;
+      default:
+        break;
+    }
+  };
+
   const openModalToDeleteAccount = () => {
     dispatch(
       setModalContent(
@@ -109,8 +128,7 @@ const Profile = () => {
           </p>
           <button
             onClick={() => {
-              dispatch(setShowModal(false));
-              dispatch(setModalContent(<></>));
+              deleteCurrentUser();
             }}
           >
             Confirm Changes

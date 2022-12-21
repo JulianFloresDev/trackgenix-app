@@ -29,7 +29,7 @@ function Tasks() {
           editable={
             role === 'admin'
               ? { edit: true, remove: true, add: true }
-              : projectList.some((project) => project.employeePM?.employee?._id === user._id)
+              : projectList?.some((project) => project.employeePM?.employee?._id === user._id)
               ? { edit: false, remove: false, add: true }
               : { edit: false, remove: false, add: false }
           }

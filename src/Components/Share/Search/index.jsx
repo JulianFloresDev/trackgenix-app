@@ -19,7 +19,8 @@ const Search = ({ list }) => {
             element.clientName?.toLowerCase().includes(inputValue.toLowerCase()) ||
             element.employee?.firstName?.toLowerCase().includes(inputValue.toLowerCase()) ||
             element.employee?.lastName?.toLowerCase().includes(inputValue.toLowerCase()) ||
-            element.type?.toLowerCase().includes(inputValue.toLowerCase())
+            element.type?.toLowerCase().includes(inputValue.toLowerCase()) ||
+            element.task?.toLowerCase().includes(inputValue.toLowerCase())
           );
         })
       )

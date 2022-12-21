@@ -118,19 +118,20 @@ const Form = () => {
       case 'tasks':
         dispatch(id !== '0' ? getTasks(id) : editItem({ type: '' }));
     }
-    id !== 0 &&
+    id !== '0' &&
       reset({
         ...itemToPUT,
         dni: itemToPUT.dni?.toString(),
         phone: itemToPUT.phone?.toString(),
         employee: itemToPUT.employee?._id || itemToPUT.employee,
-        task: itemToPUT.task?._id || itemToPUT.task,
         project: itemToPUT.project?._id || itemToPUT.project,
-        employeePM: itemToPUT.employeePM?.toString() || '0',
+        task: itemToPUT.task?._id?.toString() || itemToPUT.task,
+        employeePM: itemToPUT.employeePM?.toString(),
         teamMembers: itemToPUT.teamMembers?.map((member) => {
           return { ...member, employee: member.employee?._id || member.employee };
         })
       });
+
     dispatch(getEmployees(''));
     dispatch(getProjects(''));
     dispatch(getTasks(''));

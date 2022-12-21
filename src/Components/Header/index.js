@@ -36,7 +36,7 @@ function Header() {
           {role === 'employee' && (
             <Navbar
               navOptions={
-                projectList.some((project) => project.employeePM?.employee?.email === userEmail)
+                projectList?.some((project) => project.employeePM?.employee?.email === userEmail)
                   ? ['projects', 'time-sheets', 'tasks', 'profile']
                   : ['projects', 'time-sheets', 'profile']
               }

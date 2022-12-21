@@ -63,6 +63,30 @@
   text-transform: capitalize;
   background-color: var(--color-white-ligthblue);
   box-shadow: inset 0px -1px 0px var(--color-white-ligthgrey);
+  cursor: pointer;
+}
+
+.tableContainer th.sortSelected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.tableContainer th.sortSelected::after {
+  content: '';
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid var(--color-blue-primary);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+
+  transform: translateY(1px);
+  transition: .1s linear;
+}
+
+.changeDirection[value=true] .tableContainer th.sortSelected::after {
+  transform: rotateZ('180deg')
 }
 
 .tableContainer th:first-child {
@@ -74,7 +98,7 @@
 }
 
 .tableContainer thead tr {
-  font-size: 1.4vw;
+  font-size: 1.15rem;
   box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
   border-radius: 16px;
 }
