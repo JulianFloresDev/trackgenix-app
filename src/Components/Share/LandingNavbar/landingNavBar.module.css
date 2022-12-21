@@ -49,7 +49,7 @@
 
 .navbarBtn:hover {
   background-color: var(--color-green-primary);
-  color: var(--color-white-primary);
+  color: var(--color-blue-primary);
 }
 
 .containerContactInfo {
