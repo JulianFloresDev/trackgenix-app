@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProjects } from 'redux/projects/thunks';
 import { getTimesheets } from 'redux/time-sheets/thunks';
 import styles from './projects.module.css';
-import { Table, Spinner } from 'Components/Share';
+import { Table, Spinner, NotFound } from 'Components/Share';
 
 function Projects() {
   const dispatch = useDispatch();
@@ -21,9 +21,7 @@ function Projects() {
       ) : (
         <>
           {error ? (
-            <div className={styles.container}>
-              <h2>404: Unable to access server</h2>
-            </div>
+            <NotFound />
           ) : (
             <Table
               headers={[

@@ -6,6 +6,7 @@ import Search from 'Components/Share/Search';
 import AddHour from 'Components/Share/AddHour';
 import Spinner from 'Components/Share/Spinner';
 import Profile from 'Components/Share/Profile';
+import NotFound from 'Components/Share/NotFound';
 import BackArrow from './BackArrow/backArrow';
 import InputForm from 'Components/Share/InputForm';
 import SelectForm from 'Components/Share/SelectForm';
@@ -21,6 +22,7 @@ export {
   AddHour,
   Spinner,
   Profile,
+  NotFound,
   BackArrow,
   InputForm,
   SelectForm,

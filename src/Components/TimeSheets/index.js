@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTimesheets } from 'redux/time-sheets/thunks';
 import styles from './time-sheets.module.css';
-import { Table, Spinner } from 'Components/Share';
+import { Table, Spinner, NotFound } from 'Components/Share';
 
 function TimeSheets() {
   const { role, email } = useSelector((state) => state.auth);
@@ -16,9 +16,7 @@ function TimeSheets() {
       {isFetching ? (
         <Spinner entitie="Time Sheets" />
       ) : error ? (
-        <div>
-          <h2>404: server not found</h2>
-        </div>
+        <NotFound />
       ) : (
         <Table
           headers={

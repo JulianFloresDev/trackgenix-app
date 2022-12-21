@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTasks } from 'redux/tasks/thunks';
 import styles from './tasks.module.css';
-import { Table, Spinner } from 'Components/Share';
+import { Table, Spinner, NotFound } from 'Components/Share';
 
 function Tasks() {
   const { list, isFetching, error } = useSelector((state) => state.tasks);
@@ -19,9 +19,7 @@ function Tasks() {
       {isFetching ? (
         <Spinner entitie="Tasks" />
       ) : error ? (
-        <div>
-          <h2>404: server not found</h2>
-        </div>
+        <NotFound />
       ) : (
         <Table
           headers={['type', 'createdAt', 'updatedAt']}

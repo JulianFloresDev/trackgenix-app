@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+  height: 90vh;
+  margin-bottom: 10vh;
+}
+
+.container img {
+  width: 40%;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  color: var(--color-blue-primary)
+}
+
+.info h3 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.info p {
+  font-size: 22px;
+  font-weight: 500;
+}

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSuperAdmins } from 'redux/super-admins/thunks';
 import styles from './super-admins.module.css';
-import { Table, Spinner } from 'Components/Share';
+import { Table, Spinner, NotFound } from 'Components/Share';
 
 function SuperAdmins() {
   const { list, isFetching, error } = useSelector((state) => state.superAdmins);
@@ -16,9 +16,7 @@ function SuperAdmins() {
       {isFetching ? (
         <Spinner entitie="Super-Admins" />
       ) : error ? (
-        <div>
-          <h2>404: server not found</h2>
-        </div>
+        <NotFound />
       ) : (
         <Table
           headers={['firstName', 'lastName', 'dni', 'email', 'location', 'phone']}
