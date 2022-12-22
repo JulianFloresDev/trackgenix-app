@@ -20,6 +20,12 @@ class TimeSheetsFormPage {
   get submitButton() {
     return $('//*[@id="root"]/div/div/section/div/form/div[6]/button[1]');
   }
+  get succesMessage() {
+    return $('//*[@id="root"]/div/div/div/div');
+  }
+  get backTimeSheets() {
+    return $('//*[@id="root"]/div/div/div/div/div[2]/div/button[2]');
+  }
 
   async dataTimesheet(date, description, hours) {
     await this.dateInput.setValue(date);
