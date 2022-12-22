@@ -122,11 +122,17 @@ const Table = ({
                 </tr>
               </thead>
               <tbody>
-                {project.employeePM && (
+                {project.employeePM?.employee ? (
                   <tr>
                     <td>{`${project.employeePM?.employee?.firstName} ${project.employeePM?.employee?.lastName}`}</td>
                     <td>{project.employeePM?.role}</td>
                     <td>{project.employeePM?.rate}</td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td>Not PM Assigned</td>
+                    <td>{project.employeePM?.role}</td>
+                    <td>--</td>
                   </tr>
                 )}
                 {project.teamMembers?.map((team, index) => {
@@ -274,7 +280,7 @@ const Table = ({
                             )}
                             {(editable.edit ||
                               (entitie === 'projects' &&
-                                row.employeePM?.employee._id === user._id)) && (
+                                row.employeePM?.employee?._id === user?._id)) && (
                               <img
                                 src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`}
                                 className={styles.editBtn}
