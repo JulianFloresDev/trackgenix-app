@@ -21,7 +21,7 @@ describe('Super admins functionalities', () => {
     await FormPage.createAdmin(
       'Test',
       'Automation',
-      'algo@alguiyot.com',
+      'aaron-admin@admin.com',
       '12345admin',
       '47112225',
       '77547774',
