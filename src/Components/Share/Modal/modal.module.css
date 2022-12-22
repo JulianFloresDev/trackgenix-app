@@ -107,8 +107,8 @@
     background-color: transparent;
 }
 .cancelBtn:hover {
-    border-color: var(--color-red-primary);
-    background-color: var(--color-red-primary);
+    border-color: var(--color-red-salmon);
+    background-color: var(--color-red-salmon);
 }
 
 .confirmBtn {
