@@ -22,10 +22,8 @@ exports.config = {
   //
   specs: [
     // './test/specs/sign-up.e2e.js',
-    './test/specs/employee-hours.e2e.js'
-    // './test/specs/super-admin-create.e2e.js',
-    // './test/specs/super-admin-edit.e2e.js',
-    // './test/specs/super-admin-delete.e2e.js',
+    // './test/specs/employee-hours.e2e.js'
+    './test/specs/super-admin-create.e2e.js'
     // './test/specs/admin-create-project.e2e.js',
     // './test/specs/admin-edit-project.e2e.js',
     // './test/specs/admin-delete-project.e2e.js'
