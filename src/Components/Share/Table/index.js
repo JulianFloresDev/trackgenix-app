@@ -130,7 +130,7 @@ const Table = ({
                   </tr>
                 ) : (
                   <tr>
-                    <td>This Project have not PM!</td>
+                    <td>Not PM Assigned</td>
                     <td>{project.employeePM?.role}</td>
                     <td>--</td>
                   </tr>
