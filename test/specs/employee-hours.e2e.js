@@ -14,16 +14,16 @@ describe('Track hours', () => {
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/auth/login'
     );
-    await LoginPage.login('juan@pedro.com', '12345employee');
+    await LoginPage.login('aaron@radium.com', '12345employee');
     await expect(browser).toHaveUrlContaining('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectTimeSheets.click();
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/time-sheets'
     );
     await TimeSheetsListPage.addTimeSheetButton.click();
-    await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 3000 });
+    await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 8000 });
     await TimeSheetsFormPage.dataTimesheet('21-12-2022', 'Testing', '12');
-    await TimeSheetsFormPage.succesMessage.waitForDisplayed({ timeout: 3000 });
+    await TimeSheetsFormPage.succesMessage.waitForDisplayed({ timeout: 8000 });
     await expect(TimeSheetsFormPage.succesMessage).toHaveTextContaining(
       'Time Sheet created successfully!'
     );
@@ -39,17 +39,17 @@ describe('Track hours', () => {
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/auth/login'
     );
-    await LoginPage.login('juan@pedro.com', '12345employee');
+    await LoginPage.login('aaron@radium.com', '12345employee');
     await expect(browser).toHaveUrlContaining('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectTimeSheets.click();
-    await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 3000 });
+    await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 8000 });
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/time-sheets'
     );
     await TimeSheetsListPage.editButton.click();
-    await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 2000 });
+    await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 3000 });
     await TimeSheetsFormPage.dataTimesheet('21-12-2022', 'Testing automation', '6');
-    await TimeSheetsFormPage.succesMessage.waitForDisplayed({ timeout: 3000 });
+    await TimeSheetsFormPage.succesMessage.waitForDisplayed({ timeout: 8000 });
     await expect(TimeSheetsFormPage.succesMessage).toHaveTextContaining(
       'Time Sheet edited successfully!'
     );
@@ -65,16 +65,16 @@ describe('Track hours', () => {
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/auth/login'
     );
-    await LoginPage.login('juan@pedro.com', '12345employee');
+    await LoginPage.login('aaron@radium.com', '12345employee');
     await expect(browser).toHaveUrlContaining('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectTimeSheets.click();
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/time-sheets'
     );
     await TimeSheetsListPage.deleteButton.click();
-    await TimeSheetsListPage.confirmDeleteModal.waitForDisplayed({ timeout: 3000 });
+    await TimeSheetsListPage.confirmDeleteModal.waitForDisplayed({ timeout: 8000 });
     await TimeSheetsListPage.confirmDeleteButton.click();
-    await TimeSheetsListPage.succesMessage.waitForDisplayed({ timeout: 3000 });
+    await TimeSheetsListPage.succesMessage.waitForDisplayed({ timeout: 8000 });
     await expect(TimeSheetsListPage.succesMessage).toHaveTextContaining(
       'Time Sheet deleted successfully!'
     );

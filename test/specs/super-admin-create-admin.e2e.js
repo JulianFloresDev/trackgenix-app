@@ -21,8 +21,8 @@ describe('Super admins functionalities', () => {
     await FormPage.createAdmin(
       'Test',
       'Automation',
-      'algo@alguiyot.com',
-      'Abcd1234',
+      'aaron-admin@admin.com',
+      '12345admin',
       '47112225',
       '77547774',
       'Lugar 1234'
@@ -43,9 +43,9 @@ describe('Super admins functionalities', () => {
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/admins');
     await AdminsListPage.editButton.click();
     await FormPage.editAdmin(
-      'Testeado',
-      'Juan',
-      'algo@alguien.com',
+      'Aaaron',
+      'Aautomation',
+      'aaron-admin@admin.com',
       '47112225',
       '77547774',
       'Lugar 1234'
@@ -53,23 +53,6 @@ describe('Super admins functionalities', () => {
     await FormPage.successfullyMessage.waitForDisplayed({ timeout: 2000 });
     await expect(FormPage.successfullyMessage).toHaveTextContaining('Admin edited successfully!');
     await FormPage.confirmButton.click();
-    await HomePageLogged.logOutButton.click();
-    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
-    await browser.refresh();
-  });
-
-  it('should deleted admin successfully', async () => {
-    await LandingPage.loginButton.click();
-    await LoginPage.login('ana@super-admin.com', '12345superadmin');
-    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
-    await HomePageLogged.selectAdmins.click();
-    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/admins');
-    await AdminsListPage.deleteButton.click();
-    await AdminsListPage.modalDelete.waitForDisplayed({ timeout: 2000 });
-    await AdminsListPage.confirmDelete.click();
-    await AdminsListPage.successMessage.waitForDisplayed({ timeout: 3000 });
-    await expect(AdminsListPage.successMessage).toHaveTextContaining('Admin Deleted Successfully!');
-    await AdminsListPage.exitModal.click();
     await HomePageLogged.logOutButton.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
     await browser.refresh();

@@ -12,7 +12,7 @@ describe('Create a new project', () => {
   it('create a new project successfully.', async () => {
     await LandingPage.loginButton.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/auth/login');
-    await LoginPage.login('agus@admin.com', 'agus12345');
+    await LoginPage.login('aaron-admin@admin.com', '12345admin');
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectProjects.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/projects');
@@ -33,5 +33,32 @@ describe('Create a new project', () => {
     );
     await ProjectsFormPage.backProjects.click();
     await HomePageLogged.logOutButton.click();
+  });
+
+  it('Edited a project successfully.', async () => {
+    await LandingPage.loginButton.click();
+    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/auth/login');
+    await LoginPage.login('aaron-admin@admin.com', '12345admin');
+    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
+    await HomePageLogged.selectProjects.click();
+    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/projects');
+    await ProjectsListPage.editButton.click();
+    await ProjectsFormPage.formData.waitForDisplayed({ timeout: 8000 });
+    await ProjectsFormPage.dataProject(
+      'Project',
+      'edited',
+      '20-12-2022',
+      '30-12-2022',
+      'Pedro',
+      '500',
+      '100'
+    );
+    await ProjectsFormPage.modalConfirmation.waitForDisplayed({ timeout: 8000 });
+    await expect(ProjectsFormPage.modalConfirmation).toHaveTextContaining(
+      'Project edited successfully!'
+    );
+    await ProjectsFormPage.backProjects.click();
+    await HomePageLogged.logOutButton.click();
+    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
   });
 });

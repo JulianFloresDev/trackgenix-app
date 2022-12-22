@@ -11,7 +11,7 @@ class AdminsListPage {
 
   get deleteButton() {
     return $(
-      '//*[@id="root"]/div/div/section/div/div[2]/div[1]/table/tbody/tr[5]/td[7]/div/img[2]'
+      '//*[@id="root"]/div/div/section/div/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/img[2]'
     );
   }
 

@@ -11,9 +11,24 @@ describe('Create new employee', () => {
     await LandingPage.signupButton.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/auth/sign-up');
     await SignUpPage.signUp(
-      'Ramon',
+      'Aaron',
       'Rodriguez',
-      'test@radium.com',
+      'aaron@radium.com',
+      '12345employee',
+      '1234567',
+      '123456789',
+      'test 1234'
+    );
+    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/home');
+    await HomePageLogged.logOutButton.click();
+  });
+  it('A successful employee should be created.', async () => {
+    await LandingPage.signupButton.click();
+    await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/auth/sign-up');
+    await SignUpPage.signUp(
+      'Bautista',
+      'Rodriguez',
+      'baustista@radium.com',
       '12345employee',
       '1234567',
       '123456789',
