@@ -21,12 +21,13 @@ exports.config = {
   // will be called from there.
   //
   specs: [
-    // './test/specs/sign-up.e2e.js',
-    // './test/specs/employee-hours.e2e.js'
-    './test/specs/super-admin-create.e2e.js'
-    // './test/specs/admin-create-project.e2e.js',
-    // './test/specs/admin-edit-project.e2e.js',
-    // './test/specs/admin-delete-project.e2e.js'
+    './test/specs/sign-up.e2e.js',
+    './test/specs/super-admin-create-admin.e2e.js',
+    './test/specs/admin-create-and-edit-project.e2e.js',
+    './test/specs/employee-hours.e2e.js',
+    './test/specs/admin-delete-project.e2e.js',
+    './test/specs/employee-delete-account.e2e.js',
+    './test/specs/super-admin-delete-admin.e2e.js'
   ],
   // Patterns to exclude.
   exclude: [

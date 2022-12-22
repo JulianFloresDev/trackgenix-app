@@ -14,7 +14,7 @@ describe('Track hours', () => {
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/auth/login'
     );
-    await LoginPage.login('juan@pedro.com', '12345employee');
+    await LoginPage.login('aaron@radium.com', '12345employee');
     await expect(browser).toHaveUrlContaining('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectTimeSheets.click();
     await expect(browser).toHaveUrlContaining(
@@ -39,7 +39,7 @@ describe('Track hours', () => {
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/auth/login'
     );
-    await LoginPage.login('juan@pedro.com', '12345employee');
+    await LoginPage.login('aaron@radium.com', '12345employee');
     await expect(browser).toHaveUrlContaining('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectTimeSheets.click();
     await TimeSheetsFormPage.formDataTimeSheet.waitForDisplayed({ timeout: 3000 });
@@ -65,7 +65,7 @@ describe('Track hours', () => {
     await expect(browser).toHaveUrlContaining(
       'https://alfon-a-trackgenix-app.vercel.app/auth/login'
     );
-    await LoginPage.login('juan@pedro.com', '12345employee');
+    await LoginPage.login('aaron@radium.com', '12345employee');
     await expect(browser).toHaveUrlContaining('https://alfon-a-trackgenix-app.vercel.app/home');
     await HomePageLogged.selectTimeSheets.click();
     await expect(browser).toHaveUrlContaining(
