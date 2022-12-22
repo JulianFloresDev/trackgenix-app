@@ -52,7 +52,7 @@ const Table = ({
               Cancel
             </button>
             <button className={modalStyles.confirmBtn} onClick={() => deleteItem(element)}>
-              Submit
+              Confirm
             </button>
           </div>
         </>
