@@ -43,7 +43,7 @@ describe('Create a new project', () => {
     await HomePageLogged.selectProjects.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/projects');
     await ProjectsListPage.editButton.click();
-    await ProjectsFormPage.formData.waitForDisplayed({ timeout: 3000 });
+    await ProjectsFormPage.formData.waitForDisplayed({ timeout: 8000 });
     await ProjectsFormPage.dataProject(
       'Project',
       'edited',
@@ -53,7 +53,7 @@ describe('Create a new project', () => {
       '500',
       '100'
     );
-    await ProjectsFormPage.modalConfirmation.waitForDisplayed({ timeout: 6000 });
+    await ProjectsFormPage.modalConfirmation.waitForDisplayed({ timeout: 8000 });
     await expect(ProjectsFormPage.modalConfirmation).toHaveTextContaining(
       'Project edited successfully!'
     );

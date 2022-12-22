@@ -15,9 +15,9 @@ describe('Super admins delete functionalitie', () => {
     await HomePageLogged.selectAdmins.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/admins');
     await AdminsListPage.deleteButton.click();
-    await AdminsListPage.modalDelete.waitForDisplayed({ timeout: 2000 });
+    await AdminsListPage.modalDelete.waitForDisplayed({ timeout: 8000 });
     await AdminsListPage.confirmDelete.click();
-    await AdminsListPage.successMessage.waitForDisplayed({ timeout: 3000 });
+    await AdminsListPage.successMessage.waitForDisplayed({ timeout: 8000 });
     await expect(AdminsListPage.successMessage).toHaveTextContaining('Admin Deleted Successfully!');
     await AdminsListPage.exitModal.click();
     await HomePageLogged.logOutButton.click();

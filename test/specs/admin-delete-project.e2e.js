@@ -14,12 +14,12 @@ describe('Delete Project', () => {
     await HomePageLogged.selectProjects.click();
     await expect(browser).toHaveUrl('https://alfon-a-trackgenix-app.vercel.app/projects');
     await ProjectsListPage.deleteButton.click();
-    await ProjectsListPage.modalDeleteConfirmation.waitForDisplayed({ timeout: 2000 });
+    await ProjectsListPage.modalDeleteConfirmation.waitForDisplayed({ timeout: 8000 });
     await expect(ProjectsListPage.modalDeleteConfirmation).toHaveTextContaining(
       'You are trying to delete some PROJECT'
     );
     await ProjectsListPage.deleteButtonConfirmation.click();
-    await ProjectsListPage.deleteSuccessfully.waitForDisplayed({ timeout: 3000 });
+    await ProjectsListPage.deleteSuccessfully.waitForDisplayed({ timeout: 8000 });
     await expect(ProjectsListPage.deleteSuccessfully).toHaveTextContaining(
       'Project Deleted Successfully!'
     );
