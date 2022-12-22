@@ -19,13 +19,13 @@ class ProjectsFormPage {
     return $('#clientName');
   }
   get selectPm() {
-    return $('//*[@id="teamMembers"]/tbody/tr[1]/td[1]/select/option[27]');
+    return $('//*[@id="teamMembers"]/tbody/tr[1]/td[1]/select/option[1]');
+  }
+  get selectEmployee() {
+    return $('//*[@id="teamMembers"]/tbody/tr[2]/td[1]/select/option[2]');
   }
   get ratePm() {
     return $('//*[@id="teamMembers"]/tbody/tr[1]/td[3]/input');
-  }
-  get selectEmployee() {
-    return $('//*[@id="teamMembers"]/tbody/tr[2]/td[1]/select/option[26]');
   }
   get selectRole() {
     return $('//*[@id="teamMembers"]/tbody/tr[2]/td[2]/select/option[3]');
