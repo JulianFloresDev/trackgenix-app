@@ -41,13 +41,17 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList, error, regi
                   dispatch(editItem({ ...itemToPUT }));
                 }}
               >
-                {employeeList?.map((employee) => {
-                  return (
-                    <option key={employee._id} value={employee?._id}>
-                      {employee.firstName} {employee.lastName}
-                    </option>
-                  );
-                })}
+                {employeeList
+                  .sort((a, b) => {
+                    return a?.firstName > b?.firstName ? 1 : a?.firstName < b?.firstName ? -1 : 0;
+                  })
+                  ?.map((employee) => {
+                    return (
+                      <option key={employee._id} value={employee?._id}>
+                        {employee.firstName} {employee.lastName}
+                      </option>
+                    );
+                  })}
                 <option value={'0'} hidden>
                   Select PM
                 </option>
@@ -120,13 +124,21 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList, error, regi
                             dispatch(editItem({ ...itemToPUT }));
                           }}
                         >
-                          {employeeList?.map((employee) => {
-                            return (
-                              <option key={employee._id} value={employee?._id}>
-                                {employee.firstName} {employee.lastName}
-                              </option>
-                            );
-                          })}
+                          {employeeList
+                            .sort((a, b) => {
+                              return a?.firstName > b?.firstName
+                                ? 1
+                                : a?.firstName < b?.firstName
+                                ? -1
+                                : 0;
+                            })
+                            ?.map((employee) => {
+                              return (
+                                <option key={employee._id} value={employee?._id}>
+                                  {employee.firstName} {employee.lastName}
+                                </option>
+                              );
+                            })}
                           <option value={0} hidden>
                             Select an Employee
                           </option>
