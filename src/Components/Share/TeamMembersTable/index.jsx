@@ -136,16 +136,14 @@ const TeamMembersTable = ({ element, label, itemToPUT, employeeList, error, regi
                   }
                 })}
                 <td>
-                  {itemToPUT[element].length > 1 && (
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        itemToPUT[element].splice(index, 1);
-                        dispatch(editItem({ ...itemToPUT }));
-                      }}
-                    />
-                  )}
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      itemToPUT[element].splice(index, 1);
+                      dispatch(editItem({ ...itemToPUT }));
+                    }}
+                  />
                 </td>
               </tr>
             );
