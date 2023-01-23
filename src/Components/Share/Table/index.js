@@ -65,8 +65,8 @@ const Table = ({
   };
   const workedHours = (project) => {
     let totalHours = 0;
-    const projectTimeSheets = filteredTimesheets.filter((ts) => ts.project?._id === project._id);
-    projectTimeSheets.forEach((ts) => {
+    const projectTimeSheets = filteredTimesheets?.filter((ts) => ts.project?._id === project._id);
+    projectTimeSheets?.forEach((ts) => {
       totalHours = totalHours + ts.hours;
     });
     return totalHours;
