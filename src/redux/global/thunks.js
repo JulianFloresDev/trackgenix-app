@@ -47,8 +47,8 @@ export const getUser = (userEmail, role) => {
 
       const user =
         (await superAdminList?.find((user) => user.email === email)) ||
-        adminList?.find((user) => user.email === email) ||
-        employeeList?.find((user) => user.email === email) ||
+        (await adminList?.find((user) => user.email === email)) ||
+        (await employeeList?.find((user) => user.email === email)) ||
         {};
       dispatch(setUser(user));
     } catch (error) {
