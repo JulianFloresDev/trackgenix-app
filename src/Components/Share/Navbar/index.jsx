@@ -17,7 +17,7 @@ const Navbar = ({ navOptions }) => {
           className={styles.userPicture}
           src={`${process.env.PUBLIC_URL}/assets/images/user-picture.svg`}
         />
-        <h3 className={styles.userName}>{`${user.firstName} ${user.lastName}`}</h3>
+        {user && <h3 className={styles.userName}>{`${user.firstName} ${user.lastName}`}</h3>}
         <h4 className={styles.userRole}>{role}</h4>
       </div>
       <ul className={styles.rutes}>
