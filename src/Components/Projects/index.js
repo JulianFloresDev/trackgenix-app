@@ -35,7 +35,7 @@ function Projects() {
               ]}
               data={
                 role === 'employee'
-                  ? projectsList.filter(
+                  ? projectsList?.filter(
                       (project) =>
                         project.employeePM?.employee?.email === email ||
                         project.teamMembers?.find((member) => member.employee?.email === email)
